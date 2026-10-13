@@ -25,3 +25,11 @@ Use a new empty output directory per run. The CLI creates result, certificate, v
 `requirements-dev.lock.txt` records the tested Windows/Python 3.12 environment; install it before the editable package for exact versions on a compatible interpreter. The dependency ranges in `pyproject.toml` permit other supported Python versions.
 
 Read [implementation contract](docs/implementation_contract.md), [case catalogue](examples/README.md), [complexity memo](docs/complexity_memo.md), and [master plan](docs/master_plan.md) before extending the model. RCFAR currently supports polygon reshaping with original room IDs; general splits/merges and richer physical construction are deferred explicitly.
+
+The optional exact [partition DP](docs/partition_dp.md) supports multiple profiles and shared-cost action bundles when the activation-only catalogue is jointly geometrically feasible and has no dependencies or exclusions:
+
+```powershell
+.\.venv\Scripts\python.exe -m cfar.cli solve-partition examples/micro/06_coupled_portal_actions.json --output runs/demo-partition
+```
+
+This command emits a result with repair postchecks and a manifest. Its optimality status follows the documented recurrence; it does not emit an independently checked exhaustive certificate. Component/state limits raise errors rather than returning infeasible. The method is bounded by all retained baseline components, not portal-interface width.

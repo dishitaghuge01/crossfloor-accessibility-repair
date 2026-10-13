@@ -10,6 +10,7 @@ from .certificates import make_certificate, verify_certificate
 from .errors import ValidationError
 from .io import manifest, write_json
 from .oracle import exact_oracle
+from .dp_partition import solve_partition
 from .schema import load_instance
 
 
@@ -22,6 +23,11 @@ def main() -> None:
     solve.add_argument("--topology-weight", default="1")
     solve.add_argument("--max-actions", type=int, default=20)
     solve.add_argument("--output", required=True, help="directory for ignored runtime artifacts")
+    partition = subparsers.add_parser("solve-partition", help="strict jointly feasible activation catalogue only")
+    partition.add_argument("instance")
+    partition.add_argument("--max-components", type=int, default=16)
+    partition.add_argument("--max-states", type=int, default=100000)
+    partition.add_argument("--output", required=True)
     verify = subparsers.add_parser("verify")
     verify.add_argument("instance")
     verify.add_argument("certificate")
@@ -42,6 +48,16 @@ def main() -> None:
             if any(output.iterdir()):
                 raise ValidationError("OUTPUT_NOT_EMPTY", "choose a new run directory")
             started = time.perf_counter()
+            if args.command == "solve-partition":
+                result = solve_partition(instance, args.max_components, args.max_states)
+                settings = {"method": result["method"], "variant": "SCFAR",
+                            "max_components": args.max_components, "max_states": args.max_states,
+                            "timeout": None, "elapsed_seconds": time.perf_counter()-started}
+                write_json(output/"result.json", result)
+                write_json(output/"manifest.json", manifest(instance, settings, result["status"]))
+                print(json.dumps({"status": result["status"], "cost": result["cost"],
+                                  "selected": result["selected"], "optimality_evidence": result["optimality_evidence"]}))
+                return
             result = exact_oracle(instance,args.variant,args.topology_weight,args.max_actions)
             certificate = make_certificate(instance,result)
             verification = verify_certificate(instance,certificate,args.max_actions)

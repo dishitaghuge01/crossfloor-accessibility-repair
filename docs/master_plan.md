@@ -110,6 +110,8 @@ Pass condition: a written proposition with assumptions, proof, and counterexampl
 
 Develop dynamic programming over bounded portal interfaces. A state stores interface-terminal connectivity partitions, selected coupled portal actions, and cost.
 
+M02 checkpoint: [full-component partition DP](partition_dp.md) supplies a proved baseline for multiple profiles and shared-cost bundles under a jointly feasible activation-only catalogue. It keeps the entire relevant contracted graph. Its Bell-number bound depends on all retained components, so it does not pass the bounded-interface gate. Dependencies, exclusions, topology changes and conflicting catalogues are unsupported. Existing weighted partition DP literature prevents claiming novelty of this state representation.
+
 Pass condition: exact oracle agreement on all small cases and better scaling than enumeration on a preregistered synthetic family. An alternative pass is a hardness boundary plus a principled approximation or parameterized algorithm.
 
 ### G4 - public data

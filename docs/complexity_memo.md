@@ -61,4 +61,6 @@ Tree-shaped per-floor D can simplify local path constraints, but the unrestricte
 
 ## 7. Research gate status
 
+M02 adds an exact [full-component partition recurrence](partition_dp.md) for jointly feasible activation catalogues with multiple profiles and shared-cost bundles. The proof retains intermediate nonterminal components and handles synergistic paths beyond coverage. Its parameter is the sum of retained components, not portal-interface width. This is an implementation baseline using established connectivity partitions, not a novel structural result.
+
 The initial complexity map now has a precise hardness boundary, an exact restricted method, and counterexamples. It has not established that realistic shaft/local-access coupling yields a new parameterized result. All five named architectural full-text comparisons are now available, but broader theory equivalence remains unresolved, so neither these proofs nor successful micro-tests finalize the thesis direction. Next work must tighten the physical coupling class and compare its algorithmic structure with existing network design and Set Cover theory.
