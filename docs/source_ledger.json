@@ -1,0 +1,84 @@
+{
+  "policy": "bibliographic records and byte fingerprints only; no source PDFs or copied full texts",
+  "sources": [
+    {
+      "id": "mansion_final",
+      "title": "MANSION: Multi-floor lANguage-to-3D Scene generatIOn for loNg-horizon tasks",
+      "url": "https://openaccess.thecvf.com/content/CVPR2026/papers/Che_MANSION_Multi-floor_lANguage-to-3D_Scene_generatIOn_for_loNg-horizon_tasks_CVPR_2026_paper.pdf",
+      "version": "CVPR 2026 final open-access paper",
+      "status": "method_inspected",
+      "locators": "sections 3.1-3.2, pp. 37177-37179",
+      "sha256": "d25ae841741460ac3612035af511abea2fb5aa00bd14ef4b51c89098ae075408",
+      "retrieval": "PDF read locally; raw bytes excluded from Git",
+      "review_date_local": "2026-10-14"
+    },
+    {
+      "id": "mansion_supplement",
+      "title": "MANSION supplementary material",
+      "url": "https://openaccess.thecvf.com/content/CVPR2026/supplemental/Che_MANSION_Multi-floor_lANguage-to-3D_CVPR_2026_supplemental.pdf",
+      "version": "CVPR 2026 final supplement",
+      "status": "method_inspected",
+      "locators": "D.2, PDF pp. 9-10; F.1, PDF p. 11",
+      "sha256": "5a33b395f273b8c2ae406153d7f2779b1ead680028a2d7904e7d3bf845ede43a",
+      "retrieval": "PDF read locally; raw bytes excluded from Git",
+      "review_date_local": "2026-10-14"
+    },
+    {
+      "id": "epsap_author_manuscript",
+      "title": "An approach to the multi-level space allocation problem in architecture using a hybrid evolutionary technique",
+      "url": "https://estudogeral.uc.pt/bitstream/10316/25438/3/Rodrigues%20-%20July2014%20-%20Automated%20Floor%20Plan%20Design.pdf",
+      "doi": "10.1016/j.autcon.2013.06.005",
+      "version": "May 28, 2013 author manuscript reproduced as RP3 in July 2014 thesis",
+      "status": "method_inspected",
+      "locators": "PDF pp. 209, 213-217, 227-230",
+      "sha256": "7717254c6964055f036691e30bce5c5c31e512dc5e62f7685d5b303637a4e007",
+      "retrieval": "PDF read locally; raw bytes excluded from Git",
+      "review_date_local": "2026-10-14"
+    },
+    {
+      "id": "dfbi_graph_repair",
+      "title": "Benchmark-Guided Graph Repair for Compliance-Oriented Spatial Layout Networks",
+      "url": "https://submission.dfbi.org/index.php/dfbi/article/download/26347/35/797",
+      "doi": "10.66408/dfbi.2026.26347",
+      "version": "DFBI 2026 published version",
+      "status": "method_inspected",
+      "locators": "sections 3.1-3.7, 4.5 and 5.4, printed pp. 48-52",
+      "sha256": "aa81c6a85dc298cc29e6316459f3534048f5473ec068dfa43c6b141c236fa36b",
+      "retrieval": "PDF read locally; raw bytes excluded from Git",
+      "review_date_local": "2026-10-14"
+    },
+    {
+      "id": "bim_accessibility",
+      "title": "A BIM-Embedded Computational Workflow for Spatial Graph Analysis of Architectural Floor Plans",
+      "url": "https://www.researchgate.net/publication/405171783_A_BIM-Embedded_Computational_Workflow_for_Spatial_Graph_Analysis_of_Architectural_Floor_Plans",
+      "doi": "10.3390/architecture6020076",
+      "version": "author-uploaded journal text (May 24, 2026 upload)",
+      "status": "method_inspected",
+      "locators": "sections 3.3-3.5, 4.4 and 5.4; pp. 8-10, 15, 20-21",
+      "retrieval": "read through web text; no local PDF byte fingerprint",
+      "review_date_local": "2026-10-14"
+    },
+    {
+      "id": "planfix",
+      "title": "A modular geometric projection approach for automated repair of building-code violations in floorplans",
+      "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7275102",
+      "doi": "10.2139/ssrn.7275102",
+      "version": "63-page SSRN preprint retrieved October 14, 2026",
+      "status": "method_inspected",
+      "locators": "sections 3.1-3.7, pp. 10-18; section 6, pp. 30-31; Appendix A, p. 33; D.9-D.10, pp. 45-46",
+      "note": "normal browser download resolved direct-request 403 failures; temporary signed URL excluded",
+      "sha256": "4b58870b64664f7ac924ee0a4b2766b7bbf573e23e5fe9ca6cb3c7a692d838f8",
+      "retrieval": "PDF read locally; raw bytes excluded from Git",
+      "review_date_local": "2026-10-14"
+    },
+    {
+      "id": "ecaade_ga_sa",
+      "title": "Enhancing generative graph-based optimisation: evaluating the impact of simulated annealing on genetic algorithm efficiency",
+      "url": "https://orca.cardiff.ac.uk/id/eprint/187075/",
+      "doi": "10.52842/conf.ecaade.2026.1.021",
+      "status": "abstract_only",
+      "note": "different paper from DFBI graph repair; earlier title association corrected",
+      "review_date_local": "2026-10-14"
+    }
+  ]
+}

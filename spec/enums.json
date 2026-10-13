@@ -1,0 +1,29 @@
+{
+  "schema_version": "0.1.0",
+  "variants": [
+    "SCFAR",
+    "RCFAR"
+  ],
+  "action_types": [
+    "representation_correction",
+    "physical_intervention"
+  ],
+  "connection_kinds": [
+    "door",
+    "stair",
+    "lift",
+    "ramp"
+  ],
+  "effect_ops": [
+    "activate_connection",
+    "replace_floor_rooms"
+  ],
+  "geometry_models": [
+    "reserved_interfaces_2d_v1"
+  ],
+  "solver_statuses": [
+    "optimal",
+    "infeasible",
+    "action_limit_exceeded"
+  ]
+}

@@ -1,0 +1,312 @@
+{
+  "01_missing_metadata_link": {
+    "RCFAR": {
+      "cost": "1",
+      "delta_A": 0,
+      "selected": [
+        "restore_W"
+      ],
+      "status": "optimal"
+    },
+    "SCFAR": {
+      "cost": "1",
+      "delta_A": 0,
+      "selected": [
+        "restore_W"
+      ],
+      "status": "optimal"
+    },
+    "topology_weight": "1"
+  },
+  "02_missing_door": {
+    "RCFAR": {
+      "cost": "2",
+      "delta_A": 0,
+      "selected": [
+        "add_door"
+      ],
+      "status": "optimal"
+    },
+    "SCFAR": {
+      "cost": "2",
+      "delta_A": 0,
+      "selected": [
+        "add_door"
+      ],
+      "status": "optimal"
+    },
+    "topology_weight": "1"
+  },
+  "03_disconnected_stair": {
+    "RCFAR": {
+      "cost": "1",
+      "delta_A": 0,
+      "selected": [
+        "restore_landing_door"
+      ],
+      "status": "optimal"
+    },
+    "SCFAR": {
+      "cost": "1",
+      "delta_A": 0,
+      "selected": [
+        "restore_landing_door"
+      ],
+      "status": "optimal"
+    },
+    "topology_weight": "1"
+  },
+  "04_profile_incompatible_lift": {
+    "RCFAR": {
+      "cost": "4",
+      "delta_A": 0,
+      "selected": [
+        "add_accessible_lift"
+      ],
+      "status": "optimal"
+    },
+    "SCFAR": {
+      "cost": "4",
+      "delta_A": 0,
+      "selected": [
+        "add_accessible_lift"
+      ],
+      "status": "optimal"
+    },
+    "topology_weight": "1"
+  },
+  "05_impossible_portal_footprint": {
+    "RCFAR": {
+      "cost": null,
+      "delta_A": null,
+      "selected": null,
+      "status": "infeasible"
+    },
+    "SCFAR": {
+      "cost": null,
+      "delta_A": null,
+      "selected": null,
+      "status": "infeasible"
+    },
+    "topology_weight": "1"
+  },
+  "06_coupled_portal_actions": {
+    "RCFAR": {
+      "cost": "3",
+      "delta_A": 0,
+      "selected": [
+        "coupled_chain"
+      ],
+      "status": "optimal"
+    },
+    "SCFAR": {
+      "cost": "3",
+      "delta_A": 0,
+      "selected": [
+        "coupled_chain"
+      ],
+      "status": "optimal"
+    },
+    "topology_weight": "1"
+  },
+  "07_strict_vs_relaxed": {
+    "RCFAR": {
+      "cost": "5",
+      "delta_A": 1,
+      "selected": [
+        "reshape_and_door"
+      ],
+      "status": "optimal"
+    },
+    "SCFAR": {
+      "cost": null,
+      "delta_A": null,
+      "selected": null,
+      "status": "infeasible"
+    },
+    "topology_weight": "1"
+  },
+  "08_original_not_optimal": {
+    "RCFAR": {
+      "cost": "2",
+      "delta_A": 0,
+      "selected": [
+        "cheaper_alternative"
+      ],
+      "status": "optimal"
+    },
+    "SCFAR": {
+      "cost": "2",
+      "delta_A": 0,
+      "selected": [
+        "cheaper_alternative"
+      ],
+      "status": "optimal"
+    },
+    "topology_weight": "1"
+  },
+  "09_no_repair_needed": {
+    "RCFAR": {
+      "cost": "0",
+      "delta_A": 0,
+      "selected": [],
+      "status": "optimal"
+    },
+    "SCFAR": {
+      "cost": "0",
+      "delta_A": 0,
+      "selected": [],
+      "status": "optimal"
+    },
+    "topology_weight": "1"
+  },
+  "10_empty_obligations": {
+    "RCFAR": {
+      "cost": "0",
+      "delta_A": 0,
+      "selected": [],
+      "status": "optimal"
+    },
+    "SCFAR": {
+      "cost": "0",
+      "delta_A": 0,
+      "selected": [],
+      "status": "optimal"
+    },
+    "topology_weight": "1"
+  },
+  "11_action_dependency": {
+    "RCFAR": {
+      "cost": "3",
+      "delta_A": 0,
+      "selected": [
+        "restore_D1",
+        "restore_W"
+      ],
+      "status": "optimal"
+    },
+    "SCFAR": {
+      "cost": "3",
+      "delta_A": 0,
+      "selected": [
+        "restore_D1",
+        "restore_W"
+      ],
+      "status": "optimal"
+    },
+    "topology_weight": "1"
+  },
+  "12_mutually_exclusive_actions": {
+    "RCFAR": {
+      "cost": null,
+      "delta_A": null,
+      "selected": null,
+      "status": "infeasible"
+    },
+    "SCFAR": {
+      "cost": null,
+      "delta_A": null,
+      "selected": null,
+      "status": "infeasible"
+    },
+    "topology_weight": "1"
+  },
+  "13_obstructed_portal": {
+    "RCFAR": {
+      "cost": null,
+      "delta_A": null,
+      "selected": null,
+      "status": "infeasible"
+    },
+    "SCFAR": {
+      "cost": null,
+      "delta_A": null,
+      "selected": null,
+      "status": "infeasible"
+    },
+    "topology_weight": "1"
+  },
+  "14_insufficient_width": {
+    "RCFAR": {
+      "cost": null,
+      "delta_A": null,
+      "selected": null,
+      "status": "infeasible"
+    },
+    "SCFAR": {
+      "cost": null,
+      "delta_A": null,
+      "selected": null,
+      "status": "infeasible"
+    },
+    "topology_weight": "1"
+  },
+  "15_zero_cost_tie": {
+    "RCFAR": {
+      "cost": "0",
+      "delta_A": 0,
+      "selected": [
+        "a_free_restore"
+      ],
+      "status": "optimal"
+    },
+    "SCFAR": {
+      "cost": "0",
+      "delta_A": 0,
+      "selected": [
+        "a_free_restore"
+      ],
+      "status": "optimal"
+    },
+    "topology_weight": "1"
+  },
+  "16_same_floor_obligation": {
+    "RCFAR": {
+      "cost": "2",
+      "delta_A": 0,
+      "selected": [
+        "local_door"
+      ],
+      "status": "optimal"
+    },
+    "SCFAR": {
+      "cost": "2",
+      "delta_A": 0,
+      "selected": [
+        "local_door"
+      ],
+      "status": "optimal"
+    },
+    "topology_weight": "1"
+  },
+  "17_joint_portal_collision": {
+    "RCFAR": {
+      "cost": null,
+      "delta_A": null,
+      "selected": null,
+      "status": "infeasible"
+    },
+    "SCFAR": {
+      "cost": null,
+      "delta_A": null,
+      "selected": null,
+      "status": "infeasible"
+    },
+    "topology_weight": "1"
+  },
+  "18_ramp_slope": {
+    "RCFAR": {
+      "cost": null,
+      "delta_A": null,
+      "selected": null,
+      "status": "infeasible"
+    },
+    "SCFAR": {
+      "cost": null,
+      "delta_A": null,
+      "selected": null,
+      "status": "infeasible"
+    },
+    "topology_weight": "1"
+  }
+}

@@ -1,6 +1,12 @@
 # Cross-Floor Accessibility Repair: master development plan
 
-Updated 13 October 2026. This document is the operational source of truth.
+Updated 14 October 2026. This document is the operational source of truth.
+
+## Current checkpoint
+
+The M01 controlled implementation is available: schema 0.1.0, 18 hand-built cases, named semantic/geometry validation, profile graphs, atomic typed actions, exhaustive oracle, and independent replay/union-find certificates. All 36 strict/relaxed manual answers match and 103 tests pass. See [implementation contract](implementation_contract.md) for the reserved-interface 2D geometry assumptions and unsupported construction operations.
+
+M01's controlled deliverables and five named architectural method comparisons are complete. PlanFix full-text access was resolved through its normal browser download. G0 remains conditional on a broader algorithmic-equivalence audit. The initial [complexity memo](complexity_memo.md) establishes a restricted Set Cover hardness boundary and adapts an existing coverage DP; it does not finalize algorithmic novelty or pass G3. Public BIM ingestion and paper drafting have not begun.
 
 ## 1. Thesis question and claim boundary
 
@@ -80,7 +86,7 @@ Each solver output must include four separate records:
 
 ### G0 - closest-work boundary
 
-13 October 2026 checkpoint: see [closest-work matrix](closest_work_matrix.md). G0 remains OPEN. The Al-Harasis/Jabi DFBI method has been inspected and distinguishes evaluation-only graph completion from physically realized repair. Overall separation is unestablished pending full-text gaps, including the same-title eCAADe version. MANSION task editing must be compared alongside its generation pipeline. Restricted independent single-profile edge repair must be tested against existing Steiner-forest/network-design formulations before claiming algorithmic novelty.
+14 October 2026 checkpoint: see [closest-work matrix](closest_work_matrix.md). The mandatory DFBI graph-repair method, final MANSION generation/editing sections, EPSAP author manuscript/Appendix A, journal BIM-accessibility method, and PlanFix full preprint have been inspected. No named architectural method establishes the entire SCFAR contract with equivalent guarantees. This supports further formal research; G0's overall novelty decision remains conditional on theory equivalence. The eCAADe DOI previously associated with a same-title version identifies a different generative GA-SA paper. Independent single-profile edge repair overlaps with Steiner-forest/network design; arbitrary bundled corrections overlap with Set Cover.
 
 Compare full methods against MANSION, EPSAP, PlanFix, Al-Harasis and Jabi graph repair, BIM cross-level analysis, connectivity augmentation, Steiner-network, and graph-repair theory.
 
@@ -93,6 +99,8 @@ Create spec/instance.schema.json, spec/enums.json, and 12 hand-built micro-insta
 Pass condition: invalid inputs fail with named errors and expected strict/relaxed repairs match manual ground truth.
 
 ### G2 - complexity map
+
+Initial scope result: arbitrary evidenced door bundles are NP-hard even with two floors and one active portal; an exact coverage DP is implemented for the recognized single-profile contracted-star restriction. See the memo for construction, proofs and limitations. This standard coverage adaptation is not claimed novel, and does not establish hardness for shaft-local coupling.
 
 Study one portal chain, tree-shaped floor access, bounded cross-floor interface size b, number of floors f, and action count k.
 
@@ -164,3 +172,5 @@ Raw inputs stay in ignored data/external. Every run stores Git revision, Python 
 ## 10. Immediate milestone
 
 M01 completes only after G0 has a full-text comparison matrix and G1 has the schema, twelve instances, validator, oracle, and tests. Do not begin neural generation or LLM work before M01.
+
+The software portion exceeds the micro-instance requirement and passes controlled verification, and every named architectural comparison now has full-text method evidence. M01's controlled deliverables are complete; final theory equivalence, richer geometry, public-data evaluation and thesis finalization remain separate gates.

@@ -1,0 +1,840 @@
+{
+  "schema_version": "0.1.0",
+  "building_id": "06_coupled_portal_actions",
+  "description": "One charged action restores two transitions of the same evidenced three-storey shaft.",
+  "profiles": [
+    {
+      "profile_id": "ambulant",
+      "min_width_m": 0.6,
+      "clearance_m": 0.8,
+      "can_use_stairs": true,
+      "max_slope": 0.5
+    },
+    {
+      "profile_id": "wheelchair",
+      "min_width_m": 0.9,
+      "clearance_m": 1,
+      "can_use_stairs": false,
+      "max_slope": 0.08333333333333333
+    }
+  ],
+  "floors": [
+    {
+      "floor_id": "F0",
+      "elevation_m": 0,
+      "boundary": [
+        [
+          0,
+          0
+        ],
+        [
+          8,
+          0
+        ],
+        [
+          8,
+          4
+        ],
+        [
+          0,
+          4
+        ]
+      ],
+      "rooms": [
+        {
+          "room_id": "L0",
+          "label": "L0",
+          "polygon": [
+            [
+              0,
+              0
+            ],
+            [
+              4,
+              0
+            ],
+            [
+              4,
+              4
+            ],
+            [
+              0,
+              4
+            ]
+          ]
+        },
+        {
+          "room_id": "C0",
+          "label": "C0",
+          "polygon": [
+            [
+              4,
+              0
+            ],
+            [
+              8,
+              0
+            ],
+            [
+              8,
+              4
+            ],
+            [
+              4,
+              4
+            ]
+          ]
+        }
+      ],
+      "adjacency_edges": [
+        [
+          "L0",
+          "C0"
+        ]
+      ],
+      "access_edges": [
+        {
+          "edge_id": "E0",
+          "connection_id": "D0",
+          "permitted_profiles": [
+            "ambulant",
+            "wheelchair"
+          ]
+        }
+      ],
+      "obstacles": [],
+      "reserved_portal_zones": [
+        [
+          [
+            4,
+            0
+          ],
+          [
+            8,
+            0
+          ],
+          [
+            8,
+            4
+          ],
+          [
+            4,
+            4
+          ]
+        ]
+      ]
+    },
+    {
+      "floor_id": "F1",
+      "elevation_m": 3,
+      "boundary": [
+        [
+          0,
+          0
+        ],
+        [
+          8,
+          0
+        ],
+        [
+          8,
+          4
+        ],
+        [
+          0,
+          4
+        ]
+      ],
+      "rooms": [
+        {
+          "room_id": "L1",
+          "label": "L1",
+          "polygon": [
+            [
+              0,
+              0
+            ],
+            [
+              4,
+              0
+            ],
+            [
+              4,
+              4
+            ],
+            [
+              0,
+              4
+            ]
+          ]
+        },
+        {
+          "room_id": "C1",
+          "label": "C1",
+          "polygon": [
+            [
+              4,
+              0
+            ],
+            [
+              8,
+              0
+            ],
+            [
+              8,
+              4
+            ],
+            [
+              4,
+              4
+            ]
+          ]
+        }
+      ],
+      "adjacency_edges": [
+        [
+          "L1",
+          "C1"
+        ]
+      ],
+      "access_edges": [
+        {
+          "edge_id": "E1",
+          "connection_id": "D1",
+          "permitted_profiles": [
+            "ambulant",
+            "wheelchair"
+          ]
+        }
+      ],
+      "obstacles": [],
+      "reserved_portal_zones": [
+        [
+          [
+            4,
+            0
+          ],
+          [
+            8,
+            0
+          ],
+          [
+            8,
+            4
+          ],
+          [
+            4,
+            4
+          ]
+        ]
+      ]
+    },
+    {
+      "floor_id": "F2",
+      "elevation_m": 6,
+      "boundary": [
+        [
+          0,
+          0
+        ],
+        [
+          8,
+          0
+        ],
+        [
+          8,
+          4
+        ],
+        [
+          0,
+          4
+        ]
+      ],
+      "rooms": [
+        {
+          "room_id": "L2",
+          "label": "L2",
+          "polygon": [
+            [
+              0,
+              0
+            ],
+            [
+              4,
+              0
+            ],
+            [
+              4,
+              4
+            ],
+            [
+              0,
+              4
+            ]
+          ]
+        },
+        {
+          "room_id": "C2",
+          "label": "C2",
+          "polygon": [
+            [
+              4,
+              0
+            ],
+            [
+              8,
+              0
+            ],
+            [
+              8,
+              4
+            ],
+            [
+              4,
+              4
+            ]
+          ]
+        }
+      ],
+      "adjacency_edges": [
+        [
+          "L2",
+          "C2"
+        ]
+      ],
+      "access_edges": [
+        {
+          "edge_id": "E2",
+          "connection_id": "D2",
+          "permitted_profiles": [
+            "ambulant",
+            "wheelchair"
+          ]
+        }
+      ],
+      "obstacles": [],
+      "reserved_portal_zones": [
+        [
+          [
+            4,
+            0
+          ],
+          [
+            8,
+            0
+          ],
+          [
+            8,
+            4
+          ],
+          [
+            4,
+            4
+          ]
+        ]
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "connection_id": "D0",
+      "evidence_id": "eD0",
+      "u": "L0",
+      "v": "C0",
+      "kind": "door",
+      "physical_profiles": [
+        "ambulant",
+        "wheelchair"
+      ],
+      "existing": true,
+      "geometry": {
+        "width_m": 1,
+        "opening": [
+          [
+            4,
+            1
+          ],
+          [
+            4,
+            2
+          ]
+        ],
+        "landings": [
+          {
+            "room_id": "L0",
+            "polygon": [
+              [
+                3,
+                1
+              ],
+              [
+                4,
+                1
+              ],
+              [
+                4,
+                2
+              ],
+              [
+                3,
+                2
+              ]
+            ]
+          },
+          {
+            "room_id": "C0",
+            "polygon": [
+              [
+                4,
+                1
+              ],
+              [
+                5,
+                1
+              ],
+              [
+                5,
+                2
+              ],
+              [
+                4,
+                2
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "connection_id": "D1",
+      "evidence_id": "eD1",
+      "u": "L1",
+      "v": "C1",
+      "kind": "door",
+      "physical_profiles": [
+        "ambulant",
+        "wheelchair"
+      ],
+      "existing": true,
+      "geometry": {
+        "width_m": 1,
+        "opening": [
+          [
+            4,
+            1
+          ],
+          [
+            4,
+            2
+          ]
+        ],
+        "landings": [
+          {
+            "room_id": "L1",
+            "polygon": [
+              [
+                3,
+                1
+              ],
+              [
+                4,
+                1
+              ],
+              [
+                4,
+                2
+              ],
+              [
+                3,
+                2
+              ]
+            ]
+          },
+          {
+            "room_id": "C1",
+            "polygon": [
+              [
+                4,
+                1
+              ],
+              [
+                5,
+                1
+              ],
+              [
+                5,
+                2
+              ],
+              [
+                4,
+                2
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "connection_id": "D2",
+      "evidence_id": "eD2",
+      "u": "L2",
+      "v": "C2",
+      "kind": "door",
+      "physical_profiles": [
+        "ambulant",
+        "wheelchair"
+      ],
+      "existing": true,
+      "geometry": {
+        "width_m": 1,
+        "opening": [
+          [
+            4,
+            1
+          ],
+          [
+            4,
+            2
+          ]
+        ],
+        "landings": [
+          {
+            "room_id": "L2",
+            "polygon": [
+              [
+                3,
+                1
+              ],
+              [
+                4,
+                1
+              ],
+              [
+                4,
+                2
+              ],
+              [
+                3,
+                2
+              ]
+            ]
+          },
+          {
+            "room_id": "C2",
+            "polygon": [
+              [
+                4,
+                1
+              ],
+              [
+                5,
+                1
+              ],
+              [
+                5,
+                2
+              ],
+              [
+                4,
+                2
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "connection_id": "W",
+      "evidence_id": "eW",
+      "u": "C0",
+      "v": "C1",
+      "kind": "lift",
+      "physical_profiles": [
+        "ambulant",
+        "wheelchair"
+      ],
+      "existing": true,
+      "geometry": {
+        "asset_id": "shared_shaft",
+        "width_m": 1,
+        "rise_m": 3,
+        "run_m": 6,
+        "landings": [
+          {
+            "room_id": "C0",
+            "polygon": [
+              [
+                5,
+                1
+              ],
+              [
+                6,
+                1
+              ],
+              [
+                6,
+                2
+              ],
+              [
+                5,
+                2
+              ]
+            ]
+          },
+          {
+            "room_id": "C1",
+            "polygon": [
+              [
+                5,
+                1
+              ],
+              [
+                6,
+                1
+              ],
+              [
+                6,
+                2
+              ],
+              [
+                5,
+                2
+              ]
+            ]
+          }
+        ],
+        "footprints": [
+          {
+            "room_id": "C0",
+            "polygon": [
+              [
+                5,
+                1
+              ],
+              [
+                7,
+                1
+              ],
+              [
+                7,
+                3
+              ],
+              [
+                5,
+                3
+              ]
+            ]
+          },
+          {
+            "room_id": "C1",
+            "polygon": [
+              [
+                5,
+                1
+              ],
+              [
+                7,
+                1
+              ],
+              [
+                7,
+                3
+              ],
+              [
+                5,
+                3
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "connection_id": "W12",
+      "evidence_id": "eW12",
+      "u": "C1",
+      "v": "C2",
+      "kind": "lift",
+      "physical_profiles": [
+        "ambulant",
+        "wheelchair"
+      ],
+      "existing": true,
+      "geometry": {
+        "asset_id": "shared_shaft",
+        "width_m": 1,
+        "rise_m": 3,
+        "run_m": 6,
+        "landings": [
+          {
+            "room_id": "C1",
+            "polygon": [
+              [
+                5,
+                1
+              ],
+              [
+                6,
+                1
+              ],
+              [
+                6,
+                2
+              ],
+              [
+                5,
+                2
+              ]
+            ]
+          },
+          {
+            "room_id": "C2",
+            "polygon": [
+              [
+                5,
+                1
+              ],
+              [
+                6,
+                1
+              ],
+              [
+                6,
+                2
+              ],
+              [
+                5,
+                2
+              ]
+            ]
+          }
+        ],
+        "footprints": [
+          {
+            "room_id": "C1",
+            "polygon": [
+              [
+                5,
+                1
+              ],
+              [
+                7,
+                1
+              ],
+              [
+                7,
+                3
+              ],
+              [
+                5,
+                3
+              ]
+            ]
+          },
+          {
+            "room_id": "C2",
+            "polygon": [
+              [
+                5,
+                1
+              ],
+              [
+                7,
+                1
+              ],
+              [
+                7,
+                3
+              ],
+              [
+                5,
+                3
+              ]
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "portals": [],
+  "obligations": [
+    {
+      "obligation_id": "O",
+      "source": "L0",
+      "target": "L2",
+      "profile_id": "wheelchair"
+    }
+  ],
+  "actions": [
+    {
+      "action_id": "coupled_chain",
+      "type": "representation_correction",
+      "cost": 3,
+      "effects": [
+        {
+          "op": "activate_connection",
+          "connection_id": "W",
+          "permitted_profiles": [
+            "ambulant",
+            "wheelchair"
+          ]
+        },
+        {
+          "op": "activate_connection",
+          "connection_id": "W12",
+          "permitted_profiles": [
+            "ambulant",
+            "wheelchair"
+          ]
+        }
+      ],
+      "requires": [],
+      "excludes": [],
+      "evidence_ids": [
+        "eW",
+        "eW12"
+      ]
+    },
+    {
+      "action_id": "separate_01",
+      "type": "representation_correction",
+      "cost": 2,
+      "effects": [
+        {
+          "op": "activate_connection",
+          "connection_id": "W",
+          "permitted_profiles": [
+            "ambulant",
+            "wheelchair"
+          ]
+        }
+      ],
+      "requires": [],
+      "excludes": [],
+      "evidence_ids": [
+        "eW"
+      ]
+    },
+    {
+      "action_id": "separate_12",
+      "type": "representation_correction",
+      "cost": 2,
+      "effects": [
+        {
+          "op": "activate_connection",
+          "connection_id": "W12",
+          "permitted_profiles": [
+            "ambulant",
+            "wheelchair"
+          ]
+        }
+      ],
+      "requires": [],
+      "excludes": [],
+      "evidence_ids": [
+        "eW12"
+      ]
+    }
+  ],
+  "original_restoration_actions": []
+}

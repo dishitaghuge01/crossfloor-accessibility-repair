@@ -5,3 +5,6 @@ data/external/
 data/derived/
 runs/
 *.pdf
+*.egg-info/
+build/
+dist/

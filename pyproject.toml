@@ -2,6 +2,24 @@
 name = "cfar"
 version = "0.1.0"
 requires-python = ">=3.11"
+dependencies = ["jsonschema>=4.23,<5", "shapely>=2.0,<3"]
+
+[project.optional-dependencies]
+test = ["pytest>=8,<10"]
+
+[project.scripts]
+cfar = "cfar.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.data-files]
+"share/cfar/spec" = ["spec/instance.schema.json", "spec/enums.json"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+pythonpath = ["src"]

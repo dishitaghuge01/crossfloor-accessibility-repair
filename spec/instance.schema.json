@@ -1,0 +1,739 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0"
+    },
+    "building_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1
+    },
+    "profiles": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/profile"
+      },
+      "minItems": 1,
+      "uniqueItems": false
+    },
+    "floors": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/floor"
+      },
+      "minItems": 1,
+      "uniqueItems": false
+    },
+    "connections": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/connection"
+      },
+      "minItems": 0,
+      "uniqueItems": false
+    },
+    "portals": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/portal"
+      },
+      "minItems": 0,
+      "uniqueItems": false
+    },
+    "obligations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/obligation"
+      },
+      "minItems": 0,
+      "uniqueItems": false
+    },
+    "actions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/action"
+      },
+      "minItems": 0,
+      "uniqueItems": false
+    },
+    "original_restoration_actions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "schema_version",
+    "building_id",
+    "description",
+    "profiles",
+    "floors",
+    "connections",
+    "portals",
+    "obligations",
+    "actions",
+    "original_restoration_actions"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/dishitaghuge01/crossfloor-accessibility-repair/spec/instance.schema.json",
+  "title": "Controlled CFAR instance 0.1.0",
+  "$defs": {
+    "room": {
+      "type": "object",
+      "properties": {
+        "room_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "polygon": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "minItems": 4,
+          "uniqueItems": false
+        }
+      },
+      "required": [
+        "room_id",
+        "label",
+        "polygon"
+      ],
+      "additionalProperties": false
+    },
+    "landing": {
+      "type": "object",
+      "properties": {
+        "room_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "polygon": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "minItems": 4,
+          "uniqueItems": false
+        }
+      },
+      "required": [
+        "room_id",
+        "polygon"
+      ],
+      "additionalProperties": false
+    },
+    "edge": {
+      "type": "object",
+      "properties": {
+        "edge_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "connection_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "permitted_profiles": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "edge_id",
+        "connection_id",
+        "permitted_profiles"
+      ],
+      "additionalProperties": false
+    },
+    "floor": {
+      "type": "object",
+      "properties": {
+        "floor_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "elevation_m": {
+          "type": "number"
+        },
+        "boundary": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "minItems": 4,
+          "uniqueItems": false
+        },
+        "rooms": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/room"
+          },
+          "minItems": 1,
+          "uniqueItems": false
+        },
+        "adjacency_edges": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 2,
+            "maxItems": 2,
+            "uniqueItems": true
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "access_edges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/edge"
+          },
+          "minItems": 0,
+          "uniqueItems": false
+        },
+        "obstacles": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "minItems": 4,
+            "uniqueItems": false
+          },
+          "minItems": 0,
+          "uniqueItems": false
+        },
+        "reserved_portal_zones": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "minItems": 4,
+            "uniqueItems": false
+          },
+          "minItems": 0,
+          "uniqueItems": false
+        }
+      },
+      "required": [
+        "floor_id",
+        "elevation_m",
+        "boundary",
+        "rooms",
+        "adjacency_edges",
+        "access_edges",
+        "obstacles",
+        "reserved_portal_zones"
+      ],
+      "additionalProperties": false
+    },
+    "door_geometry": {
+      "type": "object",
+      "properties": {
+        "width_m": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "landings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/landing"
+          },
+          "minItems": 2,
+          "uniqueItems": false
+        },
+        "opening": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "minItems": 2,
+          "maxItems": 2
+        }
+      },
+      "required": [
+        "width_m",
+        "landings",
+        "opening"
+      ],
+      "additionalProperties": false
+    },
+    "portal_geometry": {
+      "type": "object",
+      "properties": {
+        "width_m": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "landings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/landing"
+          },
+          "minItems": 2,
+          "uniqueItems": false
+        },
+        "asset_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rise_m": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "run_m": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "footprints": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/landing"
+          },
+          "minItems": 2,
+          "uniqueItems": false
+        }
+      },
+      "required": [
+        "width_m",
+        "landings",
+        "asset_id",
+        "rise_m",
+        "run_m",
+        "footprints"
+      ],
+      "additionalProperties": false
+    },
+    "connection": {
+      "type": "object",
+      "properties": {
+        "connection_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "u": {
+          "type": "string",
+          "minLength": 1
+        },
+        "v": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "enum": [
+            "door",
+            "stair",
+            "lift",
+            "ramp"
+          ]
+        },
+        "physical_profiles": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "existing": {
+          "type": "boolean"
+        },
+        "geometry": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/door_geometry"
+            },
+            {
+              "$ref": "#/$defs/portal_geometry"
+            }
+          ]
+        }
+      },
+      "required": [
+        "connection_id",
+        "evidence_id",
+        "u",
+        "v",
+        "kind",
+        "physical_profiles",
+        "existing",
+        "geometry"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "door"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "geometry": {
+                "$ref": "#/$defs/door_geometry"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "geometry": {
+                "$ref": "#/$defs/portal_geometry"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "effect": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "activate_connection"
+            },
+            "connection_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "permitted_profiles": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 1,
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "op",
+            "connection_id",
+            "permitted_profiles"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "replace_floor_rooms"
+            },
+            "floor_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "rooms": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/room"
+              },
+              "minItems": 1,
+              "uniqueItems": false
+            }
+          },
+          "required": [
+            "op",
+            "floor_id",
+            "rooms"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "action_geometry_certificate": {
+      "type": "object",
+      "properties": {
+        "geometry_model": {
+          "const": "reserved_interfaces_2d_v1"
+        },
+        "connection_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "changed_floor_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "geometry_model",
+        "connection_ids",
+        "changed_floor_ids"
+      ],
+      "additionalProperties": false
+    },
+    "action": {
+      "type": "object",
+      "properties": {
+        "action_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "enum": [
+            "representation_correction",
+            "physical_intervention"
+          ]
+        },
+        "cost": {
+          "type": "number",
+          "minimum": 0
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/effect"
+          },
+          "minItems": 1,
+          "uniqueItems": false
+        },
+        "requires": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "excludes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "geometry_certificate": {
+          "$ref": "#/$defs/action_geometry_certificate"
+        }
+      },
+      "required": [
+        "action_id",
+        "type",
+        "cost",
+        "effects",
+        "requires",
+        "excludes",
+        "evidence_ids"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "physical_intervention"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "geometry_certificate"
+            ]
+          },
+          "else": {
+            "not": {
+              "required": [
+                "geometry_certificate"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "profile": {
+      "type": "object",
+      "properties": {
+        "profile_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "min_width_m": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "clearance_m": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "can_use_stairs": {
+          "type": "boolean"
+        },
+        "max_slope": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        }
+      },
+      "required": [
+        "profile_id",
+        "min_width_m",
+        "clearance_m",
+        "can_use_stairs",
+        "max_slope"
+      ],
+      "additionalProperties": false
+    },
+    "portal": {
+      "type": "object",
+      "properties": {
+        "portal_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "enum": [
+            "stair",
+            "lift",
+            "ramp"
+          ]
+        },
+        "transitions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "connection_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "permitted_profiles": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 1,
+                "uniqueItems": true
+              }
+            },
+            "required": [
+              "connection_id",
+              "permitted_profiles"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1,
+          "uniqueItems": false
+        }
+      },
+      "required": [
+        "portal_id",
+        "kind",
+        "transitions"
+      ],
+      "additionalProperties": false
+    },
+    "obligation": {
+      "type": "object",
+      "properties": {
+        "obligation_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "target": {
+          "type": "string",
+          "minLength": 1
+        },
+        "profile_id": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "obligation_id",
+        "source",
+        "target",
+        "profile_id"
+      ],
+      "additionalProperties": false
+    }
+  }
+}
