@@ -51,6 +51,6 @@ Next: tighten physically meaningful coupling/interface assumptions and compare e
 - [x] Add solve-partition CLI with reproducibility manifest and explicit recurrence-based status; no exhaustive certificate is fabricated.
 - [x] Add controlled chain family and differential cases with cycles, different profile baselines, arbitrary obligations, physical actions, overlapping bundles and large exact costs.
 - [x] All 152 tests pass in the documented Windows/Python 3.12 environment; temporary test files use ignored runs/tmp because the sandbox's system temp is unavailable.
-- [ ] Collect a preregistered controlled timing checkpoint; this is not public-BIM evaluation.
+- [x] Collect the preregistered controlled timing checkpoint: nine paired answers match exactly; nine DP-only cases reach 128 actions at fixed eight-component graph size. All 28 solver/CLI manifests record clean committed revision b72316e. See docs/partition_checkpoint_results.md; this is not public-BIM evaluation.
 
 G3 remains OPEN: the new bound depends on all retained baseline components, not portal-interface width. Weighted connectivity partitions are established machinery (Bodlaender et al., arXiv:1211.1505 abstract inspected). Dependencies, exclusions and geometry conflicts are conservatively rejected. No novelty, rank-based compression, scalable independent certificate or real-BIM result is claimed.

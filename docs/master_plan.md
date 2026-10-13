@@ -112,6 +112,8 @@ Develop dynamic programming over bounded portal interfaces. A state stores inter
 
 M02 checkpoint: [full-component partition DP](partition_dp.md) supplies a proved baseline for multiple profiles and shared-cost bundles under a jointly feasible activation-only catalogue. It keeps the entire relevant contracted graph. Its Bell-number bound depends on all retained components, so it does not pass the bounded-interface gate. Dependencies, exclusions, topology changes and conflicting catalogues are unsupported. Existing weighted partition DP literature prevents claiming novelty of this state representation.
 
+[Controlled checkpoint results](partition_checkpoint_results.md): all nine small paired answers agree with the oracle, and nine DP-only cases reach 128 actions at fixed eight-component size. All 152 tests pass. This is preliminary evidence for the implementation, not broad evaluation or a novelty decision.
+
 Pass condition: exact oracle agreement on all small cases and better scaling than enumeration on a preregistered synthetic family. An alternative pass is a hardness boundary plus a principled approximation or parameterized algorithm.
 
 ### G4 - public data
