@@ -80,6 +80,8 @@ Each solver output must include four separate records:
 
 ### G0 - closest-work boundary
 
+13 October 2026 checkpoint: see [closest-work matrix](closest_work_matrix.md). G0 remains OPEN. The Al-Harasis/Jabi DFBI method has been inspected and distinguishes evaluation-only graph completion from physically realized repair. Overall separation is unestablished pending full-text gaps, including the same-title eCAADe version. MANSION task editing must be compared alongside its generation pipeline. Restricted independent single-profile edge repair must be tested against existing Steiner-forest/network-design formulations before claiming algorithmic novelty.
+
 Compare full methods against MANSION, EPSAP, PlanFix, Al-Harasis and Jabi graph repair, BIM cross-level analysis, connectivity augmentation, Steiner-network, and graph-repair theory.
 
 Pass condition: no prior work solves frozen-layout, typed-intervention, cross-floor, minimum-disruption repair with equivalent guarantees.
