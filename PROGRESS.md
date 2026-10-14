@@ -261,3 +261,9 @@ M18 checkpoint collected at clean runner revision 33c11aa: 36 cases, 353 observa
 ## M19 — Licensed IFC audit and hypothetical building-derived protocol
 
 Duplex license/source hash checked; 21 space projections and two decomposed stair envelopes audited. User authorized explicit experimental reservations/profiles/abstract costs. Eight variants retain source subset IDs/polygons and account for both stairs as conservative obstacles. Source facts and assumptions are separate in docs/duplex_controlled_protocol.md. No real-building validity claim; clean committed evaluation follows.
+
+M19 building-derived controlled checkpoint completed at 7055a78: eight variants, 80 clean manifests, both modes/oracle agree and certificates replay. All optimal delta_A=0. See docs/duplex_checkpoint_results.md. These use explicit hypothetical assumptions and are not validated real-building repairs.
+
+## M20 — Consolidated scoped theory and manuscript source
+
+Consolidated proof/positioning in docs/consolidated_theory.md and paper/manuscript.template.tex. Automatic manuscript generator audits saved manifests and exact agreements, and generates all compact result tables/chart. Literature priority and independent proof review remain unconfirmed. Compilation, visual QA and final reproduction follow.

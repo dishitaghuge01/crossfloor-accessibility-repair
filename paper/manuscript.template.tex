@@ -1,0 +1,160 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=24mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs,array,url}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\OPT}{\operatorname{OPT}}
+\title{Exact Topology-Preserving Cross-Floor Accessibility Repair\\with Shared Physical Assets}
+\author{CSE thesis manuscript for advisor review}
+\date{14 October 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We study exact accessibility repair when room identities, polygons and shared-boundary adjacency remain fixed. Original physical actions can activate several connections for one indivisible cost, use the same asset on different floors, and collide with other assets. For rooted obligations in separate profile layers, rectangular fixed templates and independent activations, we develop an owned-cell floor-interface dynamic program. It retains complete paid effects and occupancy while compressing only route witnesses with established rank-based partition machinery. Its proposed bound is recognition time plus $2^{O(prL+zL\log(h+2))}$ times a polynomial in input bit size. Controlled comparisons use exhaustive enumeration with separate certificate replay on small inputs and analytical witnesses on larger families. Building-derived experiments retain projected IFC space geometry but use explicitly hypothetical profiles, reservations and abstract costs. Observed compression is modest; recognition and operational limits remain visible. The physical ownership/accounting transfer is the frozen working contribution. Literature priority and independent theorem review remain unconfirmed.
+\end{abstract}
+
+\section{Problem and evidence contract}
+A shared wall does not establish a traversable opening, and a physical connector does not by itself establish profile permission. We therefore separate frozen room adjacency $A$, active within-floor access $D$, and profile access graphs $H_q$. A strict repair preserves room IDs, polygons and $A$; it changes access only by choosing complete catalogued physical actions. Room reshaping, new corridors, splits, merges and relaxed topology-changing repair are outside the main method.
+
+The motivating authored case has two floors, two profiles and two upstairs destinations. An existing door contracts two destination rooms for only one profile. Before repair one of four obligations is satisfied. A single cost-three bundle supplies two disjoint lifts and satisfies all four; separately purchasing its effects costs four. This example is authored, not IFC evidence. It illustrates the separation of access improvement from frozen adjacency and of shared action price from per-asset price.
+
+\paragraph{Recognized scope.}
+Each profile has one source and any number of targets. Connections are monotone fixed portal activations with nonnegative original costs. Candidate doors, action dependencies/exclusions, representation corrections and selection-dependent shape changes are rejected. Existing baseline doors may be contracted within their profile layer. The implemented reserved-interface 2D kernel checks footprint/reservation containment, landings, widths, obstacles, experimental profile permission and joint overlap. It assumes square-body room clearance and traversable landing envelopes. It does not certify slab openings, headroom, structure, moving equipment or building-code compliance.
+
+The input provides immutable endpoint, kind, physical capability, owner ID and geometric records. Global owner consistency is checked before overlap reuse: kind, width, physical-profile set and aligned per-floor footprints must agree. A paid action occupies only its own full effect footprints, not every unused catalogue portion of its asset. Objective comparison uses decimal arithmetic on the JSON numeric representation, then action count, then sorted original IDs. No profile switching is allowed along a path.
+
+\section{Representation and measured parameters}
+Within each floor and profile, contract baseline access into components. The implementation conservatively retains all components. Let $p$ be the number of profiles and $r$ the maximum component count per profile/floor. Rectangular footprint arrangements give collision cells. Every available candidate footprint is a union of complete cells and selected distinct owners collide exactly when their cell sets intersect. Let $z$ be the maximum cells per floor. The recognizer requires cells above the kernel tolerance $10^{-8}$ and verifies collision equivalence; tiny arrangements are conservatively unsupported rather than rounded into an exact combinatorial representation.
+
+Build the bipartite incidence graph of available original actions and their asset owners. Its connected components are coupling units $J$. Collision edges between different units do not merge them. Let $L$ bound the complete support of any unit and every active baseline inter-floor edge, counted in consecutive ordered floors. All effects of all available actions in a unit contribute to this support. Let $g$ count maximum owners per unit and $h$ the maximum owners within one unit capable of occupying one cell. These are measured quantities, not promises that arbitrary buildings have small interfaces. Private colliding alternatives may be arbitrarily numerous while $h=1$; shared bridge bundles make genuine $h>1$.
+
+\begin{center}
+\setlength{\unitlength}{1mm}
+\begin{picture}(150,31)
+\put(2,23){\framebox(38,7){Full original action}}
+\put(58,23){\framebox(38,7){Owner--cell occupancy}}
+\put(112,23){\framebox(36,7){Paid cost once}}
+\put(40,26){\vector(1,0){18}}\put(96,26){\vector(1,0){16}}
+\put(2,3){\framebox(38,7){Profile edge components}}
+\put(58,3){\framebox(38,7){Thin rooted witness}}
+\put(112,3){\framebox(36,7){Rank reduction}}
+\put(40,6){\vector(1,0){18}}\put(96,6){\vector(1,0){16}}
+\put(21,23){\vector(0,-1){13}}
+\end{picture}
+\end{center}
+The lower branch is a proof of reachability. Omitting a supplied component there never removes its cost or physical footprint from the upper branch.
+
+\section{Owned-interface dynamic program}
+Sweep ordered floors with an $L$-floor look-ahead window and permanent virtual roots. A state contains the occupied-cell map, the selected boundary vertices in each profile and their connectivity partitions. Its label is exact cost, action count and sorted original IDs. During a unit, each cell is empty, externally occupied, or owned by a particular owner of that unit. After the unit, erase internal owner identity to occupied bits. Future actions outside that unit cannot reuse its owners.
+
+\paragraph{Transitions.}
+Introduce component vertices in the window; every target is mandatory, while other witness vertices are optional until used. Attach each actual source to its permanent profile root. At their earliest endpoint floor, baseline edges branch on witness inclusion while their physical baseline stays fixed. At a unit's first floor, process every original action once. Skip it, or take it and charge all original cost/effects, rejecting external or different-owner cell overlap. For a taken action choose any subset of its supplied connected graph components separately in each profile and glue their witness blocks. Owner labels remain throughout the complete unit. Forget a floor only after all incident units and baseline events have been processed. Reject a selected non-root block when its last boundary vertex disappears. Drop expired cells. At termination accept only rooted target witnesses and replay complete selected actions through geometry, adjacency and obligations.
+
+\begin{center}
+\begin{tabular}{p{0.94\linewidth}}
+\toprule
+\textbf{Sweep pseudocode}\tabularnewline
+Initialize empty occupancy and permanent-root partitions.\tabularnewline
+For each ordered floor: introduce the look-ahead vertices and mandatory targets.\tabularnewline
+Process incident baseline witnesses and complete units by skip/take, full occupancy and component-witness choices.\tabularnewline
+After each event, group by identical occupancy and selected boundary sets; deduplicate labels and optionally retain a minimum-label cut-row basis.\tabularnewline
+After a unit, erase its owners to bits. Forget the floor, rejecting disappearing non-root blocks.\tabularnewline
+Return the minimum accepting label after complete-action replay, or infeasible if all states were exhausted.\tabularnewline
+\bottomrule
+\end{tabular}
+\end{center}
+State and cut-column limits raise named operational failures, never an infeasibility conclusion.
+
+\section{Correctness and proposed complexity}
+This section consolidates the project argument for the implemented scope. It is not an assertion of independent theorem review or literature priority.
+
+\begin{lemma}[Ownership locality]
+Outside a completed unit, its selected cell occupancy can be represented by bits. Within a unit, permitted owner identities per cell suffice for all future geometric reuse.
+\end{lemma}
+\begin{proof}
+Two actions sharing an owner lie in the same incidence component. Thus no future action outside a completed unit can share any of its owners. A future footprint in an occupied cell necessarily belongs to a different owner and conflicts. Within the unit, verified same-owner reuse is legal and different-owner reuse is illegal. Since all paid footprint portions remain in the map, no other selected-set-dependent geometry occurs in the recognized fixed kernel. Baseline conflicts and individual infeasibility are checked during recognition.
+\end{proof}
+
+\begin{lemma}[Thin witnesses preserve full repairs]
+Every feasible repair has a witness consisting of subsets of complete connected supplied components, separately by profile, and every accepting witness is contained in its fully materialized repair.
+\end{lemma}
+\begin{proof}
+In each profile take the source-connected component of the complete repaired graph. It contains all required targets. A connected component supplied by any paid action lies wholly inside or outside that source component: its supplied edges already belong to the materialized graph. Select exactly the inside components, and the relevant baseline edges. Their union connects the required targets. Conversely every chosen witness edge is baseline or supplied by a paid original action, so accepted target paths also exist after complete materialization. All ignored supplied components retain their original action cost and geometric occupancy. This argument does not permit shortening an intervention.
+\end{proof}
+
+\begin{lemma}[State sufficiency and labels]
+At a fixed event, occupancy, selected boundary sets and partitions determine compatibility with a fixed future continuation. Keeping its best label is safe.
+\end{lemma}
+\begin{proof}
+All future available original IDs and units are identical at a fixed event. Owner locality settles future footprint compatibility; the partitions summarize witness connectivity through processed vertices. Complete support bounds ensure no forgotten floor has an unprocessed incident effect. A selected component losing its entire live boundary without a root can never be completed and is rejected. Any legal future witness induces completion partitions on the current selected sets. It succeeds exactly when each selected block joins its profile root; a future terminal unable to reach the boundary/root is infeasible regardless of prefix. Costs and counts add, and continuation IDs are disjoint from processed IDs. Adding the same disjoint ID set preserves lexical order between equal-count sorted prefix sets, so the entire objective order is stable.
+\end{proof}
+
+\begin{lemma}[Representative preservation]
+At the same event, occupancy and selected boundary sets, retaining a label-ordered basis of product cut rows preserves the minimum accepting label for every continuation.
+\end{lemma}
+\begin{proof}
+For a profile boundary set $U_q$ including its root, the established anchored cut factorization over $\mathrm{GF}(2)$ gives $M_q=C_qC_q^T$, where $M_q[\pi,\tau]=1$ exactly when their join has one block \cite{rank}. Tensoring rows gives the conjunction of these tests across profiles and $D=2^{\sum_q(|U_q|-1)}$ columns. A discarded row is a sum of earlier retained rows with no worse labels. If its inner product with a continuation row is one, at least one summand has inner product one. State sufficiency makes that summand compatible with the same continuation, with no worse final objective. Reduction never mixes occupancy or selected sets. The tensor transfer and physical-state correspondence are project arguments; the cut factorization and weighted-basis method are prior machinery.
+\end{proof}
+
+\begin{theorem}[Scoped working result]
+Under recognized rooted independent portal activations, consistent fixed owners and exact rectangular collision cells, the unlimited-state algorithm returns the strict optimum original-action cost/count/ID label. Its proposed bit-complexity bound is
+\[
+T_{\rm recognition}+2^{O(prL+zL\log(h+2))}\operatorname{poly}(B),
+\]
+where $B$ is input bit size. The implementation's finite caps may instead return a named limit error.
+\end{theorem}
+\begin{proof}
+Ownership locality and thin witnesses establish a branch for every feasible optimum; accepting branches replay as feasible strict repairs. State dominance and representative preservation retain the best completion at every transition. During a unit there are at most $\prod_c(h(J,c)+2)\le(h+2)^{zL}$ owner maps, and between units at most $2^{zL}$ occupancy maps. Summing $2^{|U_q|-1}$ representative rows over optional boundary subsets gives at most $3^{rL}$ per profile, hence $3^{prL}$ per resource map. An original action has at most $2^{O(prL)}$ component-witness choices. Cut-row construction and elimination cost an additional $2^{O(prL)}$ factor; floor events and original actions are polynomially numerous. Exact objective comparison and storing original IDs add polynomial bit work. Polynomial-time recognition is retained explicitly and can dominate practical time. The exponential parameter is this interface encoding, not the plain sum $p+r+z+L+h$. Floating-point geometry has the recorded kernel tolerance; the theorem assumes the checked collision equivalence, rather than exact symbolic physical geometry.
+\end{proof}
+
+\section{Experimental protocol}
+Fixed authored recipes cover atomic multi-asset purchases, same-owner reuse, partial overlaps, unused paid geometry, separate profiles, cyclic witnesses, multiple rooms/destinations, dense alternatives and genuine owner competition. Seeds 0--5 are crossed with (edges,profiles)=(2,1),(4,2),(6,3). The first controlled protocol also includes forced state-cap and unsupported-dependency controls. It jointly varies parameters rather than isolating every factor. A conservative tiny-arrangement rejection is checked separately in the final reproduction controls.
+
+Each recognition and compressed/uncompressed method has three fresh-process measurements. The oracle runs once for at most eight actions; its certificate is separately replayed with union-find/re-enumeration. The verifier shares schema and geometry predicates and is not an independent geometry engine. Timing starts inside the worker after imports; subprocess startup is excluded from reported solver time but included in timeout enforcement. DP time includes its own recognition and final replay. Separately measured recognition time is never subtracted to fabricate DP-only timing. Timeouts, limits, unsupported scope and implementation errors are distinct statuses.
+
+Every measurement saves input/source hashes, seed, clean revision, environment, settings and status. Successful results must agree on status, exact cost and original IDs. Dense families use a cost-one lower bound and the A0000 witness, not exhaustive certification. Owner scaling beyond small cases has no exhaustive certificate. The resource-logic evaluator is a semantic cross-check, not a runtime implementation of the published generic optimizer. Earlier shaft/partition methods have narrower scopes and are not treated as common-class runtime baselines. Local timings are descriptive workstation measurements, not isolated hardware speedup claims.
+
+\section{Controlled results}
+@@CONTROLLED_TABLE@@
+
+The larger candidate families keep bounded state counts but still incur increasing recognition work. On the dense family all alternatives collide, so one cost-one action is necessary and sufficient. This is a structured analytical family, not a general catalogue guarantee. The owner family uses a shared bridge to keep all competing owners in one genuine unit; its cost-two witness buys the compatible left/middle pair. Four larger profile cases exceed the compressed cut-column cap although uncompressed/oracle runs complete. An operational failure cannot be relabeled infeasible. Only the cyclic probe demonstrates representative removal, and its retained-state decrease is small. The evidence does not support a broad speedup assertion.
+
+\section{Building-derived controlled experiments}
+The public Duplex architectural IFC is licensed CC BY 4.0 with BSI attribution \cite{duplex}. The audited source hash is recorded in the reproducibility package. World-coordinate triangulations projected onto XY give 21 space polygons; the inventory has two stairs, no lift objects and no positive-area same-storey overlaps. Projection is a documented 2D adaptation, not an automated accessibility extraction. Original bytes and extracted geometry are excluded from Git.
+
+Two subsets retain A101/A201 and B101/B201 source GlobalIds and projected exterior rings unchanged. All variants belong to one source building. Each floor subset has one room and empty within-floor adjacency. Other destinations are outside this stated case. Both source stairs remain present as conservative obstacle envelopes formed from their flights, members and railings on both experimental floors. Candidate rectangles avoid these envelopes; no existing stair is omitted to admit an intervention. Doors and space-boundary relations do not generate assumed traversable edges.
+
+\paragraph{Hypothetical assumptions.}
+Profiles use square widths/clear patches 0.4 and 0.5 metres and no stair capability. Two fixed 0.7-by-0.7 metre lift envelopes and reserved vertical areas are authored per subset; no IFC evidence establishes shaft openings. Floor enclosing rectangles are experimental domains rather than slab extraction. Abstract catalogue prices are A=3 for two profile-specific lift effects, B=C=2 for separate effects, and D=4 for one lift with both permissions. These are neither construction prices nor extracted capabilities. Variants raise A to five and remove D, retain only B, or retain only D. No restoration reference is claimed.
+
+@@BUILDING_TABLE@@
+
+Both modes and the small oracle agree, with certificates replayed. The base case improves two unmet obligations to two satisfied routes; paid action A preserves the original polygons and zero adjacency change. With only B, the second profile is infeasible in the stipulated catalogue. These are \emph{building-derived controlled experiments}, not validated real-building repairs. The tests demonstrate compatibility of this particular projection/adaptation with the existing kernel, not full-building accessibility or renovation feasibility.
+
+\section{Related work and focused comparison}
+BIM graph analysis already distinguishes adjacency and access; this distinction motivates our input contract but is not claimed as new \cite{bim}. Weighted labelled connectivity and labelled Steiner forest already model shared-cost activation \cite{labels}. Profiles, bundles and geometric conflicts alone do not establish originality. Rank-based weighted connectivity partitions are reused directly \cite{rank}.
+
+The concrete generic comparison uses Bergougnoux, Dreier and Jaffke's weighted A\&C distance-neighborhood theorem \cite{logic}. Create Action objects, separate supplied-edge Occurrences, profile Vertices, Cells and one Usage per (owner,cell). Selecting an action selects exactly its own Usage objects; every Cell may have at most one selected Usage. Same-owner reuse shares a Usage. A witness contains only profile vertices, active occurrences and an artificial hub adjacent to profile roots. Each occurrence requires its endpoints; a connected target/root/hub witness provides rooted reachability without permitting physical profile switching. A purchase vertex must not directly join disconnected supplied components.
+
+This fixed formula with radius one and threshold two has a supplied linear clique-width expression with $O(prL+zL+p+zLh)$ labels. Live objects have singleton labels, joins address only live neighbors, and finished objects receive retired labels. Polynomial-bit scalar objective weights encode original cost/count/IDs; nonnegative unselected-action membership rewards transfer minimization to the source theorem's weighted maximization. The project-derived transferred bound is
+\[
+T_{\rm recognition}+2^{O(prL+zL+p+zLh)}\operatorname{poly}(B).
+\]
+The source locator is v2 Theorem 1.2 and weighted membership-pattern definition; the linear exponent here uses supplied clique-width, not the quadratic tree-width A\&C entry. The specialized displayed exponent has logarithmic rather than linear owner multiplicity. For fixed $h$ the asymptotic interface exponents coincide. This compares two constructed upper bounds, not a lower bound on generic methods.
+
+\paragraph{Bounded originality conclusion.}
+A domain-based connectivity/resource formulation can plausibly retain owner-cell variables with domains $h(J,c)+2$ and reuse rank-based connectivity states. A complete published cost/physical-semantics correspondence matching the specialized bound has not been established by this bounded pass. Conversely the absence of such a correspondence here proves no priority. We therefore claim a specialized, implemented ownership/accounting transfer and its scoped evaluation, with literature originality unconfirmed. No first-FPT, universal dominance or invention of weighted bases/tensoring is claimed. Partially inspected choice-network proofs remain partially inspected.
+
+\section{Limitations and conclusion}
+Parameters may grow with geometric subdivision, many profiles, wide baseline interfaces or long coupled units. Recognition is conservative at numerical boundaries. Full paid geometry remains essential even when the witness ignores it. Exhaustive certification is exponential and restricted to small inputs; DP replay alone is not an exhaustive independent optimum certificate. The current controlled families do not isolate every parameter or demonstrate strong compression gains. One licensed source with hypothetical annotations cannot establish real-building validity, external costs or generality across buildings.
+
+The paper presents a fixed-scope exact repair method that preserves original topology and action accounting while separating physical occupancy from connectivity witnesses. Controlled and building-derived controlled evidence support implemented semantics and expose practical limits. The next scientific validation concerns independently reviewed proof/positioning and authenticated building evidence, within this same project direction. Acceptance, literature priority and construction compliance are not established by this package.
+
+\begin{thebibliography}{9}
+\bibitem{rank} H. L. Bodlaender, M. Cygan, S. Kratsch and J. Nederlof. Deterministic single exponential time algorithms for connectivity problems parameterized by treewidth. \emph{Information and Computation} 243, 86--111, 2015. Accepted manuscript (11 March 2014), Section 3.6, Definitions 3.11--3.12, Lemmas 3.13--3.15 and Theorem 3.7 proof. DOI: 10.1016/j.ic.2014.12.008.
+\bibitem{logic} B. Bergougnoux, J. Dreier and L. Jaffke. A logic-based algorithmic meta-theorem for mim-width. arXiv:2202.13335v2, 2022. Theorem 1.2, Table 1, weighted definition pp. 11--12. \url{https://arxiv.org/abs/2202.13335v2}.
+\bibitem{labels} R. Hassin, J. Monnot and D. Segev. Approximation Algorithms and Hardness Results for Labeled Connectivity Problems. \emph{Journal of Combinatorial Optimization}, 2007. Author manuscript introduction and Section 6 (labelled Steiner forest). DOI: 10.1007/s10878-007-9044-x.
+\bibitem{bim} B. Strug and G. Slusarczyk. Reasoning about accessibility for disabled using building graph models based on BIM/IFC. \emph{Visualization in Engineering}, 2017. Graph model, opening/adjacency distinction and route procedure. DOI: 10.1186/s40327-017-0048-z.
+\bibitem{duplex} BSI (2020). Duplex Apartment Test Files. buildingSMART International. CC BY 4.0. Architectural file Duplex\_A\_20110907.ifc; adaptation changes and source hash in reproducibility README. \url{https://github.com/buildingsmart-community/Community-Sample-Test-Files}.
+\end{thebibliography}
+\end{document}

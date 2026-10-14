@@ -220,3 +220,5 @@ Follow docs/controlled_evaluation_protocol.md and docs/HANDOVER_TO_PAPER.md. Run
 M18 controlled evidence now collected; building-derived controlled experiments may use explicit hypothetical reservations/profiles/costs per user authorization. These are not validated real-building repairs.
 
 M19 input workflow implemented for an explicitly hypothetical Duplex subset; source/license/hash, unchanged room IDs/polygons, conservative physical stair background and authored permissions/costs documented. Evidence must be classified building-derived controlled, not validated real-building repair.
+
+M19 controlled building evidence complete under authorized hypothetical assumptions. M20 consolidated theory and manuscript source implemented; final compilation/reproduction/claim audit still required.
