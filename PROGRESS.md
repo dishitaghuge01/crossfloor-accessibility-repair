@@ -231,3 +231,14 @@ The complete scoped algorithm now exists and preserves expected optima in finite
 - [x] Execute expanded checkpoint from clean revision 62798b3: compressed/uncompressed DP and oracle agree on 50 cases (25 optimal,25 infeasible); corrected resource logic matches all 1,306 oracle selections, also independently replayed by certificates. Cyclic compression removes four rows. Dense64 retains the analytical cost-one optimum. All 201 method/evaluator manifests report that clean revision. Artifacts remain ignored in runs/m16-modern-comparison.
 
 This fixes a baseline reduction error and strengthens the surviving variable-h comparison. The owned-interface solver was already action-specific and is unaffected by that model correction. Novelty remains UNESTABLISHED; G3 OPEN. See docs/modern_connectivity_comparison.md.
+
+## M17 - Freeze working contribution and move project development forward
+
+- [x] Follow the user's instruction to restrict novelty-only work to necessary checks; park broad speculative literature searches.
+- [x] Freeze a precise working thesis contribution, parameter definitions, supporting evidence and one remaining bounded originality question. G3 remains OPEN; no first-ever or established-originality claim is made.
+- [x] Add one-command verified demo with before/after route counts, complete original repair, exact optimum/oracle comparison, replay certificate, report and fingerprinted manifest.
+- [x] Add one targeted integration test covering the expected cost-three/zero-adjacency repair, 1/4 to 4/4 route improvement, manifest and refusal to overwrite outputs. It passes in 2.07 seconds; no solver/geometry code changed and the 616-test full checkpoint was not repeated.
+- [x] Update README with the demo and current recognizer/solver commands.
+- [ ] Execute and record the demo from the clean implementation revision.
+
+Project demo and controlled evaluation are authorized to proceed while literature originality remains provisional. Next prioritize usable benchmark summaries and the building-input/evidence workflow instead of another broad novelty hunt. See docs/thesis_contribution.md.

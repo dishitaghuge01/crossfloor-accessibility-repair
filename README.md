@@ -2,7 +2,24 @@
 
 Research repository for minimum-disruption repair of frozen multi-floor layouts.
 
-Status: active candidate. Novelty is not established until the closest-work and algorithmic-result gates pass.
+Status: project development active, with a frozen [working thesis contribution](docs/thesis_contribution.md). Literature originality remains provisional; broad novelty-only searches are parked while demo and controlled evaluation proceed.
+
+## Start with the verified project demo
+
+```powershell
+.\.venv\Scripts\python.exe scripts/run_project_demo.py --output runs/project-demo
+```
+
+This one command creates a before/after report and the complete repair evidence. On the authored two-profile, two-floor example, satisfied routes increase from 1/4 to 4/4; the solver chooses one cost-three bundle and preserves room adjacency. The exhaustive oracle checks its optimum and the certificate verifier replays it. Open `runs/project-demo/report.md` after the run. Use a new output directory each time.
+
+The implemented [owned-interface solver](docs/owned_interface_solver.md) handles rooted independent physical portal actions with exact collision cells, shared assets and atomic bundles. For compatible input files:
+
+```powershell
+.\.venv\Scripts\python.exe -m cfar.cli recognize-interface YOUR-INPUT.json --output runs/recognition
+.\.venv\Scripts\python.exe -m cfar.cli solve-owned-interface YOUR-INPUT.json --output runs/repair
+```
+
+Its scope excludes candidate doors, dependencies and independent-background metadata corrections. The recognition and solver commands emit manifests; an optimal DP result does not itself include an exhaustive certificate. The demo performs that additional comparison for its small input.
 
 M03 theory audit maps the current jointly feasible multi-profile activation class into existing weighted labelled Steiner forest and compiles the current fixed-geometry kernel into unary/pairwise action constraints. See the [novelty claim registry](docs/novelty_claim_registry.md). These findings validate useful baselines while ruling out unsupported originality claims.
 
@@ -36,6 +53,6 @@ The optional exact [partition DP](docs/partition_dp.md) supports multiple profil
 
 This command emits a result with repair postchecks and a manifest. Its optimality status follows the documented recurrence; it does not emit an independently checked exhaustive certificate. Component/state limits raise errors rather than returning infeasible. The method is bounded by all retained baseline components, not portal-interface width.
 
-`solve-local-shaft INSTANCE --output runs/NEW-RUN` handles the narrower one-profile full-path class with contiguous original action spans and local geometry/exclusion conflicts. It supports unavailable actions, exact costs and repair replay; it rejects dependencies, nonlocal conflicts and additional profiles. See the [scope, proof and prior-framework audit](docs/local_conflict_interval_candidate.md). Its optimality status follows the recurrence, with a manifest and no exhaustive certificate. The complete suite currently passes 512 tests; algorithmic novelty remains unestablished.
+`solve-local-shaft INSTANCE --output runs/NEW-RUN` handles the narrower one-profile full-path class with contiguous original action spans and local geometry/exclusion conflicts. It supports unavailable actions, exact costs and repair replay; it rejects dependencies, nonlocal conflicts and additional profiles. See the [scope, proof and prior-framework audit](docs/local_conflict_interval_candidate.md). Its optimality status follows the recurrence, with a manifest and no exhaustive certificate. The latest full regression checkpoint passed 616 tests; the new project demo has a separately passing targeted integration check. Literature originality remains provisional.
 
 The [nested-profile boundary audit](docs/priority_profile_boundary.md) gives a tight bounded-support argument and a transfer of existing hardness for unrestricted declared exclusions. These are scoped theory witnesses, not a new multi-profile solver or a hardness claim for physically realized collision graphs.

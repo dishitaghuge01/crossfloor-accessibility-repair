@@ -48,3 +48,7 @@ Conditional refinement: proposed resource bound product_c(h(J,c)+2) and exponent
 ### M16 modern direct baseline (14 October 2026)
 
 Corrected resource reduction uses one Usage object per owner/cell, preserving each action's actual footprint floors. Fixed neighborhood logic and an explicit linear clique-width expression transfer the inspected weighted primary theorem with exponent O(prL+zL+p+zLh). This is sharper evidence than an unspecified MSO function, while M14's displayed owner exponent is logarithmic in h. Genuine h>1 and multi-room/profile cases are now checked. This compares concrete upper bounds, not lower bounds for all prior algorithms; originality remains unestablished. See [direct comparison](modern_connectivity_comparison.md).
+
+### M17 development decision (14 October 2026)
+
+The user asks for only necessary novelty checks and faster project work. The working contribution is frozen in docs/thesis_contribution.md, with evidence and scope explicit. Broad novelty-only searches are parked; demo and controlled evaluation proceed. This does not establish literature originality or close G3. Reopen the precise equivalent-method question when material evidence arrives, rather than expanding unrelated research directions.
