@@ -52,7 +52,7 @@ def tables(root, building=False):
         ids = ','.join(r['selected'] or [])
         lines.append(f"{label} & {timing(values['recognition']):.4f} & {timing(values['compressed']):.4f} & {timing(values['uncompressed']):.4f} & {stats['peak_raw_states']} & {stats['peak_retained_states']} & {cost} {ids} " + r'\\')
     lines += [r'\bottomrule\end{tabular}', r'\end{center}',
-        'Three timing samples per recognition/DP mode; medians in seconds. Comp./Full mean compressed/uncompressed end-to-end DP. Limits and all remaining cases are preserved in the complete CSV summary.']
+        'Three samples per method; medians in seconds. Comp. and Full denote compressed and uncompressed DP, including recognition and replay. The complete CSV retains all cases and operational statuses.']
     return '\n'.join(lines)
 
 
