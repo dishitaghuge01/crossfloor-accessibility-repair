@@ -230,3 +230,5 @@ Controlled evaluation, licensed IFC input audit, authorized hypothetical buildin
 M22: detailed IEEE master revision proceeds with official template, defensible contribution framing, manifest-derived vector figures and semantic controls. No venue selected; acceptance/priority cannot be guaranteed.
 
 M22 source preparation complete: unchanged IEEE class; detailed master, eight manifest-derived/vector figures, full theory appendix, declared controls and venue-adaptation instructions. Publication readiness remains subject to actual venue/authorship rules and unresolved priority/independent review; no acceptance assurance.
+
+M22 IEEE master delivery complete for human review and future venue adaptation: 11 pages, eight vector figures, preserved proof/evidence/limitations. Actual authorship/venue rules and independent scientific review remain pre-submission responsibilities; priority remains unconfirmed.
