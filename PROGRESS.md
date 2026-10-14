@@ -228,6 +228,6 @@ The complete scoped algorithm now exists and preserves expected optima in finite
 - [x] Compare that actual transferred bound with proposed O(prL+zL log(h+2)), without claiming an intrinsic generic lower bound or literature priority.
 - [x] Add genuine h=2,3,4 owner families and two-profile multiple-room/target baseline-contraction evidence; twelve new tests check every selection, paid-bundle shortcut prevention, footprint floors and exact scalar objective order.
 - [x] Full suite: 616 tests pass in 46.10 seconds; final injective graph-identity serialization adjustment rechecked by all twelve resource-logic tests. Test duration is not solver timing evidence.
-- [ ] Record the expanded clean-revision checkpoint (50 small cases plus dense64), including per-case resource-logic manifests.
+- [x] Execute expanded checkpoint from clean revision 62798b3: compressed/uncompressed DP and oracle agree on 50 cases (25 optimal,25 infeasible); corrected resource logic matches all 1,306 oracle selections, also independently replayed by certificates. Cyclic compression removes four rows. Dense64 retains the analytical cost-one optimum. All 201 method/evaluator manifests report that clean revision. Artifacts remain ignored in runs/m16-modern-comparison.
 
 This fixes a baseline reduction error and strengthens the surviving variable-h comparison. The owned-interface solver was already action-specific and is unaffected by that model correction. Novelty remains UNESTABLISHED; G3 OPEN. See docs/modern_connectivity_comparison.md.
