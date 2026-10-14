@@ -190,7 +190,7 @@ These are authored fixed-2D proof probes, not public BIM, a compressed-algorithm
 - [x] Add CLI recognize-interface with recognition/manifest outputs and extend the reproducible interface checkpoint.
 - [x] Add ten tests: all 44 authored selections match geometry application; unit/parameter checks, explicit scope/EPS rejection, unary filtering and CLI manifest semantics.
 - [x] Full suite: 527 tests pass in 35.84 seconds on Windows/Python 3.12. Test duration is not a solver benchmark.
-- [ ] Record enhanced checkpoint from a clean implementation revision.
+- [x] Execute enhanced checkpoint from clean revision 3bafb56: all five inputs recognized, expected optima/certificates preserved, all 44 selections independently replayed, delta_A=0 throughout. Five clean-revision manifests and recognition outputs remain ignored in runs/m13-interface-recognition.
 - [ ] Implement and verify original-action unit/witness transitions, then representative compression. M10 independent-background corrections remain unsupported.
 
 Recognition does not imply feasibility, optimality or originality. G3 remains OPEN and novelty provisional. See docs/interface_recognition.md.

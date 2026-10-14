@@ -25,3 +25,17 @@ The CLI requires a fresh output directory and writes `recognition.json` plus a f
 The enhanced `scripts/run_interface_checkpoint.py` records recognition alongside the five authored oracle/certificate cases. Tests compare cell ownership with actual action application for all 44 selections, inspect shared-asset and multi-asset units, and reject dependencies, non-rooted obligations and unsafe EPS cells. Additional tests check unary filtering and the CLI manifest contract.
 
 Next implement and verify original-action unit transitions and rooted route-witness states, then add representative compression. Existing exhaustive results remain the correctness baseline. Originality and independent proof validation remain pending; G3 stays OPEN.
+
+## Clean implementation checkpoint
+
+Executed from clean revision `3bafb56`. All five recognitions passed and oracle/certificate optima remained 5,2,3,6,3 with delta_A=0. Each manifest reports git_dirty=false. Measured parameters are:
+
+| Scenario | p | r | z | L | g |
+| --- | --- | --- | --- | --- | --- |
+| Shared asset | 1 | 1 | 2 | 4 | 1 |
+| Partial footprints | 1 | 1 | 4 | 3 | 1 |
+| Atomic bundle | 1 | 1 | 2 | 3 | 2 |
+| Unused paid geometry | 1 | 1 | 3 | 4 | 2 |
+| Separate profiles | 2 | 1 | 1 | 2 | 1 |
+
+These are measurements of authored inputs, not evidence that a public building has small parameters or that the compressed solver performs well. Full regression suite: 527 tests passed in 35.84 seconds before the implementation commit.
