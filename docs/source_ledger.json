@@ -349,6 +349,18 @@
       "sha256": null,
       "retrieval": "38-page institutional accepted manuscript relevant text read through web tools; raw bytes not retained",
       "review_date_local": "2026-10-14"
+    },
+    {
+      "id": "duplex_public_ifc_cc_by_4",
+      "title": "Duplex Apartment Test Files",
+      "url": "https://github.com/buildingsmart-community/Community-Sample-Test-Files/tree/main/IFC%202.3.0.1%20(IFC%202x3)/Duplex%20Apartment",
+      "version": "Duplex_A_20110907.ifc architectural LFS bytes; BSI (2020) repository attribution",
+      "status": "license_and_geometry_audited",
+      "locators": "Duplex folder README license/attribution paragraph; repository LICENSE; 21 IfcSpace projections and two IfcStair decompositions",
+      "sha256": "b347a2c8aa8fff6db896a4417a9c50c22ac0ccd7c5cfc22b99b8d29336c606ed",
+      "retrieval": "IFC downloaded to ignored storage; read with IfcOpenShell 0.8.3.post2; raw source not committed",
+      "review_date_local": "2026-10-14",
+      "note": "CC BY 4.0. Building-derived controlled hypotheses, not validated real-building repair."
     }
   ]
 }

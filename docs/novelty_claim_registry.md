@@ -16,7 +16,7 @@ Updated 14 October 2026. **Novelty is not established.** This registry records f
 | Profile-only FPT for nested spans with all local declared exclusions | Parameter-preserving duplicate-singleton transfer from inspected conflict-free set-cover hardness proof | Obstructed unless FPT=W[1]; does not settle geometry-only conflicts or bounded conflict structure. |
 | Density-independent exact rooted repair under physical collision cells and bounded asset coupling/span/interfaces | M14 refines the proposed exponent to O(prL+zL log(h+2)); M15 implements the full DP and three-way checks, including actual representative removal and a 64-action bounded-state analytical probe | Active positive development target; substantially developed and executable, with literature originality and independent theorem validation still provisional. Known rank/resource ingredients remain attributed. |
 | Novel repair algorithm merely from few deleted reference links | Elementary spanning-forest supplier bound gives at most p*d selected actions under stated restrictions | Useful XP boundary, not a supported originality claim or profile-only FPT result. |
-| New reproducible, evidence-typed BIM repair benchmark and verification pipeline | Controlled schema, graph/geometry replay and exhaustive certificates exist; no public BIM evaluation yet | Potential application/method contribution, unestablished. |
+| New reproducible, evidence-typed BIM repair benchmark and verification pipeline | Controlled schema, replay/certificates, licensed Duplex audit and eight hypothetical building-derived variants exist; no validated real-building repair | Potential application/method contribution, unestablished. |
 
 ## What would support a positive decision
 
@@ -52,3 +52,7 @@ Corrected resource reduction uses one Usage object per owner/cell, preserving ea
 ### M17 development decision (14 October 2026)
 
 The user asks for only necessary novelty checks and faster project work. The working contribution is frozen in docs/thesis_contribution.md, with evidence and scope explicit. Broad novelty-only searches are parked; demo and controlled evaluation proceed. This does not establish literature originality or close G3. Reopen the precise equivalent-method question when material evidence arrives, rather than expanding unrelated research directions.
+
+### M21 review package (14 October 2026)
+
+Frozen protocol reproduction, consolidated scoped proof and compiled seven-page manuscript are complete for review. Existing weighted rank/logic methods are attributed. A sharper display than one constructed generic upper bound is not priority evidence. The bounded pass leaves equivalence/priority unconfirmed; no positive novelty gate is inferred from the package. Building-derived experiments retain source IDs/projected rings with explicit hypothetical reservations/profiles/costs and conservative existing-stair background.

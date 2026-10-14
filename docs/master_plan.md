@@ -222,3 +222,7 @@ M18 controlled evidence now collected; building-derived controlled experiments m
 M19 input workflow implemented for an explicitly hypothetical Duplex subset; source/license/hash, unchanged room IDs/polygons, conservative physical stair background and authored permissions/costs documented. Evidence must be classified building-derived controlled, not validated real-building repair.
 
 M19 controlled building evidence complete under authorized hypothetical assumptions. M20 consolidated theory and manuscript source implemented; final compilation/reproduction/claim audit still required.
+
+## Current review endpoint (M21)
+
+Controlled evaluation, licensed IFC input audit, authorized hypothetical building-derived variants, consolidated scoped theory, manuscript and clean-revision reproduction are complete for the review package. G3 literature priority remains OPEN/unconfirmed; building evidence is controlled/hypothetical rather than validated construction. Final reproducibility record: docs/final_reproduction.md. Submission/public upload remains user-controlled; no automatic push.
