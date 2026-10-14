@@ -32,3 +32,7 @@ Positive novelty evidence is scoped and provisional: a literature audit cannot g
 4. If no substantive algorithmic gap survives, report that finding and reassess the candidate against the user's thesis gate instead of relabelling an existing algorithm as novel.
 
 See [network-design equivalence](network_design_equivalence.md) and [geometric conflict compilation](geometry_conflict_compilation.md) for the completed proofs and their exact limits.
+
+### M10 typed background extension (14 October 2026)
+
+Conditional candidate: local evidence-backed corrections on fixed existing assets can be interleaved with M09 installation units without increasing its proposed parameter bound. Background physical presence is independently validated; corrections never acquire ownership or change geometry. Long existing asset identity alone does not couple local correction events. Original action bundles/costs remain intact. Status: constructive project argument, not independently verified, implemented, or established as literature novelty. G3 remains OPEN. See [full contract and transition audit](typed_background_interface_extension.md).

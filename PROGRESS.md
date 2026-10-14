@@ -146,3 +146,14 @@ Decision: one concrete candidate replaces broad speculative solver directions, b
 - [ ] Independently validate ownership/recognition and completion preservation, and assess the precise explicit bound against direct resource-incidence/constrained-labelled methods before a positive originality decision.
 
 The active claim is now **ownership-aware single-exponential rooted repair under measured physical interface and coupling-unit parameters**. This is substantial development relative to the project baseline, with literature originality still provisional. G3 remains OPEN; no new code or timings were produced, and the last implemented suite remains 512 passing tests. See docs/asset_unit_interface_theorem.md and docs/physical_interface_claim_card.md.
+
+## M10 - Typed background extension
+
+- [x] Define a fixed authenticated physical background independently of missing graph permissions, and reject new installations against that full background before selection.
+- [x] Derive a conditional M09 corollary for local evidence-backed corrections without merging all actions referencing a long existing shaft into an installation unit.
+- [x] Preserve original correction bundles, costs and IDs; retain the proposed single-exponential interface bound under the explicit contract.
+- [x] Specify introduce, take/skip, ownership erasure, representative reduction, forgetting and final replay invariants, including full occupancy of graph-unused paid effects.
+- [x] Give an analytical F-interface existing-shaft example with local span two and optimum F, and delimit missing-evidence, conditional-effects and mixed-action cases.
+- [ ] Independently validate the argument and compare the precise resource-incidence baseline; substantiate authored physical scenarios before implementation or a positive originality decision.
+
+This documentation-only milestone broadens the active candidate toward typed strict repair. Novelty remains provisional and G3 OPEN. No new experiments or tests ran; the preceding implemented suite remains 512 passing tests. See docs/typed_background_interface_extension.md.
