@@ -1,6 +1,6 @@
 # Why generic constraint width is not a new floor-interface result
 
-14 October 2026. This is an explicit feasibility encoding and prior-work boundary, not a weighted-optimization theorem or a new algorithm.
+14 October 2026. This checkpoint is an explicit feasibility encoding and prior-work boundary, not a new algorithm. The subsequent [M11 resource-incidence comparison](resource_incidence_comparison.md) supplies a concrete compact decomposition and weighted objective transfer for the recognized M09/M10 subclass; it does not automatically extend that decomposition to this more general dependency/exclusion model.
 
 ## Relational encoding
 

@@ -157,3 +157,14 @@ The active claim is now **ownership-aware single-exponential rooted repair under
 - [ ] Independently validate the argument and compare the precise resource-incidence baseline; substantiate authored physical scenarios before implementation or a positive originality decision.
 
 This documentation-only milestone broadens the active candidate toward typed strict repair. Novelty remains provisional and G3 OPEN. No new experiments or tests ran; the preceding implemented suite remains 512 passing tests. See docs/typed_background_interface_extension.md.
+
+## M11 - Concrete weighted resource-incidence baseline
+
+- [x] Encode selected original actions, reusable assets, exact collision cells and profile-specific edge occurrences without pair-conflict cliques.
+- [x] Construct a path decomposition with bag size at most prL+zL+p+g+2; duplicate edge occurrences preserve reachability while avoiding artificial shared-edge lifetimes.
+- [x] Inspect Courcelle/Mosbah's primary weighted minimization/linear extrema sections and record arithmetic-model limitations.
+- [x] Derive polynomial-bit scalar weights preserving rational cost, action count and sorted original-ID ties exactly; witness recovery needs no global ordering relation.
+- [x] Compare the generic width baseline with the explicit M09/M10 owner-state bound, without inferring a prior lower bound from a width upper bound.
+- [ ] Independently validate the proposed theorem and compare actual direct resource/connectivity algorithms; substantiate complete authored physical scenarios.
+
+The active contribution target is now more precise: explicit ownership-aware parameter dependence and physical/typed-action transfer. This is research-only development, with novelty provisional and G3 OPEN. No new experiments or tests ran. See docs/resource_incidence_comparison.md.

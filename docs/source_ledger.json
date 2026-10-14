@@ -2,6 +2,16 @@
   "policy": "bibliographic records and byte fingerprints only; no source PDFs or copied full texts",
   "sources": [
     {
+      "id": "courcelle_mosbah_weighted_evaluations_1993",
+      "title": "Monadic second-order evaluations on tree-decomposable graphs",
+      "url": "https://www.labri.fr/perso/courcell/Textes1/BC-Mosbah%281993%29.pdf",
+      "version": "Theoretical Computer Science 109 (1993), 49-82; author-hosted journal PDF",
+      "status": "relevant_weighted_sections_inspected",
+      "locators": "Theorem 2.10; section 3.5; sections 4.7-4.8, printed pp. 75-77, weighted minimization and linear extrema",
+      "retrieval": "Primary PDF text inspected through web tool; no local byte fingerprint obtained and no full-text audit claimed",
+      "review_date_local": "2026-10-14"
+    },
+    {
       "id": "mansion_final",
       "title": "MANSION: Multi-floor lANguage-to-3D Scene generatIOn for loNg-horizon tasks",
       "url": "https://openaccess.thecvf.com/content/CVPR2026/papers/Che_MANSION_Multi-floor_lANguage-to-3D_Scene_generatIOn_for_loNg-horizon_tasks_CVPR_2026_paper.pdf",

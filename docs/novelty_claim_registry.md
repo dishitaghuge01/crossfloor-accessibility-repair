@@ -36,3 +36,7 @@ See [network-design equivalence](network_design_equivalence.md) and [geometric c
 ### M10 typed background extension (14 October 2026)
 
 Conditional candidate: local evidence-backed corrections on fixed existing assets can be interleaved with M09 installation units without increasing its proposed parameter bound. Background physical presence is independently validated; corrections never acquire ownership or change geometry. Long existing asset identity alone does not couple local correction events. Original action bundles/costs remain intact. Status: constructive project argument, not independently verified, implemented, or established as literature novelty. G3 remains OPEN. See [full contract and transition audit](typed_background_interface_extension.md).
+
+### M11 explicit resource-incidence comparison (14 October 2026)
+
+Concrete baseline established at the project-argument level: compact asset/cell incidence encoding, supplied local path decomposition, and exact cost/count/ID scalarization transfer the recognized M09/M10 class to established weighted bounded-width optimization. This does not match or refute the proposed explicit exponent by itself. Candidate novelty must concern the explicit owner/cell bound and physical/typed transfer, with direct algorithm comparison and independent verification pending. No first-FPT or unconditional advantage claim is supported. See [comparison](resource_incidence_comparison.md).

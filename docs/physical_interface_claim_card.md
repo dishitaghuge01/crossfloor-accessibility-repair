@@ -53,6 +53,8 @@ These are scenario classes to substantiate with authored/IFC evidence, not proof
 
 ## Current decision
 
+M11 completes a [concrete resource-incidence baseline](resource_incidence_comparison.md): a supplied bounded-width decomposition plus weighted optimization preserves the exact original objective. The proposed contribution must therefore justify its explicit owner/cell exponent against actual prior resource/connectivity algorithms. A linear-g width upper bound alone is not evidence that prior methods require exponential g. Keep the stronger candidate active; do not claim first FPT existence.
+
 M10 adds a [typed background corollary and transition audit](typed_background_interface_extension.md). Local evidence-backed corrections on arbitrarily long existing assets do not require a building-wide installation unit: physical background is fixed and independently validated, while original correction effects/costs remain atomic and locally supported. Newly installed shared assets still use complete ownership units. The proposed bound is unchanged; this is a conditional mathematical extension, not implementation or established originality.
 
 Keep this direction active. M09 has made the proposed result substantially sharper and broadened relevant geometry/action support. Novelty remains provisional because the exact ownership/resource formulation needs direct comparison and independent checking. A defensible positive contribution should combine the proved physical decomposition, explicit complexity bound and original-action evidence semantics; it must not claim invention of rank-based DP or collision-cell arrangements.
