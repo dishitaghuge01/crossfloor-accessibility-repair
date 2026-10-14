@@ -202,12 +202,12 @@
     {
       "id": "conflict_free_set_cover_manuscript",
       "title": "Parameterized Complexity of Conflict-Free Set Cover",
-      "url": "https://pure.royalholloway.ac.uk/files/40220434/conflict_free_set_cover.pdf",
-      "version": "Institutional manuscript; journal version Theory of Computing Systems 65, 515-540 (2021) not reconciled",
-      "status": "partial_indexed_excerpts",
-      "locators": "Direct fetch HTTP 403; indexed definition and Theorem 10 excerpts only",
+      "url": "https://pure.royalholloway.ac.uk/ws/portalfiles/portal/40220434/conflict_free_set_cover.pdf",
+      "version": "Institutional author manuscript dated November 18, 2020; Theory of Computing Systems 65 (2021) typesetting not reconciled",
+      "status": "definition_and_relevant_hardness_algorithm_proofs_inspected",
+      "locators": "Definition pp. 2-3; duplicate handling; section 3.2.1 Theorem 3 proof pp. 11-12 (table inconsistently calls it Lemma 3); section 4.2 interval/chordal conflict-graph recurrences Theorems 8/9 pp. 17-21",
       "sha256": null,
-      "retrieval": "Primary text or explicitly partial indexed excerpts read through web tools; raw bytes not retained",
+      "retrieval": "30-page primary manuscript text read through web tools via corrected institutional ws/portalfiles route; raw bytes not retained",
       "review_date_local": "2026-10-14"
     },
     {
@@ -238,9 +238,20 @@
       "url": "https://www.khoury.northeastern.edu/home/vip/teach/Algorithms/5_greedy/notes/Min-Ply-Cover.pdf",
       "version": "Biedl/Biniaz/Lubiw author manuscript dated June 7, 2019; arXiv:1905.00790",
       "status": "full_sweep_method_inspected_project_adaptation_separate",
-      "locators": "Section 5.2 printed pp. 9-12, Lemma 3, Claim 2, endpoint perturbation and Theorem 5; bottleneck objective differs from summed action cost",
+      "locators": "Section 5.2 printed pp. 9-12, Lemma 3, Claim 2, endpoint perturbation and Theorem 5; bottleneck objective differs from summed action cost; section 2 bounded-active-subset DAG, Claim 1 and endpoint tie convention inspected for profile-boundary adaptation",
       "sha256": null,
       "retrieval": "University-hosted primary manuscript text read through web tools; raw bytes not retained",
+      "review_date_local": "2026-10-14"
+    },
+    {
+      "id": "geometric_independent_set_shrinking_2017",
+      "title": "Approximation and Parameterized Algorithms for Geometric Independent Set with Shrinking",
+      "url": "https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.MFCS.2017.42",
+      "version": "Pilipczuk/van Leeuwen/Wiese, MFCS 2017 DOI 10.4230/LIPIcs.MFCS.2017.42",
+      "status": "primary_abstract_only_original_hardness_source_not_inspected",
+      "locators": "Abstract states unweighted rectangle independent-set parameterized hardness citing Marx ESA 2005; original unit-square construction located but direct fetch failed",
+      "sha256": null,
+      "retrieval": "Primary publisher abstract read through web tools; raw bytes not retained",
       "review_date_local": "2026-10-14"
     }
   ]

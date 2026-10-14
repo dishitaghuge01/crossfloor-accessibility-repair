@@ -106,3 +106,15 @@ Novelty remains UNESTABLISHED. The local solver is a validated baseline; its str
 - [x] Execute the fixed checkpoint from clean revision 245ac31: all three methods agree at costs 3,4,7 for seeds 0,1,2, with respectively 3,4,3 geometric conflicting pairs. Sweep repairs replay successfully. All nine manifests record the clean revision, seed, input/source fingerprints, runner hash and environment. Artifacts stay ignored in runs/m06-sweep-correctness.
 
 Gate decision: originality based on the narrow local-conflict state framework is ruled out by the executable prior-framework adaptation. This does not assert that the source paper explicitly solves the exact hard-conflict variant. Overall novelty remains UNESTABLISHED and G3 stays OPEN. Next research must justify a stronger class and a result beyond known cover/width machinery, rather than relabel this baseline.
+
+## M07 - Nested-profile structural and hardness boundary
+
+- [x] Prove irredundant priority covers have closed-support ply at most twice the number of positive required levels; construct tight families for every profile count.
+- [x] Specify the resulting prior-framework XP sweep and distinguish it from profile-only FPT. No new multi-profile solver is built on this basis.
+- [x] Resolve full-text access to Jacob/Majumdar/Raman through the institutional /ws/portalfiles route; inspect definition, duplicate handling, section 3.2.1/Theorem 3 proof and section 4.2/Theorems 8/9 recurrences. Journal typesetting reconciliation remains separate.
+- [x] Transfer the prior duplicate-singleton hardness class to nested suffix intervals with all conflicts local. Preserve indexed alternatives, forbidden pairs, budgets and profile parameter.
+- [x] Add 83 tests: all irredundant covers of 64 seeded systems, six tight support families, subset/oracle checks for 12 strict declared-conflict mappings, and invalid witness inputs.
+- [x] Full regression suite: 512 tests pass in 164.93 seconds on Windows/Python 3.12 with ignored runs/tmp used for temporary files. Test duration is not solver timing evidence.
+- [x] Add a fixed seed-0/1/2 reproducibility runner for the singleton transfer, checking all 64 subsets of each six-action instance and independently verifying its exhaustive certificate. This is a correctness checkpoint, not a timing benchmark.
+
+Novelty remains UNESTABLISHED; G3 remains OPEN. Generic fixed-profile extension is a prior-framework adaptation, and profile-only FPT is obstructed for unrestricted declared conflicts unless FPT=W[1]. The hardness mapping uses representation actions and declared exclusions, with no footprint collisions: geometry-only physical hardness is not established. Next inspect geometric packing reductions before claiming tractability or hardness for actual reserved assets.

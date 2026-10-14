@@ -39,7 +39,7 @@ There are O(k^2) pair states and at most O(k^3) transitions. Cost-only arithmeti
 
 ## Mandatory originality audit before a positive claim
 
-Existing Priority Line Cover does not handle these conflicts, but that alone is insufficient. Compare direct conflict-free interval-cover and geometric conflict-cover methods, weighted set covering with hard conflicts, and compatible-path/cover reductions. Banik et al.'s Algorithmica 2020 conflict-cover paper currently has publisher preview evidence only; Jacob/Majumdar/Raman's full manuscript and Saffari/Fathi's hard-conflict weighted formulation remain required direct-method comparators. Soft-penalty conflict-cover methods are distinct and cannot substitute for hard exclusions.
+Existing Priority Line Cover does not handle these conflicts, but that alone is insufficient. Compare direct conflict-free interval-cover and geometric conflict-cover methods, weighted set covering with hard conflicts, and compatible-path/cover reductions. Banik et al.'s Algorithmica 2020 conflict-cover paper currently has publisher preview evidence only; Saffari/Fathi's hard-conflict weighted formulation remains incompletely inspected. M07 resolved Jacob/Majumdar/Raman's institutional full-text route and inspected the relevant hardness and interval/chordal conflict-graph recurrences; see [profile boundary](priority_profile_boundary.md). Soft-penalty conflict-cover methods are distinct and cannot substitute for hard exclusions.
 
 ## Implemented checkpoint
 
