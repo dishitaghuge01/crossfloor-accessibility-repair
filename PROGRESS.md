@@ -95,3 +95,13 @@ Another novelty route is closed: conflict-free nested contiguous shaft repair is
 - [ ] Implement and compare the independent sweep adaptation; collect a preregistered timing checkpoint only if it answers a research question.
 
 Novelty remains UNESTABLISHED. The local solver is a validated baseline; its structural lemma and state framework have identified prior work. The prior paper uses a different objective and does not explicitly state our hard-conflict variant. The adaptation is argued separately, so no direct theorem or performance bound is misattributed. G3 remains OPEN; public BIM evaluation and paper drafting remain deferred.
+
+## M06 - Independent prior-framework sweep baseline
+
+- [x] Implement endpoint-start/end/required-point events with at most two active original action IDs, exact sum-cost/count/lexical labels and caps. Transitions are independent of the last-two recurrence.
+- [x] Preserve closed-support floor contacts by processing starts before ends at a common coordinate; test contact conflicts, zero costs, exact large costs, empty input and rejected nonlocal constraints.
+- [x] 107 new tests pass: 100 seeded three-way abstract comparisons and six physical compiled-constraint comparisons, plus boundary/cap checks. Geometry compilation and arithmetic are shared; this validates optimization independently, not a separate geometry engine.
+- [x] Full regression suite: 429 tests pass in 160.07 seconds on Windows/Python 3.12 with ignored runs/tmp used for temporary files. Test duration is not a solver benchmark.
+- [x] Add a fixed reproducible correctness runner: seeds 0,1,2, four edges and seven physical reserved actions; each of three solvers emits a manifest. No timing benchmark or scaling claim.
+
+Gate decision: originality based on the narrow local-conflict state framework is ruled out by the executable prior-framework adaptation. This does not assert that the source paper explicitly solves the exact hard-conflict variant. Overall novelty remains UNESTABLISHED and G3 stays OPEN. Next research must justify a stronger class and a result beyond known cover/width machinery, rather than relabel this baseline.
