@@ -91,6 +91,7 @@ Another novelty route is closed: conflict-free nested contiguous shaft repair is
 - [x] Full suite: 322 tests pass in 113.63 seconds on Windows/Python 3.12 using ignored runs/tmp. This test duration is not a solver benchmark.
 - [x] Memoize identical activated connection/profile unions within geometry compilation; preserve constraints and report requests/calls/cache hits separately.
 - [x] Inspect Biedl/Biniaz/Lubiw 2019 section 5.2, Lemma 3 and Claim 2. Document a project-derived minimum-sum/local-conflict adaptation of its two-active-interval DAG.
+- [x] CLI smoke checkpoint: local DP and exhaustive oracle both select A002 at cost 10 on the strict collision witness; oracle certificate verifies. Both manifests record clean implementation revision 0d2b4e8, seed 0, input/source fingerprints and environment. Runtime artifacts remain ignored in runs/m05-local-cli.
 - [ ] Implement and compare the independent sweep adaptation; collect a preregistered timing checkpoint only if it answers a research question.
 
 Novelty remains UNESTABLISHED. The local solver is a validated baseline; its structural lemma and state framework have identified prior work. The prior paper uses a different objective and does not explicitly state our hard-conflict variant. The adaptation is argued separately, so no direct theorem or performance bound is misattributed. G3 remains OPEN; public BIM evaluation and paper drafting remain deferred.
