@@ -1,6 +1,7 @@
 \documentclass[10pt]{article}
 \usepackage[a4paper,margin=24mm]{geometry}
 \usepackage{amsmath,amssymb,amsthm,booktabs,array,url}
+\setlength{\emergencystretch}{1em}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}{Lemma}
 \newcommand{\OPT}{\operatorname{OPT}}
@@ -48,7 +49,7 @@ The lower branch is a proof of reachability. Omitting a supplied component there
 
 
 \begin{center}
-\begin{tabular}{lll}
+\begin{tabular}{p{.12\linewidth}p{.34\linewidth}p{.43\linewidth}}
 \toprule
 Original action & Full owners/effects & Cell rule inside one unit \\
 \midrule
@@ -131,6 +132,7 @@ Each recognition and compressed/uncompressed method has three fresh-process meas
 Every measurement saves input/source hashes, seed, clean revision, environment, settings and status. Successful results must agree on status, exact cost and original IDs. Dense families use a cost-one lower bound and the A0000 witness, not exhaustive certification. Owner scaling beyond small cases has no exhaustive certificate. The resource-logic evaluator is a semantic cross-check, not a runtime implementation of the published generic optimizer. Earlier shaft/partition methods have narrower scopes and are not treated as common-class runtime baselines. Local timings are descriptive workstation measurements, not isolated hardware speedup claims.
 
 \section{Controlled results}
+The dense family has measured $(p,r,z,L,g,h)=(1,1,1,2,1,1)$. The owner family fixes $(p,r,z,L)=(1,1,2,4)$ with $g=h+1$. The cyclic probe has $(1,1,1,4,1,1)$, while the multiple-room case has $(2,3,2,2,2,1)$. These are measured parameters.
 @@CONTROLLED_TABLE@@
 
 The larger candidate families keep bounded state counts but still incur increasing recognition work. On the dense family all alternatives collide, so one cost-one action is necessary and sufficient. This is a structured analytical family, not a general catalogue guarantee. The owner family uses a shared bridge to keep all competing owners in one genuine unit; its cost-two witness buys the compatible left/middle pair. Four larger profile cases exceed the compressed cut-column cap although uncompressed/oracle runs complete. An operational failure cannot be relabeled infeasible. Only the cyclic probe demonstrates representative removal, and its retained-state decrease is small. The evidence does not support a broad speedup assertion.

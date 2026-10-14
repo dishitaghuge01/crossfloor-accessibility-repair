@@ -42,7 +42,7 @@ def timing(samples):
 def tables(root, building=False):
     names = sorted(p.name for p in root.iterdir() if p.is_dir()) if building else [
         'dense-8','dense-32','dense-64','dense-128','owners-2','owners-4','owners-8','owners-16','cyclic','rooms']
-    lines = [r'\begin{center}\small', r'\begin{tabular}{lrrrrrl}', r'\toprule',
+    lines = [r'\begin{center}\small\setlength{\tabcolsep}{3pt}', r'\begin{tabular}{lrrrrrl}', r'\toprule',
         r'Case & Rec. (s) & Comp. (s) & Full (s) & Raw & Kept & Cost/IDs \\', r'\midrule']
     for name in names:
         values = read_case(root, name)
@@ -58,7 +58,7 @@ def tables(root, building=False):
 
 def chart(root):
     names = ['dense-8','dense-32','dense-64','dense-128']
-    lines = [r'\begin{center}', r'\setlength{\unitlength}{1mm}', r'\begin{picture}(145,58)',
+    lines = [r'\begin{center}\begin{minipage}{\linewidth}\centering', r'\setlength{\unitlength}{1mm}', r'\begin{picture}(145,58)',
         r'\put(10,10){\vector(1,0){127}}', r'\put(10,10){\vector(0,1){44}}',
         r'\put(0,51){8 s}', r'\put(0,10){0}', r'\put(25,53){Dense catalogue: recognition and compressed end-to-end}']
     for i, name in enumerate(names):
@@ -67,7 +67,7 @@ def chart(root):
             height=timing(v[method])*5
             lines.append(f'\\put({x+dx},10){{\\rule{{6mm}}{{{height:.3f}mm}}}}')
         lines.append(f'\\put({x},4){{{name[6:]}}}')
-    lines += [r'\end{picture}', 'Within each pair: recognition first, compressed end-to-end second. Candidates on horizontal axis. Independent timings; no subtraction.', r'\end{center}']
+    lines += [r'\end{picture}\par\smallskip', 'Within each pair: recognition first, compressed end-to-end second. Candidates on horizontal axis. Independent timings; no subtraction.', r'\end{minipage}\end{center}']
     return '\n'.join(lines)
 
 
