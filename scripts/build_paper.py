@@ -71,7 +71,7 @@ def chart(root):
     return '\n'.join(lines)
 
 
-def build(controlled, building, output):
+def build(controlled, building, output, demo):
     output.mkdir(parents=True, exist_ok=True)
     if any(output.iterdir()):
         raise ValueError('choose a fresh empty manuscript directory')
@@ -79,12 +79,21 @@ def build(controlled, building, output):
     for root in (controlled, building):
         for folder in root.iterdir():
             if folder.is_dir():read_case(root, folder.name)
+    demo_summary = json.loads((demo/'summary.json').read_text())
+    if (demo_summary['before_satisfied'],demo_summary['after_satisfied'],demo_summary['cost'],demo_summary['delta_A'],demo_summary['certificate_valid']) != (1,4,'3',0,True):
+        raise ValueError('motivating demo mismatch')
+    before = json.loads((demo/'before.json').read_text())
+    after = json.loads((demo/'result.json').read_text())['reachability']
+    demo_lines = [r'\begin{center}\begin{tabular}{lll}\toprule', r'Obligation & Before & After \\', r'\midrule']
+    for oid,path in sorted(before['paths'].items()):
+        demo_lines.append(f"{oid} & {'satisfied' if path else 'unmet'} & {'satisfied' if after['paths'][oid] else 'unmet'} " + r'\\')
+    demo_lines += [r'\bottomrule\end{tabular}\end{center}', 'Motivating authored before/after case: complete action A costs three; adjacency change is zero.']
     template = Path(__file__).resolve().parents[1]/'paper/manuscript.template.tex'
-    text = template.read_text(encoding='utf-8').replace('@@CONTROLLED_TABLE@@',tables(controlled)+'\n'+chart(controlled)).replace('@@BUILDING_TABLE@@',tables(building,True))
+    text = template.read_text(encoding='utf-8').replace('@@CONTROLLED_TABLE@@',tables(controlled)+'\n'+chart(controlled)).replace('@@BUILDING_TABLE@@',tables(building,True)).replace('@@DEMO_TABLE@@','\n'.join(demo_lines))
     (output/'manuscript.tex').write_text(text,encoding='utf-8')
     provenance = dict(template_sha256=hashlib.sha256(template.read_bytes()).hexdigest(),
         generator_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(), inputs={})
-    for root in (controlled,building):
+    for root in (controlled,building,demo):
         for p in sorted(root.rglob('*.json')):
             provenance['inputs'][str(p)] = hashlib.sha256(p.read_bytes()).hexdigest()
     write_json(output/'paper-provenance.json',provenance)
@@ -96,5 +105,6 @@ if __name__ == '__main__':
     parser.add_argument('--controlled',type=Path,required=True)
     parser.add_argument('--building',type=Path,required=True)
     parser.add_argument('--output',type=Path,required=True)
+    parser.add_argument('--demo',type=Path,required=True)
     args=parser.parse_args()
-    print(build(args.controlled,args.building,args.output))
+    print(build(args.controlled,args.building,args.output,args.demo))

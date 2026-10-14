@@ -39,6 +39,14 @@ def cases():
     rejected['actions'][0]['requires'] = ['B']
     yield 'unsupported-dependency', 0, 'scope-control', rejected
     yield 'state-limit', 0, 'limit-control', branching_interface_probe()
+    tiny = authored_interface_scenarios()['shared_asset']
+    from cfar.synthetic_star import rectangle
+    for connection in tiny['connections']:
+        if connection['geometry']['asset_id'] == 'asset-group-1':
+            for field in ('landings', 'footprints'):
+                for record in connection['geometry'][field]:
+                    record['polygon'] = rectangle(.500000001, .5, 1.500000001, 1.5)
+    yield 'tiny-arrangement', 0, 'scope-control', tiny
 
 
 def worker(input_path, method, output, max_states):
@@ -74,7 +82,7 @@ def run(output, repetitions=3, timeout=60, audit_path=None):
     if subprocess.check_output(['git', 'status', '--porcelain'], text=True).strip():
         raise ValueError('commit benchmark source before collecting clean-revision evidence')
     script_hash = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
-    protocol = dict(version=2 if audit_path else 1, repetitions=repetitions, timeout_seconds=timeout,
+    protocol = dict(version=3, repetitions=repetitions, timeout_seconds=timeout,
         oracle_max_actions=8, max_states=100000, max_cut_columns=65536,
         git_revision=revision, runner_sha256=script_hash, timing='worker function wall time; DP includes recognition')
     protocol['script_fingerprints'] = {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in Path(__file__).parent.glob('*.py')}

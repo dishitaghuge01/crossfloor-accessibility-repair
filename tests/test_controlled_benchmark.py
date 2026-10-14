@@ -29,7 +29,7 @@ def test_worker_oracle_and_modes(tmp_path):
 
 def test_limit_and_unsupported_are_not_infeasible(tmp_path):
     inputs = {name: instance for name, _, _, instance in cases()}
-    for name, cap, status in [('state-limit', 1, 'limit-exceeded'), ('unsupported-dependency', 100000, 'unsupported')]:
+    for name, cap, status in [('state-limit', 1, 'limit-exceeded'), ('unsupported-dependency', 100000, 'unsupported'), ('tiny-arrangement', 100000, 'unsupported')]:
         source = tmp_path/f'{name}.json'
         target = tmp_path/f'{name}-result.json'
         write_json(source, inputs[name])
@@ -39,10 +39,12 @@ def test_limit_and_unsupported_are_not_infeasible(tmp_path):
 
 def test_summary_preserves_censoring(tmp_path):
     folder = tmp_path/'probe'
+    write_json(folder/'input.json', {})
+    from cfar.io import fingerprint
     for i, value in enumerate([dict(status='optimal', elapsed_seconds=1, result=dict(cost='1', selected=['A'])), dict(status='timeout')]):
         target = folder/f'compressed-{i}.json'
         write_json(target, value)
-        write_json(target.with_suffix('.manifest.json'), dict(git_dirty=False, git_revision='abc', settings=dict(category='analytical')))
+        write_json(target.with_suffix('.manifest.json'), dict(git_dirty=False, git_revision='abc', input_fingerprint=fingerprint({}), solver_status=value['status'], settings=dict(category='analytical')))
     row = summarize(tmp_path)[0]
     assert row['statuses'] == 'optimal,timeout'
     assert row['median_seconds'] == ''

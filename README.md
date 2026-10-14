@@ -56,3 +56,7 @@ This command emits a result with repair postchecks and a manifest. Its optimalit
 `solve-local-shaft INSTANCE --output runs/NEW-RUN` handles the narrower one-profile full-path class with contiguous original action spans and local geometry/exclusion conflicts. It supports unavailable actions, exact costs and repair replay; it rejects dependencies, nonlocal conflicts and additional profiles. See the [scope, proof and prior-framework audit](docs/local_conflict_interval_candidate.md). Its optimality status follows the recurrence, with a manifest and no exhaustive certificate. The latest full regression checkpoint passed 616 tests; the new project demo has a separately passing targeted integration check. Literature originality remains provisional.
 
 The [nested-profile boundary audit](docs/priority_profile_boundary.md) gives a tight bounded-support argument and a transfer of existing hardness for unrestricted declared exclusions. These are scoped theory witnesses, not a new multi-profile solver or a hardness claim for physically realized collision graphs.
+
+## Research-paper reproduction
+
+See [paper/REPRODUCE.md](paper/REPRODUCE.md) for the frozen benchmark, licensed IFC adaptation and manifest-derived manuscript. Building-derived cases use documented hypothetical assumptions; literature priority remains unconfirmed.

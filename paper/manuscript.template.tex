@@ -23,6 +23,8 @@ Each profile has one source and any number of targets. Connections are monotone 
 
 The input provides immutable endpoint, kind, physical capability, owner ID and geometric records. Global owner consistency is checked before overlap reuse: kind, width, physical-profile set and aligned per-floor footprints must agree. A paid action occupies only its own full effect footprints, not every unused catalogue portion of its asset. Objective comparison uses decimal arithmetic on the JSON numeric representation, then action count, then sorted original IDs. No profile switching is allowed along a path.
 
+@@DEMO_TABLE@@
+
 \section{Representation and measured parameters}
 Within each floor and profile, contract baseline access into components. The implementation conservatively retains all components. Let $p$ be the number of profiles and $r$ the maximum component count per profile/floor. Rectangular footprint arrangements give collision cells. Every available candidate footprint is a union of complete cells and selected distinct owners collide exactly when their cell sets intersect. Let $z$ be the maximum cells per floor. The recognizer requires cells above the kernel tolerance $10^{-8}$ and verifies collision equivalence; tiny arrangements are conservatively unsupported rather than rounded into an exact combinatorial representation.
 
@@ -43,6 +45,20 @@ Build the bipartite incidence graph of available original actions and their asse
 \end{picture}
 \end{center}
 The lower branch is a proof of reachability. Omitting a supplied component there never removes its cost or physical footprint from the upper branch.
+
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Original action & Full owners/effects & Cell rule inside one unit \\
+\midrule
+$L_i$ & owner $i$: edge 0; shared bridge: edge 2 & $c_1$ keeps owner $i$, $c_2$ bridge \\
+$M_i$ & same owner $i$: edge 1 & Same-owner reuse of $c_1$ allowed \\
+$M_j$, $j\ne i$ & competing owner $j$: edge 1 & Different owner in $c_1$ rejected \\
+\bottomrule
+\end{tabular}
+\end{center}
+The bridge incidence joins all $L_i,M_i$ into one unit. A compatible pair costs two, even if its bridge graph component is temporarily omitted from a prefix witness. Its full bridge footprint remains paid and occupied.
 
 \section{Owned-interface dynamic program}
 Sweep ordered floors with an $L$-floor look-ahead window and permanent virtual roots. A state contains the occupied-cell map, the selected boundary vertices in each profile and their connectivity partitions. Its label is exact cost, action count and sorted original IDs. During a unit, each cell is empty, externally occupied, or owned by a particular owner of that unit. After the unit, erase internal owner identity to occupied bits. Future actions outside that unit cannot reuse its owners.

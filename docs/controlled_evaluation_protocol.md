@@ -11,3 +11,7 @@ Every input, result, error and per-measurement manifest stays in ignored runs/. 
 Successful methods/repetitions must agree on status, exact cost and original selected IDs; mismatches stop with evidence retained. Exhaustive comparisons are limited to eight actions. Larger dense cases compare against the analytical lower bound one and witness A0000. Larger owner cases are not exhaustively certified. Resource logic is not represented as an optimizer runtime baseline. Earlier solvers are outside this common recognized class.
 
 Summaries preserve timeout, limit-exceeded, unsupported and error separately from infeasible. Timing summaries use medians only if every sample completes with a measured time; censored runs are not assigned a fabricated duration. Report state/row counts and overhead honestly; no speedup is presumed. Public-building extraction, consolidated proof and manuscript remain required later roadmap gates.
+
+## Final protocol v3
+
+The frozen final runner adds one conservative tiny-cell recognition rejection based on the existing EPS regression (37 authored cases total), hashes every recipe/summary script, and supports the eight Duplex recipes via --building-audit. Summary generation now checks input fingerprints and result/manifest status agreement. The earlier v1 checkpoint remains separate evidence, not retroactively relabeled. Final reproduction uses three timing samples, fresh outputs and a clean committed revision.

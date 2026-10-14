@@ -4,6 +4,7 @@ import csv
 import json
 from pathlib import Path
 from statistics import median
+from cfar.io import fingerprint
 
 
 def summarize(output):
@@ -18,6 +19,9 @@ def summarize(output):
                 continue
             values = [json.loads(p.read_text(encoding='utf-8')) for p in paths]
             manifests = [json.loads(p.with_suffix('.manifest.json').read_text(encoding='utf-8')) for p in paths]
+            instance = json.loads((folder/'input.json').read_text(encoding='utf-8'))
+            if any(m['input_fingerprint'] != fingerprint(instance) or m['solver_status'] != v['status'] for m, v in zip(manifests, values)):
+                raise ValueError('input/status manifest mismatch')
             if any(m['git_dirty'] for m in manifests):
                 raise ValueError('dirty-revision evidence')
             result = values[0].get('result', {})
