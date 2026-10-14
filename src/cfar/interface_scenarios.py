@@ -1,5 +1,6 @@
 """Authored physical interface proof probes, not public-building evidence."""
 from copy import deepcopy
+from itertools import combinations
 
 from .synthetic_shaft import make_shaft_instance
 from .synthetic_star import rectangle
@@ -53,3 +54,49 @@ EXPECTED_OPTIMA = {
     "unused_paid_geometry": ("6", ["A000", "A003"]),
     "separate_profiles": ("3", ["A001"]),
 }
+
+
+def branching_interface_probe() -> dict:
+    """Four-level cyclic effect graph sharing a fixed experimental asset."""
+    instance = make_shaft_instance(3, [(0,2,1)], [1], profiles=1, physical=True, asset_groups=[0])
+    template = instance["connections"][0]
+    connections, actions = [], []
+    for i, (u,v) in enumerate(combinations(range(4),2)):
+        c = deepcopy(template)
+        cid = f"E{i}"
+        c.update(connection_id=cid, evidence_id="e"+cid, u=f"R{u}", v=f"R{v}")
+        c["geometry"]["rise_m"] = 3*(v-u)
+        for field in ("landings", "footprints"):
+            for record, floor in zip(c["geometry"][field], (u,v)):
+                record["room_id"] = f"R{floor}"
+        connections.append(c)
+        a = deepcopy(instance["actions"][0])
+        a.update(action_id=f"A{i:03d}", evidence_ids=["e"+cid],
+                 effects=[dict(op="activate_connection",connection_id=cid,permitted_profiles=["profile0"])])
+        a["geometry_certificate"]["connection_ids"] = [cid]
+        actions.append(a)
+    instance.update(building_id="authored-cyclic-interface", connections=connections, actions=actions,
+                    description="Authored cyclic access-graph compression probe; fixed 2D model, not construction evidence.")
+    return instance
+
+
+def dense_alternative_probe(count: int = 64) -> dict:
+    """Private colliding alternatives with an analytically known optimum."""
+    if type(count) is not int or count < 1:
+        raise ValueError("positive alternative count required")
+    instance = make_shaft_instance(1,[(0,0,1)],[1],profiles=1,physical=True,asset_groups=[0])
+    template_c, template_a = instance["connections"][0], instance["actions"][0]
+    connections, actions = [], []
+    for i in range(count):
+        cid = f"alternative{i}"
+        c, a = deepcopy(template_c), deepcopy(template_a)
+        c.update(connection_id=cid,evidence_id="e"+cid)
+        c["geometry"]["asset_id"] = f"private-asset-{i}"
+        a.update(action_id=f"A{i:04d}",cost=1+i%7,evidence_ids=["e"+cid],
+                 effects=[dict(op="activate_connection",connection_id=cid,permitted_profiles=["profile0"])])
+        a["geometry_certificate"]["connection_ids"] = [cid]
+        connections.append(c)
+        actions.append(a)
+    instance.update(building_id=f"authored-dense-alternatives-{count}",connections=connections,actions=actions,
+                    description="Authored density/state probe; known optimum cost one, not public-building evidence.")
+    return instance

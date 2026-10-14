@@ -207,3 +207,15 @@ Recognition does not imply feasibility, optimality or originality. G3 remains OP
 - [ ] Complete original-action floor/unit/witness transition implementation and validate the full representative-compressed algorithm against the oracle; continue direct constrained-resource algorithm comparison before G3.
 
 The active contribution is stronger and more precise, but novelty remains UNESTABLISHED. Rank machinery is prior work; finite tests do not prove literature originality or complete solver correctness. See docs/owner_multiplicity_refinement.md.
+
+## M15 - Full owned-interface solver and comparative validation
+
+- [x] Implement floor introduction/forgetting, complete original-action unit processing, full cell occupancy and optional rooted profile witnesses.
+- [x] Integrate weighted product-profile representative bases, exact cost/count/IDs and independent materialization/reachability replay; expose compression-disabled comparisons and explicit resource-limit errors.
+- [x] Add solver CLI and a reproducible three-way runner with oracle certificates and per-method manifests.
+- [x] Add 50 tests: authored and 40 seeded compressed/uncompressed/oracle comparisons, cyclic row-removal case, limits, CLI, and a 64-action private-alternative input with analytical optimum and at most five raw states.
+- [x] Full suite: 604 tests pass in 44.05 seconds on Windows/Python 3.12. Test duration is not solver timing evidence.
+- [ ] Record the clean-revision three-way checkpoint and dense analytical probe.
+- [ ] Finish direct equivalent-method comparison and independent theory validation before a positive originality decision. Choice-network full proofs remain partially accessible.
+
+The complete scoped algorithm now exists and preserves expected optima in finite comparisons. Originality remains UNESTABLISHED and G3 OPEN. Do not call established rank machinery new or infer originality from tests. See docs/owned_interface_solver.md.

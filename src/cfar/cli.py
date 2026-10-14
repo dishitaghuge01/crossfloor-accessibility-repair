@@ -13,6 +13,7 @@ from .oracle import exact_oracle
 from .dp_partition import solve_partition
 from .dp_local_intervals import solve_local_shaft
 from .interface_recognition import recognize_physical_interface
+from .dp_owned_interface import solve_owned_interface
 from .schema import load_instance
 
 
@@ -44,6 +45,12 @@ def main() -> None:
     recognize = subparsers.add_parser("recognize-interface", help="check M09 physical-interface assumptions; no solver")
     recognize.add_argument("instance")
     recognize.add_argument("--output", required=True)
+    owned = subparsers.add_parser("solve-owned-interface", help="rooted rectangular physical-interface DP")
+    owned.add_argument("instance")
+    owned.add_argument("--max-states", type=int, default=100000)
+    owned.add_argument("--max-cut-columns", type=int, default=65536)
+    owned.add_argument("--no-compression", action="store_true")
+    owned.add_argument("--output", required=True)
     args = parser.parse_args()
     try:
         instance = load_instance(args.instance)
@@ -58,6 +65,18 @@ def main() -> None:
             if any(output.iterdir()):
                 raise ValidationError("OUTPUT_NOT_EMPTY", "choose a new run directory")
             started = time.perf_counter()
+            if args.command == "solve-owned-interface":
+                result = solve_owned_interface(instance, compress=not args.no_compression,
+                                               max_states=args.max_states, max_cut_columns=args.max_cut_columns)
+                write_json(output/"result.json", result)
+                settings = dict(method=result["method"], variant="SCFAR", compression=not args.no_compression,
+                                max_states=args.max_states, max_cut_columns=args.max_cut_columns,
+                                timeout=None, elapsed_seconds=time.perf_counter()-started)
+                write_json(output/"manifest.json", manifest(instance,settings,result["status"]))
+                print(json.dumps({"status":result["status"], "cost":result["cost"],
+                                  "selected":result["selected"], "statistics":result["statistics"],
+                                  "optimality_evidence":result["optimality_evidence"]}))
+                return
             if args.command == "recognize-interface":
                 result = recognize_physical_interface(instance)
                 write_json(output/"recognition.json", result)
