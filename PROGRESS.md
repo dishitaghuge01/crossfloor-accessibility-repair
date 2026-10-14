@@ -168,3 +168,15 @@ This documentation-only milestone broadens the active candidate toward typed str
 - [ ] Independently validate the proposed theorem and compare actual direct resource/connectivity algorithms; substantiate complete authored physical scenarios.
 
 The active contribution target is now more precise: explicit ownership-aware parameter dependence and physical/typed-action transfer. This is research-only development, with novelty provisional and G3 OPEN. No new experiments or tests ran. See docs/resource_incidence_comparison.md.
+
+## M12 - Executable authored physical interface scenarios
+
+- [x] Begin concrete project work while correcting that originality remains provisional.
+- [x] Add five complete fixed-geometry strict inputs for shared ownership, partial footprints, indivisible multi-asset cost, graph-unused paid geometry and separate profile permissions.
+- [x] Add five targeted regressions asserting expected oracle optima, key collision/coverage outcomes, zero adjacency change and exhaustive certificate verification.
+- [x] Full regression suite: 517 tests pass in 34.53 seconds on Windows/Python 3.12. This duration is not a solver benchmark.
+- [x] Add a deterministic checkpoint runner emitting complete inputs, ledgers, certificates, replay results and per-case manifests into ignored runs.
+- [ ] Execute and record the checkpoint from this clean implementation revision.
+- [ ] Implement exact physical/interface recognition before the compressed solver; direct prior-method comparison and independent theory validation remain necessary for G3.
+
+These are authored fixed-2D proof probes, not public BIM, a compressed-algorithm validation, or construction evidence. G3 remains OPEN and novelty provisional. See docs/interface_checkpoint.md.
