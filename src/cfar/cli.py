@@ -12,6 +12,7 @@ from .io import manifest, write_json
 from .oracle import exact_oracle
 from .dp_partition import solve_partition
 from .dp_local_intervals import solve_local_shaft
+from .interface_recognition import recognize_physical_interface
 from .schema import load_instance
 
 
@@ -40,6 +41,9 @@ def main() -> None:
     verify.add_argument("--max-actions", type=int, default=20)
     validate = subparsers.add_parser("validate")
     validate.add_argument("instance")
+    recognize = subparsers.add_parser("recognize-interface", help="check M09 physical-interface assumptions; no solver")
+    recognize.add_argument("instance")
+    recognize.add_argument("--output", required=True)
     args = parser.parse_args()
     try:
         instance = load_instance(args.instance)
@@ -54,6 +58,15 @@ def main() -> None:
             if any(output.iterdir()):
                 raise ValidationError("OUTPUT_NOT_EMPTY", "choose a new run directory")
             started = time.perf_counter()
+            if args.command == "recognize-interface":
+                result = recognize_physical_interface(instance)
+                write_json(output/"recognition.json", result)
+                write_json(output/"manifest.json", manifest(instance,
+                           {"method": "physical_interface_recognition_v1", "variant": "SCFAR",
+                            "timeout": None, "elapsed_seconds": time.perf_counter()-started}, "recognized"))
+                print(json.dumps({"recognized": True, "parameters": result["parameters"],
+                                  "blocked_actions": len(result["blocked"])}))
+                return
             if args.command in {"solve-partition", "solve-local-shaft"}:
                 result = (solve_partition(instance, args.max_components, args.max_states) if args.command == "solve-partition"
                           else solve_local_shaft(instance, args.max_actions, args.max_states))

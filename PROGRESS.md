@@ -180,3 +180,17 @@ The active contribution target is now more precise: explicit ownership-aware par
 - [ ] Implement exact physical/interface recognition before the compressed solver; direct prior-method comparison and independent theory validation remain necessary for G3.
 
 These are authored fixed-2D proof probes, not public BIM, a compressed-algorithm validation, or construction evidence. G3 remains OPEN and novelty provisional. See docs/interface_checkpoint.md.
+
+## M13 - Physical-interface recognizer
+
+- [x] Implement conservative M09 recognition for independent rectangular physical portal activations, with rooted demands and distinct floor elevations.
+- [x] Compile unary failures, construct above-EPS cells and verify exact owner-cell collision equivalence against the existing geometry kernel.
+- [x] Build complete action–asset units and report measured p,r,z,L,g; r conservatively retains all within-floor baseline components.
+- [x] Preserve action-specific footprint floors and shared-unit support; return blocked candidates without inflating unit ownership.
+- [x] Add CLI recognize-interface with recognition/manifest outputs and extend the reproducible interface checkpoint.
+- [x] Add ten tests: all 44 authored selections match geometry application; unit/parameter checks, explicit scope/EPS rejection, unary filtering and CLI manifest semantics.
+- [x] Full suite: 527 tests pass in 35.84 seconds on Windows/Python 3.12. Test duration is not a solver benchmark.
+- [ ] Record enhanced checkpoint from a clean implementation revision.
+- [ ] Implement and verify original-action unit/witness transitions, then representative compression. M10 independent-background corrections remain unsupported.
+
+Recognition does not imply feasibility, optimality or originality. G3 remains OPEN and novelty provisional. See docs/interface_recognition.md.

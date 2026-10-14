@@ -1,0 +1,141 @@
+"""Conservative M09 recognizer; no compressed solver or novelty certificate."""
+from itertools import combinations
+
+from shapely.geometry import box
+
+from .conflict_compilation import compile_activation_constraints
+from .errors import require
+from .geometry import EPS, polygon, room_index
+from .io import fingerprint
+from .validation import baseline_active, validate_instance
+
+
+def recognize_physical_interface(instance: dict) -> dict:
+    validate_instance(instance)
+    actions = sorted(instance["actions"], key=lambda a: a["action_id"])
+    require(all(a["type"] == "physical_intervention" and not a["requires"] and not a["excludes"]
+                and all(e["op"] == "activate_connection" and e["permitted_profiles"] for e in a["effects"])
+                for a in actions), "INTERFACE_SCOPE", "independent physical activation actions required")
+    catalog = {c["connection_id"]: c for c in instance["connections"]}
+    used = {e["connection_id"] for a in actions for e in a["effects"]}
+    require(all(catalog[cid]["kind"] != "door" for cid in used),
+            "INTERFACE_SCOPE", "candidate doors need a different collision representation")
+    existing_assets = {c["geometry"].get("asset_id") for c in catalog.values() if c["existing"]}
+    require(all(catalog[cid]["geometry"]["asset_id"] not in existing_assets for cid in used),
+            "INTERFACE_BACKGROUND_ASSET", "new assets must be disjoint from existing identities")
+    floors = sorted(instance["floors"], key=lambda f: (f["elevation_m"], f["floor_id"]))
+    require(len({f["elevation_m"] for f in floors}) == len(floors),
+            "INTERFACE_FLOOR_ORDER", "distinct elevations required")
+    ranks = {f["floor_id"]: i for i, f in enumerate(floors)}
+    rooms = room_index(instance)
+    room_floor = {rid: floor["floor_id"] for rid, (floor, _) in rooms.items()}
+    profiles = sorted(p["profile_id"] for p in instance["profiles"])
+    anchors = {}
+    for pid in profiles:
+        sources = {o["source"] for o in instance["obligations"] if o["profile_id"] == pid}
+        require(len(sources) == 1, "INTERFACE_ROOTED", f"one obligation source required for {pid}")
+        anchors[pid] = next(iter(sources))
+    constraints = compile_activation_constraints(instance, max_actions=len(actions))
+    available = [a for a in actions if a["action_id"] not in constraints["blocked"]]
+    ownership, support, shapes = {}, {}, {f["floor_id"]: {} for f in floors}
+    for action in available:
+        aid = action["action_id"]
+        ownership[aid], support[aid] = set(), set()
+        for effect in action["effects"]:
+            c = catalog[effect["connection_id"]]
+            owner = c["geometry"]["asset_id"]
+            ownership[aid].add(owner)
+            support[aid].update(room_floor[rid] for rid in (c["u"], c["v"]))
+            for record in c["geometry"]["footprints"]:
+                fid = room_floor[record["room_id"]]
+                shape = polygon(record["polygon"])
+                require(shape.equals(box(*shape.bounds)), "INTERFACE_RECTANGLE", owner)
+                shapes[fid][owner] = shape
+                support[aid].add(fid)
+    cells = []
+    for floor in floors:
+        fid = floor["floor_id"]
+        local = shapes[fid]
+        xs = sorted({x for s in local.values() for x in (s.bounds[0], s.bounds[2])})
+        ys = sorted({y for s in local.values() for y in (s.bounds[1], s.bounds[3])})
+        for x1, x2 in zip(xs, xs[1:]):
+            for y1, y2 in zip(ys, ys[1:]):
+                cell = box(x1, y1, x2, y2)
+                owners = sorted(owner for owner, s in local.items() if s.covers(cell))
+                if not owners:
+                    continue
+                require(cell.area > EPS, "INTERFACE_CELL_EPS", f"{fid}/{cell.bounds}")
+                cid = f"cell{len(cells):06d}"
+                cells.append(dict(cell_id=cid, floor_id=fid, bounds=list(cell.bounds), asset_ids=owners))
+    # Use each action's actual touched floors, not every floor of a shared owner's catalogue.
+    action_cells = {a["action_id"]: {} for a in available}
+    for action in available:
+        aid = action["action_id"]
+        for effect in action["effects"]:
+            c = catalog[effect["connection_id"]]
+            owner = c["geometry"]["asset_id"]
+            touched = {room_floor[r["room_id"]] for r in c["geometry"]["footprints"]}
+            for cell in cells:
+                if cell["floor_id"] in touched and owner in cell["asset_ids"]:
+                    action_cells[aid][cell["cell_id"]] = owner
+    predicted = set()
+    for a, b in combinations(sorted(action_cells), 2):
+        if any(action_cells[a][cid] != action_cells[b][cid]
+               for cid in action_cells[a].keys() & action_cells[b].keys()):
+            predicted.add((a, b))
+    observed = {tuple(c["actions"]) for c in constraints["geometry_conflicts"]}
+    require(predicted == observed, "INTERFACE_COLLISION_EQUIVALENCE",
+            "cell ownership must match the geometry compiler exactly")
+    remaining = set(ownership)
+    units = []
+    while remaining:
+        members = {min(remaining)}
+        owners = set(ownership[next(iter(members))])
+        while True:
+            additions = {aid for aid in remaining - members if ownership[aid] & owners}
+            if not additions:
+                break
+            members.update(additions)
+            owners.update(owner for aid in additions for owner in ownership[aid])
+        remaining -= members
+        touched = {fid for aid in members for fid in support[aid]}
+        indices = [ranks[fid] for fid in touched]
+        units.append(dict(action_ids=sorted(members), asset_ids=sorted(owners),
+                          floor_ids=sorted(touched, key=ranks.get),
+                          first_floor=min(indices), last_floor=max(indices),
+                          span=max(indices)-min(indices)+1))
+    units.sort(key=lambda u: (u["first_floor"], u["action_ids"]))
+    baseline = baseline_active(instance)
+    components, baseline_span = {}, 1
+    for pid in profiles:
+        parent = {rid: rid for rid in rooms}
+
+        def find(rid):
+            while parent[rid] != rid:
+                parent[rid] = parent[parent[rid]]
+                rid = parent[rid]
+            return rid
+
+        for cid, permitted in baseline.items():
+            if pid not in permitted:
+                continue
+            c = catalog[cid]
+            u, v = c["u"], c["v"]
+            if room_floor[u] == room_floor[v]:
+                parent[find(u)] = find(v)
+            else:
+                baseline_span = max(baseline_span, abs(ranks[room_floor[u]]-ranks[room_floor[v]])+1)
+        components[pid] = {rid: find(rid) for rid in sorted(rooms)}
+    r = max((len({components[pid][rid] for rid in rooms if room_floor[rid] == f["floor_id"]})
+             for pid in profiles for f in floors), default=0)
+    z = max((sum(c["floor_id"] == f["floor_id"] for c in cells) for f in floors), default=0)
+    parameters = dict(p=len(profiles), r=r, z=z,
+                      L=max([baseline_span] + [u["span"] for u in units]),
+                      g=max((len(u["asset_ids"]) for u in units), default=0))
+    return dict(format="physical_interface_recognition_v1", input_fingerprint=fingerprint(instance),
+                recognized=True, parameters=parameters, floor_order=[f["floor_id"] for f in floors],
+                anchors=anchors, components=components, cells=cells, units=units,
+                action_cells=action_cells, blocked=constraints["blocked"],
+                geometry_conflicts=constraints["geometry_conflicts"],
+                scope="M09 rectangular physical activations; conservative all-component r; not M10 background",
+                witness_status="recognition only; no feasibility or optimality conclusion")
