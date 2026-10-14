@@ -257,3 +257,7 @@ This is a documentation-only handover; no new experiments or tests were required
 Implemented bounded subprocess timing, fixed recipes/seeds, clean-revision manifests, exact method agreement, small oracle certificate replay and regenerated CSV/Markdown summaries. DP timing includes recognition. Controlled evidence is pending the committed runner execution; public-building and paper gates remain open. Working contribution stays frozen; literature priority remains unconfirmed.
 
 M18 checkpoint collected at clean runner revision 33c11aa: 36 cases, 353 observations, exact agreement among completed results; analytical scaling and operational controls retained. See docs/controlled_checkpoint_results.md. Only affected dirty observations were remeasured, with originals retained. No speedup or literature-priority claim.
+
+## M19 — Licensed IFC audit and hypothetical building-derived protocol
+
+Duplex license/source hash checked; 21 space projections and two decomposed stair envelopes audited. User authorized explicit experimental reservations/profiles/abstract costs. Eight variants retain source subset IDs/polygons and account for both stairs as conservative obstacles. Source facts and assumptions are separate in docs/duplex_controlled_protocol.md. No real-building validity claim; clean committed evaluation follows.

@@ -218,3 +218,5 @@ The software portion exceeds the micro-instance requirement and passes controlle
 Follow docs/controlled_evaluation_protocol.md and docs/HANDOVER_TO_PAPER.md. Runner/summary implementation is the next reviewable milestone. Collect clean-revision controlled evidence, then building-input provenance, building evaluation, consolidated proof, manuscript and final reproduction. No replacement direction or automatic push.
 
 M18 controlled evidence now collected; building-derived controlled experiments may use explicit hypothetical reservations/profiles/costs per user authorization. These are not validated real-building repairs.
+
+M19 input workflow implemented for an explicitly hypothetical Duplex subset; source/license/hash, unchanged room IDs/polygons, conservative physical stair background and authored permissions/costs documented. Evidence must be classified building-derived controlled, not validated real-building repair.

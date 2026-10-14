@@ -66,7 +66,7 @@ def worker(input_path, method, output, max_states):
     write_json(output, payload)
 
 
-def run(output, repetitions=3, timeout=60):
+def run(output, repetitions=3, timeout=60, audit_path=None):
     output.mkdir(parents=True, exist_ok=True)
     if any(output.iterdir()):
         raise ValueError('choose a new empty output directory')
@@ -74,11 +74,18 @@ def run(output, repetitions=3, timeout=60):
     if subprocess.check_output(['git', 'status', '--porcelain'], text=True).strip():
         raise ValueError('commit benchmark source before collecting clean-revision evidence')
     script_hash = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
-    protocol = dict(version=1, repetitions=repetitions, timeout_seconds=timeout,
+    protocol = dict(version=2 if audit_path else 1, repetitions=repetitions, timeout_seconds=timeout,
         oracle_max_actions=8, max_states=100000, max_cut_columns=65536,
         git_revision=revision, runner_sha256=script_hash, timing='worker function wall time; DP includes recognition')
+    protocol['script_fingerprints'] = {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in Path(__file__).parent.glob('*.py')}
+    if audit_path:
+        from duplex_controlled import building_cases
+        protocol['building_provenance'] = json.loads((audit_path/'provenance.json').read_text())
+        recipes = building_cases(audit_path)
+    else:
+        recipes = cases()
     write_json(output/'protocol.json', protocol)
-    for name, seed, category, instance in cases():
+    for name, seed, category, instance in recipes:
         folder = output/name
         write_json(folder/'input.json', instance)
         methods = ['recognition', 'compressed', 'uncompressed']
@@ -123,10 +130,11 @@ if __name__ == '__main__':
     parser.add_argument('--repetitions', type=int, default=3, choices=(1, 3))
     parser.add_argument('--timeout', type=float, default=60)
     parser.add_argument('--worker', nargs=4)
+    parser.add_argument('--building-audit', type=Path)
     args = parser.parse_args()
     if args.worker:
         worker(*args.worker[:3], int(args.worker[3]))
     elif args.output and args.timeout > 0:
-        run(args.output, args.repetitions, args.timeout)
+        run(args.output, args.repetitions, args.timeout, args.building_audit)
     else:
         parser.error('output and positive timeout required')
