@@ -11,13 +11,24 @@ from .errors import require
 from .geometry import room_index
 from .io import fingerprint
 from .objective import exact_sum
-from .validation import baseline_active
+from .validation import baseline_active, validate_instance
 
 
 def compile_priority_cover(instance: dict, profile_order: list[str]) -> dict:
+    recognized = _compile_priority_structure(instance, profile_order)
+    recognize_partition_catalogue(instance)
+    recognized["scope"] = "jointly feasible independent activations; common path and uniform prefix intervals"
+    return recognized
+
+
+def _compile_priority_structure(instance: dict, profile_order: list[str], *, validated: bool = False) -> dict:
+    """Structural quotient only; callers must separately check subset admissibility."""
+    if not validated:
+        validate_instance(instance)
     require(len(profile_order) == len(set(profile_order)) and set(profile_order) ==
             {p["profile_id"] for p in instance["profiles"]}, "PRIORITY_SCOPE", "order must contain every profile once")
-    recognize_partition_catalogue(instance)
+    require(all(e["op"] == "activate_connection" for a in instance["actions"] for e in a["effects"]),
+            "PRIORITY_SCOPE", "activation-only actions required")
     ranks = {pid: i+1 for i, pid in enumerate(profile_order)}
     rooms = sorted(room_index(instance))
     catalog = {c["connection_id"]: c for c in instance["connections"]}
@@ -107,7 +118,7 @@ def compile_priority_cover(instance: dict, profile_order: list[str]) -> dict:
     return {"format": "priority_line_cover_witness_v1", "input_fingerprint": fingerprint(instance),
             "profile_order": profile_order[:], "path_components": [components[v] for v in order],
             "priorities": priorities, "intervals": intervals,
-            "scope": "jointly feasible independent activations; common path and uniform prefix intervals"}
+            "scope": "structural priority-cover quotient only; subset admissibility not checked"}
 
 
 def evaluate_priority_cover(compiled: dict, selected: list[str]) -> dict:

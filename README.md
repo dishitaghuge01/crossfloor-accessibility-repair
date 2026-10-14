@@ -35,3 +35,5 @@ The optional exact [partition DP](docs/partition_dp.md) supports multiple profil
 ```
 
 This command emits a result with repair postchecks and a manifest. Its optimality status follows the documented recurrence; it does not emit an independently checked exhaustive certificate. Component/state limits raise errors rather than returning infeasible. The method is bounded by all retained baseline components, not portal-interface width.
+
+`solve-local-shaft INSTANCE --output runs/NEW-RUN` handles the narrower one-profile full-path class with contiguous original action spans and local geometry/exclusion conflicts. It supports unavailable actions, exact costs and repair replay; it rejects dependencies, nonlocal conflicts and additional profiles. See the [scope, proof and prior-framework audit](docs/local_conflict_interval_candidate.md). Its optimality status follows the recurrence, with a manifest and no exhaustive certificate. The complete suite currently passes 322 tests; algorithmic novelty remains unestablished.

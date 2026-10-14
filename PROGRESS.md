@@ -82,3 +82,15 @@ The current 2D geometry kernel has no higher-order selection-dependent geometry 
 - [x] Draft a candidate last-two-action recurrence for single-profile full-path cover with local node-span conflicts, including state sufficiency and counterexamples. Implementation/novelty audit remain open (docs/local_conflict_interval_candidate.md).
 
 Another novelty route is closed: conflict-free nested contiguous shaft repair is covered by an existing polynomial-time method. Conflicting reserved alternatives prevent that transfer but do not yet establish a new algorithm. See docs/shaft_priority_cover.md.
+
+## M05 - Local-conflict solver and prior-framework audit
+
+- [x] Implement the original-interval last-two recurrence with exact cost/count/lexical ties, action/state caps and a one-profile full-path recognizer.
+- [x] Compile unary geometry failures and local geometric/declared conflicts; replay selected strict repairs through geometry, adjacency and reachability checks.
+- [x] Add 89 tests, including 64 seeded abstract enumeration comparisons, 12 declared-conflict shaft comparisons, six generated physical reserved-asset comparisons, unsupported scopes and a 100-identical-action non-enumeration regression.
+- [x] Full suite: 322 tests pass in 113.63 seconds on Windows/Python 3.12 using ignored runs/tmp. This test duration is not a solver benchmark.
+- [x] Memoize identical activated connection/profile unions within geometry compilation; preserve constraints and report requests/calls/cache hits separately.
+- [x] Inspect Biedl/Biniaz/Lubiw 2019 section 5.2, Lemma 3 and Claim 2. Document a project-derived minimum-sum/local-conflict adaptation of its two-active-interval DAG.
+- [ ] Implement and compare the independent sweep adaptation; collect a preregistered timing checkpoint only if it answers a research question.
+
+Novelty remains UNESTABLISHED. The local solver is a validated baseline; its structural lemma and state framework have identified prior work. The prior paper uses a different objective and does not explicitly state our hard-conflict variant. The adaptation is argued separately, so no direct theorem or performance bound is misattributed. G3 remains OPEN; public BIM evaluation and paper drafting remain deferred.

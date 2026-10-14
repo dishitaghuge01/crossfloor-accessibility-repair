@@ -5,7 +5,8 @@ from .synthetic_star import rectangle
 
 
 def make_shaft_instance(edges: int, intervals: list[tuple[int, int, int]], costs: list[int | float],
-                        profiles: int = 2, *, physical: bool = False, conflict_witness: bool = False) -> dict:
+                        profiles: int = 2, *, physical: bool = False, conflict_witness: bool = False,
+                        asset_groups: list[int] | None = None) -> dict:
     if edges < 1 or profiles < 1 or len(intervals) != len(costs):
         raise ValueError("positive sizes and matching interval costs required")
     if any(not (0 <= l <= r < edges and 1 <= h <= profiles) for l, r, h in intervals):
@@ -14,6 +15,9 @@ def make_shaft_instance(edges: int, intervals: list[tuple[int, int, int]], costs
         raise ValueError("fixed four-floor witness requires its declared intervals")
     if conflict_witness and not physical:
         raise ValueError("overlapping alternatives must be proposed physical interventions")
+    if asset_groups is not None and (conflict_witness or not physical or len(asset_groups) != len(intervals)
+                                    or any(type(g) is not int or not 0 <= g < 8 for g in asset_groups)):
+        raise ValueError("asset groups require matching physical alternatives in groups 0 through 7")
     pids = [f"profile{i}" for i in range(profiles)]
     floors = [{"floor_id": f"F{i}", "elevation_m": 3*i, "boundary": rectangle(0,0,4,4),
                "rooms": [{"room_id": f"R{i}", "label": f"R{i}", "polygon": rectangle(0,0,4,4)}],
@@ -27,10 +31,19 @@ def make_shaft_instance(edges: int, intervals: list[tuple[int, int, int]], costs
                 "kind": "lift", "existing": not physical, "physical_profiles": pids[:],
                 "geometry": {"asset_id": asset, "width_m": 1, "rise_m": 3, "run_m": 1,
                              "landings": landings, "footprints": landings}}
-    if not conflict_witness:
+    if asset_groups is not None:
+        pairs = {(group, edge) for group, (left, right, _) in zip(asset_groups, intervals)
+                 for edge in range(left, right+1)}
+        for group, edge in sorted(pairs):
+            slot = group % 4
+            x, y = .5+2*(slot % 2), .5+2*(slot // 2)
+            connections.append(connection(f"G{group}P{edge}", edge, f"asset-group-{group}", rectangle(x,y,x+1,y+1)))
+    elif not conflict_witness:
         connections = [connection(f"P{i}", i, "shaft", rectangle(.5,.5,1.5,1.5)) for i in range(edges)]
     for i, ((left, right, height), cost) in enumerate(zip(intervals, costs)):
-        if conflict_witness:
+        if asset_groups is not None:
+            cids = [f"G{asset_groups[i]}P{edge}" for edge in range(left, right+1)]
+        elif conflict_witness:
             footprint = rectangle(2.5,2.5,3.5,3.5) if i == 2 else rectangle(.5,.5,1.5,1.5)
             cids = [f"A{i}P{edge}" for edge in range(left, right+1)]
             connections.extend(connection(cid, edge, f"asset{i}", footprint)

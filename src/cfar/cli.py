@@ -11,6 +11,7 @@ from .errors import ValidationError
 from .io import manifest, write_json
 from .oracle import exact_oracle
 from .dp_partition import solve_partition
+from .dp_local_intervals import solve_local_shaft
 from .schema import load_instance
 
 
@@ -28,6 +29,11 @@ def main() -> None:
     partition.add_argument("--max-components", type=int, default=16)
     partition.add_argument("--max-states", type=int, default=100000)
     partition.add_argument("--output", required=True)
+    local = subparsers.add_parser("solve-local-shaft", help="one-profile full path with local geometric conflicts")
+    local.add_argument("instance")
+    local.add_argument("--max-actions", type=int, default=100)
+    local.add_argument("--max-states", type=int, default=100000)
+    local.add_argument("--output", required=True)
     verify = subparsers.add_parser("verify")
     verify.add_argument("instance")
     verify.add_argument("certificate")
@@ -48,10 +54,12 @@ def main() -> None:
             if any(output.iterdir()):
                 raise ValidationError("OUTPUT_NOT_EMPTY", "choose a new run directory")
             started = time.perf_counter()
-            if args.command == "solve-partition":
-                result = solve_partition(instance, args.max_components, args.max_states)
+            if args.command in {"solve-partition", "solve-local-shaft"}:
+                result = (solve_partition(instance, args.max_components, args.max_states) if args.command == "solve-partition"
+                          else solve_local_shaft(instance, args.max_actions, args.max_states))
                 settings = {"method": result["method"], "variant": "SCFAR",
-                            "max_components": args.max_components, "max_states": args.max_states,
+                            "max_components": getattr(args, "max_components", None),
+                            "max_actions": getattr(args, "max_actions", None), "max_states": args.max_states,
                             "timeout": None, "elapsed_seconds": time.perf_counter()-started}
                 write_json(output/"result.json", result)
                 write_json(output/"manifest.json", manifest(instance, settings, result["status"]))

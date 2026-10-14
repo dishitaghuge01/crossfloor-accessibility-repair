@@ -1,6 +1,6 @@
 # Candidate: original-interval DP with local shaft conflicts
 
-14 October 2026. **Unestablished novelty; not implemented or benchmarked at this checkpoint.** This is a proposed exact recurrence with a correctness argument for a narrowly stated class. It is not a general profile/interface theorem.
+14 October 2026. **Implemented and differentially verified; novelty unestablished.** This is an exact recurrence for a narrowly stated class. The structural lemma and two-active-interval state framework have identified prior work. It is not a general profile/interface theorem or an originality result.
 
 ## Class to recognize
 
@@ -28,7 +28,7 @@ The new state is (B,C), charging c(C) once. Accept a state whose last interval e
 
 **Correctness.** Every transition produces a gap-free cover prefix whose selected actions are pairwise compatible: the newest action is checked against B and cannot conflict with older intervals by locality. Conversely the structural lemma gives an optimum whose action sequence obeys every transition. The graph of states is acyclic because right endpoints strictly increase. A minimum accepting path therefore has exactly the optimum repair cost in the recognized class. Geometry/topology/reachability must still be replayed at the end.
 
-There are O(k^2) pair states and at most O(k^3) transitions. Cost-only arithmetic/pointer DP is polynomial, excluding numeric bit costs and compilation. Storing and comparing full lexical witness tuples adds up to a factor k in work and storage. No resource or empirical performance claim has been tested yet.
+There are O(k^2) pair states and at most O(k^3) transitions. Cost-only arithmetic/pointer DP is polynomial, excluding numeric bit costs and compilation. Storing and comparing full lexical witness tuples adds up to a factor k in work and storage. No timing or general scaling benchmark has been collected.
 
 ## Counterexamples outside scope
 
@@ -41,4 +41,18 @@ There are O(k^2) pair states and at most O(k^3) transitions. Cost-only arithmeti
 
 Existing Priority Line Cover does not handle these conflicts, but that alone is insufficient. Compare direct conflict-free interval-cover and geometric conflict-cover methods, weighted set covering with hard conflicts, and compatible-path/cover reductions. Banik et al.'s Algorithmica 2020 conflict-cover paper currently has publisher preview evidence only; Jacob/Majumdar/Raman's full manuscript and Saffari/Fathi's hard-conflict weighted formulation remain required direct-method comparators. Soft-penalty conflict-cover methods are distinct and cannot substitute for hard exclusions.
 
-The next implementation checkpoint should first test this abstract recurrence against complete subset enumeration on local-conflict intervals, then recognize/build genuine strict geometry cases and validate them. Even successful tests would establish correctness of an implementation, not novelty. G3 remains open.
+## Implemented checkpoint
+
+`src/cfar/dp_local_intervals.py` implements the abstract recurrence and the strict geometry recognizer; `solve-local-shaft` emits a result and reproducibility manifest. It compiles unary/pairwise constraints before recognizing the path, allows local declared exclusions, and replays successful repairs through geometry, adjacency and obligation checks. Resource-limit failures remain errors. The result's optimality evidence is the recurrence, not an independent exhaustive certificate.
+
+89 new tests include 64 seeded abstract comparisons against complete enumeration, 12 strict declared-conflict comparisons, six generated physical reserved-asset comparisons, the physical cost-10 collision witness, unavailable geometry, exact large costs/ties, invalid scope and caps. A 100-identical-action regression proves that the DP does not call the oracle; it is not a scaling benchmark. The complete suite passes 322 tests. Geometry compilation now memoizes identical activated connection/profile unions within one immutable instance; it separately reports requests, actual geometry calls and cache hits.
+
+## Prior state framework and adaptation boundary
+
+Biedl, Biniaz and Lubiw, *Minimum Ply Covering of Points with Disks and Squares*, June 7, 2019 author manuscript, section 5.2 (printed pp. 9-12), uses a 0/1/2-active-interval sweep DAG after a non-dominance/ply-two lemma (Lemma 3, attributed there to earlier work). Its objective is maximum weighted membership/ply, solved by a bottleneck path; it does not state our minimum-sum hard-conflict model. [Full manuscript](https://www.khoury.northeastern.edu/home/vip/teach/Algorithms/5_greedy/notes/Min-Ply-Cover.pdf), [arXiv record](https://arxiv.org/abs/1905.00790).
+
+The following is a project-derived adaptation argument, not a theorem attributed to that paper. Represent action [l,r] by node-support interval [l,r+1], with required points i+1/2 for each path edge. Expand endpoints by distinct offsets of magnitude less than 1/10, moving left endpoints left and right endpoints right. This preserves required-point incidence and integer-support intersections, including contact at a floor. It also preserves disjointness of nonconsecutive intervals in the irredundant optimum proved above. Equal-endpoint actions cannot both occur in that optimum, so their perturbation order is immaterial to completeness.
+
+Sweep these distinct endpoints, retaining at most two selected active original IDs. At a start event, either skip or introduce the interval; at its end event, remove it if selected. Forbid active pairs that are compiled conflicts and forbid empty states at required points. Charge an action's cost only when introduced. Each interval has one start and one end, so it is charged once. Any accepted sweep path covers every required point and obeys all local conflicts: conflicting supports overlap in some sweep strip, where the pair would be rejected. Conversely an irredundant feasible optimum has ply at most two and is represented by these states. An ordinary minimum-sum DAG path therefore solves the same recognized cost problem. Repository count/lexical tie handling can be retained on labels.
+
+This derives the narrow polynomial solvability using an established state framework with changed weights and compatibility filtering. It is substantial prior-method overlap and defeats a positive originality claim based merely on two retained intervals or the structural lemma. We do not transfer the source's faster complexity bound to our implementation; the sweep adaptation has not yet been implemented as an independent baseline. Remaining direct hard-conflict comparators remain incompletely inspected. G3 stays OPEN.

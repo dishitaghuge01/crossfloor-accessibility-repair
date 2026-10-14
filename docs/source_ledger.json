@@ -231,6 +231,17 @@
       "sha256": null,
       "retrieval": "Primary text or explicitly partial indexed excerpts read through web tools; raw bytes not retained",
       "review_date_local": "2026-10-14"
+    },
+    {
+      "id": "interval_ply_two_sweep_2019",
+      "title": "Minimum Ply Covering of Points with Disks and Squares",
+      "url": "https://www.khoury.northeastern.edu/home/vip/teach/Algorithms/5_greedy/notes/Min-Ply-Cover.pdf",
+      "version": "Biedl/Biniaz/Lubiw author manuscript dated June 7, 2019; arXiv:1905.00790",
+      "status": "full_sweep_method_inspected_project_adaptation_separate",
+      "locators": "Section 5.2 printed pp. 9-12, Lemma 3, Claim 2, endpoint perturbation and Theorem 5; bottleneck objective differs from summed action cost",
+      "sha256": null,
+      "retrieval": "University-hosted primary manuscript text read through web tools; raw bytes not retained",
+      "review_date_local": "2026-10-14"
     }
   ]
 }

@@ -21,20 +21,28 @@ def compile_activation_constraints(instance: dict, max_actions: int = 100) -> di
             "CONFLICT_SCOPE", "only fixed-geometry activations supported")
     baseline = baseline_active(instance)
     checks = 0
+    requests = 0
+    cache = {}
 
     def test(selected):
-        nonlocal checks
-        checks += 1
+        nonlocal checks, requests
+        requests += 1
         active = deepcopy(baseline)
         for action in selected:
             for effect in action["effects"]:
                 cid = effect["connection_id"]
                 active[cid] = sorted(set(active.get(cid, [])) | set(effect["permitted_profiles"]))
+        signature = tuple((cid, tuple(sorted(permitted))) for cid, permitted in sorted(active.items()))
+        if signature in cache:
+            return cache[signature]
+        checks += 1
         try:
             joint_geometry(instance, active)
         except ValidationError as error:
-            return {"code": error.code, "detail": str(error)}
-        return None
+            cache[signature] = {"code": error.code, "detail": str(error)}
+        else:
+            cache[signature] = None
+        return cache[signature]
 
     # Validation already checks B; report actual additional compilation calls.
     blocked, available = {}, []
@@ -54,6 +62,7 @@ def compile_activation_constraints(instance: dict, max_actions: int = 100) -> di
             "action_ids": [a["action_id"] for a in actions], "blocked": blocked, "geometry_conflicts": conflicts,
             "requires": {a["action_id"]: sorted(a["requires"]) for a in actions},
             "excludes": [list(pair) for pair in exclusions], "geometry_calls_after_validation": checks,
+            "geometry_requests": requests, "geometry_cache_hits": requests-checks,
             "scope": "reserved_interfaces_2d_v1 fixed-room strict activations; reachability not evaluated"}
 
 
