@@ -24,6 +24,8 @@ The implementation keeps complete contracted graphs rather than forgetting verti
 
 ## Prior-work boundary
 
+M03 resolves the formulation-equivalence question for this recognized class: [the explicit compilation](network_design_equivalence.md) maps it into existing weighted labelled Steiner forest. Shared-cost profile bundles therefore cannot establish formulation novelty. The partition recurrence remains a useful exact baseline.
+
 Connectivity partitions are established DP machinery. Bodlaender, Cygan, Kratsch and Nederlof describe representative families of weighted partitions for connectivity problems in their [primary preprint abstract](https://arxiv.org/abs/1211.1505); this checkpoint inspects the abstract, not the full proof or a transferable theorem. Their result prevents presenting the state representation itself as novel. This implementation adapts elementary partition enumeration to shared-cost, profile-specific activation bundles. Whether equivalent labelled or simultaneous network-design results already cover the exact class remains open. The standard independent single-profile case is already network design.
 
 ## Required verification

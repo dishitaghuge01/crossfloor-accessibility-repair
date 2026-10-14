@@ -54,3 +54,13 @@ Next: tighten physically meaningful coupling/interface assumptions and compare e
 - [x] Collect the preregistered controlled timing checkpoint: nine paired answers match exactly; nine DP-only cases reach 128 actions at fixed eight-component graph size. All 28 solver/CLI manifests record clean committed revision b72316e. See docs/partition_checkpoint_results.md; this is not public-BIM evaluation.
 
 G3 remains OPEN: the new bound depends on all retained baseline components, not portal-interface width. Weighted connectivity partitions are established machinery (Bodlaender et al., arXiv:1211.1505 abstract inspected). Dependencies, exclusions and geometry conflicts are conservatively rejected. No novelty, rank-based compression, scalable independent certificate or real-BIM result is claimed.
+
+## M03 - Algorithmic novelty falsification audit
+
+- [x] Inspect primary weighted labelled-connectivity definition and explicit labelled Steiner forest discussion (Hassin/Monnot/Segev 2007 author manuscript, introduction and section 6).
+- [x] Inspect Condition Steiner Network definition/flow model (Wu et al. 2019) and published simultaneous restricted-link network design definition/Theorem 3.4 proof (Kakimura et al. 2026).
+- [x] Prove a cost-preserving compilation of the recognized M02 class into weighted labelled Steiner forest, including multi-profile layers, overlapping bundles and irrelevant labels.
+- [ ] Test every action subset against the compiled graph, not merely compare optimum costs.
+- [ ] Audit pairwise geometric conflict compilation and constrained-labelled connectivity before another algorithm claim.
+
+Gate change: the M02 activation-only formulation's algorithmic novelty route is CLOSED by an existing labelled network-design encoding. Overall thesis novelty remains unestablished; the frozen-layout evidence contract can still motivate an application contribution, but that is not a new combinatorial problem. See docs/network_design_equivalence.md. No push.

@@ -4,6 +4,8 @@ Updated 14 October 2026. This document is the operational source of truth.
 
 ## Current checkpoint
 
+M03 theory audit: [cost-preserving labelled-network compilation](network_design_equivalence.md) rules out treating the M02 activation-only optimization formulation as new merely because it has profiles and shared-cost bundles. The next research target is subset-dependent geometric incompatibility and physically local coupling, with a prior constrained-network audit before another algorithm claim. Novelty is unestablished and G3 remains open.
+
 The M01 controlled implementation is available: schema 0.1.0, 18 hand-built cases, named semantic/geometry validation, profile graphs, atomic typed actions, exhaustive oracle, and independent replay/union-find certificates. All 36 strict/relaxed manual answers match and 103 tests pass. See [implementation contract](implementation_contract.md) for the reserved-interface 2D geometry assumptions and unsupported construction operations.
 
 M01's controlled deliverables and five named architectural method comparisons are complete. PlanFix full-text access was resolved through its normal browser download. G0 remains conditional on a broader algorithmic-equivalence audit. The initial [complexity memo](complexity_memo.md) establishes a restricted Set Cover hardness boundary and adapts an existing coverage DP; it does not finalize algorithmic novelty or pass G3. Public BIM ingestion and paper drafting have not begun.

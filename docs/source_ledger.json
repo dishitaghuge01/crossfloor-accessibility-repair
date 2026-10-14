@@ -79,6 +79,59 @@
       "status": "abstract_only",
       "note": "different paper from DFBI graph repair; earlier title association corrected",
       "review_date_local": "2026-10-14"
+    },
+    {
+      "id": "weighted_labelled_connectivity_2007",
+      "title": "Approximation Algorithms and Hardness Results for Labeled Connectivity Problems",
+      "authors": [
+        "Refael Hassin",
+        "Jerome Monnot",
+        "Danny Segev"
+      ],
+      "url": "https://www.researchgate.net/publication/48445000_Approximation_Algorithms_and_Hardness_Results_for_Labeled_Connectivity_Problems",
+      "doi": "10.1007/s10878-007-9044-x",
+      "version": "Author-uploaded journal manuscript; final typesetting reconciliation not claimed",
+      "status": "definition_and_forest_extension_inspected",
+      "locators": "Introduction; section 6 Labeled Steiner forest, manuscript p. 14",
+      "retrieval": "Author-uploaded full text read via browser index; no raw bytes retained",
+      "sha256": null,
+      "review_date_local": "2026-10-14"
+    },
+    {
+      "id": "condition_steiner_network_2019",
+      "title": "Connectivity problems on heterogeneous graphs",
+      "authors": [
+        "Jimmy Wu",
+        "Alex Khodaverdian",
+        "Benjamin Weitz",
+        "Nir Yosef"
+      ],
+      "url": "https://link.springer.com/article/10.1186/s13015-019-0141-z",
+      "doi": "10.1186/s13015-019-0141-z",
+      "version": "Published full HTML",
+      "status": "definition_and_flow_model_inspected",
+      "locators": "Condition Steiner problems, Definition 1; Integer linear programming section and Figure 3",
+      "retrieval": "Publisher full HTML inspected; no raw bytes retained",
+      "sha256": null,
+      "review_date_local": "2026-10-14"
+    },
+    {
+      "id": "simultaneous_restricted_links_2026",
+      "title": "Simultaneous Network Design With Restricted Link Usage",
+      "authors": [
+        "Naonori Kakimura",
+        "Peter Madarasi",
+        "Jannik Matuschke",
+        "Kitti Varga"
+      ],
+      "url": "https://onlinelibrary.wiley.com/doi/10.1002/net.70059",
+      "doi": "10.1002/net.70059",
+      "version": "Published Networks 2026 full HTML; preprint arXiv:2507.09426 separately identified",
+      "status": "definitions_and_parameterized_proof_inspected",
+      "locators": "Sections 1, 1.2; Theorem 3.4 full proof; Theorem 3.7 statement",
+      "retrieval": "Publisher full HTML inspected; no raw bytes retained",
+      "sha256": null,
+      "review_date_local": "2026-10-14"
     }
   ]
 }
