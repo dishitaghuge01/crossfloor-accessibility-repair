@@ -34,4 +34,6 @@ The paper's selected support-vertex model cannot be used as a faithful atomic di
 
 ## Current novelty decision
 
+The subsequent [M15 solver milestone](owned_interface_solver.md) implements full unit/floor/witness transitions and representative compression. Its clean three-way checkpoint closes the missing executable-transition comparison on the tested families; this is additional correctness evidence, not independent theory review or a literature originality decision.
+
 The candidate has been strengthened rather than abandoned: exact physical recognition is executable, product-profile compression is separately checked, and per-cell owner multiplicity sharpens the proposed exponent. The direct resource-incidence baseline remains applicable; raw conflict density and reuse of rank machinery are not originality claims. A positive literature decision still requires a complete floor-transition implementation/proof check and a direct comparison with explicit constrained-resource connectivity algorithms. G3 remains OPEN; **novelty is not yet established**.

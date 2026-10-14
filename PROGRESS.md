@@ -215,7 +215,7 @@ The active contribution is stronger and more precise, but novelty remains UNESTA
 - [x] Add solver CLI and a reproducible three-way runner with oracle certificates and per-method manifests.
 - [x] Add 50 tests: authored and 40 seeded compressed/uncompressed/oracle comparisons, cyclic row-removal case, limits, CLI, and a 64-action private-alternative input with analytical optimum and at most five raw states.
 - [x] Full suite: 604 tests pass in 44.05 seconds on Windows/Python 3.12. Test duration is not solver timing evidence.
-- [ ] Record the clean-revision three-way checkpoint and dense analytical probe.
+- [x] Execute the checkpoint from clean revision 308e3f0: compressed DP, uncompressed DP and oracle agree on all 46 small cases (21 optimal, 25 infeasible); 962 oracle selections are independently replayed through certificate checks. The cyclic case removes four representative rows and preserves cost one; peak retained states 47 versus 48. Dense64 has cost one and five peak raw states, compared analytically rather than exhaustively. All 139 per-method manifests report the same clean revision. Artifacts stay ignored in runs/m15-owned-interface.
 - [ ] Finish direct equivalent-method comparison and independent theory validation before a positive originality decision. Choice-network full proofs remain partially accessible.
 
 The complete scoped algorithm now exists and preserves expected optima in finite comparisons. Originality remains UNESTABLISHED and G3 OPEN. Do not call established rank machinery new or infer originality from tests. See docs/owned_interface_solver.md.

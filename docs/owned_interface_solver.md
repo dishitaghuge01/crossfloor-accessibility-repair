@@ -33,4 +33,6 @@ The full regression suite passes 604 tests in 44.05 seconds before this implemen
 
 ## Novelty gate
 
+Clean checkpoint revision `308e3f0`: all 46 small comparisons agree (21 optimal, 25 infeasible); certificates independently replay all 962 selections. The cyclic case removes four rows, with peak retained states 47 compressed versus 48 uncompressed and the same cost-one original witness. Dense64 retains five peak raw states and cost one, checked by its analytical bound. All 139 manifests report git_dirty=false and that revision. These state counts are scoped correctness measurements, not broad speedup evidence.
+
 This completes a missing algorithm implementation and supplies comparative correctness evidence, including actual compression and a large-action analytical family. The positive target is the explicit physical owned-cell/unit parameterization, h-based bound, and full-action witness semantics. Weighted labelled connectivity, incidence-width optimization and representative bases are known methods. The combination requires a direct equivalent-method audit before calling it original. Choice-network full proofs remain only partially accessible; their path-cost/forbidden-edge model must not be silently treated as the same atomic installation model. G3 remains OPEN and novelty unestablished.
