@@ -216,3 +216,5 @@ The software portion exceeds the micro-instance requirement and passes controlle
 ## M18 continuation — controlled evaluation
 
 Follow docs/controlled_evaluation_protocol.md and docs/HANDOVER_TO_PAPER.md. Runner/summary implementation is the next reviewable milestone. Collect clean-revision controlled evidence, then building-input provenance, building evaluation, consolidated proof, manuscript and final reproduction. No replacement direction or automatic push.
+
+M18 controlled evidence now collected; building-derived controlled experiments may use explicit hypothetical reservations/profiles/costs per user authorization. These are not validated real-building repairs.

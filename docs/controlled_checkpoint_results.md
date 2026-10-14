@@ -1,0 +1,11 @@
+# M18 controlled checkpoint
+
+Runner revision `33c11aa`, protocol v1, Windows/Python 3.12: 36 authored cases and 353 method measurements/manifests. Three recognition and paired DP samples per case; one oracle solve and separately replayed certificate where at most eight actions and within the comparison set. All completed DP/oracle results agree on status, exact cost and original IDs. Operational limits remain separate from infeasibility.
+
+Dense alternatives (8,32,64,128) retain five peak raw states and the analytical cost-one witness. Compressed end-to-end median times are approximately 0.061, 0.486, 1.595 and 7.562 seconds, including recognition; these do not demonstrate constant runtime. Genuine owner families h=2,3,4,8,16 retain the cost-two witness; raw states grow 29,43,57,113,225. The cyclic case removes four rows (peak retained 47 versus 48); most cases remove none. No broad compression speedup is established.
+
+Four six-edge/three-profile seeded cases hit cut-column limits in compressed mode; their uncompressed/oracle outcomes remain separately recorded. The deliberate state-cap and unsupported-dependency controls retain their named errors. Limits are not infeasibility. Timings were collected on the local workstation with other development activity and are descriptive; they are not isolated hardware performance claims.
+
+Some observations encountered a dirty checkout while an unrelated extraction script was briefly being authored. Those original observations are retained under `runs/m18-dirty-evidence`; only affected observations were remeasured at the clean runner revision, with the recovery script hash recorded in their new manifests. The final summary rejects dirty manifests. This avoids relabeling dirty evidence as clean. No solver or geometry source changed.
+
+Raw evidence and regenerated CSV/Markdown: `runs/m18-controlled-v1`. Tests for runner semantics/censoring: three passed. Full release regression remains deferred until the final package. Building-derived controlled work is authorized with explicit hypothetical reservations/profiles/abstract costs; it must not be described as validated real-building repair. Literature priority remains unconfirmed.

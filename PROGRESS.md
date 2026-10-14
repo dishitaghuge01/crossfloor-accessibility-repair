@@ -255,3 +255,5 @@ This is a documentation-only handover; no new experiments or tests were required
 ## M18 — Controlled benchmark protocol and driver
 
 Implemented bounded subprocess timing, fixed recipes/seeds, clean-revision manifests, exact method agreement, small oracle certificate replay and regenerated CSV/Markdown summaries. DP timing includes recognition. Controlled evidence is pending the committed runner execution; public-building and paper gates remain open. Working contribution stays frozen; literature priority remains unconfirmed.
+
+M18 checkpoint collected at clean runner revision 33c11aa: 36 cases, 353 observations, exact agreement among completed results; analytical scaling and operational controls retained. See docs/controlled_checkpoint_results.md. Only affected dirty observations were remeasured, with originals retained. No speedup or literature-priority claim.
