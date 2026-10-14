@@ -38,6 +38,10 @@ def test_recognized_cell_ownership_matches_every_selection(name):
         assert recognized["parameters"]["z"] == 4
     if name in {"atomic_bundle", "unused_paid_geometry"}:
         assert recognized["parameters"]["g"] == 2
+        assert recognized["parameters"]["h"] == 1
+        assert all(u["resource_state_upper_bound"] <=
+                   (recognized["parameters"]["h"]+2)**(recognized["parameters"]["z"]*recognized["parameters"]["L"])
+                   for u in units)
     if name == "shared_asset":
         assert any(u["action_ids"] == ["A000", "A001"] for u in units)
         assert recognized["parameters"]["L"] == 4

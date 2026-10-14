@@ -4,6 +4,8 @@
 
 ## Exact research claim
 
+The [M14 per-cell refinement](owner_multiplicity_refinement.md) sharpens the bound below by replacing g with h, the maximum number of owners within one coupling unit capable of occupying one cell. The original g-based expression remains a valid looser bound. Executable rank checks and physical recognition support development, not an originality declaration.
+
 For rooted multi-profile strict portal repair with an exact owned collision-cell model, bounded local interface size and bounded asset-coupling-unit support, there is a deterministic original-action algorithm with proposed bound
 
 `recognition_time + 2^O(prL + zL log(g+2)) * polynomial(input_bit_size)`.

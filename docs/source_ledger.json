@@ -2,6 +2,16 @@
   "policy": "bibliographic records and byte fingerprints only; no source PDFs or copied full texts",
   "sources": [
     {
+      "id": "cornet_laforest_conflict_steiner_2017",
+      "title": "Total Domination, Connected Vertex Cover and Steiner Tree with Conflicts",
+      "url": "https://dmtcs.episciences.org/4154/pdf",
+      "version": "DMTCS 19:3 (2017), #17, 15-page primary journal paper",
+      "status": "relevant_model_and_proof_inspected",
+      "locators": "Introduction stretch definition; section 4 Steiner tree definition and Theorem 7 proof, printed p. 10; section 4 theorem statements and conclusion",
+      "retrieval": "Primary PDF text inspected through web tool; no local byte fingerprint and no full-paper audit claimed",
+      "review_date_local": "2026-10-14"
+    },
+    {
       "id": "courcelle_mosbah_weighted_evaluations_1993",
       "title": "Monadic second-order evaluations on tree-decomposable graphs",
       "url": "https://www.labri.fr/perso/courcell/Textes1/BC-Mosbah%281993%29.pdf",

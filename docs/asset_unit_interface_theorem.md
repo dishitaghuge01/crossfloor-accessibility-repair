@@ -102,6 +102,8 @@ Summing the representative limit over optional boundary subsets gives at most `3
 
 ## Proposed theorem and parameter dependence
 
+The subsequent [M14 per-cell ownership refinement](owner_multiplicity_refinement.md) sharpens these resource factors to the product of h(J,c)+2 over live cells and the total exponent to O(prL+zL log(h+2)). The original derivation below remains a correct looser working bound.
+
 Under the recognized assumptions, the proposed deterministic algorithm preserves optimum original-action cost, count and lexical witness, with at most
 
 - `2^(zL) * 3^(prL)` representative histories between units;

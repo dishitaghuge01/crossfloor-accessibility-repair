@@ -194,3 +194,16 @@ These are authored fixed-2D proof probes, not public BIM, a compressed-algorithm
 - [ ] Implement and verify original-action unit/witness transitions, then representative compression. M10 independent-background corrections remain unsupported.
 
 Recognition does not imply feasibility, optimality or originality. G3 remains OPEN and novelty provisional. See docs/interface_recognition.md.
+
+## M14 - Sharper ownership bound and executable representative bases
+
+- [x] Continue toward a supported positive novelty claim while keeping originality status truthful.
+- [x] Refine in-unit resource states to product_c(h(J,c)+2), yielding proposed exponent O(prL+zL log(h+2)); h counts possible owners per cell inside one unit, rather than all competing units.
+- [x] Extend physical recognition with h, per-unit cell-owner multiplicities and resource-state product upper bounds.
+- [x] Implement anchored cut rows, profile tensor rows and minimum-label GF(2) representative indices with explicit grouping preconditions.
+- [x] Add 27 algebraic regressions: every partition pair on 1-5 vertices and every completion in four multi-profile boundary families over five deterministic label seeds, using independent union-find completion checks.
+- [x] Inspect Cornet/Laforest 2017 primary Steiner-conflict definitions and Theorem 7 proof; record locality and atomic disconnected-bundle comparison obligations without transferring its hardness to geometry.
+- [x] Full regression suite: 554 tests pass in 36.02 seconds on Windows/Python 3.12. This is test duration, not a solver benchmark.
+- [ ] Complete original-action floor/unit/witness transition implementation and validate the full representative-compressed algorithm against the oracle; continue direct constrained-resource algorithm comparison before G3.
+
+The active contribution is stronger and more precise, but novelty remains UNESTABLISHED. Rank machinery is prior work; finite tests do not prove literature originality or complete solver correctness. See docs/owner_multiplicity_refinement.md.

@@ -132,6 +132,18 @@ def recognize_physical_interface(instance: dict) -> dict:
     parameters = dict(p=len(profiles), r=r, z=z,
                       L=max([baseline_span] + [u["span"] for u in units]),
                       g=max((len(u["asset_ids"]) for u in units), default=0))
+    h = 0
+    for unit in units:
+        owners = set(unit["asset_ids"])
+        counts = {c["cell_id"]: len(owners & set(c["asset_ids"])) for c in cells
+                  if unit["first_floor"] <= ranks[c["floor_id"]] < unit["first_floor"]+parameters["L"]}
+        unit["cell_owner_counts"] = counts
+        bound = 1
+        for count in counts.values():
+            bound *= count+2
+        unit["resource_state_upper_bound"] = bound
+        h = max([h] + list(counts.values()))
+    parameters["h"] = h
     return dict(format="physical_interface_recognition_v1", input_fingerprint=fingerprint(instance),
                 recognized=True, parameters=parameters, floor_order=[f["floor_id"] for f in floors],
                 anchors=anchors, components=components, cells=cells, units=units,

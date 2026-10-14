@@ -40,3 +40,7 @@ Conditional candidate: local evidence-backed corrections on fixed existing asset
 ### M11 explicit resource-incidence comparison (14 October 2026)
 
 Concrete baseline established at the project-argument level: compact asset/cell incidence encoding, supplied local path decomposition, and exact cost/count/ID scalarization transfer the recognized M09/M10 class to established weighted bounded-width optimization. This does not match or refute the proposed explicit exponent by itself. Candidate novelty must concern the explicit owner/cell bound and physical/typed transfer, with direct algorithm comparison and independent verification pending. No first-FPT or unconditional advantage claim is supported. See [comparison](resource_incidence_comparison.md).
+
+### M14 per-cell ownership refinement (14 October 2026)
+
+Conditional refinement: proposed resource bound product_c(h(J,c)+2) and exponent O(prL+zL log(h+2)), with original units/effects unchanged. Recognizer measurements and independently checked product-profile rank primitives now support development. Neither row-basis machinery nor conflict locality alone is claimed novel. Direct prior-algorithm comparison and complete transition verification remain open; no positive originality decision or G3 closure is supported. See [refinement and evidence](owner_multiplicity_refinement.md).
