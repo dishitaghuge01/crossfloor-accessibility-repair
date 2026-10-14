@@ -271,3 +271,7 @@ Consolidated proof/positioning in docs/consolidated_theory.md and paper/manuscri
 ## M21 — Final reproduction and review package
 
 37 authored + eight building-derived controlled cases; 442 clean benchmark manifests at 9735c0f; 38 valid oracle certificates including demo. Full regression: 620 passed in 50.85 seconds. Seven-page manuscript compiled and all rendered pages visually checked. See docs/final_reproduction.md and paper/REPRODUCE.md. Ready for review under hypothetical building-derived scope; novelty/independent proof review remain unconfirmed. No push or submission.
+
+## M22 — IEEE master-paper revision
+
+User requests a detailed conference-adaptable IEEE master with scientific diagrams/graphs. Official IEEE criteria and template inspected; requirements/evidence risks recorded in docs/ieee_master_requirements.md. Frozen method stays fixed. New semantic controls use existing authored inputs and are explicitly invalid simplifications, not valid solver baselines. One targeted control test passed; no new full-suite claim.
