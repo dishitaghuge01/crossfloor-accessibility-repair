@@ -275,3 +275,5 @@ Consolidated proof/positioning in docs/consolidated_theory.md and paper/manuscri
 ## M22 — IEEE master-paper revision
 
 User requests a detailed conference-adaptable IEEE master with scientific diagrams/graphs. Official IEEE criteria and template inspected; requirements/evidence risks recorded in docs/ieee_master_requirements.md. Frozen method stays fixed. New semantic controls use existing authored inputs and are explicitly invalid simplifications, not valid solver baselines. One targeted control test passed; no new full-suite claim.
+
+M22 semantic controls collected at clean 4e9f8e3: four controls on three existing inputs, with original costs/full-model replay and saved baseline-certificate hashes. Exact expected differences passed one targeted test. IEEE master and eight vector figures generated from existing manifests; full proof/generic encoding and outcome coverage retained in appendices. No change to core solver or geometry.

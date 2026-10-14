@@ -228,3 +228,5 @@ M19 controlled building evidence complete under authorized hypothetical assumpti
 Controlled evaluation, licensed IFC input audit, authorized hypothetical building-derived variants, consolidated scoped theory, manuscript and clean-revision reproduction are complete for the review package. G3 literature priority remains OPEN/unconfirmed; building evidence is controlled/hypothetical rather than validated construction. Final reproducibility record: docs/final_reproduction.md. Submission/public upload remains user-controlled; no automatic push.
 
 M22: detailed IEEE master revision proceeds with official template, defensible contribution framing, manifest-derived vector figures and semantic controls. No venue selected; acceptance/priority cannot be guaranteed.
+
+M22 source preparation complete: unchanged IEEE class; detailed master, eight manifest-derived/vector figures, full theory appendix, declared controls and venue-adaptation instructions. Publication readiness remains subject to actual venue/authorship rules and unresolved priority/independent review; no acceptance assurance.

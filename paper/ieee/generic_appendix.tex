@@ -1,0 +1,27 @@
+\subsection{Fixed Usage and Connectivity Formula}
+Use unary types Action, Usage, Cell, Vertex, Occurrence and Hub. Action vertices are adjacent to their own used owner/cell Usage objects and supplied Occurrences. Every Usage has one Cell neighbor; every Occurrence has its two profile-layer endpoints. One artificial Hub is adjacent to every actual root. Mark targets, roots and baseline occurrences.
+
+Write $A,U,C,V,O,H$ for the Action, Usage, Cell, Vertex, Occurrence and Hub type sets, and $T,R,B_0$ for Target, Anchor and Baseline. For selected actions $X$, usages $Z$ and a witness $Y$, with open neighborhood $N$ and at-least-two-neighbor term $N_2$, the fixed formula is
+\begin{align}
+X&\subseteq A,\\
+Z&=U\cap N(X),\\
+C\cap N_2(Z)&=\varnothing,\\
+Y&\subseteq V\cup O\cup H,\\
+T\cup R\cup H&\subseteq Y,\\
+Y\cap O&\subseteq B_0\cup N(X),\\
+V\cap N(Y\cap O)&\subseteq Y,\\
+\operatorname{con}(Y)&.
+\end{align}
+Formula length is fixed, radius one and threshold two. Profile count is encoded in graph layers, not extra logical variables. Same-owner reuse selects one Usage per cell; other owners select distinct usages and violate capacity. Action/usages/cells are excluded from the route witness, so one purchase cannot join disconnected supplied effects. Each profile has no exit except its root to the hub. Conversely, the materialized root components and hub furnish a connected witness for any feasible repair. This is selection-level equivalence of physical admissibility/reachability under the checked kernel.
+
+\subsection{Supplied Expression and Nonnegative Weights}
+The event construction has $O(prL+zL+p+zLh)$ live objects. Give live objects singleton labels, introduce/join each fresh object only to its already live neighbors, and retire labels once no future relation is incident. Finished labels are never joined again. A constant number of retired type labels preserves unary signatures. This gives a polynomial-size linear clique-width expression of the stated label bound; it is a project construction used with the published weighted theorem.
+
+Sort $K$ original identifiers and scale rational costs to integers $C_i$ using a common denominator of polynomial bit length. For $i=1,\ldots,K$, define
+\begin{align}
+Q&=K2^K+1,\\
+w_i&=C_i(K+1)Q+Q+(2^K-2^{K-i}).
+\end{align}
+The sum of last terms is below $Q$, so one count unit dominates lexical differences. The count-plus-lexical range is below $(K+1)Q$, so one cost unit dominates the remaining objective. At equal count, earlier identifier inclusion outweighs every later difference, matching sorted-ID lexical order. $K=0$ is trivial. Weight bit length is polynomial despite potentially large numeric magnitude.
+
+Assign $w_i$ to Action $i$ when it is outside $X$ and zero when selected, with zero for other vertices. Maximizing the nonnegative membership reward $\sum_iw_i-\sum_{i\in X}w_i$ exactly minimizes the original label. This respects the source's allowed weighted membership patterns and gives \eqref{eq:generic}. The resource evaluator does not run that optimizer; its measured semantic agreement cannot be presented as optimizer runtime evidence. The displayed width/exponent is an upper bound and cannot rule out a tighter generic encoding.
