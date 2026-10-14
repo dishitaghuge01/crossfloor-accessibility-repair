@@ -308,6 +308,17 @@
       "sha256": null,
       "retrieval": "Primary author/publisher full-text sections read through web tools; raw bytes not retained",
       "review_date_local": "2026-10-14"
+    },
+    {
+      "id": "rank_based_connectivity_accepted_2014",
+      "title": "Deterministic Single Exponential Time Algorithms for Connectivity Problems Parameterized by Treewidth",
+      "url": "https://pure.tue.nl/ws/portalfiles/portal/57608658/journaldeterministic_complete.pdf",
+      "version": "Bodlaender/Cygan/Kratsch/Nederlof accepted manuscript dated March 11, 2014; published Information and Computation 243 (2015), 86-111, DOI 10.1016/j.ic.2014.12.008; final layout not reconciled",
+      "status": "weighted_partition_factorization_and_representative_proof_inspected",
+      "locators": "Section 3.6 printed pp. 19-22: representation-preserving operations; Definitions 3.11-3.12; Lemmas 3.13-3.15; proof of Theorem 3.7. Ownership/resource/multi-profile transfer is a separate project argument, not attributed to the source",
+      "sha256": null,
+      "retrieval": "38-page institutional accepted manuscript relevant text read through web tools; raw bytes not retained",
+      "review_date_local": "2026-10-14"
     }
   ]
 }

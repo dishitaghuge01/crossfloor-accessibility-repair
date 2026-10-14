@@ -132,3 +132,17 @@ Novelty remains UNESTABLISHED; G3 remains OPEN. Generic fixed-profile extension 
 - [ ] Finish the direct equivalent-model audit and independently review the physical-menu working proof; justify its restrictions on documented repair scenarios before implementation or a positive novelty decision.
 
 Decision: one concrete candidate replaces broad speculative solver directions, but **novelty is still UNESTABLISHED**. No complete physical packing reduction is claimed; the original unit-square hardness source could not be fetched in full. No new tests or timing experiments were needed for this documentation-only pass; the preceding implementation checkpoint remains 512 passing tests. See docs/research_novelty_decision.md and docs/physical_menu_candidate.md.
+
+## M09 - Positive development of the physical-interface result
+
+- [x] Keep the candidate active in response to the user's instruction; focus on a stronger contribution and use prior methods as baselines.
+- [x] Replace complete-slot exclusivity with an exact owned collision-cell representation, including a grid/EPS recognition condition for partial footprints.
+- [x] Define complete action-asset coupling units: identities matter inside a unit, while all outside assets are disjoint owners. Support same-asset reuse and indivisible shared-cost multi-asset actions with original cost/ID accounting.
+- [x] Prove witness thinning preserves complete physical occupancy and activation cost; selected route witnesses may omit irrelevant graph components without shortening interventions.
+- [x] Derive a sufficient floor state using owned cells and selected profile-layer partitions, with no raw selected-action identity in the state key.
+- [x] Inspect the accepted rank-based weighted-partition manuscript's section 3.6 factorization, minimum basis proof and operations; explicitly attribute this prior machinery and argue its product-profile/resource transfer.
+- [x] Develop proposed representative bound 2^(zL)*3^(prL) outside units and (g+2)^(zL)*3^(prL) within units, giving the working single-exponential interface-encoding bound. This replaces M08's enormous menu/identity bound.
+- [x] Work through analytical same-asset cost-5/cost-10, partial-footprint, multi-asset cost-3/cost-4 and parameter-separation scenarios; perform a manual proof self-audit. These are not experiments or independent verification.
+- [ ] Independently validate ownership/recognition and completion preservation, and assess the precise explicit bound against direct resource-incidence/constrained-labelled methods before a positive originality decision.
+
+The active claim is now **ownership-aware single-exponential rooted repair under measured physical interface and coupling-unit parameters**. This is substantial development relative to the project baseline, with literature originality still provisional. G3 remains OPEN; no new code or timings were produced, and the last implemented suite remains 512 passing tests. See docs/asset_unit_interface_theorem.md and docs/physical_interface_claim_card.md.

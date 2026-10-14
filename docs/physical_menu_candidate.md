@@ -2,6 +2,8 @@
 
 14 October 2026. Research-only working proof. **Originality is not established.** This is a proposed structural theorem for a restricted SCFAR class, not a new general dynamic-programming technique. No solver or empirical performance claim accompanies it.
 
+**M09 development:** the active direction has been strengthened rather than abandoned. [Owned-cell/asset-unit proof](asset_unit_interface_theorem.md) supports partial slot footprints, same-asset sharing and shared-cost bundles, and derives a sharper representative-state bound. The [active claim card](physical_interface_claim_card.md) defines the positive research target. This document preserves the narrower M08 starting point for comparison.
+
 ## Precise proposed claim
 
 For rooted profile obligations, bounded per-floor baseline interfaces, bounded action span and exclusive fixed reserved slots, exact minimum-cost repair admits a catalogue reduction and an FPT algorithm in (p,r,z,L), independent of the total number of floors and catalogue alternatives in its exponential factor. Here p is profile count, r bounds baseline components per floor per profile, z bounds reserved slots per floor, and L bounds the number of consecutive floors touched by one action or baseline connection.
