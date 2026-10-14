@@ -212,3 +212,7 @@ Raw inputs stay in ignored data/external. Every run stores Git revision, Python 
 M01 completes only after G0 has a full-text comparison matrix and G1 has the schema, twelve instances, validator, oracle, and tests. Do not begin neural generation or LLM work before M01.
 
 The software portion exceeds the micro-instance requirement and passes controlled verification, and every named architectural comparison now has full-text method evidence. M01's controlled deliverables are complete; final theory equivalence, richer geometry, public-data evaluation and thesis finalization remain separate gates.
+
+## M18 continuation — controlled evaluation
+
+Follow docs/controlled_evaluation_protocol.md and docs/HANDOVER_TO_PAPER.md. Runner/summary implementation is the next reviewable milestone. Collect clean-revision controlled evidence, then building-input provenance, building evaluation, consolidated proof, manuscript and final reproduction. No replacement direction or automatic push.

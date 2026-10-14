@@ -1,0 +1,13 @@
+# Controlled evaluation protocol v1
+
+Frozen 14 October 2026. This protocol evaluates the implemented strict rooted physical-action class; it does not establish literature priority.
+
+Run from the checkout using `.venv/Scripts/python.exe scripts/run_controlled_benchmark.py --output runs/controlled-v1`. The default is three measurements per recognition/DP method, one exhaustive oracle measurement, a 60-second subprocess timeout, 100,000 raw states and 65,536 cut columns. `--repetitions 1` is a smoke run, not comparative timing evidence. Commit source first: dirty checkouts are rejected. Regenerate tables with `scripts/summarize_controlled_benchmark.py runs/controlled-v1`.
+
+Recipes are frozen in `cases()`: five semantic probes, cyclic compression, multiple rooms/destinations, genuine owners h=2,3,4,8,16; private candidate counts 8,32,64,128; six seeds crossed with (edges,profiles)=(2,1),(4,2),(6,3); unsupported dependencies and a forced state cap. Report measured p/r/z/L/g/h, never assume intended settings equal recognized parameters. This first protocol does not independently isolate every parameter or include a tiny-cell rejection recipe; further controlled families must receive a versioned protocol update.
+
+Every input, result, error and per-measurement manifest stays in ignored runs/. Manifests record seed, canonical input hash, source hashes, runner hash, settings, clean revision, environment and status. Fresh subprocesses exclude startup/import time from worker function measurements but impose the timeout over the whole process. Recognition time is separately measured. DP time includes its own recognition and final replay; no subtraction estimates DP-only time. Oracle certificate generation and separate replay are saved outside its solve timer. Geometry/schema predicates remain shared.
+
+Successful methods/repetitions must agree on status, exact cost and original selected IDs; mismatches stop with evidence retained. Exhaustive comparisons are limited to eight actions. Larger dense cases compare against the analytical lower bound one and witness A0000. Larger owner cases are not exhaustively certified. Resource logic is not represented as an optimizer runtime baseline. Earlier solvers are outside this common recognized class.
+
+Summaries preserve timeout, limit-exceeded, unsupported and error separately from infeasible. Timing summaries use medians only if every sample completes with a measured time; censored runs are not assigned a fabricated duration. Report state/row counts and overhead honestly; no speedup is presumed. Public-building extraction, consolidated proof and manuscript remain required later roadmap gates.

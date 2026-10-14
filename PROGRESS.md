@@ -251,3 +251,7 @@ Project demo and controlled evaluation are authorized to proceed while literatur
 - [x] Document building-evidence fidelity, supported scope, theory/manuscript/reproduction steps and submission/push boundaries.
 
 This is a documentation-only handover; no new experiments or tests were required. The working direction is final, while literature originality remains provisional. The user retains control over Git pushing and paper submission.
+
+## M18 — Controlled benchmark protocol and driver
+
+Implemented bounded subprocess timing, fixed recipes/seeds, clean-revision manifests, exact method agreement, small oracle certificate replay and regenerated CSV/Markdown summaries. DP timing includes recognition. Controlled evidence is pending the committed runner execution; public-building and paper gates remain open. Working contribution stays frozen; literature priority remains unconfirmed.
