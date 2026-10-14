@@ -4,6 +4,8 @@ Updated 14 October 2026. This document is the operational source of truth.
 
 ## Current checkpoint
 
+M08 research-first priority: the user has asked to stop building speculative solvers and establish novelty through literature/theory. [Research decision](research_novelty_decision.md) audits geometry, floor interfaces and near-reference repair. The leading concrete claim is the [bounded physical-menu candidate](physical_menu_candidate.md): safe original-action compression plus a constructive FPT argument under rooted obligations, complete exclusive slots, private complete bundles and bounded span/interfaces. Its originality is UNESTABLISHED; known type compression and connectivity DP are explicit comparators. G3 stays OPEN. No new solver is authorized by this candidate alone, and no positive novelty declaration follows from an unmatched search title.
+
 M03 theory audit: [cost-preserving labelled-network compilation](network_design_equivalence.md) rules out treating the M02 activation-only optimization formulation as new merely because it has profiles and shared-cost bundles. The next research target is subset-dependent geometric incompatibility and physically local coupling, with a prior constrained-network audit before another algorithm claim. Novelty is unestablished and G3 remains open.
 
 The [fixed-geometry conflict proof](geometry_conflict_compilation.md) further shows that current candidate incompatibility reduces to unary/pairwise constraints. A [claim registry](novelty_claim_registry.md) records ruled-out routes and required positive evidence. A generic constrained-partition or bounded relational-width implementation cannot be presented as a new result without a sharper comparison.

@@ -119,3 +119,16 @@ Gate decision: originality based on the narrow local-conflict state framework is
 - [x] Execute that runner from clean revision e53108e: all 192 subset comparisons match; every seed has optimum cost 3 and its certificate verifies. Three manifests record clean revision, source/input fingerprints, seed, runner hash and environment. The cases have 4,4,3 declared conflicts and zero geometric conflicts; ignored artifacts stay in runs/m07-priority-boundary.
 
 Novelty remains UNESTABLISHED; G3 remains OPEN. Generic fixed-profile extension is a prior-framework adaptation, and profile-only FPT is obstructed for unrestricted declared conflicts unless FPT=W[1]. The hardness mapping uses representation actions and declared exclusions, with no footprint collisions: geometry-only physical hardness is not established. Next inspect geometric packing reductions before claiming tractability or hardness for actual reserved assets.
+
+## M08 - Research-first novelty decision
+
+- [x] Audit geometry-induced conflicts, floor interfaces and near-reference repair without adding solver code.
+- [x] Inspect Feldmann/Lampis ICALP 2024 definitions, width barriers and active-demand technique discussion; inspect Fellows/Guo/Kanj 2010 labelled-path/spanning-tree hardness proof at pathwidth two.
+- [x] Inspect Lampis arXiv:0910.0582v2 type/exchange lemmas and neighborhood-diversity definitions; cheapest-equivalent-action compression is prior machinery.
+- [x] Inspect the solution-discovery 2025 model definitions and width-plus-budget theorem; token moves are not our action additions, so no direct theorem transfer is claimed.
+- [x] Inspect Strug/Slusarczyk 2017 BIM/IFC graph and route methods: adjacency/access distinction and entry/exit-aware accessible routing already exist; repair selection remains a separate method distinction.
+- [x] Draft a precise physical-menu structural claim with signature count, cost/witness-preserving exchange, constructive rooted floor-state argument, and failure cases. Assumptions include full exclusive slots and complete private asset bundles; this is not a general SCFAR result.
+- [x] Prove an elementary p*d selected-action witness bound for connected reference graphs with deletion-only damage, and identify its XP rather than FPT consequence. No originality is claimed for this spanning-forest argument.
+- [ ] Finish the direct equivalent-model audit and independently review the physical-menu working proof; justify its restrictions on documented repair scenarios before implementation or a positive novelty decision.
+
+Decision: one concrete candidate replaces broad speculative solver directions, but **novelty is still UNESTABLISHED**. No complete physical packing reduction is claimed; the original unit-square hardness source could not be fetched in full. No new tests or timing experiments were needed for this documentation-only pass; the preceding implementation checkpoint remains 512 passing tests. See docs/research_novelty_decision.md and docs/physical_menu_candidate.md.

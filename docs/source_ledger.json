@@ -253,6 +253,61 @@
       "sha256": null,
       "retrieval": "Primary publisher abstract read through web tools; raw bytes not retained",
       "review_date_local": "2026-10-14"
+    },
+    {
+      "id": "steiner_forest_width_2024",
+      "title": "Parameterized Algorithms for Steiner Forest in Bounded Width Graphs",
+      "url": "https://drops.dagstuhl.de/storage/00lipics/lipics-vol297-icalp2024/LIPIcs.ICALP.2024.61/LIPIcs.ICALP.2024.61.pdf",
+      "version": "Feldmann/Lampis ICALP 2024, DOI 10.4230/LIPIcs.ICALP.2024.61",
+      "status": "definitions_barriers_and_technique_overview_inspected",
+      "locators": "Introduction, Theorems 1-5 and active-demand partition discussion, pp. 61:1-61:4; complete approximation proof not audited",
+      "sha256": null,
+      "retrieval": "Primary author/publisher full-text sections read through web tools; raw bytes not retained",
+      "review_date_local": "2026-10-14"
+    },
+    {
+      "id": "minimum_label_parameterized_2010",
+      "title": "The Parameterized Complexity of Some Minimum Label Problems",
+      "url": "https://www.researchgate.net/profile/Jiong-Guo-2/publication/220573969_The_Parameterized_Complexity_of_Some_Minimum_Label_Problems/links/0a85e53aa97dc07ba1000000/The-Parameterized-Complexity-of-Some-Minimum-Label-Problems.pdf",
+      "version": "Fellows/Guo/Kanj author preprint dated February 12, 2010; JCSS 76(8), 727-740 typesetting not reconciled",
+      "status": "relevant_hardness_definition_and_proof_inspected",
+      "locators": "Introduction and section 3 Theorem 3.1 Hitting Set gadgets for labelled spanning tree/path, preprint pp. 3-4; other algorithm proofs not audited",
+      "sha256": null,
+      "retrieval": "Primary author/publisher full-text sections read through web tools; raw bytes not retained",
+      "review_date_local": "2026-10-14"
+    },
+    {
+      "id": "neighborhood_types_lampis_2009",
+      "title": "Algorithmic Meta-theorems for Graphs of Bounded Vertex Cover",
+      "url": "https://arxiv.org/html/0910.0582",
+      "version": "Lampis arXiv:0910.0582v2 dated November 4, 2009; later title/version not reconciled",
+      "status": "type_definitions_and_exchange_lemmas_inspected",
+      "locators": "Section 2.2, Lemmas 2-3 type/exchange proofs, section 6 neighborhood diversity; no weighted physical-repair theorem attributed",
+      "sha256": null,
+      "retrieval": "Primary author/publisher full-text sections read through web tools; raw bytes not retained",
+      "review_date_local": "2026-10-14"
+    },
+    {
+      "id": "solution_discovery_2025",
+      "title": "On Algorithmic Meta-Theorems for Solution Discovery: Tractability and Barriers",
+      "url": "https://arxiv.org/html/2510.17344v1",
+      "version": "arXiv:2510.17344v1; source preprint version only",
+      "status": "model_and_budget_width_theorem_inspected",
+      "locators": "Model token sliding/jumping definitions and Theorem 4.3; no equivalence with atomic repair additions asserted",
+      "sha256": null,
+      "retrieval": "Primary author/publisher full-text sections read through web tools; raw bytes not retained",
+      "review_date_local": "2026-10-14"
+    },
+    {
+      "id": "bim_accessibility_strug_slusarczyk_2017",
+      "title": "Reasoning about accessibility for disabled using building graph models based on BIM/IFC",
+      "url": "https://link.springer.com/article/10.1186/s40327-017-0048-z",
+      "version": "Strug/Slusarczyk, Visualization in Engineering 2017, DOI 10.1186/s40327-017-0048-z",
+      "status": "graph_and_route_methods_inspected",
+      "locators": "Graph-model distinction of shared-wall adjacency/openings; stairs/lifts and entry/exit lookup tables; route-search procedure and results/discussion",
+      "sha256": null,
+      "retrieval": "Primary author/publisher full-text sections read through web tools; raw bytes not retained",
+      "review_date_local": "2026-10-14"
     }
   ]
 }
