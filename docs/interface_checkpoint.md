@@ -23,3 +23,7 @@ Run from the repository with its configured environment:
 The runner requires an empty output directory and writes each input, full oracle ledger, certificate, verification and manifest. Manifests include seed 0 (deterministic generation), input/source fingerprints, runner hash, revision/dirty status, environment and solver status. Generated artifacts remain ignored. There are 44 subsets across the five cases; certificate verification independently re-enumerates the same 44 selections.
 
 This is a reproducible correctness checkpoint, not a timing or scaling benchmark. The next implementation step is a recognizer for exact collision cells, complete asset units and measured floor interfaces, checked against these fixtures and deliberate out-of-scope inputs before implementing compressed optimization. G3 remains open and originality provisional.
+
+## Recorded checkpoint
+
+Executed from clean revision `18fa4b9`. All five cases returned their expected selections/costs, all certificates verified, and all optimum repairs had delta_A=0. The oracle enumerated 44 selections in total; certificate verification separately replayed all 44. All five manifests report git_dirty=false. The full regression suite passed 517 tests in 34.53 seconds before the implementation commit; this is test duration, not a solver timing result.

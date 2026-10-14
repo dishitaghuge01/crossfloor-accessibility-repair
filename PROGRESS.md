@@ -176,7 +176,7 @@ The active contribution target is now more precise: explicit ownership-aware par
 - [x] Add five targeted regressions asserting expected oracle optima, key collision/coverage outcomes, zero adjacency change and exhaustive certificate verification.
 - [x] Full regression suite: 517 tests pass in 34.53 seconds on Windows/Python 3.12. This duration is not a solver benchmark.
 - [x] Add a deterministic checkpoint runner emitting complete inputs, ledgers, certificates, replay results and per-case manifests into ignored runs.
-- [ ] Execute and record the checkpoint from this clean implementation revision.
+- [x] Execute the checkpoint from clean revision 18fa4b9: all five expected optima match (costs 5,2,3,6,3), all 44 subsets are enumerated and independently replayed during certificate checking, and every optimum has delta_A=0. Five manifests record clean revision, fingerprints, deterministic seed, runner hash, environment and optimal status. Artifacts remain ignored in runs/m12-interface.
 - [ ] Implement exact physical/interface recognition before the compressed solver; direct prior-method comparison and independent theory validation remain necessary for G3.
 
 These are authored fixed-2D proof probes, not public BIM, a compressed-algorithm validation, or construction evidence. G3 remains OPEN and novelty provisional. See docs/interface_checkpoint.md.
