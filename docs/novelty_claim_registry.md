@@ -9,6 +9,8 @@ Updated 14 October 2026. **Novelty is not established.** This registry records f
 | Novel exact solver using profile connectivity partitions | Established partition-DP machinery; M02 proof and oracle comparisons validate an adaptation | Do not claim algorithmic novelty. |
 | New optimization class because candidates collide geometrically | Current 2D kernel compiles into unavailable labels, forbidden label pairs and action implications | Distinction from plain monotone labels exists; novelty remains open against constrained-network prior work. |
 | New FPT result from bounded floor/portal interfaces | No proved floor-frontier state yet; union/constraint-width MSO and forbidden-pair results already exist | Open; must bound action, demand and conflict incidence and show a contribution beyond a generic width result. |
+| New polynomial algorithm for nested contiguous shaft spans | Priority-cover compilation with an existing exact polynomial-time method | Ruled out in the jointly feasible independent class. |
+| Polynomial repair for one-profile full-path cover with local physical conflicts | Draft original-interval last-two-action recurrence, correctness argument and scope counterexamples | Candidate only; direct conflict-cover method comparison, implementation and evaluation pending. |
 | New reproducible, evidence-typed BIM repair benchmark and verification pipeline | Controlled schema, graph/geometry replay and exhaustive certificates exist; no public BIM evaluation yet | Potential application/method contribution, unestablished. |
 
 ## What would support a positive decision

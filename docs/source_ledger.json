@@ -176,6 +176,61 @@
       "sha256": null,
       "retrieval": "Primary text/excerpts read through web index; no raw bytes retained",
       "review_date_local": "2026-10-14"
+    },
+    {
+      "id": "priority_cover_full_manuscript",
+      "title": "On Column-restricted and Priority Covering Integer Programs",
+      "url": "https://www.cs.dartmouth.edu/~deepc/PUBS/CGK-full.pdf",
+      "version": "Author-hosted full manuscript dated November 24, 2009; IPCO 2010 DOI 10.1007/978-3-642-13036-6_27 separately identified",
+      "status": "exact_method_and_transfer_assumptions_inspected",
+      "locators": "Definition of PLC; section 3.2, manuscript pp. 15-19; segment completion, Lemma 7, recurrence and Theorem 10",
+      "sha256": null,
+      "retrieval": "Primary text or explicitly partial indexed excerpts read through web tools; raw bytes not retained",
+      "review_date_local": "2026-10-14"
+    },
+    {
+      "id": "geometric_conflict_cover_2020",
+      "title": "Parameterized Complexity of Geometric Covering Problems Having Conflicts",
+      "url": "https://www.researchgate.net/publication/334409476_Parameterized_Complexity_of_Geometric_Covering_Problems_Having_Conflicts",
+      "version": "Algorithmica (2020) 82:1-19, DOI 10.1007/s00453-019-00600-w",
+      "status": "partial_publisher_preview",
+      "locators": "Abstract and publisher first-page preview; full proofs not inspected",
+      "sha256": null,
+      "retrieval": "Primary text or explicitly partial indexed excerpts read through web tools; raw bytes not retained",
+      "review_date_local": "2026-10-14"
+    },
+    {
+      "id": "conflict_free_set_cover_manuscript",
+      "title": "Parameterized Complexity of Conflict-Free Set Cover",
+      "url": "https://pure.royalholloway.ac.uk/files/40220434/conflict_free_set_cover.pdf",
+      "version": "Institutional manuscript; journal version Theory of Computing Systems 65, 515-540 (2021) not reconciled",
+      "status": "partial_indexed_excerpts",
+      "locators": "Direct fetch HTTP 403; indexed definition and Theorem 10 excerpts only",
+      "sha256": null,
+      "retrieval": "Primary text or explicitly partial indexed excerpts read through web tools; raw bytes not retained",
+      "review_date_local": "2026-10-14"
+    },
+    {
+      "id": "hard_conflict_set_cover_2022",
+      "title": "Set covering problem with conflict constraints",
+      "url": "https://www.sciencedirect.com/science/article/abs/pii/S0305054822000582",
+      "version": "Saffari/Fathi, Computers and Operations Research 143, 105763 (2022)",
+      "status": "partial_publisher_excerpts",
+      "locators": "Background, pre-processing and valid-inequality model snippets; full method not inspected",
+      "sha256": null,
+      "retrieval": "Primary text or explicitly partial indexed excerpts read through web tools; raw bytes not retained",
+      "review_date_local": "2026-10-14"
+    },
+    {
+      "id": "soft_conflict_set_cover_2024",
+      "title": "Solving the Set Covering Problem with Conflicts on Sets: A new parallel GRASP",
+      "url": "https://doi.org/10.1016/j.cor.2024.106620",
+      "version": "Carrabs/Cerulli/Mansini/Moreschini/Serra, Computers and Operations Research 166, 106620 (2024)",
+      "status": "formulation_excerpts_inspected",
+      "locators": "Introduction and binary linear programming formulation: paid conflicts, not hard exclusions; experimental/proof audit not performed",
+      "sha256": null,
+      "retrieval": "Primary text or explicitly partial indexed excerpts read through web tools; raw bytes not retained",
+      "review_date_local": "2026-10-14"
     }
   ]
 }

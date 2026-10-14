@@ -76,6 +76,9 @@ The current 2D geometry kernel has no higher-order selection-dependent geometry 
 
 - [x] Inspect Chakrabarty/Grant/Koenemann's Priority Line Cover definition and exact-algorithm argument (author manuscript section 3.2, Theorem 10).
 - [x] Prove that a common quotient path, contiguous action spans and uniform nested permissions reduce to existing Priority Line Cover; distinguish original physical actions from mathematical subinterval aliases.
-- [ ] Verify the recognizer/compiler against all subsets and add a four-floor physical-conflict counterexample.
+- [x] Verify the priority-cover recognizer/compiler against all subsets and add a four-floor physical-conflict counterexample: unconstrained cover cost 2, strict geometric optimum 10.
+- [x] 22 additional tests cover arbitrary profile obligations/baselines, physical interventions, scope rejection and original-action costs.
+- [x] Full suite: 233 tests pass on Windows/Python 3.12 with ignored runs/tmp used for temporary files.
+- [x] Draft a candidate last-two-action recurrence for single-profile full-path cover with local node-span conflicts, including state sufficiency and counterexamples. Implementation/novelty audit remain open (docs/local_conflict_interval_candidate.md).
 
 Another novelty route is closed: conflict-free nested contiguous shaft repair is covered by an existing polynomial-time method. Conflicting reserved alternatives prevent that transfer but do not yet establish a new algorithm. See docs/shaft_priority_cover.md.
