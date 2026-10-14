@@ -60,7 +60,14 @@ G3 remains OPEN: the new bound depends on all retained baseline components, not 
 - [x] Inspect primary weighted labelled-connectivity definition and explicit labelled Steiner forest discussion (Hassin/Monnot/Segev 2007 author manuscript, introduction and section 6).
 - [x] Inspect Condition Steiner Network definition/flow model (Wu et al. 2019) and published simultaneous restricted-link network design definition/Theorem 3.4 proof (Kakimura et al. 2026).
 - [x] Prove a cost-preserving compilation of the recognized M02 class into weighted labelled Steiner forest, including multi-profile layers, overlapping bundles and irrelevant labels.
-- [ ] Test every action subset against the compiled graph, not merely compare optimum costs.
-- [ ] Audit pairwise geometric conflict compilation and constrained-labelled connectivity before another algorithm claim.
+- [x] Test every action subset against the compiled graph, not merely compare optimum costs: 31 tests include layered-profile separation, physical actions, overlap, irrelevant labels and unsupported cases.
+- [x] Prove and implement unary/pairwise geometric conflict compilation for the current fixed-geometry activation kernel; 28 tests compare all subsets, including 17 strict microcases, dependencies and exclusions.
+- [x] Inspect original bounded-width forbidden-pair Proposition 6/Theorem 10 proof in Bodlaender/Jansen/Kratsch preprint, plus German 2026's relational formulation. Generic constraint-width machinery is prior work.
+- [ ] Complete the direct constrained-labelled connectivity audit and a nontrivial physically local structural result before another algorithm claim.
 
 Gate change: the M02 activation-only formulation's algorithmic novelty route is CLOSED by an existing labelled network-design encoding. Overall thesis novelty remains unestablished; the frozen-layout evidence contract can still motivate an application contribution, but that is not a new combinatorial problem. See docs/network_design_equivalence.md. No push.
+
+The current 2D geometry kernel has no higher-order selection-dependent geometry after activation constraints are compiled. This is specific to fixed shapes and equipment envelopes that are not inserted as new obstacles. See docs/geometry_conflict_compilation.md and docs/novelty_claim_registry.md. General continuous construction remains outside scope; conflicts alone do not establish novelty.
+
+- [x] Write a fixed relational feasibility encoding that includes action coverage, demand pairs, conflicts and dependencies; explain why generic bounded constraint-width machinery is a baseline, not a new floor-interface theorem (docs/constraint_width_boundary.md).
+- [x] All 211 tests pass after the equivalence and conflict-compilation additions. The geometric compiler is checked against every subset of 17 activation-only microcases; it does not optimize reachability or claim an independent geometry engine.

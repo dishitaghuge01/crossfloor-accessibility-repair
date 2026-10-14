@@ -132,6 +132,50 @@
       "retrieval": "Publisher full HTML inspected; no raw bytes retained",
       "sha256": null,
       "review_date_local": "2026-10-14"
+    },
+    {
+      "id": "forbidden_pairs_2009",
+      "title": "On the Complexity of Paths Avoiding Forbidden Pairs",
+      "url": "https://kam.mff.cuni.cz/~kolman/papers/fpath3.pdf",
+      "version": "Author-hosted preprint dated 29 April 2009",
+      "status": "abstract_and_definition_inspected",
+      "locators": "Abstract and introductory problem definition",
+      "sha256": null,
+      "retrieval": "Primary text/excerpts read through web index; no raw bytes retained",
+      "review_date_local": "2026-10-14"
+    },
+    {
+      "id": "layer_width_pafp_2026",
+      "title": "Layer-Based Width for PAFP",
+      "url": "https://arxiv.org/html/2605.12457v1",
+      "version": "arXiv:2605.12457v1, 12 May 2026",
+      "status": "definitions_and_relational_formulation_inspected",
+      "locators": "Definitions/background; Appendix 0.B; no full hardness-proof audit",
+      "sha256": null,
+      "retrieval": "Primary text/excerpts read through web index; no raw bytes retained",
+      "review_date_local": "2026-10-14"
+    },
+    {
+      "id": "kernel_paths_2011v2",
+      "title": "Kernel Bounds for Path and Cycle Problems",
+      "url": "https://pure.tue.nl/ws/portalfiles/portal/48172370/1106.4141v2",
+      "version": "arXiv:1106.4141v2 manuscript dated December 14, 2011; published 2013 version not reconciled",
+      "status": "constraint_width_and_cover_proof_inspected",
+      "locators": "Manuscript pp. 23-25; Proposition 6 and Theorem 10 proof",
+      "sha256": null,
+      "retrieval": "Primary text/excerpts read through web index; no raw bytes retained",
+      "review_date_local": "2026-10-14"
+    },
+    {
+      "id": "choice_networks_2023",
+      "title": "Reachability in choice networks",
+      "url": "https://www.sciencedirect.com/science/article/pii/S1572528623000038",
+      "version": "Discrete Optimization 48 Part 1, 100761, DOI 10.1016/j.disopt.2023.100761",
+      "status": "partial_publisher_excerpts",
+      "locators": "Definition/introduction/principal-results excerpts; full proofs not inspected",
+      "sha256": null,
+      "retrieval": "Primary text/excerpts read through web index; no raw bytes retained",
+      "review_date_local": "2026-10-14"
     }
   ]
 }

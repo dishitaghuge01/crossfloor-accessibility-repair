@@ -4,6 +4,8 @@ Research repository for minimum-disruption repair of frozen multi-floor layouts.
 
 Status: active candidate. Novelty is not established until the closest-work and algorithmic-result gates pass.
 
+M03 theory audit maps the current jointly feasible multi-profile activation class into existing weighted labelled Steiner forest and compiles the current fixed-geometry kernel into unary/pairwise action constraints. See the [novelty claim registry](docs/novelty_claim_registry.md). These findings validate useful baselines while ruling out unsupported originality claims.
+
 The M01 controlled implementation includes a versioned schema, 18 micro-instances, profile graphs, typed action replay, exhaustive oracle, independent graph/certificate checker, and an initial complexity memo. The five named architectural full-text comparisons are complete; broader novelty and thesis gates remain conditional. See [progress](PROGRESS.md) and [closest-work comparison](docs/closest_work_matrix.md).
 
 ## Run locally
