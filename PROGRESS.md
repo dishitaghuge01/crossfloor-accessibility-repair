@@ -239,6 +239,6 @@ This fixes a baseline reduction error and strengthens the surviving variable-h c
 - [x] Add one-command verified demo with before/after route counts, complete original repair, exact optimum/oracle comparison, replay certificate, report and fingerprinted manifest.
 - [x] Add one targeted integration test covering the expected cost-three/zero-adjacency repair, 1/4 to 4/4 route improvement, manifest and refusal to overwrite outputs. It passes in 2.07 seconds; no solver/geometry code changed and the 616-test full checkpoint was not repeated.
 - [x] Update README with the demo and current recognizer/solver commands.
-- [ ] Execute and record the demo from the clean implementation revision.
+- [x] Execute demo from clean revision 0b41375: original action A costs 3, all four obligations hold after repair versus one before, adjacency delta is zero, oracle/certificate verification succeeds and the manifest reports git_dirty=false. Ignored artifacts are in runs/m17-project-demo.
 
 Project demo and controlled evaluation are authorized to proceed while literature originality remains provisional. Next prioritize usable benchmark summaries and the building-input/evidence workflow instead of another broad novelty hunt. See docs/thesis_contribution.md.
