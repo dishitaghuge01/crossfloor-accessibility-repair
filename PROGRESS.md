@@ -242,3 +242,12 @@ This fixes a baseline reduction error and strengthens the surviving variable-h c
 - [x] Execute demo from clean revision 0b41375: original action A costs 3, all four obligations hold after repair versus one before, adjacency delta is zero, oracle/certificate verification succeeds and the manifest reports git_dirty=false. Ignored artifacts are in runs/m17-project-demo.
 
 Project demo and controlled evaluation are authorized to proceed while literature originality remains provisional. Next prioritize usable benchmark summaries and the building-input/evidence workflow instead of another broad novelty hunt. See docs/thesis_contribution.md.
+
+## Handover to the fixed research-paper roadmap
+
+- [x] Record the user's final direction: no replacement topics, alternate solver hunts or research restarts.
+- [x] Create docs/HANDOVER_TO_PAPER.md with the actual checkout/environment, source-of-truth files, implemented semantics, verified checkpoints, remaining bounded originality question and complete paper roadmap.
+- [x] Set the receiving chat's first implementation milestone to the controlled benchmark driver and summary generator, reusing existing solver/recognizer/oracle infrastructure.
+- [x] Document building-evidence fidelity, supported scope, theory/manuscript/reproduction steps and submission/push boundaries.
+
+This is a documentation-only handover; no new experiments or tests were required. The working direction is final, while literature originality remains provisional. The user retains control over Git pushing and paper submission.
