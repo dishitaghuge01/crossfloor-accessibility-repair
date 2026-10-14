@@ -6,9 +6,11 @@ import random
 
 from cfar.certificates import make_certificate, verify_certificate
 from cfar.dp_owned_interface import solve_owned_interface
-from cfar.interface_scenarios import authored_interface_scenarios, branching_interface_probe, dense_alternative_probe
+from cfar.interface_scenarios import (authored_interface_scenarios, branching_interface_probe,
+                                     dense_alternative_probe,coupled_owner_probe,branching_rooms_probe)
 from cfar.io import manifest, write_json
 from cfar.oracle import exact_oracle
+from cfar.resource_logic import compile_resource_logic, evaluate_resource_logic
 from cfar.synthetic_shaft import make_shaft_instance
 
 
@@ -16,6 +18,9 @@ def cases():
     for name, instance in authored_interface_scenarios().items():
         yield name, 0, instance
     yield "cyclic", 0, branching_interface_probe()
+    yield "branching-rooms", 0, branching_rooms_probe()
+    for owners in (2,3,4):
+        yield f"coupled-owners{owners}", 0, coupled_owner_probe(owners)
     for seed in range(40):
         rng = random.Random(seed)
         edges, profiles, count = rng.randint(1,4), rng.randint(1,3), rng.randint(1,6)
@@ -42,13 +47,18 @@ def main():
         oracle = exact_oracle(instance)
         compressed = solve_owned_interface(instance)
         full = solve_owned_interface(instance,compress=False)
+        logic = compile_resource_logic(instance)
+        for selection in oracle["ledger"]:
+            logical = evaluate_resource_logic(logic,selection["selected"])
+            if logical["admissible"] != (selection["status"] != "invalid") or logical["satisfied"] != (selection["status"] == "feasible"):
+                raise RuntimeError(f"resource logic mismatch: {name}/{selection['selected']}")
         signature = lambda r: (r["status"],r["cost"],r["selected"])
         if signature(oracle) != signature(compressed) or signature(oracle) != signature(full):
             raise RuntimeError(f"DP mismatch: {name}")
         certificate = make_certificate(instance,oracle)
         verified = verify_certificate(instance,certificate)
         folder = output/name
-        for filename,value in (("input.json",instance),("oracle.json",oracle),("compressed.json",compressed),
+        for filename,value in (("input.json",instance),("resource-logic.json",logic),("oracle.json",oracle),("compressed.json",compressed),
                                ("uncompressed.json",full),("certificate.json",certificate),("verification.json",verified)):
             write_json(folder/filename,value)
         for method,result in (("oracle",oracle),("compressed",compressed),("uncompressed",full)):
@@ -57,6 +67,10 @@ def main():
                             compression=method == "compressed",timeout=None,
                             runner_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest())
             write_json(folder/f"manifest-{method}.json",manifest(instance,settings,result["status"],seed))
+        write_json(folder/"manifest-resource-logic.json",manifest(instance,
+                   dict(method="owner_cell_resource_logic_v1",comparison="all_oracle_selections",
+                        selections_checked=len(oracle["ledger"]),variant="SCFAR",timeout=None,
+                        runner_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest()),"all_selections_matched",seed))
         rows.append(dict(case=name,seed=seed,status=oracle["status"],cost=oracle["cost"],
                          subsets=len(oracle["ledger"]),parameters=compressed["parameters"],
                          compressed_statistics=compressed["statistics"],uncompressed_statistics=full["statistics"]))

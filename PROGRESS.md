@@ -219,3 +219,15 @@ The active contribution is stronger and more precise, but novelty remains UNESTA
 - [ ] Finish direct equivalent-method comparison and independent theory validation before a positive originality decision. Choice-network full proofs remain partially accessible.
 
 The complete scoped algorithm now exists and preserves expected optima in finite comparisons. Originality remains UNESTABLISHED and G3 OPEN. Do not call established rank machinery new or infer originality from tests. See docs/owned_interface_solver.md.
+
+## M16 - Exact modern connectivity baseline and broader semantic probes
+
+- [x] Correct M11 whole-asset occupancy: one selected owner does not automatically reserve unselected floor effects. Exact owner–cell Usage objects now preserve action-specific occupancy and same-owner exemption.
+- [x] Implement a separate resource-logic graph evaluator and polynomial-bit nonnegative membership objective; no published metatheorem optimizer is claimed implemented.
+- [x] Inspect Bergougnoux/Dreier/Jaffke v2 primary syntax, weighted theorem/definition, Table 1 and framework; derive a constant formula and supplied linear clique-width expression giving baseline exponent O(prL+zL+p+zLh).
+- [x] Compare that actual transferred bound with proposed O(prL+zL log(h+2)), without claiming an intrinsic generic lower bound or literature priority.
+- [x] Add genuine h=2,3,4 owner families and two-profile multiple-room/target baseline-contraction evidence; twelve new tests check every selection, paid-bundle shortcut prevention, footprint floors and exact scalar objective order.
+- [x] Full suite: 616 tests pass in 46.10 seconds; final injective graph-identity serialization adjustment rechecked by all twelve resource-logic tests. Test duration is not solver timing evidence.
+- [ ] Record the expanded clean-revision checkpoint (50 small cases plus dense64), including per-case resource-logic manifests.
+
+This fixes a baseline reduction error and strengthens the surviving variable-h comparison. The owned-interface solver was already action-specific and is unaffected by that model correction. Novelty remains UNESTABLISHED; G3 OPEN. See docs/modern_connectivity_comparison.md.

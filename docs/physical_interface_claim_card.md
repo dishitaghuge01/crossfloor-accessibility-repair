@@ -55,6 +55,8 @@ These are scenario classes to substantiate with authored/IFC evidence, not proof
 
 ## Current decision
 
+M16 adds the [exact modern comparison](modern_connectivity_comparison.md). The generic baseline now uses owner–cell Usage objects; its original whole-asset rule was too strong for action-specific floor support. A concrete transferred published bound is O(prL+zL+p+zLh) in the exponent, compared with the candidate's O(prL+zL log(h+2)). New h>1 and multi-room/multi-profile probes strengthen evidence. The gap is between these displayed upper bounds, not a proved lower bound for existing methods.
+
 M11 completes a [concrete resource-incidence baseline](resource_incidence_comparison.md): a supplied bounded-width decomposition plus weighted optimization preserves the exact original objective. The proposed contribution must therefore justify its explicit owner/cell exponent against actual prior resource/connectivity algorithms. A linear-g width upper bound alone is not evidence that prior methods require exponential g. Keep the stronger candidate active; do not claim first FPT existence.
 
 M10 adds a [typed background corollary and transition audit](typed_background_interface_extension.md). Local evidence-backed corrections on arbitrarily long existing assets do not require a building-wide installation unit: physical background is fixed and independently validated, while original correction effects/costs remain atomic and locally supported. Newly installed shared assets still use complete ownership units. The proposed bound is unchanged; this is a conditional mathematical extension, not implementation or established originality.

@@ -2,6 +2,16 @@
   "policy": "bibliographic records and byte fingerprints only; no source PDFs or copied full texts",
   "sources": [
     {
+      "id": "bergougnoux_dreier_jaffke_neighborhood_logic_v2",
+      "title": "A logic-based algorithmic meta-theorem for mim-width",
+      "url": "https://arxiv.org/pdf/2202.13335v2",
+      "version": "arXiv:2202.13335v2; manuscript dated December 9, 2022; SODA 2023 DOI 10.1137/1.9781611977554.CH125",
+      "status": "relevant_syntax_weighted_bound_and_framework_inspected",
+      "locators": "Sections 1.1 and 3 syntax; Theorem 1.2 and Table 1, pp. 6-7; weighted membership-pattern definition pp. 11-12; Theorem 4.5 framework pp. 18-19",
+      "retrieval": "Primary full-version PDF text through web tool; no byte fingerprint or full proof audit claimed",
+      "review_date_local": "2026-10-14"
+    },
+    {
       "id": "cornet_laforest_conflict_steiner_2017",
       "title": "Total Domination, Connected Vertex Cover and Steiner Tree with Conflicts",
       "url": "https://dmtcs.episciences.org/4154/pdf",

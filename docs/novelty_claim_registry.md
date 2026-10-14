@@ -44,3 +44,7 @@ Concrete baseline established at the project-argument level: compact asset/cell 
 ### M14 per-cell ownership refinement (14 October 2026)
 
 Conditional refinement: proposed resource bound product_c(h(J,c)+2) and exponent O(prL+zL log(h+2)), with original units/effects unchanged. Recognizer measurements and independently checked product-profile rank primitives now support development. Neither row-basis machinery nor conflict locality alone is claimed novel. Direct prior-algorithm comparison and complete transition verification remain open; no positive originality decision or G3 closure is supported. See [refinement and evidence](owner_multiplicity_refinement.md).
+
+### M16 modern direct baseline (14 October 2026)
+
+Corrected resource reduction uses one Usage object per owner/cell, preserving each action's actual footprint floors. Fixed neighborhood logic and an explicit linear clique-width expression transfer the inspected weighted primary theorem with exponent O(prL+zL+p+zLh). This is sharper evidence than an unspecified MSO function, while M14's displayed owner exponent is logarithmic in h. Genuine h>1 and multi-room/profile cases are now checked. This compares concrete upper bounds, not lower bounds for all prior algorithms; originality remains unestablished. See [direct comparison](modern_connectivity_comparison.md).
