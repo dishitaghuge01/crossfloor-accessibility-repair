@@ -15,6 +15,8 @@ from pathlib import Path
 import ifcopenshell
 import ifcopenshell.geom
 import ifcopenshell.util.element
+import ifcopenshell.util.placement
+import ifcopenshell.util.unit
 from shapely.geometry import Polygon, box
 from shapely.ops import unary_union
 
@@ -43,13 +45,24 @@ def inventory(source, provenance):
     model = ifcopenshell.open(str(source))
     settings = ifcopenshell.geom.settings()
     settings.set(settings.USE_WORLD_COORDS, True)
+    unit_scale = ifcopenshell.util.unit.calculate_unit_scale(model)
+    storeys = []
+    for storey in model.by_type("IfcBuildingStorey"):
+        elevation = (ifcopenshell.util.placement.get_local_placement(storey.ObjectPlacement)[2,3]
+                     if storey.ObjectPlacement else storey.Elevation)
+        if elevation is None:
+            raise ValueError("source storey elevation missing")
+        storeys.append(dict(global_id=storey.GlobalId, name=storey.Name, elevation_m=float(elevation)*unit_scale))
+    storeys.sort(key=lambda r:(r["elevation_m"],r["global_id"]))
+    storey_elevations = {r["global_id"]:r["elevation_m"] for r in storeys}
     spaces, background = [], []
     for space in sorted(model.by_type("IfcSpace"), key=lambda e: e.GlobalId):
         parent = ifcopenshell.util.element.get_aggregate(space)
         while parent is not None and not parent.is_a("IfcBuildingStorey"):
             parent = ifcopenshell.util.element.get_aggregate(parent)
         row = dict(global_id=space.GlobalId, name=space.Name or space.GlobalId,
-                   storey_id=parent.GlobalId if parent else None)
+                   storey_id=parent.GlobalId if parent else None,
+                   storey_elevation_m=storey_elevations.get(parent.GlobalId) if parent else None)
         try:
             shape, vertices = mesh_projection(settings, space)
             row.update(area=shape.area, geometry_type=shape.geom_type,
@@ -79,7 +92,7 @@ def inventory(source, provenance):
             except (ValueError, RuntimeError) as e:
                 row["error"] = str(e)
             background.append(row)
-    return dict(provenance=provenance, spaces=spaces, background=background,
+    return dict(provenance=provenance, spaces=spaces, background=background, storeys=storeys,
                 counts=dict(storeys=len(model.by_type("IfcBuildingStorey")), spaces=len(spaces),
                             eligible_spaces=sum(s["eligible"] for s in spaces),
                             stairs=len(model.by_type("IfcStair")), transport=len(model.by_type("IfcTransportElement"))))
@@ -107,7 +120,7 @@ def make_reference(audit, pair):
     bounds = unary_union(shapes + [box(*b["bounds"]) for b in audit["background"]]).bounds
     boundary = rectangle(bounds[0]-1, bounds[1]-1, bounds[2]+1, bounds[3]+1)
     pids = ["experimental0", "experimental1"]
-    floors = [dict(floor_id=r["storey_id"], elevation_m=r["z_min"], boundary=boundary,
+    floors = [dict(floor_id=r["storey_id"], elevation_m=r["storey_elevation_m"], boundary=boundary,
         rooms=[dict(room_id=r["global_id"], label=r["name"], polygon=r["polygon"])],
         adjacency_edges=[], access_edges=[], obstacles=obstacles, reserved_portal_zones=slots) for r in pair]
     ids = [r["global_id"] for r in pair]
@@ -117,7 +130,7 @@ def make_reference(audit, pair):
         connections.append(dict(connection_id=f"X{i}", evidence_id=f"hypothetical-X{i}",
             u=ids[0], v=ids[1], kind="lift", existing=False, physical_profiles=pids,
             geometry=dict(asset_id=f"hypothetical-owner{i}", width_m=.7,
-                          rise_m=second["z_min"]-first["z_min"], run_m=1, landings=records, footprints=records)))
+                          rise_m=second["storey_elevation_m"]-first["storey_elevation_m"], run_m=1, landings=records, footprints=records)))
     actions = []
     for aid, cost, effects in [("A",3,[("X0",pids[:1]),("X1",pids[1:])]),
                               ("B",2,[("X0",pids[:1])]),("C",2,[("X1",pids[1:])]),("D",4,[("X0",pids)])]:
@@ -143,10 +156,12 @@ def select_reference(audit):
     if any("error" in b for b in audit["background"]):
         raise ValueError("unmapped physical background; no controlled instance admitted")
     eligible = [s for s in audit["spaces"] if s["eligible"]]
+    ranks = {s["global_id"]:i for i,s in enumerate(audit["storeys"])}
     pairs = []
     for first in eligible:
         for second in eligible:
-            if first["storey_id"] == second["storey_id"] or second["z_min"]-first["z_min"] <= .1:
+            if (ranks[second["storey_id"]] != ranks[first["storey_id"]]+1 or
+                second["storey_elevation_m"]-first["storey_elevation_m"] <= .1):
                 continue
             common = polygon(first["polygon"]).intersection(polygon(second["polygon"]))
             if common.area > 1:
@@ -193,7 +208,7 @@ def build(source_directory, output):
                 write_json(output/"instances"/f"{name}-{kind}.json", instance)
             row.update(status="controlled-subset-admitted", variants=4,
                        omitted_spaces=audit["counts"]["spaces"]-2,
-                       contract="one original room per floor; empty per-floor adjacency; experimental profiles/reservations/costs")
+                       contract="one original room per consecutive source storey; no skipped intervening storeys; empty per-floor adjacency; experimental profiles/reservations/costs")
         except (ValueError, ValidationError) as e:
             row.update(status="unsupported-source", reason=str(e))
         summary.append(row)

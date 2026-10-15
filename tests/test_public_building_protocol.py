@@ -16,9 +16,12 @@ spec.loader.exec_module(protocol)
 
 def audit_fixture():
     return dict(provenance=dict(building="authored-protocol-test"), background=[],
+                storeys=[dict(global_id="f0",elevation_m=0),dict(global_id="f1",elevation_m=3)],
                 spaces=[dict(global_id="r0", name="r0", storey_id="f0", z_min=0,
+                             storey_elevation_m=0,
                              polygon=rectangle(0,0,4,4), eligible=True),
                         dict(global_id="r1", name="r1", storey_id="f1", z_min=3,
+                             storey_elevation_m=3,
                              polygon=rectangle(0,0,4,4), eligible=True)])
 
 
@@ -39,4 +42,11 @@ def test_unmapped_background_is_not_ignored():
     audit = audit_fixture()
     audit["background"] = [dict(global_id="stair", error="unmapped")]
     with pytest.raises(ValueError, match="unmapped physical background"):
+        protocol.select_reference(audit)
+
+
+def test_portal_subset_cannot_skip_an_intervening_source_storey():
+    audit = audit_fixture()
+    audit["storeys"].insert(1,dict(global_id="intervening",elevation_m=1.5))
+    with pytest.raises(ValueError, match="no recognized aligned subset"):
         protocol.select_reference(audit)

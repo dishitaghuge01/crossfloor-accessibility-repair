@@ -23,7 +23,7 @@ and transport element. An unmapped physical background prevents admission.
 The conservative XY envelopes of all such assets remain obstacles on both
 experimental floors, including assets outside the chosen subset.
 
-Rank different-storey room pairs by decreasing common projected area, then
+Read source storey world elevations in metres and require consecutive original storeys, including empty source storeys in the order. A portal may not skip an omitted intermediate floor. Rank eligible consecutive-storey room pairs by decreasing common projected area, then
 GlobalIds. Use the first pair that passes recognition, square-body room access,
 background checks and two fixed-grid, aligned 0.7m lift patches. Grid spacing is
 0.8m. Record earlier pair rejections. This is a deterministic feasibility rule,
