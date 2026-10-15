@@ -51,6 +51,12 @@ def cases():
 
 def worker(input_path, method, output, max_states):
     instance = json.loads(Path(input_path).read_text(encoding='utf-8'))
+    # Match the DP timing boundary: imports and process startup are excluded.
+    if method == 'cp-sat':
+        from ortools.sat.python import cp_model  # noqa: F401
+        from cfar.cp_sat import solve_cp_sat
+    elif method == 'greedy':
+        from cfar.greedy import solve_greedy
     started = perf_counter()
     try:
         if method == 'recognition':
@@ -59,10 +65,8 @@ def worker(input_path, method, output, max_states):
         elif method == 'oracle':
             result = exact_oracle(instance, max_actions=8)
         elif method == 'cp-sat':
-            from cfar.cp_sat import solve_cp_sat
             result = solve_cp_sat(instance, time_limit=55, seed=0)
         elif method == 'greedy':
-            from cfar.greedy import solve_greedy
             result = solve_greedy(instance)
         else:
             result = solve_owned_interface(instance, compress=method == 'compressed', max_states=max_states)

@@ -18,19 +18,24 @@ from cfar.errors import ValidationError
 
 def worker(source, method, target, cap, seed, budget):
     instance = json.loads(Path(source).read_text())
+    if method == "cp-sat":
+        from ortools.sat.python import cp_model  # noqa: F401
+        from cfar.cp_sat import solve_cp_sat
+    elif method == "greedy":
+        from cfar.greedy import solve_greedy
+    elif method == "oracle":
+        from cfar.oracle import exact_oracle
+    else:
+        from cfar.dp_owned_interface import solve_owned_interface
     started = perf_counter()
     try:
         if method == "cp-sat":
-            from cfar.cp_sat import solve_cp_sat
             result = solve_cp_sat(instance, time_limit=budget, seed=seed)
         elif method == "greedy":
-            from cfar.greedy import solve_greedy
             result = solve_greedy(instance)
         elif method == "oracle":
-            from cfar.oracle import exact_oracle
             result = exact_oracle(instance, max_actions=8)
         else:
-            from cfar.dp_owned_interface import solve_owned_interface
             result = solve_owned_interface(instance, compress=method == "compressed", max_states=cap)
         payload = dict(status=result["status"], result=result, elapsed_seconds=perf_counter()-started)
     except ValidationError as e:
@@ -39,7 +44,7 @@ def worker(source, method, target, cap, seed, budget):
     write_json(target, payload)
 
 
-def run(output, instances=None, repetitions=3, timeout=60):
+def run(output, instances=None, repetitions=3, timeout=60, methods=None):
     output.mkdir(parents=True, exist_ok=True)
     if any(output.iterdir()):
         raise ValueError("fresh empty output required")
@@ -51,7 +56,8 @@ def run(output, instances=None, repetitions=3, timeout=60):
     else:
         from run_controlled_benchmark import cases
         recipes = list(cases())
-    protocol = dict(version=1, repetitions=repetitions, timeout_seconds=timeout,
+    chosen_methods = methods or ["compressed", "uncompressed", "cp-sat", "greedy"]
+    protocol = dict(version=2, methods=chosen_methods, repetitions=repetitions, timeout_seconds=timeout,
         cp_sat_total_budget_seconds=max(.001, timeout-5), cp_sat_workers=1, oracle_max_actions=8,
         git_revision=subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip(),
         runner_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
@@ -62,8 +68,8 @@ def run(output, instances=None, repetitions=3, timeout=60):
         folder = output/name
         write_json(folder/"input.json", instance)
         signatures = []
-        methods = ["compressed", "uncompressed", "cp-sat", "greedy"]
-        if len(instance["actions"]) <= 8 and category not in {"scope-control", "limit-control"}:
+        methods = list(chosen_methods)
+        if not args_methods_only(chosen_methods) and len(instance["actions"]) <= 8 and category not in {"scope-control", "limit-control"}:
             methods.append("oracle")
         rows = []
         for method in methods:
@@ -97,17 +103,22 @@ def run(output, instances=None, repetitions=3, timeout=60):
         print(name, ", ".join(f"{m}:{next(r['status'] for r in rows if r['method']==m)}" for m in methods), flush=True)
 
 
+def args_methods_only(methods):
+    return set(methods) <= {"cp-sat", "greedy"}
+
+
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
     p.add_argument("--output", type=Path)
     p.add_argument("--instances", type=Path)
     p.add_argument("--repetitions", type=int, choices=[1, 3], default=3)
     p.add_argument("--timeout", type=float, default=60)
+    p.add_argument("--methods", nargs="+", choices=["compressed", "uncompressed", "cp-sat", "greedy"])
     p.add_argument("--worker", nargs=6)
     args = p.parse_args()
     if args.worker:
         worker(*args.worker[:3], int(args.worker[3]), int(args.worker[4]), float(args.worker[5]))
     elif args.output and args.timeout > 5:
-        run(args.output, args.instances, args.repetitions, args.timeout)
+        run(args.output, args.instances, args.repetitions, args.timeout, args.methods)
     else:
         p.error("output and timeout greater than five seconds required")
