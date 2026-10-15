@@ -36,3 +36,20 @@ The review ZIP includes manuscript PDF/source, authored source recipes, solver s
 ## Offline review archive
 
 To restore the clean Git source from the included bundle, run git clone repository.bundle review-source, then run the commands above in review-source. The archive also preserves runs/final-controlled, runs/final-building, runs/final-audit, runs/final-demo and runs/final-paper-delivery for direct inspection; copy these into the checkout if desired. Use fresh reproduce-* paths when rerunning. Experimental manifests record revision 9735c0f; subsequent source commits only refine the manuscript and completion records.
+
+
+## Review extension
+
+Install requirements-review.lock.txt in a fresh Python 3.12 environment, then
+`pip install -e ".[test,optimization]"`. The historical recipe remains useful;
+`run_controlled_benchmark.py --optimizers` adds corrected-import CP-SAT and greedy
+measurements. An external-only checkpoint can use `run_optimization_benchmark.py
+--methods cp-sat greedy`. Interrupted external checkpoints can be completed with
+`resume_optimization_benchmark.py` only when the frozen runner SHA256, revision,
+inputs and existing manifests match; old measurements are never silently replaced.
+
+For public sources follow docs/public_building_review_protocol.md, then run
+`replay_optimization_certificates.py --evidence RUN` before the updated IEEE
+builder. Every admitted portal pair must be consecutive in the original source
+storey order; no intermediate floor is skipped. See paper/ieee/README.md for the
+new required builder arguments and actual pdfLaTeX reproduction path.

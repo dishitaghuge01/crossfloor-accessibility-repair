@@ -51,6 +51,12 @@ def cases():
 
 def worker(input_path, method, output, max_states):
     instance = json.loads(Path(input_path).read_text(encoding='utf-8'))
+    # Match the DP timing boundary: imports and process startup are excluded.
+    if method == 'cp-sat':
+        from ortools.sat.python import cp_model  # noqa: F401
+        from cfar.cp_sat import solve_cp_sat
+    elif method == 'greedy':
+        from cfar.greedy import solve_greedy
     started = perf_counter()
     try:
         if method == 'recognition':
@@ -58,6 +64,10 @@ def worker(input_path, method, output, max_states):
             result['status'] = 'recognized'
         elif method == 'oracle':
             result = exact_oracle(instance, max_actions=8)
+        elif method == 'cp-sat':
+            result = solve_cp_sat(instance, time_limit=55, seed=0)
+        elif method == 'greedy':
+            result = solve_greedy(instance)
         else:
             result = solve_owned_interface(instance, compress=method == 'compressed', max_states=max_states)
         elapsed = perf_counter()-started
@@ -74,7 +84,7 @@ def worker(input_path, method, output, max_states):
     write_json(output, payload)
 
 
-def run(output, repetitions=3, timeout=60, audit_path=None):
+def run(output, repetitions=3, timeout=60, audit_path=None, optimizers=False):
     output.mkdir(parents=True, exist_ok=True)
     if any(output.iterdir()):
         raise ValueError('choose a new empty output directory')
@@ -86,6 +96,11 @@ def run(output, repetitions=3, timeout=60, audit_path=None):
         oracle_max_actions=8, max_states=100000, max_cut_columns=65536,
         git_revision=revision, runner_sha256=script_hash, timing='worker function wall time; DP includes recognition')
     protocol['script_fingerprints'] = {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in Path(__file__).parent.glob('*.py')}
+    protocol['optimizers'] = optimizers
+    if optimizers:
+        import importlib.metadata
+        protocol.update(ortools=importlib.metadata.version('ortools'), cp_sat_workers=1,
+                        cp_sat_total_budget_seconds=55, cp_sat_seed=0)
     if audit_path:
         from duplex_controlled import building_cases
         protocol['building_provenance'] = json.loads((audit_path/'provenance.json').read_text())
@@ -97,11 +112,13 @@ def run(output, repetitions=3, timeout=60, audit_path=None):
         folder = output/name
         write_json(folder/'input.json', instance)
         methods = ['recognition', 'compressed', 'uncompressed']
+        if optimizers:
+            methods += ['cp-sat', 'greedy']
         if len(instance['actions']) <= 8 and category not in ('scope-control', 'limit-control'):
             methods.append('oracle')
         signatures = []
         for method in methods:
-            for repetition in range(repetitions if method in ('compressed', 'uncompressed', 'recognition') else 1):
+            for repetition in range(repetitions if method in ('compressed', 'uncompressed', 'recognition', 'cp-sat') else 1):
                 target = folder/f'{method}-{repetition}.json'
                 cap = 1 if category == 'limit-control' else 100000
                 command = [sys.executable, str(Path(__file__).resolve()), '--worker',
@@ -128,6 +145,7 @@ def run(output, repetitions=3, timeout=60, audit_path=None):
                     raise RuntimeError(f'worker failure saved: {target}')
         if signatures and any(signature != signatures[0] for signature in signatures):
             raise RuntimeError(f'cost/original-action agreement failure saved: {name}')
+        print(name, flush=True)
     from summarize_controlled_benchmark import summarize
     summarize(output)
 
@@ -139,10 +157,11 @@ if __name__ == '__main__':
     parser.add_argument('--timeout', type=float, default=60)
     parser.add_argument('--worker', nargs=4)
     parser.add_argument('--building-audit', type=Path)
+    parser.add_argument('--optimizers', action='store_true')
     args = parser.parse_args()
     if args.worker:
         worker(*args.worker[:3], int(args.worker[3]))
     elif args.output and args.timeout > 0:
-        run(args.output, args.repetitions, args.timeout, args.building_audit)
+        run(args.output, args.repetitions, args.timeout, args.building_audit, args.optimizers)
     else:
         parser.error('output and positive timeout required')

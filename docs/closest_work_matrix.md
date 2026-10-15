@@ -87,3 +87,22 @@ The theory rows identify formulations and stated guarantees, not completed proof
 - [ ] Broader algorithmic-equivalence audit of coupled, multi-profile and conflict-constrained repair; no universal absence claim.
 
 Raw PDF and render intermediates stay outside the thesis repository in the current chat's work directory. Only original notes, stable source URLs/fingerprints, and status records enter Git. Temporary signed download URLs are excluded. The controlled M01 implementation is complete within its stated scope; no public dataset, neural model or paper draft has been started.
+
+
+## Review revision: strict physical contract and external optimization
+
+The IEEE source now includes Al-Harasis--Jabi and MANSION, and an explicit
+seven-dimension comparison: frozen/mutable layout, floor/portal scope,
+correction/intervention, objective, topology, geometry and theorem/optimality.
+The publisher DFBI PDF was independently fetched again; its SHA256 matches the
+existing source ledger. Sections 3.1, 3.5, 3.6, 4.5 and 5.4 expressly identify
+in-memory evaluation changes and synthetic completion rather than IFC edits.
+The manuscript does not treat leaving IFC bytes untouched as physical repair.
+
+A strict CP-SAT flow baseline is now executed. It demonstrates that a generic
+optimizer can encode the complete selection/ownership contract. Consequently,
+encoding feasibility alone is not the novelty claim; the bounded-interface
+transfer must be assessed on its theorem and measured resource dependence.
+The physical Set Cover boundary explains the need for width parameters, but
+inherits established hardness and does not close G3 or prove a lower bound on
+all equivalent formulations. See revision_optimization_protocol.md.

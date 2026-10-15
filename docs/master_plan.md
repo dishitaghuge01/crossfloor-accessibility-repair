@@ -232,3 +232,19 @@ M22: detailed IEEE master revision proceeds with official template, defensible c
 M22 source preparation complete: unchanged IEEE class; detailed master, eight manifest-derived/vector figures, full theory appendix, declared controls and venue-adaptation instructions. Publication readiness remains subject to actual venue/authorship rules and unresolved priority/independent review; no acceptance assurance.
 
 M22 IEEE master delivery complete for human review and future venue adaptation: 11 pages, eight vector figures, preserved proof/evidence/limitations. Actual authorship/venue rules and independent scientific review remain pre-submission responsibilities; priority remains unconfirmed.
+# Current review revision - executed local evidence
+
+Executed findings and next deliverables are in [review_action_matrix.md](review_action_matrix.md).
+The external optimization baseline gate is addressed for the recognized corpus.
+G4 remains partial: three source models admit small consecutive-storey controlled
+subsets, but complete multi-room floor extraction and nontrivial adjacency
+evaluation remain open. G3 literature/algorithmic priority remains OPEN.
+
+
+The current paper review requires stronger closest-work positioning, structural
+scope and executed same-model optimization. The [revision protocol](revision_optimization_protocol.md)
+adds CP-SAT, greedy, safe component pruning and physical-class hardness witnesses.
+New measurements require a clean revision and independent replay; G3 priority
+remains OPEN. Public building breadth is a separate evidence gate. Fork and PR
+publication are explicitly authorized by the user for this revision.
+

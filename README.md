@@ -1,5 +1,24 @@
 # Cross-Floor Accessibility Repair
 
+## Manuscript review revision
+
+Independent same-model CP-SAT and whole-action greedy baselines, optional safe
+component pruning, a physical two-floor hardness witness, and pinned public IFC
+screening are now available. See [review changes and remaining gates](docs/review_action_matrix.md)
+and [baseline formulation](docs/revision_optimization_protocol.md).
+
+```bash
+python -m pip install -e ".[test,optimization]"
+python -m cfar.cli solve-cp-sat YOUR-INPUT.json --time-limit 60 --output runs/cp-review
+python -m cfar.cli solve-greedy YOUR-INPUT.json --output runs/greedy-review
+python -m cfar.cli solve-owned-interface YOUR-INPUT.json --prune-irrelevant --output runs/pruned-review
+```
+
+All commands use fresh output directories. Greedy failure is not infeasibility;
+CP-SAT must prove every lexicographic stage before reporting optimal. Public
+source subsets have declared hypothetical annotations and do not establish
+whole-building renovation or statutory compliance. Originality remains open.
+
 Research repository for minimum-disruption repair of frozen multi-floor layouts.
 
 Status: project development active, with a frozen [working thesis contribution](docs/thesis_contribution.md). Literature originality remains provisional; broad novelty-only searches are parked while demo and controlled evaluation proceed.

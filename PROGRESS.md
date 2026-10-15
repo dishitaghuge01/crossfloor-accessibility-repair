@@ -279,3 +279,23 @@ User requests a detailed conference-adaptable IEEE master with scientific diagra
 M22 semantic controls collected at clean 4e9f8e3: four controls on three existing inputs, with original costs/full-model replay and saved baseline-certificate hashes. Exact expected differences passed one targeted test. IEEE master and eight vector figures generated from existing manifests; full proof/generic encoding and outcome coverage retained in appendices. No change to core solver or geometry.
 
 M22 delivery: 11-page IEEE master, eight vector figures, seven tables, nine references and full appendices. PDF compiled; all pages visually inspected, all 26 font subsets embedded, no overflowing boxes/undefined references. Normal underfull spacing warnings remain. Source and venue-adaptation guide included. See docs/ieee_master_delivery.md. Four controls add substantive semantic evidence without establishing literature priority or guaranteed acceptance.
+# Review revision: local validation complete; fork/PR pending
+
+Full regression: 667 tests passed on the review environment. The manuscript was rebuilt as a thirteen-page IEEE master with all references resolved, embedded fonts and no overfull boxes.
+
+The [review action matrix](docs/review_action_matrix.md) records executed external
+optimization and public-source comparisons. CP-SAT solves all 35 recognized
+authored cases with exact-label agreement; twelve consecutive-storey variants
+from three admitted sources agree across both DP modes, CP-SAT and oracle.
+All five screened source outcomes remain visible. The updated IEEE master has
+twenty references, a physical hardness boundary and same-model comparison plot.
+G3 priority remains OPEN; full multi-room building evidence remains incomplete.
+
+
+Implemented independent strict CP-SAT flow optimization, whole-action greedy,
+optional safe marked-component pruning and an executable physical two-floor
+Set Cover boundary. Targeted tests and the clean same-model benchmark are being
+run. See [revision protocol](docs/revision_optimization_protocol.md).
+G3 priority remains OPEN; public multi-building evaluation is not yet asserted.
+The user explicitly authorized fork/clone, changes and a pull request.
+

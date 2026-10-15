@@ -15,14 +15,14 @@
 \begin{document}
 \maketitle
 \begin{abstract}
-Accessibility repairs in multi-floor buildings must distinguish traversable access from room adjacency and preserve physical purchase semantics. One installation action may supply several profile-specific connections, share an asset with other actions, and occupy space unrelated to a selected route. We study exact repair with frozen room identities, polygons and adjacency under a rooted, fixed-template activation model. Our method compiles rectangular collisions into owned cells and processes complete action--asset coupling units in a floor-interface dynamic program. Complete original costs and physical effects remain materialized while established rank-based machinery compresses connectivity witnesses. We derive a conditional interface bound governed by profiles, baseline components, collision cells, complete support span and logarithmic owner multiplicity. Evaluation includes 37 authored cases, eight controlled variants derived from one licensed building model, and four explicit semantic simplifications. Completed comparable solvers agree on exact costs and original action identifiers; small instances have separately replayed exhaustive certificates. Larger analytical families retain small state sets, but recognition costs and operational limits remain visible. Compression gains are modest. Building-derived profiles, reservations and prices are hypothetical assumptions. The contribution is a specialized ownership and full-action accounting transfer with reproducible evidence; literature priority and general construction validity are not established.
+Restoring accessibility across existing floors requires optimizing complete interventions while preserving room layout and physical asset semantics. We formalize strict cross-floor repair with frozen room polygons, identities and adjacency, profile-specific rooted reachability, atomic action costs, and verified shared-asset reuse. Rectangular footprints are compiled into owned collision cells; a floor-interface algorithm processes complete action--asset units and applies established representative-partition reduction only to connectivity witnesses. We prove an exact bounded-interface guarantee, give safe obligation-and-portal component pruning, and establish a two-floor hardness boundary for arbitrary physical bundles. An independent CP-SAT flow formulation and a whole-action greedy heuristic provide optimization comparators on the same strict model. Evaluation covers 37 authored inputs and twelve controlled variants from three licensed IFC sources. CP-SAT completes all 35 recognized authored inputs and agrees with completed DP and exhaustive comparisons; small inputs have independent certificate replay. Semantic controls show that discarding paid footprints, splitting bundle prices or forbidding compatible reuse can change the optimum. The contribution is the physical accounting contract and an exact transfer of connectivity witnesses to an owned floor interface. The geometric guarantee covers supplied fixed templates under a two-dimensional reserved-interface kernel; construction safety and statutory compliance require additional evidence.
 \end{abstract}
 \begin{IEEEkeywords}
 accessibility repair, shared physical assets, exact optimization, parameterized algorithms, reproducible evaluation
 \end{IEEEkeywords}
 
 \section{Introduction}
-Building information models distinguish physical space, openings and connectivity, yet a repair decision requires more than finding a missing graph edge. A shared wall need not admit traversal; an existing connector need not have permission for every accessibility profile. A proposed installation can affect multiple floors and destinations for one price, overlap another installation, or share a physical facility with a compatible action. These distinctions matter when room topology is frozen rather than regenerated.
+Building information models distinguish physical space, openings and connectivity \cite{bim,ava}; automated compliance checking also requires explicit, computable requirements \cite{amor}. A repair decision requires more than finding a missing graph edge. A shared wall need not admit traversal; an existing connector need not have permission for every accessibility profile. A proposed installation can affect multiple floors and destinations for one price, overlap another installation, or share a physical facility with a compatible action. These distinctions matter when room topology is frozen rather than regenerated.
 
 Consider Fig.~\ref{fig:demo}: two profiles need to reach two upstairs destinations. A baseline lift reaches circulation room C for both profiles, while an existing door connects C to T0 for only profile zero. Only one of four obligations initially holds. One original action purchases two new lift effects for three abstract cost units, enabling every obligation without changing room adjacency. Separate effects cost four. A graph-only cheapest repair need not be physically compatible, and independently pricing effects changes the optimization problem.
 
@@ -38,30 +38,41 @@ We ask: \emph{Can exact rooted accessibility repair preserve complete physical a
 The paper develops three connected contributions:
 \begin{enumerate}
 \item An owned-cell representation and complete coupling-unit sweep preserving action-specific occupancy, verified same-owner reuse and original cost/count/identifier ordering.
-\item A full-action/thin-witness correctness argument and transfer of established weighted representative partitions to the measured interface, yielding the conditional bound in \eqref{eq:bound}.
-\item A manifest-driven evaluation: small exact comparisons, analytical scaling families, licensed building-derived controlled inputs and semantic controls exposing erroneous simplifications.
+\item A full-action/thin-witness correctness argument, safe component pruning and transfer of established weighted representative partitions to the measured interface, yielding \eqref{eq:bound}; a physical two-floor hardness boundary explains why floor count alone is insufficient.
+\item A manifest-driven evaluation with an independent CP-SAT flow optimizer and whole-action greedy heuristic, alongside exhaustive small-instance checks, analytical scaling and licensed building-derived controlled inputs.
 \end{enumerate}
 These are scoped method and evaluation contributions. Shared-cost labelled connectivity and rank-based partition reduction are prior work. A difference from one concrete generic upper bound does not establish first-ever priority or a lower bound on every existing method.
 
 \section{Related Work and Positioning}
 \subsection{Architectural Access and Labelled Network Design}
-BIM/IFC reasoning already distinguishes adjacency, openings and accessible routes \cite{bim}. Our contract uses that distinction; it does not claim its invention. Minimum labelled connectivity attaches cost to labels shared by edges \cite{labels}; profile-separated bundled activation therefore has an existing network-design interpretation. Heterogeneous graph connectivity makes condition-dependent access explicit \cite{condition}. Profiles or bundles alone do not establish originality.
+BIM/IFC reasoning already distinguishes adjacency, openings and accessible routes \cite{bim}. Our contract uses that distinction; it does not claim its invention. Minimum labelled connectivity attaches cost to labels shared by edges \cite{labels}; profile-separated bundled activation therefore has an existing network-design interpretation. Heterogeneous graph connectivity makes condition-dependent access explicit \cite{condition}. Simultaneous network design also optimizes infrastructure usable by several restricted link classes \cite{simultaneous}. Profiles or bundles alone do not establish originality.
 
 Architectural generation and geometric repair have different decision contracts. EPSAP evolves multi-level room/opening and vertical-facility geometry with evolutionary and local-search operators \cite{epsap}. PlanFix projects mutable room geometry to reduce violation/displacement energy; its inspected preprint distinguishes energy convergence from feasibility/global optimality and excludes global accessibility routing from the current projector scope \cite{planfix}. Those methods motivate a geometric intervention problem but are not common-class runtime competitors for frozen-polygon, original-action subset optimization. Table~\ref{tab:related} states these scoped correspondences; it does not establish absence of an equivalent prior algorithm.
 
+
+\subsection{Graph Repair and Multi-Floor Generation}
+Al-Harasis and Jabi's benchmark-guided method is the closest architectural graph-repair comparator \cite{graphrepair}. It extracts door-connected IFC spaces, selects programme benchmarks by space-type similarity, adjusts areas and edges in an evaluation graph, and optionally inserts missing programme nodes. Three projects are evaluated with a GraphConv score. The authors explicitly separate these graph changes from IFC modification; synthetic completion does not establish geometric realization. The inspected method does not specify minimum-cost physical action selection or an optimality theorem. Our distinction is therefore the decision and verification contract, not the word ``repair.''
+
+MANSION generates building-scale scenes with vertical cores and room partitions; its task-editing stage places or removes scene objects \cite{mansion}. Multi-floor navigability is relevant prior capability, but generation and scene editing do not establish minimum-cost portal installation over independently frozen input floors. Table~\ref{tab:related} compares contracts; ``NE'' means not established by the inspected formulation, rather than an impossibility claim.
+
 \begin{table*}[t]
-\caption{Scoped Prior-Method Correspondence (Not a Runtime Benchmark)}\label{tab:related}
-\centering\footnotesize\begin{tabular}{p{.20\textwidth}p{.39\textwidth}p{.31\textwidth}}
-\toprule Prior work & Inspected decision/guarantee contract & Role in this paper \\\midrule
-BIM graph routing \cite{bim} & Routes through existing openings and facilities. & Prior adjacency/access distinction.\\
-EPSAP \cite{epsap} & Mutable multi-level geometric design with penalties/search. & Different frozen-topology contract.\\
-PlanFix preprint \cite{planfix} & Geometric displacement/projectors; global accessibility outside inspected scope. & Direct geometric-repair positioning, not an exact-action timing comparator.\\
-Labelled connectivity \cite{labels} & Shared-cost labels activate edge classes. & Bundling alone is not new.\\
-Weighted partitions \cite{rank} & Representative connectivity families using cut rank. & Reused algebraic ingredient.\\
-Weighted logic \cite{logic} & Optimization for supplied bounded-width expressions. & Project-derived owner/cell transfer supplies a theoretical baseline; optimizer not executed.\\
+\caption{Closest Architectural Contracts: Evidence from Inspected Methods, Not Common-Class Runtime Results}\label{tab:related}
+\centering\footnotesize\setlength{\tabcolsep}{3pt}
+\begin{tabular}{p{.18\textwidth}p{.235\textwidth}p{.235\textwidth}p{.265\textwidth}}
+\toprule Dimension & Al-Harasis--Jabi \cite{graphrepair} & MANSION \cite{mansion} & Present strict repair \\\midrule
+Frozen/mutable layout & IFC unchanged; analysis graph mutable & Room partitions generated & Input polygons/IDs frozen\\
+Floor scope & Cross-floor portal repair: NE & Explicit multi-floor cores & Profile-specific cross-floor demands\\
+Correction/intervention & Graph alignment/completion & Scene generation/object editing & Complete physical activation actions\\
+Exact objective & Benchmark conformity/GNN score & Candidate energy ranking & Lexicographic cost/count/IDs\\
+Topology contract & Nodes/relations can change & Generation conditioned on target graph & Shared-boundary adjacency equal\\
+Geometric contract & Synthetic graph elements need not exist geometrically & Generated core/layout constraints & Recognized reservations, alignment, clearance and overlap\\
+Theorem/optimality & Minimum intervention optimum: NE & Minimum repair optimum: NE & Exact within recognized class; operational caps explicit\\
 \bottomrule\end{tabular}\end{table*}
 
-Conflict-aware Steiner selection studies support and conflict structures \cite{conflicts}. Physical locality alone does not imply a small floor interface. An atomic action with disconnected graph effects also cannot be represented faithfully by a purchase vertex adjacent to every effect endpoint: that vertex invents paths between disconnected supplied components. A correct reduction separates effect occurrences from purchase decisions and retains all paid physical occupancy.
+The Revit/Dynamo/AVA workflow of Bayraktar Sari and Jabi computes spatial graphs and analyses, including vertical circulation \cite{ava}. Existing cross-level analysis is consequently not our research gap. EPSAP and PlanFix also demonstrate why maintaining an input layout needs a precise definition: geometric similarity or displacement penalties are weaker than equality of the input room polygons and adjacency.
+
+
+Conflict-aware Steiner selection and conflict-free coverage study restricted support and incompatibility structures \cite{conflicts,conflictcover}. Minimum-label parameterized complexity already supplies hardness boundaries for shared edge labels \cite{minlabel}. Physical locality alone does not imply a small floor interface. An atomic action with disconnected graph effects also cannot be represented faithfully by a purchase vertex adjacent to every effect endpoint: that vertex invents paths between disconnected supplied components. A correct reduction separates effect occurrences from purchase decisions and retains all paid physical occupancy.
 
 \subsection{Connectivity Compression and the Generic Comparison}
 Weighted connectivity partitions admit cut-matrix rank compression and representative families \cite{rank}. We reuse that machinery. The ownership/cell state, complete unit lifetimes, full-action accounting and physical-to-witness completion correspondence are the project transfer.
@@ -73,7 +84,7 @@ T_{\mathrm{rec}}+2^{O(prL+zL+p+zLh)}\poly(B).
 \end{equation}
 The transfer uses the source's v2 Theorem 1.2 and weighted definition, through clique-width; it is not the quadratic tree-width entry for connectivity constraints. Appendix~\ref{app:generic} gives the exact formulation. No published generic optimizer is executed in our runtime experiment.
 
-Our displayed owner term is logarithmic rather than linear in $h$. For fixed $h$ the asymptotic interface exponents coincide. A narrower encoding or domain-valued resource/connectivity method might match our dependence. Thus \eqref{eq:generic} compares constructed upper bounds, not a universal separation or priority proof.
+Our displayed owner term is logarithmic rather than linear in $h$. For fixed $h$ the asymptotic interface exponents coincide. Bounded-width Steiner forest results further show that the demand structure matters when translating connectivity bounds \cite{steinerwidth}. A narrower encoding or domain-valued resource/connectivity method might match our dependence. Thus \eqref{eq:generic} compares constructed upper bounds, not a universal separation or priority proof.
 
 \section{Strict Repair Model}
 \subsection{Frozen Topology, Profiles and Actions}
@@ -96,7 +107,7 @@ Distinct selected portal owners cannot share a collision cell. Same-owner overla
 This fixed two-dimensional model does not certify slab openings, headroom, structure, moving equipment, operational lifts or building-code compliance. Geometry uses the recorded GEOS version and tolerance $10^{-8}$, not exact symbolic construction predicates.
 
 \section{Recognition and the Owned Interface}
-Contract baseline within-floor access separately per floor/profile. The implementation conservatively retains all components. Rectangular arrangements produce collision cells above the tolerance, with checked equivalence to the kernel's pairwise conflicts. Tiny arrangement cells outside that contract are conservatively unsupported.
+Contract baseline within-floor access separately per floor/profile. Historical default runs retain all components. The optional marked-component preprocessing below retains only obligation or possible external-edge components, without changing any physical action or input room. Rectangular arrangements produce collision cells above the tolerance, with checked equivalence to the kernel's pairwise conflicts. Tiny arrangement cells outside that contract are conservatively unsupported.
 
 The bipartite incidence graph of available actions and owners defines complete coupling units $J$. Shared owners join actions; collision edges between units do not merge them. Unit support contains every effect/footprint floor of every available action in the unit. Action-by-action span alone is insufficient.
 
@@ -148,16 +159,38 @@ Choose the best accepting label and replay complete actions.\\
 \subsection{Conditional Guarantee and State Size}
 The proof has four ingredients: identity-dependent reuse stays inside a complete unit; thin witnesses preserve complete repairs; occupancy/partitions suffice for a fixed future continuation; and a minimum-label product cut-row basis preserves the best accepting completion. Appendix~\ref{app:proof} proves these statements, including label order and forgetting.
 
-\begin{theorem}[Recognized-model working guarantee]
-For rooted independent fixed portal activations with consistent owners, checked collision-cell equivalence and complete support bound $L$, the unlimited-state algorithm returns the optimum strict original-action label. Its proposed bit-complexity bound is
+\begin{theorem}[Exact repair on recognized physical interfaces]
+For rooted independent fixed portal activations with consistent owners, checked collision-cell equivalence and complete support bound $L$, the unlimited-state algorithm returns the optimum strict original-action label. Its bit-complexity bound is
 \begin{equation}
 T_{\mathrm{rec}}+2^{O(prL+zL\log(h+2))}\poly(B).
 \label{eq:bound}
 \end{equation}
 \end{theorem}
-This is a project correctness argument for the represented model; independent theorem review and priority remain unconfirmed. Inside a unit the resource factor is at most $\prod_c(h(J,c)+2)\le(h+2)^{zL}$. Between units it is $2^{zL}$. Summing representative limits over optional boundary sets gives $3^{prL}$. Witness branching and cut elimination add $2^{O(prL)}$ work; exact costs/identifiers add polynomial bit work. The exponent is an interface encoding, not the plain sum $p+r+z+L+h$.
+This guarantee concerns the recognized finite model. It does not assert a lower bound on generic optimizers or verify physical construction. Inside a unit the resource factor is at most $\prod_c(h(J,c)+2)\le(h+2)^{zL}$. Between units it is $2^{zL}$. Summing representative limits over optional boundary sets gives $3^{prL}$. Witness branching and cut elimination add $2^{O(prL)}$ work; exact costs/identifiers add polynomial bit work. The exponent is an interface encoding, not the plain sum $p+r+z+L+h$.
 
 The implementation caps raw states at 100,000 and cut columns at 65,536. Limit errors are operational failures, not infeasibility or a claim that no unexplored optimum exists.
+
+
+\subsection{Structural Meaning and a Hardness Boundary}
+The natural parameter is the information that survives a floor cut: profile components, occupied cells and still-live asset identity. For example, floors with a bounded number of connected circulation zones and local vertical installations can have bounded $r,z,L,h$ while room and action counts grow. This is a conditional class, not a property assumed of all buildings. A shared asset coupling many floors or a long baseline portal increases $L$; many disconnected profile components or overlapping reservations increase the interface.
+
+\begin{lemma}[Safe marked-component preprocessing]\label{lem:pruning}
+For each profile, mark baseline within-floor components containing its root, a target, an active cross-floor baseline endpoint or any available supplied-edge endpoint. Removing unmarked components from the connectivity abstraction preserves feasible selected action sets and their full objective labels. Complete footprints and source geometry are retained.
+\end{lemma}
+\begin{proof}
+An unmarked component contains no obligation and has no possible edge to another component under any action selection. Its removal changes no required root--target path. Conversely, every retained path exists in the original graph. Cost and occupancy are unchanged because original actions remain intact.
+\end{proof}
+Thus the same bound uses the maximum marked-component count $r_{\mathrm{eff}}$ when this option is enabled. Its implementation is checked against full-mode/oracle labels, including a case reducing $r$ from eleven to one after adding ten isolated rooms per floor. No compression speedup follows merely from this parameter reduction.
+
+\begin{theorem}[Two-floor physical-bundle boundary]\label{thm:hardness}
+Budgeted strict repair is NP-hard with two floors, one profile, unit costs, $L=2$, $h=1$, and no collisions, when an action may purchase an arbitrary finite bundle of private portals. With polynomial subset verification the represented decision problem is NP-complete.
+\end{theorem}
+\begin{proof}
+Reduce Set Cover \cite{karp}. Put one source room below and one disjoint target room per universe element above. For each set--element incidence, reserve a distinct aligned unit rectangle on both floors and supply a private lift portal between the source and that element's target. Each set becomes one unit-cost physical action buying all its incidence portals. Rectangular target strips have width linear in their incidence counts; the source spans their union. Gaps separate strips and all portal patches are disjoint. Coordinates and catalogue size are polynomial. No baseline cross-floor edge exists; rooms and adjacency stay frozen.
+
+A target is reachable exactly when a selected set contains its element. A repair of cost at most $k$ therefore exists exactly when a cover of size at most $k$ exists. Every owner occurs in one action, so each complete unit spans two floors and $h=1$. A selected set is checked by cost, geometry and profile reachability in polynomial time under the fixed kernel. The executable construction checks this correspondence on small subset enumerations.
+\end{proof}
+The result inherits classical coverage hardness and is not a new reduction technique. It rules out floor-count-only tractability unless $P=NP$, but leaves single-shaft restrictions open. Here $r$ and $z$ grow: it does not contradict \eqref{eq:bound}, prove that exponent optimal, or establish a separation from treewidth, clique-width or CP-SAT.
 
 \section{Experimental Design}
 \subsection{Questions and Comparators}
@@ -165,12 +198,20 @@ We evaluate (Q1) exact semantic agreement on small inputs; (Q2) catalogue/owner 
 
 Compressed/uncompressed modes solve the same recognized class. The oracle enumerates every subset on at most eight actions, with certificate replay through separate union-find/re-enumeration. Geometry/schema predicates are shared. Larger dense inputs use an analytical lower bound/witness rather than exhaustive certificates. The resource-logic evaluator checks an encoding, not a published optimizer runtime. Earlier shaft/partition solvers have narrower subclasses and are not treated as common-class competitors.
 
+
+\subsection{Independent Same-Model Optimizers}
+The CP-SAT baseline \cite{cpsat} uses Boolean action variables $x_a$ and owner/cell usages $y_{oc}=\bigvee_{a:(o,c)\in U_a}x_a$, with $\sum_o y_{oc}\le1$ for each cell. $U_a$ includes all paid footprints. For each profile, a separate integral flow sends one unit from its root to each distinct non-root target. Baseline edges are enabled without purchase; other edges are enabled by the OR of their supplying actions. Each directed edge capacity is the number of targets times its enablement. Conservation makes this equivalent to rooted reachability. Routing uses only actual room edges, never an artificial purchase connector.
+
+Decimal costs are scaled to exact integers within the solver's checked range. Consecutive solves fix minimum cost, minimum action count, then prefer membership of each ascending original identifier. With count fixed this minimizes the sorted identifier tuple. Every stage must return OPTIMAL; interruption is a limit with a separately replayed incumbent, never an exact optimum. OR-Tools 9.14.6206 uses one worker and seed zero. Recognition, integer scaling and replay are included in timed work; this solver shares geometry recognition but no DP connectivity machinery.
+
+Greedy selects admissible whole actions by cost per newly reachable profile--room pair, retaining shared-owner occupancy. A dead end is heuristic failure, not infeasibility. This heuristic and the optimizer provide genuine solver comparisons. The four deliberately altered semantic controls remain separate from these baselines.
+
 \subsection{Frozen Recipes and Measurements}
 The 37 authored cases cover shared assets, partial footprints, atomic bundles, unused paid geometry, profile separation, cyclic witnesses, multiple rooms/destinations, owner multiplicities 2/3/4/8/16, dense candidate counts 8/32/64/128, seeds 0--5 crossed with (edges,profiles)=(2,1)/(4,2)/(6,3), and state-cap/dependency/tiny-cell controls. Parameters vary jointly; this is not a full factorial study isolating every parameter.
 
-Three fresh-process samples are recorded per recognition/DP mode, and one oracle sample per eligible input. Wall time starts inside the worker after imports. Solver times include internal recognition and replay. Separate recognition timing is never subtracted to fabricate DP-only time. Process timeout is 60 seconds. Local timings are descriptive, not isolated hardware significance tests.
+Three fresh-process samples are recorded per recognition/DP mode and CP-SAT, one greedy sample, and one oracle sample per eligible input. Wall time starts inside the worker after imports. Solver times include internal recognition and replay. Separate recognition timing is never subtracted to fabricate DP-only time. Process timeout is 60 seconds. Local timings are descriptive, not isolated hardware significance tests.
 
-Each measurement stores seed, canonical input/source hashes, settings, clean revision, Python/packages/GEOS, machine and status. Authored cases yield 362 manifests; building variants yield 80. Small comparisons have 29+8 oracle certificates, plus the demo certificate: 38 total. Successful comparable status/cost/original-ID labels agree exactly. Unsupported/limit/timeout states are not recoded as infeasibility. Appendix~\ref{app:coverage} preserves full coverage.
+Each measurement stores seed, canonical input/source hashes, settings, clean revision, Python/packages/GEOS, machine and status. The retained core records contain 362 authored and 80 historical Duplex manifests. Corrected authored CP-SAT/greedy measurements add 148; the twelve new public-source cases add 132. Every published timing excludes the discarded import-timing pilot. Core small comparisons have 29+8 oracle certificates, plus the demo: 38. The twelve new public-source certificates bring the total to 50. Successful comparable status/cost/original-ID labels agree exactly. Unsupported/limit/timeout states are not recoded as infeasibility. Appendix~\ref{app:coverage} preserves full coverage.
 
 \section{Results and Interpretation}
 \subsection{Correctness and Scaling}
@@ -184,8 +225,13 @@ Measured interfaces appear in Table~\ref{tab:measured}; timing/state evidence in
 \caption{Scaling at the frozen experimental revision. (a) Private alternatives have $h=1$: dots show all three raw timing samples and lines their medians. Solver times include recognition/replay. (b) Genuine owner competition fixes $(p,r,z,L)=(1,1,2,4)$; raw/retained curves coincide on this family. Larger analytical/owner cases are not exhaustively certified.}
 \label{fig:scaling}\end{figure*}
 
+@@OPTIMIZATION_TABLE@@
+\begin{figure}[t]
+\centering\includegraphics[width=\columnwidth]{figures/greedy_quality.pdf}
+\caption{Every non-forced authored case with a positive observed greedy cost gap. All bars are valid repairs evaluated under the same strict original-action objective. The duplicated cyclic input used for a deliberately forced state cap is excluded. These solver comparisons differ from the altered-semantic controls.}
+\label{fig:greedy}\end{figure}
 \subsection{Compression and Scope Boundaries}
-The cyclic probe removes four rows, with peak retained states 47 compressed versus 48 uncompressed. Most cases remove none. Fig.~\ref{fig:compression} displays ratios rather than presuming speedup: the cyclic compressed median is slower despite its small state reduction. Four profile-rich inputs hit the compressed cut-column cap while uncompressed/oracle runs complete. Forced state-cap and tiny-cell/dependency controls retain named errors. These observations locate this implementation's boundaries, not lower bounds on all optimizers.
+The cyclic probe removes four rows, with peak retained states 47 compressed versus 48 uncompressed. Most cases remove none. Fig.~\ref{fig:compression} displays ratios rather than presuming speedup: small state reductions coexist with both timing benefits and overhead on this corpus. Four profile-rich inputs hit the compressed cut-column cap while uncompressed/oracle runs complete. Forced state-cap and tiny-cell/dependency controls retain named errors. These observations locate this implementation's boundaries, not lower bounds on all optimizers.
 
 \begin{figure}[t]
 \centering\includegraphics[width=\columnwidth]{figures/compression.pdf}
@@ -216,7 +262,7 @@ Hypothetical profiles have square widths/clear patches 0.4/0.5 metres and no sta
 
 Both modes/oracle agree on every variant (Table~\ref{tab:building}), with certificate replay and zero adjacency change for optimal repairs. Base routes improve from zero of two to two of two. Only B makes profile one infeasible under the stipulated catalogue. The evidence verifies this particular adaptation, not full-building accessibility, real prices, original restoration or construction feasibility.
 
-\clearpage
+@@PUBLIC_BUILDING_SECTION@@
 \section{Discussion and Threats to Validity}
 \subsection{Meaning of the Contribution}
 The central result preserves physical/action semantics under a compact owned interface and rooted witness reduction. Semantic controls make that preservation observable. A raw-catalogue-independent exponential term is useful on the analytical families, but polynomial recognition remains substantial and measured parameters can grow. The comparison with \eqref{eq:generic} is parameter accounting rather than empirical superiority over a published implementation.
@@ -224,7 +270,7 @@ The central result preserves physical/action semantics under a compact owned int
 \subsection{Limits of Evidence}
 Correctness evidence is finite and the formal argument still needs independent review. Certificate graph/replay logic is separate, but schema/geometry are shared, so common geometry errors remain possible. Numerical recognition can reject small cells. Arbitrary demands, candidate doors, implications/exclusions, selection-dependent obstruction and independent-background metadata corrections are excluded. Large analytical inputs lack exhaustive optimum certificates.
 
-Only three local timing repetitions are available; ratios can reflect workstation variability. Compression helps little on this corpus and can fail its cut-column cap where full mode succeeds. Generators do not isolate every parameter independently. One licensed building example with hypothetical annotations cannot establish actual renovations, costs or generality across buildings. No restoration reference or human accessibility study is supplied.
+Only three local timing repetitions are available; ratios can reflect workstation variability. Compression helps little on this corpus and can fail its cut-column cap where full mode succeeds. Generators do not isolate every parameter independently. The historical Duplex subset and three admitted public-source subsets use hypothetical annotations and one room per selected floor. They cannot establish actual renovations, costs or full-building generality; two screened sources remain unsupported. The new hypothetical feasible reference is distinct from original-IFC restoration truth; no human accessibility study is supplied.
 
 Originality remains unresolved: labelled connectivity, rank-based methods and weighted logic cover important ingredients, and a tighter prior resource/connectivity formulation might match the owner dependence. We claim neither first-ever repair nor invention of weighted bases/tensoring, universal superiority, acceptance or a generic lower bound. IEEE formatting cannot remove this scientific uncertainty.
 
@@ -242,16 +288,16 @@ OpenAI Codex assisted in drafting all sections, adapting LaTeX, producing determ
 @@GENERIC_APPENDIX@@
 
 \section{Full Outcome Coverage and Reproducibility}\label{app:coverage}
-Fig.~\ref{fig:status} preserves all 37 authored cases. The first sample is displayed for readability; all three and settings remain in manifests. Compressed outcomes are 23 optimal, seven infeasible, five limit-exceeded and two unsupported. Oracle omission follows the frozen action/scope protocol; it is not a failed solve. Building variants have six optimal/two infeasible outcomes. No timeout or uncaught implementation error occurred in the saved suite.
+Fig.~\ref{fig:status} preserves all 37 authored cases. The first sample is displayed for readability; all three and settings remain in manifests. Compressed outcomes are 23 optimal, seven infeasible, five limit-exceeded and two unsupported. Oracle omission follows the frozen action/scope protocol; it is not a failed solve. Building variants have six optimal/two infeasible outcomes. No timeout or uncaught implementation error occurred in the retained core suite; external-optimizer statuses are audited separately.
 
 \begin{figure*}[p]
 \centering\includegraphics[width=.90\textwidth]{figures/status_matrix.pdf}
 \caption{Complete authored outcome coverage. Recognition does not certify feasibility; unsupported/limit states are not infeasibility. Four profile-rich inputs exceed the compressed cut-column cap; other methods retain their recorded outcomes. Raw observations and error codes remain in the evidence package.}
 \label{fig:status}\end{figure*}
 
-The experimental revision is \texttt{9735c0f}; semantic controls record their own clean revision and source-certificate hashes. Results trace through manifests and figure/paper provenance maps. Times are seconds on Windows/Python 3.12 with Shapely 2.2.0 and recorded GEOS. Imports/startup are excluded from reported function time; recognition/replay are included. Oracle certificate generation/replay is outside its timed solve.
+The DP/core revision is \texttt{@@EXPERIMENTAL_REVISION@@}; corrected external-optimizer measurements use \texttt{@@OPTIMIZER_REVISION@@}, with identical solver/kernel fingerprints; semantic controls record their own clean revision and source-certificate hashes. Results trace through manifests and figure/paper provenance maps. The review measurements run on Linux/Python 3.12 with Shapely 2.1.2 and recorded GEOS; they replace the historical Windows timing samples. Times are seconds. An initial CP-SAT import-timing pilot is excluded; the reported optimizer measurements use the corrected import boundary. Imports/startup are excluded from reported function time; recognition/replay are included. Oracle certificate generation/replay is outside its timed solve.
 
-The package supplies frozen recipes, benchmark/summary/semantic-control scripts, reused solver/oracle/kernel source, dataset download/hash/license records, and deterministic vector figure/manuscript generation. Raw IFC, licensed projections, runs and PDFs remain outside Git. The review archive preserves generated evidence separately. The previous full-release checkpoint passed 620 tests; the new control test passed separately, not as a falsely combined 621-test full run.
+The package supplies frozen recipes, benchmark/summary/semantic-control scripts, reused solver/oracle/kernel source, dataset download/hash/license records, and deterministic vector figure/manuscript generation. Raw IFC, licensed projections, runs and PDFs remain outside Git. The review archive preserves generated evidence separately. The historical full-release checkpoint passed 620 tests, with its control test checked separately. The review revision adds optimizer, physical-boundary, pruning and public-protocol regression checks; the execution record reports the new full-suite count separately.
 
 \section{Evidence and Source Inspection Boundaries}
 The rank reference was inspected in accepted-manuscript Section 3.6, Definitions 3.11--3.12, Lemmas 3.13--3.15 and Theorem 3.7 proof. Owner/cell, product-profile and full-action transfer are the project argument. Weighted logic uses arXiv v2 Theorem 1.2, Table 1 and membership weights on pp. 11--12. Labelled forest positioning uses the author introduction/Section 6 with publisher metadata checks. EPSAP scope uses the inspected institutional author manuscript and Appendix A; exact final-equation reconciliation remains unaudited. PlanFix scope uses the previously inspected 63-page preprint, Sections 3 and 6 and Appendix A; current author/title metadata were verified through the DOI registry while fresh publisher access returned 403. BIM distinctions use the open journal graph/route method. Conflict-Steiner positioning is limited to its inspected model/Theorem 7; partially accessible choice-network proofs are not treated as fully audited.
@@ -266,7 +312,19 @@ The Duplex source SHA256 is \texttt{b347a2c8aa8fff6db896a4417a9c50c22} \texttt{a
 \bibitem{planfix} T. D. Trinh, B. Azam, M. I. Ansari, and N. Akhtar, ``A modular geometric projection approach for automated repair of building-code violations in floorplans,'' SSRN preprint, 2026, doi: 10.2139/ssrn.7275102.
 \bibitem{conflicts} A. Cornet and C. Laforest, ``Total domination, connected vertex cover and Steiner tree with conflicts,'' \emph{Discrete Mathematics \& Theoretical Computer Science}, vol. 19, no. 3, Art. no. 17, 2017. [Online]. Available: \url{https://dmtcs.episciences.org/articles/4154}.
 \bibitem{rank} H. L. Bodlaender, M. Cygan, S. Kratsch, and J. Nederlof, ``Deterministic single exponential time algorithms for connectivity problems parameterized by treewidth,'' \emph{Information and Computation}, vol. 243, pp. 86--111, 2015, doi: 10.1016/j.ic.2014.12.008.
-\bibitem{logic} B. Bergougnoux, J. Dreier, and L. Jaffke, ``A logic-based algorithmic meta-theorem for mim-width,'' 2022, arXiv:2202.13335v2. [Online]. Available: \url{https://arxiv.org/abs/2202.13335v2}.
+\bibitem{logic} B. Bergougnoux, J. Dreier, and L. Jaffke, ``A logic-based algorithmic meta-theorem for mim-width,'' in \emph{Proc. ACM-SIAM SODA}, 2023, pp. 3282--3304, doi: 10.1137/1.9781611977554.ch125. Inspected preprint: arXiv:2202.13335v2. [Online]. Available: \url{https://arxiv.org/abs/2202.13335v2}.
 \bibitem{duplex} BSI, ``Duplex Apartment Test Files,'' buildingSMART International, 2020, CC BY 4.0. [Online]. Available: \url{https://github.com/buildingsmart-community/Community-Sample-Test-Files}.
+
+\bibitem{graphrepair} D. H. Al-Harasis and W. Jabi, ``Benchmark-guided graph repair for compliance-oriented spatial layout networks,'' \emph{Proc. Digital Frontiers in Buildings and Infrastructure}, pp. 45--54, 2026, doi: 10.66408/dfbi.2026.26347.
+\bibitem{mansion} L. Che, S. Wen, S. Huang, C. Wang, Y. Yang, G. Dudek, X. Wang, and J. Su, ``MANSION: Multi-floor lANguage-to-3D scene generatIOn for loNg-horizon tasks,'' in \emph{Proc. IEEE/CVF CVPR}, 2026, pp. 37175--37185.
+\bibitem{ava} A. O. Bayraktar Sari and W. Jabi, ``A BIM-embedded computational workflow for spatial graph analysis of architectural floor plans,'' \emph{Architecture}, vol. 6, no. 2, Art. no. 76, 2026, doi: 10.3390/architecture6020076.
+\bibitem{amor} R. Amor and J. Dimyadi, ``The promise of automated compliance checking,'' \emph{Developments in the Built Environment}, vol. 5, Art. no. 100039, 2021, doi: 10.1016/j.dibe.2020.100039.
+\bibitem{simultaneous} N. Kakimura, P. Madarasi, J. Matuschke, and K. Varga, ``Simultaneous network design with restricted link usage,'' \emph{Networks}, early view, Sept. 2026, doi: 10.1002/net.70059.
+\bibitem{minlabel} M. R. Fellows, J. Guo, and I. Kanj, ``The parameterized complexity of some minimum label problems,'' \emph{J. Computer and System Sciences}, vol. 76, no. 8, pp. 727--740, 2010, doi: 10.1016/j.jcss.2010.02.012.
+\bibitem{conflictcover} A. Jacob, D. Majumdar, and V. Raman, ``Parameterized complexity of conflict-free set cover,'' \emph{Theory of Computing Systems}, vol. 65, pp. 515--540, 2021, doi: 10.1007/s00224-020-10022-9.
+\bibitem{steinerwidth} A. E. Feldmann and M. Lampis, ``Parameterized algorithms for Steiner forest in bounded width graphs,'' in \emph{Proc. ICALP}, vol. 297, 2024, pp. 61:1--61:20, doi: 10.4230/LIPIcs.ICALP.2024.61.
+\bibitem{karp} R. M. Karp, ``Reducibility among combinatorial problems,'' in \emph{Complexity of Computer Computations}, 1972, pp. 85--103, doi: \url{10.1007/978-1-4684-2001-2_9}.
+\bibitem{cpsat} Google, ``CP-SAT solver,'' OR-Tools documentation. Accessed: Oct. 14, 2026. [Online]. Available: \url{https://developers.google.com/optimization/cp/cp_solver}.
+\bibitem{publicifc} Original data authors, ``Community sample test files,'' buildingSMART community repository, revision \texttt{7ddf57a}, CC BY 4.0 with folder-specific notices. [Online]. Available: \url{https://github.com/buildingsmart-community/Community-Sample-Test-Files}.
 \end{thebibliography}
 \end{document}
