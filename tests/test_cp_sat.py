@@ -6,10 +6,11 @@ import pytest
 pytest.importorskip("ortools")
 
 from cfar.cp_sat import integer_costs, solve_cp_sat
+from cfar.actions import apply_actions
 from cfar.dp_owned_interface import solve_owned_interface
 from cfar.errors import ValidationError
 from cfar.greedy import solve_greedy
-from cfar.interface_scenarios import authored_interface_scenarios, branching_interface_probe
+from cfar.interface_scenarios import authored_interface_scenarios, branching_interface_probe, dense_alternative_probe
 from cfar.oracle import exact_oracle
 from cfar.synthetic_shaft import make_shaft_instance
 
@@ -62,6 +63,28 @@ def test_limit_is_never_reported_as_optimal_or_infeasible():
     result = solve_cp_sat(branching_interface_probe(), time_limit=1e-12)
     assert result["status"] == "limit_exceeded"
     assert result["selected"] is None
+
+
+def test_close_decimal_prices_take_precedence_over_identifier_order():
+    instance = dense_alternative_probe(2)
+    instance["actions"][0]["cost"] = .10000000000000002
+    instance["actions"][1]["cost"] = .1
+    result, oracle = solve_cp_sat(instance), exact_oracle(instance)
+    assert result["selected"] == oracle["selected"] == ["A0001"]
+
+
+def test_already_reachable_baseline_with_no_purchase_variables():
+    instance = authored_interface_scenarios()["atomic_bundle"]
+    repaired = apply_actions(instance, ["A000"])
+    catalog = {c["connection_id"]:c for c in instance["connections"]}
+    instance["actions"] = []
+    instance["portals"] = []
+    for cid, profiles in repaired["active"].items():
+        catalog[cid]["existing"] = True
+        instance["portals"].append(dict(portal_id=cid, kind=catalog[cid]["kind"],
+            transitions=[dict(connection_id=cid, permitted_profiles=profiles)]))
+    result = solve_cp_sat(instance)
+    assert (result["status"],result["cost"],result["selected"]) == ("optimal","0",[])
 
 
 @pytest.mark.parametrize("name", sorted(authored_interface_scenarios()))

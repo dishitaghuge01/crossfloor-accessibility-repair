@@ -177,11 +177,32 @@ def semantic_costs(controls,output):
     fig.tight_layout();save(fig,output/'semantic_controls')
 
 
-def generate(controlled,building,demo_path,output,controls):
+def greedy_quality(controlled,optimizers,output):
+    from decimal import Decimal
+    from review_evidence import optimization_audit, samples
+    optimization_audit(controlled,optimizers)
+    rows=[]
+    for folder in sorted(optimizers.iterdir()):
+        if not folder.is_dir() or folder.name == 'state-limit':continue
+        _,c=samples(optimizers,folder.name,'cp-sat');_,g=samples(optimizers,folder.name,'greedy')
+        if c[0]['status']=='optimal' and g[0]['status']=='feasible':
+            optimum=Decimal(c[0]['result']['cost']);heuristic=Decimal(g[0]['result']['cost'])
+            if heuristic>optimum:rows.append((folder.name,float(optimum),float(heuristic)))
+    if len(rows)!=4:raise ValueError('greedy figure narrative requires updating')
+    fig,ax=plt.subplots(figsize=(3.5,2.5));xs=np.arange(len(rows));w=.36
+    ax.bar(xs-w/2,[r[1] for r in rows],w,color=BLUE,label='Exact optimum')
+    ax.bar(xs+w/2,[r[2] for r in rows],w,color=ORANGE,label='Valid greedy repair')
+    labels={'cyclic':'Cyclic','separate_profiles':'Separate\nprofiles','shaft-4-2-0':'Shaft 4/2\nseed 0','shared_asset':'Shared\nasset'}
+    ax.set_xticks(xs,[labels[r[0]] for r in rows]);ax.set_ylabel('Original action cost');ax.set_ylim(0,12);ax.grid(axis='y',alpha=.2);ax.legend(frameon=False,fontsize=7)
+    fig.tight_layout();save(fig,output/'greedy_quality')
+
+
+def generate(controlled,building,demo_path,output,controls,optimizers=None):
     output.mkdir(parents=True,exist_ok=True)
     if any(output.iterdir()):raise ValueError('fresh output required')
     pipeline(output);demo(demo_path,output);unit_witness(output);scaling(controlled,output);compression(controlled,output);statuses(controlled,output);building_plan(building,output);semantic_costs(controls,output)
-    source_files=[p for root in (controlled,building,demo_path,controls) for p in root.rglob('*.json')]
+    if optimizers:greedy_quality(controlled,optimizers,output)
+    source_files=[p for root in (controlled,building,demo_path,controls)+((optimizers,) if optimizers else ()) for p in root.rglob('*.json')]
     write_json(output/'figure-provenance.json',dict(generator_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),matplotlib=matplotlib.__version__,python=sys.version,
         sources={str(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in source_files},
         schematic_figures=['pipeline','motivating_demo','unit_witness'],plots='raw samples and medians; no DP-only subtraction or significance claim',
@@ -190,4 +211,5 @@ def generate(controlled,building,demo_path,output,controls):
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser();parser.add_argument('--controlled',type=Path,required=True);parser.add_argument('--building',type=Path,required=True);parser.add_argument('--demo',type=Path,required=True);parser.add_argument('--output',type=Path,required=True);parser.add_argument('--controls',type=Path,required=True)
-    args=parser.parse_args();generate(args.controlled,args.building,args.demo,args.output,args.controls)
+    parser.add_argument('--optimizers',type=Path)
+    args=parser.parse_args();generate(args.controlled,args.building,args.demo,args.output,args.controls,args.optimizers)
