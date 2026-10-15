@@ -36,17 +36,18 @@ def _components(edges):
 
 
 def solve_owned_interface(instance: dict, *, compress: bool = True,
-                          max_states: int = 100000, max_cut_columns: int = 65536) -> dict:
+                          max_states: int = 100000, max_cut_columns: int = 65536,
+                          prune_irrelevant: bool = False) -> dict:
     require(type(max_states) is int and max_states > 0 and type(max_cut_columns) is int
             and max_cut_columns > 0, "INTERFACE_LIMIT", "positive integer limits required")
-    recognized = recognize_physical_interface(instance)
+    recognized = recognize_physical_interface(instance, prune_irrelevant=prune_irrelevant)
     pids = sorted(recognized["components"])
     floors = recognized["floor_order"]
     ranks = {fid: i for i, fid in enumerate(floors)}
     rooms = room_index(instance)
     room_floor = {rid: f["floor_id"] for rid, (f, _) in rooms.items()}
     node = lambda pid, rid: "v:" + recognized["components"][pid][rid]
-    node_floor = [{node(pid,rid): room_floor[rid] for rid in rooms} for pid in pids]
+    node_floor = [{node(pid,rid): room_floor[rid] for rid in recognized["components"][pid]} for pid in pids]
     targets = [{node(pid,o["target"]) for o in instance["obligations"] if o["profile_id"] == pid}
                for pid in pids]
     roots = [node(pid,recognized["anchors"][pid]) for pid in pids]
@@ -61,6 +62,8 @@ def solve_owned_interface(instance: dict, *, compress: bool = True,
         c = catalog[cid]
         for q, pid in enumerate(pids):
             if pid in permitted:
+                if c["u"] not in recognized["components"][pid]:
+                    continue
                 u, v = node(pid,c["u"]), node(pid,c["v"])
                 if u != v:
                     baseline_events[min(ranks[room_floor[c["u"]]], ranks[room_floor[c["v"]]])].append((q,u,v))

@@ -10,7 +10,7 @@ from .io import fingerprint
 from .validation import baseline_active, validate_instance
 
 
-def recognize_physical_interface(instance: dict) -> dict:
+def recognize_physical_interface(instance: dict, *, prune_irrelevant: bool = False) -> dict:
     validate_instance(instance)
     actions = sorted(instance["actions"], key=lambda a: a["action_id"])
     require(all(a["type"] == "physical_intervention" and not a["requires"] and not a["excludes"]
@@ -126,8 +126,24 @@ def recognize_physical_interface(instance: dict) -> dict:
             else:
                 baseline_span = max(baseline_span, abs(ranks[room_floor[u]]-ranks[room_floor[v]])+1)
         components[pid] = {rid: find(rid) for rid in sorted(rooms)}
-    r = max((len({components[pid][rid] for rid in rooms if room_floor[rid] == f["floor_id"]})
+    all_component_r = max((len({components[pid][rid] for rid in rooms if room_floor[rid] == f["floor_id"]})
              for pid in profiles for f in floors), default=0)
+    if prune_irrelevant:
+        for pid in profiles:
+            marked = {anchors[pid]} | {o["target"] for o in instance["obligations"] if o["profile_id"] == pid}
+            for cid, permitted in baseline.items():
+                c = catalog[cid]
+                if pid in permitted and room_floor[c["u"]] != room_floor[c["v"]]:
+                    marked.update((c["u"], c["v"]))
+            for action in available:
+                for effect in action["effects"]:
+                    if pid in effect["permitted_profiles"]:
+                        c = catalog[effect["connection_id"]]
+                        marked.update((c["u"], c["v"]))
+            keep = {components[pid][rid] for rid in marked}
+            components[pid] = {rid: component for rid, component in components[pid].items() if component in keep}
+    r = max((len({component for rid, component in components[pid].items()
+                  if room_floor[rid] == f["floor_id"]}) for pid in profiles for f in floors), default=0)
     z = max((sum(c["floor_id"] == f["floor_id"] for c in cells) for f in floors), default=0)
     parameters = dict(p=len(profiles), r=r, z=z,
                       L=max([baseline_span] + [u["span"] for u in units]),
@@ -148,6 +164,8 @@ def recognize_physical_interface(instance: dict) -> dict:
                 recognized=True, parameters=parameters, floor_order=[f["floor_id"] for f in floors],
                 anchors=anchors, components=components, cells=cells, units=units,
                 action_cells=action_cells, blocked=constraints["blocked"],
+                all_component_r=all_component_r, prune_irrelevant=prune_irrelevant,
                 geometry_conflicts=constraints["geometry_conflicts"],
-                scope="M09 rectangular physical activations; conservative all-component r; not M10 background",
+                scope="M09 rectangular physical activations; " +
+                      ("marked-component r" if prune_irrelevant else "conservative all-component r") + "; not M10 background",
                 witness_status="recognition only; no feasibility or optimality conclusion")

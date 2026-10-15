@@ -6,6 +6,7 @@ dependencies = ["jsonschema>=4.23,<5", "shapely>=2.0,<3"]
 
 [project.optional-dependencies]
 test = ["pytest>=8,<10"]
+optimization = ["ortools==9.14.6206"]
 
 [project.scripts]
 cfar = "cfar.cli:main"
