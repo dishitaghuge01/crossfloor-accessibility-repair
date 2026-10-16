@@ -25,3 +25,5 @@ will accept the paper. Final measured counts and pinned commits are recorded in
 | 17 | Explicit gate disposition and reproducible advisor-review package | Venue/authors, human proof review and literature priority remain external scientific/submission gates |
 
 Follow-up closes the three executable omissions: see [followup_results.md](followup_results.md). Priority, independent human proof review and verified actual-building data remain open.
+
+City Hall documentary extension: source-supported price/reference and plan-representation audit completed; no new physical instance admitted. Historical proposal scope and missing metric/permission evidence are explicit in city_hall_admission.md. This does not close actual-building validation or priority.

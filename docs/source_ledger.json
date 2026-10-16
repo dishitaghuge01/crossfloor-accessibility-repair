@@ -445,6 +445,22 @@
       "locators": "Publisher abstract and references21--22; no full-proof inspection",
       "retrieval": "Primary publisher HTML through web tool; no raw bytes retained",
       "review_date_local": "2026-10-16"
+    },
+    {
+      "id": "city_hall_documentary_2008",
+      "title": "City Hall and City Hall Annex: Accessibility Survey, Technical AppendixA.1",
+      "authors": [
+        "Gilda Puente-Peters, Architects"
+      ],
+      "publisher": "City of Santa Barbara",
+      "url": "https://santabarbaraca.gov/sites/default/files/documents/Government/Transition%20Plan%20Update%20Report/Technical%20Appendix%20A%20-%201%20City%20Hall%20and%20City%20Hall%20Annex.pdf",
+      "sha256": "31b125ed7371564f3c7e4254237464cac7bf9fc1ff68bb8c46dec556d9fcf3a1",
+      "version": "copyright2007; machine-readable item tables14April2008;264PDF pages",
+      "status": "documentary_admission_audit_not_physical_solver_case",
+      "locators": "PDF44/119/197 raster reference plans;111--113 elevator item28;10/61 total discrepancy;12 reference semantics",
+      "rights": "Open redistribution license not established; no source PDF, drawing or private wording included",
+      "review_date_local": "2026-10-16",
+      "review": "docs/city_hall_admission.md"
     }
   ]
 }

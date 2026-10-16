@@ -32,3 +32,5 @@ This is the strongest linked case candidate so far. Admission is deliberately un
 - No source is admitted to solver evaluation by this document review. The existing2274 observations and released manuscript are unchanged. Literature priority and independent proof review are unaffected.
 
 Review coverage: all source pages were text-extracted. All pages of the15/15/10-page audits were visually screened; the larger overview, HUD report and264-page companion received targeted text/drawing inspection, not a claimed page-by-page full audit. File SHA256 values, scope and page locators are in supplied_document_evidence.json. No raw PDF, source image, personal contact detail or invented source geometry is committed.
+
+Follow-up completed: the City Hall extraction/admission study is now in city_hall_admission.md. It records580 scalar entries and533 arithmetic checks; no physical instance was admitted. The initial candidate notes above are superseded by that final admission decision.

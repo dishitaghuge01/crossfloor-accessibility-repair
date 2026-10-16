@@ -286,7 +286,7 @@
       "name": "Technical Appendix A-1 City Hall and City Hall Annex.pdf",
       "pages": 264,
       "identity": "GPPA City Hall/Annex survey, copyright2007; item tables14April2008",
-      "use": "priority_candidate_for_further_admission_audit",
+      "use": "historical_documentary_case_not_admitted",
       "benchmark_admitted": false,
       "facts": [
         {
@@ -324,7 +324,15 @@
         "Adding lobby may violate frozen room geometry/topology",
         "REF/$0 entries require grouping interpretation; not automatically free actions",
         "First-floor aggregate differs between summary and item-table header; preserve discrepancy"
-      ]
+      ],
+      "admission_review": {
+        "status": "not_admitted",
+        "report": "docs/city_hall_admission.md",
+        "scalar_rows": 580,
+        "priced_rows_arithmetic_checked": 533,
+        "reference_rows": 47,
+        "new_physical_instances": 0
+      }
     }
   ]
 }
