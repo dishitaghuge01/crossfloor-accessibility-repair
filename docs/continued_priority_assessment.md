@@ -30,3 +30,13 @@ Recommended wording remains: We give an explicit semantics-preserving transfer f
 ## What would change the decision
 
 A prior paper with a matching semantic construction and comparable parameter dependence would require narrowing the algorithmic claim. Conversely a source-by-source checked distinction can strengthen the evidence for a specialized contribution but cannot provide an absolute nonexistence certificate. The partially accessible choice-network and September routing proofs remain explicit inspection limits. No author contact, submission or push occurred.
+
+## Finite-domain comparison clarification
+
+The project derivation in [generic_state_comparison.md](generic_state_comparison.md)
+shows that a connectivity/resource treatment supplied the same complete-unit
+schedule can use the same (h+2) owner domain. With the same attributed rank
+reduction this reproduces the resource factor of our bound. The displayed
+logic-encoding comparison therefore supplies no separation from every generic
+finite-domain approach. Priority of the complete physical construction stays
+unconfirmed; the specialized construction and evaluation remain the claim.

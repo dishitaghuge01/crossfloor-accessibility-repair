@@ -276,3 +276,9 @@ City Hall documentary admission protocol is frozen before final extraction. Metr
 
 
 City Hall documentary gate completed at clean8d26f5d:580 scalar entries,533 exact arithmetic checks,47 references; three raster plans uncalibrated. No new physical instance admitted because metric/reservation/permission evidence and topology-preserving action scope are not established. AppendixF and original schematic integrated in20-page/17-figure master; PDF QA passed and changed pages visually reviewed. See docs/city_hall_admission.md. Existing2274 timed observations unchanged; G3 priority/human review and actual-building validation remain OPEN. No push or raw source redistribution.
+
+## Targeted gap-filling checkpoint, 16 October 2026
+
+The finite-domain comparison is now explicit in docs/generic_state_comparison.md: the same supplied unit schedule permits (h+2)^(zL) resource assignments, so the owner-domain term cannot establish superiority over all generic resource/connectivity methods. This narrows interpretation, not the frozen project or existing measured results. Complete-construction priority and independent proof review remain OPEN.
+
+Marble Hill owner/architect sources add location, owner-reported approval and installed-lift evidence. Existing/proposed drawing IDs are identified, but metric sheets, matching conditions, full profile routes and atomic price remain unverified. Zero physical solver instances admitted. See docs/marble_hill_evidence_screen.md. No kernel changes, benchmark reruns, push or submission. Existing manuscript/release remains the prior fc1346c package; these new assessment notes are a subsequent review milestone, not a silently regenerated release.

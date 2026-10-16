@@ -91,3 +91,13 @@ rectangle and each set a unit-cost whole action. Cover iff every target is
 reachable, preserving the budget exactly; coordinates/verification are
 polynomial. This rules out floor-count-only tractability unless P=NP, not
 single-shaft tractability, exponent optimality or superiority over CP-SAT.
+
+## Finite-domain comparison clarification
+
+The project derivation in [generic_state_comparison.md](generic_state_comparison.md)
+shows that a connectivity/resource treatment supplied the same complete-unit
+schedule can use the same (h+2) owner domain. With the same attributed rank
+reduction this reproduces the resource factor of our bound. The displayed
+logic-encoding comparison therefore supplies no separation from every generic
+finite-domain approach. Priority of the complete physical construction stays
+unconfirmed; the specialized construction and evaluation remain the claim.
