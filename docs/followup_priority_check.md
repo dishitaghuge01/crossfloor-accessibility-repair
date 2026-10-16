@@ -1,0 +1,14 @@
+# Bounded closest-work recheck, 16 October 2026
+
+This follows the fixed project direction and rechecks four already identified primary sources. It is not a new topic search, a systematic literature review or a priority certificate. The initial phrase search produced irrelevant matches; none is used as evidence.
+
+| Primary source and inspected portion | Established prior ingredient | Project-specific transfer still required |
+| --- | --- | --- |
+| [Wu et al., Connectivity problems on heterogeneous graphs](https://link.springer.com/article/10.1186/s13015-019-0141-z), condition-specific connectivity model | Sharing infrastructure across condition-specific permitted graphs is prior work | Complete paid geometry, owned-cell compatibility and original bundle objective must be represented explicitly |
+| [Kakimura et al., Simultaneous Network Design With Restricted Link Usage](https://onlinelibrary.wiley.com/doi/10.1002/net.70059), Section 1 definitions and Theorem 3.4 | Shared selected links support routes in overlapping color classes; its stated FPT parameter counts multicolored links | That parameter is not the measured floor/room/cell/owner interface; no same-bound transfer follows from the statement alone |
+| [Cornet and Laforest, conflict Steiner paper](https://dmtcs.episciences.org/4154/pdf), Section 4, printed p. 10 | A connected selected vertex set must contain terminals and exclude conflict-pair endpoints | A purchase vertex must not invent a connection between disconnected effects of one action; ownership, profiles and whole-action pricing need the stated construction |
+| [Bergougnoux, Dreier and Jaffke, arXiv v2](https://arxiv.org/html/2202.13335v2), weighted problem/representativity definitions and framework | Weighted representative dynamic programming and generic logic optimization are established tools | The explicit action/occurrence/usage/cell encoding, objective transfer and constructed interface bound remain project arguments; the master already supplies them |
+
+The supported claim remains: an explicit semantics-preserving physical-to-owned-interface construction and exact full-action accounting under the recognized assumptions, with scoped implementation and controlled evaluation. The project does not claim invention of shared-cost connectivity, profile-dependent edges, conflict constraints, rank-based bases or general exact optimization. For fixed owner multiplicity, the displayed generic and specialized interface exponents can have the same asymptotic dependence.
+
+No equivalent prior construction was established by this bounded recheck. This is not evidence that none exists. Priority remains unconfirmed. No stronger first-algorithm, universal speedup or acceptance statement is authorized. Human proof review is outside this automated check.

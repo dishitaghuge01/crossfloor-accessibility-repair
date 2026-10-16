@@ -9,7 +9,11 @@
       "status": "relevant_syntax_weighted_bound_and_framework_inspected",
       "locators": "Sections 1.1 and 3 syntax; Theorem 1.2 and Table 1, pp. 6-7; weighted membership-pattern definition pp. 11-12; Theorem 4.5 framework pp. 18-19",
       "retrieval": "Primary full-version PDF text through web tool; no byte fingerprint or full proof audit claimed",
-      "review_date_local": "2026-10-14"
+      "review_date_local": "2026-10-14",
+      "bounded_recheck": {
+        "date_local": "2026-10-16",
+        "scope": "See docs/followup_priority_check.md; relevant formulations reconfirmed, no priority certification or fresh full-proof review."
+      }
     },
     {
       "id": "cornet_laforest_conflict_steiner_2017",
@@ -19,7 +23,11 @@
       "status": "relevant_model_and_proof_inspected",
       "locators": "Introduction stretch definition; section 4 Steiner tree definition and Theorem 7 proof, printed p. 10; section 4 theorem statements and conclusion",
       "retrieval": "Primary PDF text inspected through web tool; no local byte fingerprint and no full-paper audit claimed",
-      "review_date_local": "2026-10-14"
+      "review_date_local": "2026-10-14",
+      "bounded_recheck": {
+        "date_local": "2026-10-16",
+        "scope": "See docs/followup_priority_check.md; relevant formulations reconfirmed, no priority certification or fresh full-proof review."
+      }
     },
     {
       "id": "courcelle_mosbah_weighted_evaluations_1993",
@@ -144,7 +152,11 @@
       "locators": "Condition Steiner problems, Definition 1; Integer linear programming section and Figure 3",
       "retrieval": "Publisher full HTML inspected; no raw bytes retained",
       "sha256": null,
-      "review_date_local": "2026-10-14"
+      "review_date_local": "2026-10-14",
+      "bounded_recheck": {
+        "date_local": "2026-10-16",
+        "scope": "See docs/followup_priority_check.md; relevant formulations reconfirmed, no priority certification or fresh full-proof review."
+      }
     },
     {
       "id": "simultaneous_restricted_links_2026",
@@ -162,7 +174,11 @@
       "locators": "Sections 1, 1.2; Theorem 3.4 full proof; Theorem 3.7 statement",
       "retrieval": "Publisher full HTML inspected; no raw bytes retained",
       "sha256": null,
-      "review_date_local": "2026-10-14"
+      "review_date_local": "2026-10-14",
+      "bounded_recheck": {
+        "date_local": "2026-10-16",
+        "scope": "See docs/followup_priority_check.md; relevant formulations reconfirmed, no priority certification or fresh full-proof review."
+      }
     },
     {
       "id": "forbidden_pairs_2009",

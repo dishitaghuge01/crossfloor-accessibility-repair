@@ -16,10 +16,12 @@ will accept the paper. Final measured counts and pinned commits are recorded in
 | 8 | Same-occupancy connectivity partition stress; rows/states/reduction time/RSS/total time, paired full mode | Fewer rows need not improve runtime |
 | 9 | Exact CP-SAT flow constraints, identical input/parent budget, replay, bounds/gap convention, width/time/memory/outcome plots | Shared geometric recognizer; no published generic implementation comparison |
 | 10 | Whole-action pruning plus deterministic <=2-remove/1-add exchanges, bounded proposals, explicit heuristic failure | Not complete dead-end recovery or approximation guarantee |
-| 11 | Direct phase timings; separate actual physical-footprint pair counts; named coverage/equivalence counts; validated reuse cache and geometric boundary tests | Pair counts exclude room/obstacle GEOS intersections; spatial indexing considered but not implemented |
+| 11 | Direct phase timings; separate actual physical-footprint pair counts; named coverage/equivalence counts; validated reuse cache and geometric boundary tests | Optional STRtree filtering implemented and checked on all 78 inputs; baseline/room/obstacle checks remain unindexed; no general speedup claim |
 | 12 | Pinned fresh workers, five routine/three expensive repeats, fixed seeds, hardware/packages and min/median/max, preserved failures | Descriptive local timings, no statistical significance assertion |
-| 13 | Compression, safe pruning and explicitly cached-recognition ablations | Dominance-off and alternate event-order variants deferred; no claimed benefit |
+| 13 | Compression, safe pruning, cached recognition, no-merging histories and admissible reverse-order ablations | Additional 180-observation campaign completed; history caps retained; arbitrary schedules remain outside the tested variant |
 | 14 | Hand-derived source fixture; independent paid-box/cost/owner checks; translation, permutation, renaming, unit/cost scaling and candidate monotonicity tests | Independent checks do not duplicate all geometry/clearance predicates |
 | 15 | Nullable normalized schema, raw/manifests/certificates, portable path-only export, regenerated CSV/figures/manuscript and smoke instructions | Smoke data intentionally insufficient for final tables |
 | 16 | Contribution-led narrative, precise topology/access/action/exactness definitions, consolidated limitations | No construction/compliance or acceptance claim |
 | 17 | Explicit gate disposition and reproducible advisor-review package | Venue/authors, human proof review and literature priority remain external scientific/submission gates |
+
+Follow-up closes the three executable omissions: see [followup_results.md](followup_results.md). Priority, independent human proof review and verified actual-building data remain open.

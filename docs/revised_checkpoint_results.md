@@ -14,3 +14,5 @@ Clinic retains 248 rooms across two floors and 253 with the consecutive Roof - M
 The revised IEEE-format master has 17 letter pages and 15 vector figures. Rendered pages were visually reviewed. Structural QA: all 34 font objects embedded, no Type 3 fonts, unresolved references, question-reference markers or overfull diagnostics. Underfull typesetting warnings remain benign.
 
 Literature priority and independent human proof review remain OPEN. No venue acceptance, construction compliance or population-level generalization is claimed.
+
+The page/figure count above describes the frozen original master. The current release adds the separately measured follow-up appendix and figure; see followup_results.md and release PDF QA for current counts.
