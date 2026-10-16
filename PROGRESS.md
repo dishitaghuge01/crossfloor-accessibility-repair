@@ -299,3 +299,8 @@ run. See [revision protocol](docs/revision_optimization_protocol.md).
 G3 priority remains OPEN; public multi-building evaluation is not yet asserted.
 The user explicitly authorized fork/clone, changes and a pull request.
 
+
+## Revised-master follow-up, 16 October 2026
+
+Preserved merged revision 56dcb66 and recorded all seventeen review items in docs/revised_master_agenda.md. Added optional full-action greedy pruning and deterministic budgeted one/two-for-one exchange, with CLI settings recorded in manifests. Twelve targeted tests passed in 2.64 seconds. Historical benchmark figures remain unchanged; improved-method clean timing/evidence is pending. Multi-room source extraction and precise comparison remain open; no priority or submission-readiness claim.
+

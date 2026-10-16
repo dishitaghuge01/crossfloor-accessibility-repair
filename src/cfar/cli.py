@@ -60,6 +60,8 @@ def main() -> None:
     greedy = subparsers.add_parser("solve-greedy", help="whole-action heuristic; failure is not infeasibility")
     greedy.add_argument("instance")
     greedy.add_argument("--output", required=True)
+    greedy.add_argument("--improve", action="store_true")
+    greedy.add_argument("--exchange-budget", type=int, default=100)
     args = parser.parse_args()
     try:
         instance = load_instance(args.instance)
@@ -80,11 +82,13 @@ def main() -> None:
                     result = solve_cp_sat(instance, time_limit=args.time_limit, seed=args.seed)
                 else:
                     from .greedy import solve_greedy
-                    result = solve_greedy(instance)
+                    result = solve_greedy(instance, improve=args.improve, exchange_budget=args.exchange_budget)
                 write_json(output/"result.json", result)
                 settings = dict(method=result["method"], variant="SCFAR",
                                 timeout=getattr(args, "time_limit", None),
                                 elapsed_seconds=time.perf_counter()-started)
+                if args.command == "solve-greedy":
+                    settings.update(improve=args.improve, exchange_budget=args.exchange_budget)
                 write_json(output/"manifest.json", manifest(instance, settings, result["status"], getattr(args, "seed", 0)))
                 print(json.dumps({k: result[k] for k in ("status", "cost", "selected")}))
             elif args.command == "solve-owned-interface":

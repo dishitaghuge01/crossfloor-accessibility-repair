@@ -248,3 +248,6 @@ New measurements require a clean revision and independent replay; G3 priority
 remains OPEN. Public building breadth is a separate evidence gate. Fork and PR
 publication are explicitly authorized by the user for this revision.
 
+
+Revised-master follow-up: see [seventeen-item agenda](revised_master_agenda.md). Improved greedy postprocessing is implemented and targeted-tested; benchmark refresh and multi-room source evidence remain pending. No research gate is newly closed.
+
