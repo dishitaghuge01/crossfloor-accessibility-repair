@@ -5,6 +5,7 @@ import sys,json
 from math import ceil,floor as floor_integer
 sys.path.insert(0,str(Path(__file__).resolve().parent))
 from build_multiroom_experiments import door,PIDS
+from source_room_selection import maximum_nonoverlap
 from cfar.geometry import computed_adjacency
 from cfar.interface_recognition import recognize_physical_interface
 from cfar.io import write_json
@@ -17,12 +18,8 @@ def extend(audit,instance):
     index=next(i for i,s in enumerate(audit['storeys']) if s['global_id']==instance['floors'][-1]['floor_id'])
     if index+1>=len(audit['storeys']):raise ValueError('no next original storey')
     storey=audit['storeys'][index+1]
-    rooms=[];exclusions=[]
     eligible=[r for r in audit['spaces'] if r['eligible'] and r['storey_id']==storey['global_id']]
-    for r in sorted(eligible,key=lambda r:(-r['area'],r['global_id'])):
-        if any(Polygon(r['polygon']).intersection(Polygon(s['polygon'])).area>1e-8 for s in rooms):
-            exclusions.append(dict(room=r['global_id'],reason='overlap with earlier larger retained room'))
-        else:rooms.append(r)
+    rooms,exclusions,selection_stats=maximum_nonoverlap(eligible)
     if not rooms:raise ValueError('next original storey has no admissible rooms')
     a=deepcopy(instance)
     floor=dict(floor_id=storey['global_id'],elevation_m=storey['elevation_m'],boundary=deepcopy(a['floors'][-1]['boundary']),
@@ -62,7 +59,7 @@ def extend(audit,instance):
                     trial['obligations'] += [dict(obligation_id=f'Othird{q}',profile_id=p,source=trial['obligations'][0]['source'],target=v) for q,p in enumerate(PIDS)]
                     try:recognize_physical_interface(trial)
                     except ValueError as e:attempts.append(str(e));continue
-                    return trial,dict(added_storey=storey,retained_rooms=len(rooms),exclusions=exclusions,attempts=attempts,
+                    return trial,dict(added_storey=storey,retained_rooms=len(rooms),selection_statistics=selection_stats,exclusions=exclusions,attempts=attempts,
                         added_adjacency_edges=len(floor['adjacency_edges']),added_hypothetical_doors=len(floor['access_edges']))
     raise ValueError('no third-storey candidate passes full recognition; '+str(len(attempts))+' failed recognitions')
 
@@ -90,5 +87,3 @@ if __name__=='__main__':
     p=argparse.ArgumentParser()
     for key in ['audits','base','output']:p.add_argument('--'+key,type=Path,required=True)
     a=p.parse_args();build(a.audits,a.base,a.output)
-
-

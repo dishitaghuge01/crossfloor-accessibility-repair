@@ -42,9 +42,9 @@ unit ordering are deferred: neither is needed to claim a measured benefit and
 would change a delicate correctness path. Semantic controls remain explicitly
 invalid models, never valid algorithm ablations.
 
-Multi-room source protocol retains a deterministic maximal nonoverlapping
-eligible subset on consecutive source storeys, larger projected area then IDs.
-It is not claimed maximum-cardinality. All exact source rings/IDs stay frozen;
+Multi-room source protocol retains a maximum-cardinality nonoverlapping
+eligible subset on consecutive source storeys, exact overlap-component independent-set search with lexicographic ID ties.
+Maximum cardinality is within the fixed projection/eligibility class, not a complete physical-building extraction. All exact source rings/IDs stay frozen;
 all stair/transport conservative envelopes remain obstacles on both floors.
 All horizontal doors are hypothetical experimental annotations constructed only
 on exact shared-boundary segments and replayed; they are not extracted IFC door
@@ -54,9 +54,11 @@ endpoints share another. Both-profile and profile-0-only upper horizontal
 permissions produce paired inputs. Source screening/admission exclusions remain
 visible. These experiments test finite-model horizontal coupling, not actual
 building restoration. No price, permission, reservation or door is asserted as
-an IFC fact. Multi-room admission on three or more source storeys is not asserted.
+an IFC fact. Third-storey admission uses the separately declared extension below.
 
 Pilot exclusion: the interrupted runs/revised-controlled run at e872cb6 is not final performance evidence. It was stopped before the integrated example after correcting that example's unused-footprint counterexample and the optional optimizer import boundary. No pilot observations are silently merged into final timing results. Fixed recipe sizes/seeds remain unchanged. The corrected example has four floors, two profiles and exact cost five; graph-only A000+E costs 4.5 and reaches both targets but collides solely through the paid spare/rival annex footprints.
 
-Consecutive third-storey extension: scripts/extend_multiroom_storeys.py attempts the immediate next original storey after each admitted two-floor input, retaining a deterministic maximal nonoverlapping eligible subset and conservative background. It selects the first clear fixed-grid candidate from an already required middle-floor target into a third-floor source room, avoiding existing candidate footprints; that action costs two and the third-floor room becomes required by both profiles. All added horizontal doors, reservations and permissions are hypothetical. Every failed recognition is retained. Clinic and Molio pilots admit this extension. Pinned evaluation, not this pilot, supplies final costs/statuses.
+Consecutive third-storey extension: scripts/extend_multiroom_storeys.py attempts the immediate next original storey after each admitted two-floor input, retaining a maximum-cardinality nonoverlapping eligible subset and conservative background. It selects the first clear fixed-grid candidate from an already required middle-floor target into a third-floor source room, avoiding existing candidate footprints; that action costs two and the third-floor room becomes required by both profiles. All added horizontal doors, reservations and permissions are hypothetical. Every failed recognition is retained. Clinic and Molio pilots admit this extension. Pinned evaluation, not this pilot, supplies final costs/statuses.
 
+
+The final source extraction refines the feasibility pilot: maximum-cardinality eligible nonoverlapping subsets replace area-first maximal subsets. This rule is fixed before final source timing; it is not selected by optimizer time or objective. The Clinic third level is source-labelled Roof - Main, not asserted to be a third occupied floor; Molio adds source-labelled 3. Sal. Source labels alone do not certify occupancy.

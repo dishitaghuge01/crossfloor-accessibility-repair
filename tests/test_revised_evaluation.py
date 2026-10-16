@@ -81,3 +81,94 @@ def test_integrated_example_paid_unused_collision_and_owner_reuse():
     assert verify_obligations(a,active)['satisfied']
     repair=apply_actions(a,expected[2])
     assert 'SPARE' in repair['active']
+
+
+def test_identifier_renaming_and_unit_rescaling():
+    import json
+    original=authored_interface_scenarios()['shared_asset']
+    # JSON roundtrip removes Python constructor aliases before coordinate edits.
+    a=json.loads(json.dumps(original))
+    for f in a['floors']:
+        f['elevation_m']*=2
+        for key in ['boundary']:
+            f[key]=[[2*x,2*y] for x,y in f[key]]
+        for r in f['rooms']:r['polygon']=[[2*x,2*y] for x,y in r['polygon']]
+        for key in ['obstacles','reserved_portal_zones']:
+            f[key]=[[[2*x,2*y] for x,y in p] for p in f[key]]
+    for p in a['profiles']:
+        for key in ['min_width_m','clearance_m']:p[key]*=2
+    for c in a['connections']:
+        for key in ['width_m','rise_m','run_m']:
+            if key in c['geometry']:c['geometry'][key]*=2
+        for key in ['landings','footprints']:
+            for r in c['geometry'].get(key,[]):r['polygon']=[[2*x,2*y] for x,y in r['polygon']]
+        if 'opening' in c['geometry']:c['geometry']['opening']=[[2*x,2*y] for x,y in c['geometry']['opening']]
+    assert signature(a)==signature(original)
+    identifiers=set()
+    def collect(value):
+        if isinstance(value,dict):
+            for key,item in value.items():
+                if key.endswith('_id') and isinstance(item,str):identifiers.add(item)
+                collect(item)
+        elif isinstance(value,list):
+            for item in value:collect(item)
+    collect(a)
+    mapping={i:'renamed-'+i for i in identifiers}
+    def rename(value):
+        if isinstance(value,str):return mapping.get(value,value)
+        if isinstance(value,list):return [rename(v) for v in value]
+        if isinstance(value,dict):return {k:rename(v) for k,v in value.items()}
+        return value
+    result=signature(rename(a));expected=signature(original)
+    assert result[:2]==expected[:2]
+    assert result[2]==[mapping[i] for i in expected[2]]
+
+
+def test_feasible_candidate_addition_and_empty_trivial_demand_contract():
+    a=authored_interface_scenarios()['atomic_bundle']
+    old=solve_owned_interface(a)
+    extra=deepcopy(a['actions'][0]);extra.update(action_id='ZZ-new',cost=.5)
+    a['actions'].append(extra)
+    new=solve_owned_interface(a)
+    assert Decimal(new['cost'])<=Decimal(old['cost'])
+    for o in a['obligations']:o['target']=o['source']
+    r=solve_owned_interface(a)
+    assert r['selected']==[] and Decimal(r['cost'])==0
+    a['obligations']=[]
+    with pytest.raises(ValueError,match='SCHEMA|INTERFACE_ROOTED'):solve_owned_interface(a)
+
+
+def test_independent_paid_rectangle_checker_finds_annex_collision():
+    import sys
+    from pathlib import Path
+    sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
+    from audit_revised_evidence import paid_rectangles
+    from cfar.experiment_families import integrated_example
+    a=integrated_example()
+    assert paid_rectangles(a,['A000','A001'])==5
+    with pytest.raises(ValueError,match='paid-owner overlap'):paid_rectangles(a,['A000','E'])
+
+
+def test_independent_owner_signature_check():
+    import sys
+    from pathlib import Path
+    sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
+    from audit_revised_evidence import paid_rectangles
+    from cfar.experiment_families import integrated_example
+    a=integrated_example()
+    # Different per-edge capabilities for the same physical owner are invalid.
+    c=next(c for c in a['connections'] if c['connection_id']=='G0P2')
+    c['physical_profiles']=['profile0']
+    with pytest.raises(ValueError,match='owner consistency'):paid_rectangles(a,['A000','A001'])
+
+
+@pytest.mark.parametrize('count',[2,3,4])
+def test_untimed_geometry_operation_count_matches_private_pairs(count):
+    import sys
+    from pathlib import Path
+    sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
+    from profile_recognition_operations import count_recognition
+    from cfar.interface_scenarios import dense_alternative_probe
+    result=count_recognition(dense_alternative_probe(count))
+    assert result['physical_footprint_pair_intersection_tests']==count*(count-1)//2
+    assert result['generated_cells']==2

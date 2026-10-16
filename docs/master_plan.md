@@ -254,3 +254,4 @@ Revised-master follow-up: see [seventeen-item agenda](revised_master_agenda.md).
 
 Revised evaluation protocol implemented in docs/revised_evaluation_protocol.md. Multi-room source pilot is available; final empirical gate remains pending pinned measurements/replay and manuscript integration.
 
+Revised authored evaluation collected and audited at 25aa069: 70 recipes, 1918 observations. Source extraction now maximizes eligible nonoverlapping room cardinality with recorded ties/exclusions. See revised_master_disposition.md for every requested item and its scope. Final source timing, compilation and visual QA remain pending.

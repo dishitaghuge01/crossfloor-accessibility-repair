@@ -15,6 +15,7 @@ from cfar.geometry import computed_adjacency, connection_feasible
 from cfar.interface_recognition import recognize_physical_interface
 from cfar.io import fingerprint,write_json
 from cfar.synthetic_star import rectangle
+from source_room_selection import maximum_nonoverlap
 from cfar.validation import validate_instance
 
 PIDS=['experimental0','experimental1']
@@ -56,15 +57,13 @@ def door(instance,first,second,index):
 def build_one(audit):
     if any('error' in b for b in audit['background']):raise ValueError('unmapped background')
     obstacles=[rectangle(*b['bounds']) for b in audit['background']]
-    rooms_by={};exclusions=[]
+    rooms_by={};exclusions=[];selection_statistics={}
     for storey in audit['storeys']:
-        retained=[]
         eligible=[s for s in audit['spaces'] if s['eligible'] and s['storey_id']==storey['global_id']]
-        for s in sorted(eligible,key=lambda r:(-r['area'],r['global_id'])):
-            if any(Polygon(s['polygon']).intersection(Polygon(t['polygon'])).area>1e-8 for t in retained):
-                exclusions.append(dict(room=s['global_id'],reason='overlap with earlier larger-area retained room'))
-            else:retained.append(s)
+        retained,omitted,selection_stats=maximum_nonoverlap(eligible)
+        exclusions.extend(omitted)
         rooms_by[storey['global_id']]=retained
+        selection_statistics[storey['global_id']]=selection_stats
     attempts=[]
     for low,high in zip(audit['storeys'],audit['storeys'][1:]):
         if high['elevation_m']-low['elevation_m']<.1:continue
@@ -127,7 +126,7 @@ def build_one(audit):
             restricted=deepcopy(trial)
             for edge in restricted['floors'][1]['access_edges']:edge['permitted_profiles']=PIDS[:1]
             recognize_physical_interface(restricted)
-            return {'horizontal':trial,'restricted-horizontal':restricted},dict(exclusions=exclusions,attempts=attempts,
+            return {'horizontal':trial,'restricted-horizontal':restricted},dict(exclusions=exclusions,selection_statistics=selection_statistics,attempts=attempts,
                 retained_rooms=sum(len(f['rooms']) for f in trial['floors']),source_rooms=audit['counts']['spaces'],
                 omitted_rooms=audit['counts']['spaces']-sum(len(f['rooms']) for f in trial['floors']),
                 adjacency_edges_per_floor=[len(f['adjacency_edges']) for f in trial['floors']],

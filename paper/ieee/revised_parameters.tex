@@ -1,0 +1,13 @@
+\begin{table*}[t]
+\caption{Computed Interface Parameters and Their Runtime Role}\label{tab:parameters}
+\centering\footnotesize\setlength{\tabcolsep}{3pt}
+\begin{tabular}{lp{.30\textwidth}p{.31\textwidth}p{.27\textwidth}}
+\toprule Key & Definition & Measurement / supplied status & Runtime role \\\midrule
+$p$ & Number of profile layers & Count supplied profiles; computed & Connectivity dimension\\
+$r$ & Maximum retained baseline components per floor/profile & Union-find contraction, all or safely marked; computed & Optional boundary sets and partitions\\
+$z$ & Maximum collision cells per floor & Rectangle arrangement, checked against kernel conflicts; constructed & Live resource cells\\
+$L$ & Maximum complete unit or active baseline cross-floor span & Consecutive ordered floor range; computed & Look-ahead window and live boundary\\
+$h$ & Maximum owners of a unit covering one cell & Unit/cell incidence count; computed & At most $h+2$ statuses per live cell\\
+$g$ & Maximum owners per complete unit & Action--owner incidence components; computed & Descriptive, no separate exponent term\\
+$B$ & Represented input bit size, including costs and IDs & Supplied representation size & Polynomial recognition/label/arithmetic work\\
+\bottomrule\end{tabular}\end{table*}

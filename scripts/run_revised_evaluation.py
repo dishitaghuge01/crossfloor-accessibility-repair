@@ -3,6 +3,7 @@ import argparse
 from decimal import Decimal
 from fractions import Fraction
 import importlib.metadata
+import hashlib
 import json
 from pathlib import Path
 import platform
@@ -29,10 +30,13 @@ def worker(source, method, target, budget):
     from cfar.oracle import exact_oracle
     import psutil
     instance = json.loads(Path(source).read_text())
-    cache = recognize_physical_interface(instance, profile=True) if method == 'cached' else None
+    cache = None
     started = perf_counter()
     result = {}
     try:
+        if method == 'cached':
+            cache = recognize_physical_interface(instance, profile=True)
+            started = perf_counter()
         if method == 'cp-sat':
             result = solve_cp_sat(instance, time_limit=float(budget), seed=0)
         elif method.startswith('greedy'):
@@ -100,7 +104,7 @@ def run(output, instances=None, smoke=False, repetitions=5):
     if any(output.iterdir()):
         raise ValueError('fresh empty output required')
     import psutil
-    settings = dict(version=1, repetitions=repetitions, expensive_repetitions=3, timeout_seconds=60,
+    settings = dict(version=2, runner_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(), git_revision=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(), primary_methods=METHODS, repetitions=repetitions, expensive_repetitions=3, expensive_criteria='at least100 actions,100 retained rooms,100 background obstacles per floor,or seven connectivity floors', timeout_seconds=60,
         solver_budget_seconds=55, seeds=[0,1,2], exchange_budget=100,
         startup='excluded from function_seconds; included in end_to_end_seconds',
         memory='whole fresh worker process peak RSS including imports; no enforced memory cap',
@@ -120,12 +124,13 @@ def run(output, instances=None, smoke=False, repetitions=5):
             write_json(folder/'recognition.json',recognition)
         except ValueError:
             measured_parameters=None
-        methods=METHODS+(['pruned','cached'] if family in {'rooms','connectivity'} else [])
+        methods=METHODS+(['pruned','cached'] if family in {'rooms','connectivity','building-derived-controlled'} else [])
         if len(instance['actions'])<=8 and family not in {'scope-control','limit-control'}:
             methods+=['oracle']
         exact=[]
         for method in methods:
-            count=1 if method=='oracle' else (3 if len(instance['actions'])>=100 or (family=='connectivity' and len(instance['floors'])>=7) else repetitions)
+            expensive=(len(instance['actions'])>=100 or sum(len(f['rooms']) for f in instance['floors'])>=100 or max((len(f['obstacles']) for f in instance['floors']),default=0)>=100 or (family=='connectivity' and len(instance['floors'])>=7))
+            count=1 if method=='oracle' else (3 if expensive else repetitions)
             for repeat in range(count):
                 target=folder/f'{method}-{repeat}.json'
                 command=[sys.executable,str(Path(__file__).resolve()),'--worker',str(folder/'input.json'),method,str(target),'55']
@@ -156,7 +161,7 @@ def run(output, instances=None, smoke=False, repetitions=5):
                 source_hash=next((s['sha256'] for s in registry['sources'] if s['building']==source_id),None)
                 row=dict(experiment_id=output.name,instance_id=name,source_building_id=source_id,source_sha256=source_hash,
                     instance_sha256=fingerprint(instance),generator_family=family,seed=seed,solver=method,
-                    solver_configuration=dict(timeout_seconds=60,internal_seconds=55,exchange_budget=100),
+                    solver_configuration=dict(timeout_seconds=60,internal_seconds=55 if method=='cp-sat' else None,exchange_budget=100 if method=='greedy-improved' else None, max_states=(1 if name=='state-limit' else 100000) if method in {'compressed','uncompressed','pruned','cached'} else None,max_cut_columns=65536 if method in {'compressed','uncompressed','pruned','cached'} else None,compression=method!='uncompressed' if method in {'compressed','uncompressed','pruned','cached'} else None,prune_irrelevant=method=='pruned' if method in {'compressed','uncompressed','pruned','cached'} else None,recognition_cached=method=='cached',cp_sat_workers=1 if method=='cp-sat' else None,cp_sat_seed=0 if method=='cp-sat' else None,oracle_max_actions=8 if method=='oracle' else None),
                     repeat_index=repeat,status=payload['status'],objective_cost=cost,
                     objective_action_count=len(selected) if selected is not None else None,selected_action_ids=selected,
                     best_bound=bound,relative_cost_gap=gap,end_to_end_seconds=wall,

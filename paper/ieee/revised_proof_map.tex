@@ -1,0 +1,31 @@
+\begin{table*}[t]
+\caption{Expressibility, Applicable Algorithms and Parameter Correspondence}\label{tab:boundary}
+\centering\footnotesize\setlength{\tabcolsep}{3pt}
+\begin{tabular}{p{.15\textwidth}p{.28\textwidth}p{.25\textwidth}p{.25\textwidth}}
+\toprule Family & Input, purchases, compatibility, demands & Algorithm/objective transfer & Parameter boundary \\\midrule
+Labelled connectivity~\cite{labels} & Graph effects share a paid label; physical ownership needs augmentation & Shared purchase objective is prior; its stated approximation/hardness is not this physical algorithm & No automatic owned-interface bound transfer established\\
+Heterogeneous/simultaneous design~\cite{condition,simultaneous} & Shared infrastructure and condition-specific allowed edges/demands & Profiles are prior; full atomic-owner contract needs an explicit construction & Equal dependence not established by inspected formulations\\
+Conflict Steiner selection~\cite{conflicts} & Connectivity support and compatibility constraints & Clashes can be compiled; naive purchase vertices invent routes & Work-specific restrictions, not a demonstrated identical bound\\
+Weighted connectivity bases~\cite{rank} & Boundary partitions and weighted completions & Applicable minimum-label representative subroutine; prior machinery & Rank bound reused; physical interface constructed separately\\
+Weighted A\&C logic~\cite{logic} & Our Action/Occurrence/Usage/Cell graph, formula and objective & Full transfer in Appendix~\ref{app:generic} & Constructed $O(prL+zL+p+zLh)$ exponent; no lower bound on tighter encodings\\
+CP-SAT flow~\cite{cpsat} & Original actions, owner/cell capacities, separate profile flows & Executed exact lexicographic optimization & No supplied floor-width guarantee; practical common-class baseline\\
+\bottomrule\end{tabular}\end{table*}
+The positive proposition is the semantics-preserving physical-to-owned-interface construction and its exact bound. Table~\ref{tab:boundary} separates general expressibility, applicable algorithm and equal dependence. For fixed $h$, the two displayed upper bounds have the same asymptotic interface exponent. No universal separation or priority certificate follows.
+
+\begin{table*}[t]
+\caption{Operational Proof Map}\label{tab:proofmap}
+\centering\footnotesize\begin{tabular}{p{.44\textwidth}p{.49\textwidth}}
+\toprule Operation & Safety/completeness obligation \\\midrule
+RecognizeStrictInstance / BuildOwnedCollisionCells & Validated kernel, global owner consistency and checked collision equivalence\\
+BuildActionAssetUnits / BuildFloorEventSchedule & Complete owner incidence and complete support ensure all incident actions fit the live window\\
+IntroduceAction / UpdatePhysicalOccupancy & Ownership locality: charge once, retain every paid effect cell; reject external/different-owner overlap\\
+UpdateProfileWitnesses & Thin witnesses preserve full repairs: glue only supplied connected components, separately per profile\\
+ReduceRepresentativePartitions & Representative preservation at equal event, occupancy and selected sets; established weighted bases\\
+ForgetCompletedInterface & Ownership locality after complete units; reject disappearing selected nonanchor components after all floor events\\
+ReconstructAndReplayRepair & State sufficiency/labels and full original-action materialization\\
+\bottomrule\end{tabular}\end{table*}
+These operational names map to the implemented steps, not additional unimplemented routines. After every event, each state describes a realizable paid-action prefix, exact live occupancy and selected witness boundary/connectivity. Every feasible continuation's minimum label has an at-least-as-good retained representative. Future IDs are disjoint from processed prefix actions, so adding a common future set preserves cost, count and equal-cardinality sorted-ID order. Stored tuples and accumulated exact cost have polynomial bit length in $B$, where numeric costs mean the represented decoded values, not arbitrary-precision original JSON lexemes.
+
+All parameters are computed: $p$ counts supplied profiles; $r$ is obtained by per-profile baseline contraction (all or safely marked); $z$ is constructed from rectangular cells; $L$ measures complete units/baseline spans; $h$ counts within-unit owners per cell; $g$ counts owners per unit. Recognition constructs the decomposition and is charged in $T_{\rm rec}$. The $prL$ term controls optional boundary sets/partitions and $zL\log(h+2)$ controls live owner maps; $g$ is descriptive, while $B$ controls polynomial arithmetic/identifier work.
+
+An empty state set after exhaustive transitions means infeasible; a cap does not. The recognized implementation requires one supplied obligation source per profile. Empty obligation lists and profiles without an obligation are unsupported. A trivial source-equals-target obligation supplies a root and needs no purchase. These boundaries are part of the stated input class.

@@ -1,0 +1,282 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cfar:evaluation-records:1",
+  "title": "Normalized CFAR evaluation observations",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "experiment_id": {
+        "type": "string",
+        "minLength": 1
+      },
+      "instance_id": {
+        "type": "string",
+        "minLength": 1
+      },
+      "generator_family": {
+        "type": "string",
+        "minLength": 1
+      },
+      "solver": {
+        "type": "string",
+        "minLength": 1
+      },
+      "raw_record": {
+        "type": "string",
+        "minLength": 1
+      },
+      "source_building_id": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "certificate_path": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "best_bound": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "objective_cost": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "instance_sha256": {
+        "type": "string",
+        "pattern": "^[a-f0-9]{64}$"
+      },
+      "source_sha256": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "pattern": "^[a-f0-9]{64}$"
+      },
+      "code_commit": {
+        "type": "string",
+        "pattern": "^[a-f0-9]{40}$"
+      },
+      "seed": {
+        "type": "integer",
+        "minimum": 0
+      },
+      "repeat_index": {
+        "type": "integer",
+        "minimum": 0
+      },
+      "objective_action_count": {
+        "type": [
+          "integer",
+          "null"
+        ],
+        "minimum": 0
+      },
+      "peak_memory_bytes": {
+        "type": [
+          "integer",
+          "null"
+        ],
+        "minimum": 0
+      },
+      "peak_raw_states": {
+        "type": [
+          "integer",
+          "null"
+        ],
+        "minimum": 0
+      },
+      "peak_retained_states": {
+        "type": [
+          "integer",
+          "null"
+        ],
+        "minimum": 0
+      },
+      "end_to_end_seconds": {
+        "type": [
+          "number",
+          "null"
+        ],
+        "minimum": 0
+      },
+      "function_seconds": {
+        "type": [
+          "number",
+          "null"
+        ],
+        "minimum": 0
+      },
+      "recognition_seconds": {
+        "type": [
+          "number",
+          "null"
+        ],
+        "minimum": 0
+      },
+      "optimization_seconds": {
+        "type": [
+          "number",
+          "null"
+        ],
+        "minimum": 0
+      },
+      "replay_seconds": {
+        "type": [
+          "number",
+          "null"
+        ],
+        "minimum": 0
+      },
+      "relative_cost_gap": {
+        "type": [
+          "number",
+          "null"
+        ],
+        "minimum": 0
+      },
+      "selected_action_ids": {
+        "type": [
+          "array",
+          "null"
+        ],
+        "items": {
+          "type": "string"
+        },
+        "uniqueItems": true
+      },
+      "status": {
+        "enum": [
+          "optimal",
+          "feasible",
+          "infeasible",
+          "heuristic_failed",
+          "limit_exceeded",
+          "unsupported",
+          "timeout",
+          "internal_error",
+          "model_invalid"
+        ]
+      },
+      "parameters": {
+        "type": [
+          "object",
+          "null"
+        ],
+        "properties": {
+          "p": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "r": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "z": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "L": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "g": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "h": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "p",
+          "r",
+          "z",
+          "L",
+          "g",
+          "h"
+        ],
+        "additionalProperties": false
+      },
+      "phase_seconds": {
+        "type": [
+          "object",
+          "null"
+        ],
+        "additionalProperties": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "replay": {
+        "type": [
+          "object",
+          "null"
+        ],
+        "properties": {
+          "satisfied": {
+            "type": "boolean"
+          },
+          "delta_A": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "satisfied",
+          "delta_A"
+        ],
+        "additionalProperties": false
+      },
+      "solver_configuration": {
+        "type": "object"
+      },
+      "statistics": {
+        "type": "object"
+      }
+    },
+    "required": [
+      "experiment_id",
+      "instance_id",
+      "generator_family",
+      "solver",
+      "raw_record",
+      "source_building_id",
+      "certificate_path",
+      "best_bound",
+      "objective_cost",
+      "instance_sha256",
+      "source_sha256",
+      "code_commit",
+      "seed",
+      "repeat_index",
+      "objective_action_count",
+      "peak_memory_bytes",
+      "peak_raw_states",
+      "peak_retained_states",
+      "end_to_end_seconds",
+      "function_seconds",
+      "recognition_seconds",
+      "optimization_seconds",
+      "replay_seconds",
+      "relative_cost_gap",
+      "selected_action_ids",
+      "status",
+      "parameters",
+      "phase_seconds",
+      "replay",
+      "solver_configuration",
+      "statistics"
+    ],
+    "additionalProperties": false
+  }
+}
