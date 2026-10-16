@@ -98,12 +98,12 @@ def main() -> None:
                 result = solve_owned_interface(instance, compress=not args.no_compression,
                                                max_states=args.max_states, max_cut_columns=args.max_cut_columns,
                                                prune_irrelevant=args.prune_irrelevant, dominance=not args.no_dominance,
-                                event_order=args.event_order, spatial_index=args.spatial_index, dominance=not args.no_dominance,
                                                event_order=args.event_order, spatial_index=args.spatial_index)
                 write_json(output/"result.json", result)
                 settings = dict(method=result["method"], variant="SCFAR", compression=not args.no_compression,
                                 max_states=args.max_states, max_cut_columns=args.max_cut_columns,
-                                prune_irrelevant=args.prune_irrelevant,
+                                prune_irrelevant=args.prune_irrelevant, dominance=not args.no_dominance,
+                                event_order=args.event_order, spatial_index=args.spatial_index,
                                 timeout=None, elapsed_seconds=time.perf_counter()-started)
                 write_json(output/"manifest.json", manifest(instance,settings,result["status"]))
                 print(json.dumps({"status":result["status"], "cost":result["cost"],
