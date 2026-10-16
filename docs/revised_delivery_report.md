@@ -9,3 +9,5 @@ The package includes frozen inputs, normalized and raw records, manifests, certi
 All experimental permissions, reservations, profiles and action costs on building geometry are hypothetical; they are neither facts inferred from IFC nor construction prices. Roof - Main in Clinic is a source level, not an asserted occupied third floor. The two admitted rich sources are not broad building validation. Shared geometry/recognizer dependencies and timing drift are disclosed.
 
 Open scientific gates: literature priority and independent human proof review. Deferred implementation variants: dominance-off, alternate event ordering and spatial indexing. Venue selection, authorship, anonymity and page-limit adaptation remain for submission preparation. These boundaries prevent an honest claim that every optional enhancement or external scientific gate has been completed; they do not block review of the delivered research package.
+
+The tested PDF engine is Tectonic 0.17.0 (XeTeX); the Unicode fontspec master needs a XeTeX-capable compiler. All 17 pages are US letter (612 by 792 points). The exact Python environment is recorded in requirements-release.lock.txt.

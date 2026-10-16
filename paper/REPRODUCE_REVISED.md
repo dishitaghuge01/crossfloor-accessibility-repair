@@ -53,7 +53,7 @@ Summary min/median/max describe recorded termination times; completed-solve
 comparisons in the paper explicitly filter for completed outcomes.
 
 Compile master.tex from its generated folder with the unchanged IEEEtran.cls
-and vector figures. Use repeated pdfLaTeX reference passes or Tectonic. The
+and vector figures. The revised Unicode fontspec source requires a XeTeX-capable engine; the release was compiled with Tectonic 0.17.0. The
 release report names the tested engine/version and diagnostics. No external PDF
 checker upload or conference submission is part of this workflow.
 
