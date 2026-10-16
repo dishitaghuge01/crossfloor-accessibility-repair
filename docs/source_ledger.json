@@ -461,6 +461,54 @@
       "rights": "Open redistribution license not established; no source PDF, drawing or private wording included",
       "review_date_local": "2026-10-16",
       "review": "docs/city_hall_admission.md"
+    },
+    {
+      "id": "choice_networks_conference_2022",
+      "title": "Analyzing the Reachability Problem in Choice Networks",
+      "url": "https://link.springer.com/chapter/10.1007/978-3-031-08011-1_27",
+      "doi": "10.1007/978-3-031-08011-1_27",
+      "status": "primary_abstract_references_only_subscription_preview",
+      "locators": "Abstract; references; publication10June2022; pp408-423; full proofs not accessible",
+      "review_date_local": "2026-10-16",
+      "review": "docs/gap_assessment_completion.md"
+    },
+    {
+      "id": "marble_hill_access_2018",
+      "title": "Marble Hill House: Repairs and Alterations, Design and Access Report",
+      "authors": [
+        "Acanthus Clews Architects"
+      ],
+      "url": "https://www.english-heritage.org.uk/link/722a3f30b0374c3eb903129da002158b.aspx",
+      "status": "primary_document_text_screen_not_metric_admission",
+      "locators": "PDF5,8-9; revisionC24August2018",
+      "rights": "No open redistribution licence established; source artwork/PDF not delivered",
+      "review_date_local": "2026-10-16",
+      "review": "docs/gap_assessment_completion.md"
+    },
+    {
+      "id": "marble_hill_planning_2018",
+      "title": "Marble Hill Parks for People: Planning Statement",
+      "authors": [
+        "Lichfields"
+      ],
+      "url": "https://www.english-heritage.org.uk/link/5c94c36216184066b9685eb276b9d1e1.aspx",
+      "status": "primary_relevant_text_and_drawing_schedule_screen",
+      "locators": "PDF1-2/7 attribution; PDF37 drawing300A/301E/302B; September2018",
+      "rights": "Copyright2018Nathaniel Lichfield & Partners Ltd; all rights reserved",
+      "review_date_local": "2026-10-16",
+      "review": "docs/gap_assessment_completion.md"
+    },
+    {
+      "id": "marble_hill_owner_journal",
+      "title": "Marble Hill Revived",
+      "authors": [
+        "English Heritage"
+      ],
+      "url": "https://www.english-heritage.org.uk/visit/places/marble-hill/marble-hill-revived/",
+      "status": "primary_owner_report_not_site_verification",
+      "locators": "December2018 approval; February2022 installation entries",
+      "review_date_local": "2026-10-16",
+      "review": "docs/gap_assessment_completion.md"
     }
   ]
 }

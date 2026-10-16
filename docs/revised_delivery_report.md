@@ -17,3 +17,13 @@ The additional campaign contains 180 observations (177 optimal, three explicit c
 Final follow-up PDF QA: 19 pages, 16 figures, 35 embedded font objects, no Type 3 fonts, no unresolved references or overfull diagnostics. All rendered pages were visually reviewed.
 
 The current documentary extension is20 pages/17 figures/36 embedded font objects. AppendixF adds a historical City Hall admission study,580 scalar table entries and exact arithmetic checks on533 priced rows. It admits no additional physical instance. Historical documentary estimates are source values, separate from all hypothetical benchmark prices; timed observations remain2274. See city_hall_admission.md and REPRODUCE_DOCUMENTARY.md.
+
+
+Final assessment integration retains20 pages and17 figures. AppendixG and the
+main comparison now explicitly derive the generic finite-domain resource
+factor and screen owner-reported Marble Hill installation evidence. All20
+rendered pages reviewed;36 embedded font objects, no Type3/unresolved
+references/overfull diagnostics. See gap_assessment_completion.md and
+REPRODUCE_GAP_ASSESSMENT.md. Priority and actual-building validation remain
+open; the assessment is complete within accessible evidence, not a closure
+certificate. Timed observations remain2274; no new physical input admitted.

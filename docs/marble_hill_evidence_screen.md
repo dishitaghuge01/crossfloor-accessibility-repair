@@ -51,3 +51,11 @@ Application locator recovered from the owner page: Richmond case18/2977/FUL,
 https://www2.richmond.gov.uk/plandata2/Planning_CaseNo.aspx?strCASENO=18%2F2977%2FFUL.
 Fetch returned cache miss. Targeted drawing-title/case-number searches located
 only the schedule, not the actual existing/proposed sheets in this pass.
+
+
+Final retrieval follow-through: direct HTTP recovered the modern portal shell.
+The legacy redirect truncates the reference, so the full encoded reference was
+retained. Ordinary public frontend configuration identified the application
+search/document service; its request returned a blocked-request service
+response. No bypass was attempted. Actual drawing sheets remain uninspected.
+See gap_assessment_completion.md for the completed assessment boundary.

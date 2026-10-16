@@ -27,3 +27,10 @@ will accept the paper. Final measured counts and pinned commits are recorded in
 Follow-up closes the three executable omissions: see [followup_results.md](followup_results.md). Priority, independent human proof review and verified actual-building data remain open.
 
 City Hall documentary extension: source-supported price/reference and plan-representation audit completed; no new physical instance admitted. Historical proposal scope and missing metric/permission evidence are explicit in city_hall_admission.md. This does not close actual-building validation or priority.
+
+
+AppendixG integrates the final finite-domain comparison and installed-lift
+evidence screen. The logarithmic owner term is not a separation from every
+generic resource-state method. Complete-construction priority, human proof
+review and actual-building validation remain open. See
+gap_assessment_completion.md for exact source-access and evidence limits.
