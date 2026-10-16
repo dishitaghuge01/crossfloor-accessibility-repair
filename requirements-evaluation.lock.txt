@@ -1,0 +1,3 @@
+# Direct additional benchmark dependencies, Windows Python 3.12.
+ortools==9.14.6206
+psutil==7.2.2

@@ -5,7 +5,7 @@ not. No owner or purchase vertex is introduced into the route graph.
 """
 from collections import defaultdict
 from fractions import Fraction
-from math import isfinite, lcm
+from math import isfinite, lcm, floor
 from time import perf_counter
 
 from .actions import apply_actions
@@ -98,9 +98,10 @@ def solve_cp_sat(instance, *, time_limit=60.0, seed=0):
     stages = []
     incumbent = None
     failure_status = None
+    cost_lower_bound = None
 
     def optimize(expression, maximize=False):
-        nonlocal incumbent, failure_status
+        nonlocal incumbent, failure_status, cost_lower_bound
         remaining = time_limit - (perf_counter() - started)
         if remaining <= 0:
             failure_status = "limit_exceeded"
@@ -112,9 +113,14 @@ def solve_cp_sat(instance, *, time_limit=60.0, seed=0):
             model.minimize(expression)
         status = solver.solve(model)
         stages.append(dict(status=solver.status_name(status), wall_seconds=solver.wall_time,
-                           branches=solver.num_branches, conflicts=solver.num_conflicts))
+                           branches=solver.num_branches, conflicts=solver.num_conflicts,
+                           objective_stage="cost" if not stages else "count" if len(stages)==1 else "identifier",
+                           best_bound=solver.best_objective_bound))
         if status in (cp_model.OPTIMAL, cp_model.FEASIBLE):
             incumbent = sorted(aid for aid, var in x.items() if solver.value(var))
+        if len(stages) == 1 and status in (cp_model.OPTIMAL, cp_model.FEASIBLE, cp_model.UNKNOWN):
+            cost_lower_bound = (str(action_cost(instance, incumbent)) if status == cp_model.OPTIMAL
+                                else str(Fraction(floor(solver.best_objective_bound), scale)))
         if status != cp_model.OPTIMAL:
             failure_status = ("infeasible" if status == cp_model.INFEASIBLE else
                               "model_invalid" if status == cp_model.MODEL_INVALID else "limit_exceeded")
@@ -139,6 +145,7 @@ def solve_cp_sat(instance, *, time_limit=60.0, seed=0):
                                   elapsed_seconds=perf_counter()-started),
                   scope=recognized["scope"],
                   optimality_evidence="CP-SAT OPTIMAL at every lexicographic stage; shared geometry recognizer")
+    result["best_cost_bound"] = cost_lower_bound
     if incumbent is not None and result["status"] != "infeasible":
         repair = apply_actions(instance, incumbent)
         verification = verify_obligations(repair["instance"], repair["active"])

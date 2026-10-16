@@ -304,3 +304,9 @@ The user explicitly authorized fork/clone, changes and a pull request.
 
 Preserved merged revision 56dcb66 and recorded all seventeen review items in docs/revised_master_agenda.md. Added optional full-action greedy pruning and deterministic budgeted one/two-for-one exchange, with CLI settings recorded in manifests. Twelve targeted tests passed in 2.64 seconds. Historical benchmark figures remain unchanged; improved-method clean timing/evidence is pending. Multi-room source extraction and precise comparison remain open; no priority or submission-readiness claim.
 
+
+Revised evaluation implementation: added direct optional phase instrumentation, nullable evidence runner, seeded structural families, integrated ownership example and auditable multi-room source adaptation. Pilot source screen admits Clinic and Molio; both preserve nonempty adjacency on both source floors and pilot optimum changes 1 to 4 under hypothetical horizontal profile restriction. These are pilot correctness observations, not pinned performance results. Full regression and clean-revision evaluation follow.
+
+
+Implementation checkpoint: full collected regression passed 691 tests in 63.01 seconds. An integrated-example test added after collection passed in the separate 13-test revised-evaluation run (2.87 seconds); do not report a 692-test full run. Source-screen pilot admits Clinic (248 retained rooms, adjacency 1/2) and Molio (29 rooms, adjacency 1/1), with hypothetical horizontal restriction changing exact cost 1 to 4. Expanded protocol is frozen before pinned performance collection; precise positive contribution/proof map is in docs/supported_contribution_boundary.md. G3 priority and three-storey building evidence remain unconfirmed.
+

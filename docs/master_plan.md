@@ -251,3 +251,6 @@ publication are explicitly authorized by the user for this revision.
 
 Revised-master follow-up: see [seventeen-item agenda](revised_master_agenda.md). Improved greedy postprocessing is implemented and targeted-tested; benchmark refresh and multi-room source evidence remain pending. No research gate is newly closed.
 
+
+Revised evaluation protocol implemented in docs/revised_evaluation_protocol.md. Multi-room source pilot is available; final empirical gate remains pending pinned measurements/replay and manuscript integration.
+

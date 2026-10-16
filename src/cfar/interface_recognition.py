@@ -1,5 +1,6 @@
 """Conservative M09 recognizer; no compressed solver or novelty certificate."""
 from itertools import combinations
+from time import perf_counter
 
 from shapely.geometry import box
 
@@ -10,8 +11,10 @@ from .io import fingerprint
 from .validation import baseline_active, validate_instance
 
 
-def recognize_physical_interface(instance: dict, *, prune_irrelevant: bool = False) -> dict:
+def recognize_physical_interface(instance: dict, *, prune_irrelevant: bool = False, profile: bool = False) -> dict:
+    started = perf_counter()
     validate_instance(instance)
+    validated = perf_counter()
     actions = sorted(instance["actions"], key=lambda a: a["action_id"])
     require(all(a["type"] == "physical_intervention" and not a["requires"] and not a["excludes"]
                 and all(e["op"] == "activate_connection" and e["permitted_profiles"] for e in a["effects"])
@@ -36,6 +39,7 @@ def recognize_physical_interface(instance: dict, *, prune_irrelevant: bool = Fal
         require(len(sources) == 1, "INTERFACE_ROOTED", f"one obligation source required for {pid}")
         anchors[pid] = next(iter(sources))
     constraints = compile_activation_constraints(instance, max_actions=len(actions))
+    compiled = perf_counter()
     available = [a for a in actions if a["action_id"] not in constraints["blocked"]]
     ownership, support, shapes = {}, {}, {f["floor_id"]: {} for f in floors}
     for action in available:
@@ -52,6 +56,8 @@ def recognize_physical_interface(instance: dict, *, prune_irrelevant: bool = Fal
                 require(shape.equals(box(*shape.bounds)), "INTERFACE_RECTANGLE", owner)
                 shapes[fid][owner] = shape
                 support[aid].add(fid)
+    prepared = perf_counter()
+    cell_owner_tests = 0
     cells = []
     for floor in floors:
         fid = floor["floor_id"]
@@ -61,6 +67,7 @@ def recognize_physical_interface(instance: dict, *, prune_irrelevant: bool = Fal
         for x1, x2 in zip(xs, xs[1:]):
             for y1, y2 in zip(ys, ys[1:]):
                 cell = box(x1, y1, x2, y2)
+                cell_owner_tests += len(local)
                 owners = sorted(owner for owner, s in local.items() if s.covers(cell))
                 if not owners:
                     continue
@@ -86,6 +93,7 @@ def recognize_physical_interface(instance: dict, *, prune_irrelevant: bool = Fal
     observed = {tuple(c["actions"]) for c in constraints["geometry_conflicts"]}
     require(predicted == observed, "INTERFACE_COLLISION_EQUIVALENCE",
             "cell ownership must match the geometry compiler exactly")
+    cells_done = perf_counter()
     remaining = set(ownership)
     units = []
     while remaining:
@@ -160,7 +168,7 @@ def recognize_physical_interface(instance: dict, *, prune_irrelevant: bool = Fal
         unit["resource_state_upper_bound"] = bound
         h = max([h] + list(counts.values()))
     parameters["h"] = h
-    return dict(format="physical_interface_recognition_v1", input_fingerprint=fingerprint(instance),
+    result = dict(format="physical_interface_recognition_v1", input_fingerprint=fingerprint(instance),
                 recognized=True, parameters=parameters, floor_order=[f["floor_id"] for f in floors],
                 anchors=anchors, components=components, cells=cells, units=units,
                 action_cells=action_cells, blocked=constraints["blocked"],
@@ -169,3 +177,10 @@ def recognize_physical_interface(instance: dict, *, prune_irrelevant: bool = Fal
                 scope="M09 rectangular physical activations; " +
                       ("marked-component r" if prune_irrelevant else "conservative all-component r") + "; not M10 background",
                 witness_status="recognition only; no feasibility or optimality conclusion")
+    if profile:
+        result["phase_seconds"] = dict(input_validation=validated-started,
+            geometry_compilation=compiled-validated, footprint_preparation=prepared-compiled,
+            collision_cells=cells_done-prepared, units_and_components=perf_counter()-cells_done)
+        result["operation_counts"] = dict(cell_owner_coverage_tests=cell_owner_tests,
+            generated_cells=len(cells), action_pair_equivalence_tests=len(action_cells)*(len(action_cells)-1)//2)
+    return result

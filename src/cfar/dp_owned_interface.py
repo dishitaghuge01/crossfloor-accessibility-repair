@@ -5,6 +5,7 @@ Working M09/M14 implementation; rank machinery is established prior work.
 from collections import defaultdict
 from decimal import Decimal
 from itertools import product
+from time import perf_counter
 
 from .actions import apply_actions
 from .errors import require
@@ -37,10 +38,20 @@ def _components(edges):
 
 def solve_owned_interface(instance: dict, *, compress: bool = True,
                           max_states: int = 100000, max_cut_columns: int = 65536,
-                          prune_irrelevant: bool = False) -> dict:
+                          prune_irrelevant: bool = False, profile: bool = False,
+                          recognized_cache: dict | None = None) -> dict:
+    started = perf_counter()
     require(type(max_states) is int and max_states > 0 and type(max_cut_columns) is int
             and max_cut_columns > 0, "INTERFACE_LIMIT", "positive integer limits required")
-    recognized = recognize_physical_interface(instance, prune_irrelevant=prune_irrelevant)
+    if recognized_cache is not None:
+        from .io import fingerprint
+        require(recognized_cache["input_fingerprint"] == fingerprint(instance)
+                and recognized_cache["prune_irrelevant"] == prune_irrelevant,
+                "INTERFACE_CACHE", "cache must match input and pruning setting")
+        recognized = recognized_cache
+    else:
+        recognized = recognize_physical_interface(instance, prune_irrelevant=prune_irrelevant, profile=profile)
+    recognition_done = perf_counter()
     pids = sorted(recognized["components"])
     floors = recognized["floor_order"]
     ranks = {fid: i for i, fid in enumerate(floors)}
@@ -78,9 +89,12 @@ def solve_owned_interface(instance: dict, *, compress: bool = True,
                     edges.append((node(pid,c["u"]), node(pid,c["v"])))
             layers.append(_components(edges))
         effect_components[aid] = layers
+    schedule_done = perf_counter()
     # Label order is exact cost, original count, then sorted original IDs.
     states = {((), tuple((("anchor",),) for _ in pids)): (Decimal(0),0,())}
     stats = dict(events=0, peak_raw_states=1, peak_retained_states=1, representative_rows_removed=0)
+    if profile:
+        stats.update(total_deduplicated_rows=0, representative_reduction_seconds=0.0)
 
     def retain(generated):
         nonlocal states
@@ -90,6 +104,9 @@ def solve_owned_interface(instance: dict, *, compress: bool = True,
                 deduplicated[key] = label
             require(len(deduplicated) <= max_states, "INTERFACE_STATE_LIMIT", str(max_states))
         stats["events"] += 1
+        reduction_started = perf_counter()
+        if profile:
+            stats["total_deduplicated_rows"] += len(deduplicated)
         stats["peak_raw_states"] = max(stats["peak_raw_states"], len(deduplicated))
         if not compress:
             states = deduplicated
@@ -117,6 +134,8 @@ def solve_owned_interface(instance: dict, *, compress: bool = True,
                     key, label = records[index]
                     states[key] = label
         stats["peak_retained_states"] = max(stats["peak_retained_states"], len(states))
+        if profile and compress:
+            stats["representative_reduction_seconds"] += perf_counter()-reduction_started
 
     def introduce(fid):
         def generated():
@@ -194,6 +213,7 @@ def solve_owned_interface(instance: dict, *, compress: bool = True,
         retain(forget_generated())
         if f+L < len(floors):
             introduce(floors[f+L])
+    optimized = perf_counter()
     best = min(states.values(), default=None)
     result = dict(method="owned_cell_rooted_interface_dp_v1", status="optimal" if best else "infeasible",
                   variant="SCFAR", cost=str(best[0]) if best else None,
@@ -202,9 +222,17 @@ def solve_owned_interface(instance: dict, *, compress: bool = True,
                   compression=compress,
                   optimality_evidence="complete scoped DP; independent oracle comparison required",
                   scope=recognized["scope"])
+    reconstructed = perf_counter()
     if best:
         repair = apply_actions(instance, result["selected"])
         verification = verify_obligations(repair["instance"],repair["active"])
         require(verification["satisfied"], "INTERFACE_INTERNAL_REPLAY", "witness failed materialization")
         result.update(reachability=verification, geometry=repair["geometry"], adjacency=repair["adjacency"])
+    if profile:
+        result["phase_seconds"] = dict(recognition=recognition_done-started,
+            event_construction=schedule_done-recognition_done, optimization=optimized-schedule_done,
+            solution_reconstruction=reconstructed-optimized, materialization_replay=perf_counter()-reconstructed)
+        result["recognition_phase_seconds"] = recognized.get("phase_seconds") if recognized_cache is None else None
+        result["recognition_operation_counts"] = recognized.get("operation_counts")
+        result["recognition_cached"] = recognized_cache is not None
     return result
