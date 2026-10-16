@@ -1,8 +1,8 @@
 # Seventeen-item disposition for the revised master
 
 This is an implementation/evidence disposition, not a declaration that a venue
-will accept the paper. Final measured counts/commits are populated after the
-clean reproduction completes.
+will accept the paper. Final measured counts and pinned commits are recorded in
+[revised_checkpoint_results.md](revised_checkpoint_results.md).
 
 | Item | Delivered work | Boundary |
 | --- | --- | --- |

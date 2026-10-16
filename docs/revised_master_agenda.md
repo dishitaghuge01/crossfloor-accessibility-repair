@@ -5,6 +5,8 @@ requests. The merged revision at 56dcb66 is the baseline; its CP-SAT, physical
 hardness, pruning and multi-source evidence must be preserved. Attached prose
 is an improvement agenda, not authority to assert missing priority or results.
 
+The historical status table below is superseded by [final disposition](revised_master_disposition.md), [executed results](revised_checkpoint_results.md) and [delivery report](revised_delivery_report.md).
+
 ## Reviewable milestones
 
 | Items | Required deliverable | Current status |

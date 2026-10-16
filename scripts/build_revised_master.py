@@ -33,6 +33,12 @@ def build(controlled,building,source_audit,three_audit,controls,geometry_profile
         if saved['records_sha256']!=verified['records_sha256'] or saved['certificates_sha256']!=verified['certificates_sha256'] or saved['certificate_replays']!=verified['oracle_certificates']:
             raise ValueError('missing or stale independent certificate replay audit')
         verified['verified_certificate_replays']=saved['certificate_replays']
+    figure_manifest=json.loads((figures/'figure-provenance.json').read_text())
+    expected_inputs={hashlib.sha256(p.read_bytes()).hexdigest() for p in [controlled/'records.json',building/'records.json',source_audit/'summary.json']}
+    if set(figure_manifest['inputs'].values())!=expected_inputs:raise ValueError('figures use different evidence')
+    if figure_manifest['generator_normalized_sha256']!=hashlib.sha256((root/'scripts/make_revised_figures.py').read_bytes().replace(b'\r\n',b'\n')).hexdigest() or figure_manifest['helper_normalized_sha256']!=hashlib.sha256((root/'scripts/make_ieee_figures.py').read_bytes().replace(b'\r\n',b'\n')).hexdigest():raise ValueError('figure source changed')
+    for name,digest in figure_manifest['outputs'].items():
+        if hashlib.sha256((figures/name).read_bytes()).hexdigest()!=digest:raise ValueError('figure bytes changed')
     rows=json.loads((controlled/'records.json').read_text());public=json.loads((building/'records.json').read_text())
     sources=json.loads((source_audit/'summary.json').read_text())
     template=(root/'paper/ieee/master.template.tex').read_text()
@@ -83,6 +89,12 @@ def build(controlled,building,source_audit,three_audit,controls,geometry_profile
         full=[r for r in rows if r['generator_family']=='connectivity' and r['instance_id'].startswith(f'connectivity-{size}-') and r['solver']=='uncompressed' and r['status']=='optimal']
         compression_rows.append([size,int(median(r['peak_raw_states'] for r in comp)),int(median(r['peak_retained_states'] for r in comp)),int(median(r['statistics']['representative_rows_removed'] for r in comp)),f"{median(r['statistics']['representative_reduction_seconds'] for r in comp):.4f}",f"{median(r['function_seconds'] for r in comp):.4f}",f"{median(r['function_seconds'] for r in full):.4f}"])
     result+=table('Connectivity Stress: Medians over Fixed Seeds/Repetitions; Raw Means Post-Deduplication, Pre-Basis','tab:compression',['Floors','Peak raw','Peak kept','Removed total','Reduction s','Comp. s','Full s'],compression_rows,True)
+    pairs=[]
+    for name in sorted({r['instance_id'] for r in rows if r['generator_family']=='connectivity'}):
+        compressed_times=[r['function_seconds'] for r in rows if r['instance_id']==name and r['solver']=='compressed' and r['status']=='optimal']
+        full_times=[r['function_seconds'] for r in rows if r['instance_id']==name and r['solver']=='uncompressed' and r['status']=='optimal']
+        pairs.append(median(compressed_times)/median(full_times))
+    result+=f'Across the {len(pairs)} cost-seeded connectivity inputs, compressed median function time is lower on {sum(ratio<1 for ratio in pairs)}; observed compressed/full ratios range from {min(pairs):.2f} to {max(pairs):.2f}. These are descriptive paired observations. State savings do not establish a broad runtime advantage or smaller whole-process RSS; where overhead wins, representative reduction is supported primarily as the theoretical state-bound mechanism.\n\n'
     result+=figure('compression_stress','Representative-reduction stress under shared physical ownership. Peak retained states and total removed rows are distinct measures. Paired timings determine whether elimination overhead offsets row savings.','fig:compression',True)
     result+=r'''The connectivity stress varies the number of connectivity partitions within equal physical occupancy, instead of varying only raw catalogue size. Both reduced-state and overhead behavior are retained. No broad speedup follows merely from removing rows. Valid preprocessing/cache ablations report exact-label agreement and separate states, memory and function time. Cached preparation is never hidden in the primary comparison.
 
@@ -92,11 +104,19 @@ Practical choice follows measured completion, time and quality. CP-SAT is the ge
     result+=figure('phases_ablations','Direct DP phase measurements and valid irrelevant-component/cache ablations. Cache creation is excluded only from the separately labelled cached function time; process end-to-end includes it.','fig:phases',True)
     result+=figure('memory_greedy','Whole-worker peak resident memory (including imports) and feasible greedy excess costs. Only cases with a positive gap for at least one variant are shown; all failures and zero-gap inputs remain in the complete outcomes.','fig:memory',True)
     operations=json.loads((geometry_profile/'summary.json').read_text())
+    expected_input_hashes={r['instance_id']:r['instance_sha256'] for r in rows+public}
+    expected_parameters={r['instance_id']:r['parameters'] for r in rows+public if r['solver']=='compressed'}
+    for operation in operations:
+        folder=geometry_profile/operation['experiment']/operation['instance_id']
+        meta=json.loads((folder/'manifest.json').read_text());raw=json.loads((folder/'profile.json').read_text())
+        if meta['git_dirty'] or meta['input_fingerprint']!=expected_input_hashes[operation['instance_id']]:raise ValueError('geometry profile uses changed input/code')
+        if raw!={k:v for k,v in operation.items() if k not in {'experiment','instance_id'}}:raise ValueError('geometry profile summary mismatch')
+        if operation['status']=='recognized' and operation['parameters']!=expected_parameters[operation['instance_id']]:raise ValueError('geometry profile parameter mismatch')
     operation_rows=[]
     for name in ['catalogue-128-s0','ownership-8-s0','connectivity-7-s0','clinic-horizontal','molio-horizontal']:
         r=next(r for r in operations if r['instance_id']==name)
         operation_rows.append([name,r['physical_footprint_pair_intersection_tests'],r['generated_cells']])
-    result+=table('Untimed Recognition Operation Counts, Separate from Performance Measurements','tab:operations',['Case','Portal footprint pair tests','Cells'],operation_rows,True)
+    result+=table('Untimed Recognition Operation Counts, Separate from Performance Measurements','tab:operations',['Case','Portal footprint pair tests','Total cells'],operation_rows,True)
     controls_rows=[]
     from cfar.certificates import verify_certificate
     for folder in sorted(p for p in controls.iterdir() if p.is_dir()):
@@ -107,7 +127,7 @@ Practical choice follows measured completion, time and quality. CP-SAT is the ge
     result+=table('Deliberately Altered Semantics, Not Valid Same-Model Baselines','tab:semantic',['Control','Strict cost','Original cost','Control objective','Full replay'],controls_rows,True)
     screen=[]
     for r in sources:
-        s=r.get('selection',{});screen.append([r['source_building_id'],r['source_counts']['spaces'],r['status'],s.get('retained_rooms','--'),s.get('omitted_rooms','--')])
+        s=r.get('selection',{});counts=r['source_counts'];screen.append([r['source_building_id'],counts['storeys'],counts['spaces'],counts['eligible_spaces'],counts['stairs'],counts['transport'],r['status'],s.get('retained_rooms','--'),s.get('omitted_rooms','--')])
     building_table=[]
     for name in sorted({r['instance_id'] for r in public}):
         i=json.loads((building/name/'input.json').read_text());r=next(r for r in public if r['instance_id']==name and r['solver']=='compressed' and r['repeat_index']==0)
@@ -116,17 +136,28 @@ Practical choice follows measured completion, time and quality. CP-SAT is the ge
     structural=[]
     for name in sorted({r['instance_id'] for r in public}):
         instance=json.loads((building/name/'input.json').read_text())
-        params=recognize_physical_interface(instance)['parameters'];pruned=recognize_physical_interface(instance,prune_irrelevant=True)['parameters']
+        params=next(r['parameters'] for r in public if r['instance_id']==name and r['solver']=='compressed')
+        pruned=next(r['parameters'] for r in public if r['instance_id']==name and r['solver']=='pruned')
         sample=next(r for r in public if r['instance_id']==name and r['solver']=='compressed' and r['repeat_index']==0)
         structural.append([name,params['p'],params['r'],pruned['r'],params['z'],params['L'],params['g'],params['h'],sample['peak_raw_states'],sample['peak_retained_states']])
     before_structure=table('Building Interfaces and Default DP States; Marked r Is Separately Computed','tab:building-interface',['Case','$p$','$r$','$r_{eff}$','$z$','$L$','$g$','$h$','Raw','Retained'],structural,True)
+    source_timing=[]
+    for name in sorted({r['instance_id'] for r in public}):
+        group=[r for r in public if r['instance_id']==name]
+        def measured(method,key='function_seconds'):
+            samples=[r for r in group if r['solver']==method]
+            values=[r[key] for r in samples if r['status'] in {'optimal','feasible','infeasible'} and r[key] is not None]
+            failures=sum(r['status'] not in {'optimal','feasible','infeasible'} for r in samples)
+            return (f'{median(values):.4f}' if values else '--')+(f' +{failures}F' if failures else '')
+        source_timing.append([name,measured('compressed','recognition_seconds'),measured('compressed'),measured('uncompressed'),measured('cp-sat'),measured('pruned'),measured('cached'),measured('cached','end_to_end_seconds'),measured('greedy-improved')])
+    source_timing_table=table('Source Function-Time Medians (Seconds); F Counts Noncompleted Runs; Cache Preparation Excluded Only from Warm Function Time','tab:source-times',['Case','Rec.','DP','Full','CP-SAT','Pruned','Warm cache','Cache E2E','Imp. greedy'],source_timing,True)
     experiment=(root/'paper/ieee/revised_evaluation.tex').read_text()
     pos=experiment.index(r'\section{Discussion')
     before,discussion=experiment[:pos],experiment[pos:]
-    before+=table('Five-Source Screening Denominator; Counts Refer to Two-Floor Inputs','tab:screen',['Source','Source spaces','Outcome','Retained','Omitted'],screen,True)
+    before+=table('Five-Source Screening Denominator; Counts Refer to Two-Floor Inputs','tab:screen',['Source','Storeys','Spaces','Eligible','Stair objects','Transport','Outcome','Retained','Omitted'],screen,True)
     before+=table('Original Rooms and Adjacency per Source Floor; All Costs Abstract','tab:building',['Case','Rooms/floor','A/floor','Demands','Status','Cost','Actions'],building_table,True)
-    before+=before_structure
-    before+=figure('multiroom_plans','Retained source projections (gray), hypothetical baseline doors (blue), candidate patches (red) and conservative background. Original room rings/IDs stay frozen; colored access and intervention annotations are experimental assumptions.','fig:buildingplans',True)
+    before+=before_structure+source_timing_table
+    before+=figure('multiroom_plans','Retained source projections (gray), hypothetical baseline doors (blue), candidate patches (red) and conservative background. Original room rings/IDs stay frozen; colored access and intervention annotations are experimental assumptions. Insets resolve the candidate patches; the overview is clipped to the retained-room envelope, while every background obstacle remains in the supplied input.','fig:buildingplans',True)
     before+=f'The separate building study has {nb} controlled inputs and {len(public)} observations. Every returned selection is replayed and small oracle certificates are verified independently within the shared geometry contract.\n'
     original=(root/'paper/manuscript.template.tex').read_text()
     proof=original[original.index(r'\begin{lemma}[Ownership locality]'):original.index(r'\section{Experimental protocol}')]
@@ -140,7 +171,9 @@ Practical choice follows measured completion, time and quality. CP-SAT is the ge
     appendices+=r'''\section{Source Evidence Boundaries}
 Weighted-rank and logic source inspection locators remain in the ledger; the owner/cell and original-objective transfers are separately stated project arguments. Architectural comparator limits follow the inspected methods, with uninspected extensions unknown. Sources are pinned to the buildingSMART community revision 7ddf57a. Attribution: BSI (2020), ``Medical-Dental Test Files'' and ``Duplex Apartment Test Files,'' buildingSMART International; Molio original authors as recorded by the IFC/source registry. Root licence: CC BY 4.0; Clinic/Duplex folder notices repeat attribution/change requirements. Esplanades has a lowercase readme stating CC BY 4.0; Molio has no folder notice. Schependomlaan's parent notice permits scientific/academic use. Notice URLs, hashes and unavailable folder README paths are retained. Changes comprise XY projection, deterministic subsets, conservative background and hypothetical doors/profiles/reservations/templates/permissions/costs. Raw IFCs are not redistributed.
 '''
-    text=front+result+before+discussion+appendices+template[template.index(r'\begin{thebibliography}'):]
+    section_start=before.index(r'\section{Multi-Room Building-Derived Controlled Experiments}')
+    design,building_section=before[:section_start],before[section_start:]
+    text=front+design+result+building_section+discussion+appendices+template[template.index(r'\begin{thebibliography}'):]
     text=order_references(text)
     if '@@' in text or len(abstract.split())>250:raise ValueError('unresolved slot or abstract length')
     (output/'master.tex').write_text(text,encoding='utf-8');shutil.copy2(root/'paper/ieee/IEEEtran.cls',output/'IEEEtran.cls');shutil.copytree(figures,output/'figures')
@@ -157,6 +190,7 @@ Weighted-rank and logic source inspection locators remain in the ledger; the own
             w.writerow(list(key)+[len(group),json.dumps(dict(Counter(r['status'] for r in group))),min(times) if times else None,median(times) if times else None,max(times) if times else None,max(memory) if memory else None,med('end_to_end_seconds'),
                 json.dumps(sorted({r['objective_cost'] for r in group if r['objective_cost'] is not None})),json.dumps(group[0]['selected_action_ids']),json.dumps(group[0]['parameters']),med('recognition_seconds'),med('optimization_seconds'),med('replay_seconds'),max(raw) if raw else None,max(retained) if retained else None])
     paths=[controlled/'records.json',building/'records.json',source_audit/'summary.json',three_audit/'summary.json',controls/'summary.json',geometry_profile/'summary.json',Path(__file__),root/'paper/ieee/master.template.tex',root/'paper/ieee/revised_proof_map.tex',root/'paper/ieee/revised_evaluation.tex',root/'paper/ieee/revised_parameters.tex',root/'paper/manuscript.template.tex',root/'paper/ieee/generic_appendix.tex',root/'scripts/audit_revised_evidence.py',root/'scripts/make_revised_figures.py',root/'spec/evaluation-records.schema.json']
+    paths+=list(controls.rglob('*.json'))+list(geometry_profile.rglob('*.json'))+[figures/'figure-provenance.json']
     write_json(output/'master-provenance.json',dict(audits=audits,abstract_words=len(abstract.split()),source_hashes={str(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in paths}))
     print(output/'master.tex')
 
