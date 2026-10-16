@@ -271,3 +271,5 @@ Continued bounded priority assessment: inspected prior forbidden-pair structural
 
 
 Supplied PDF evidence screen: five uploaded reports inventoried and page-located. CSPIT/IP Bhawan support historical barriers; HUD supports device/cost context; Dolton is single-storey and incomplete. Santa Barbara introduction led to an official264-page City Hall/Annex companion with annotated floor plans and historical job costs. Candidate only: metric extraction, item alignment, rights and frozen-topology scope remain unresolved. See docs/supplied_document_evidence_review.md and docs/supplied_document_evidence.json. No new benchmark admission, manuscript result change, push or source-PDF commit.
+
+City Hall documentary admission protocol is frozen before final extraction. Metric geometry, fixed-topology action scope and permission evidence remain explicit gates; no additional solver evaluation count is asserted.
