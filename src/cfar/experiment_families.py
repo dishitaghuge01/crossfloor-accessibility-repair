@@ -8,7 +8,7 @@ from .synthetic_shaft import make_shaft_instance
 
 
 def integrated_example():
-    """Three floors, two profiles, disconnected paid geometry and owner reuse."""
+    """Four floors, two profiles, disconnected paid geometry and owner reuse."""
     from .interface_scenarios import authored_interface_scenarios
     from .synthetic_star import rectangle
     from .geometry import computed_adjacency
@@ -30,7 +30,7 @@ def integrated_example():
                     physical_profiles=pids[:],geometry=dict(asset_id=owner,width_m=1,rise_m=3,run_m=1,landings=records,footprints=records))
     spare=edge('SPARE','U0','U1','spare-owner',rectangle(5,.5,6,1.5))
     rival=edge('RIVAL','U1','U2','rival-owner',rectangle(5,.5,6,1.5))
-    useful=edge('USEFUL','R1','R2','useful-owner',rectangle(2.5,.5,3.5,1.5))
+    useful=edge('USEFUL','R2','R3','useful-owner',rectangle(2.5,.5,3.5,1.5))
     a['connections'] += [spare,rival,useful]
     def add_effect(action,cid):
         action['effects'].append(dict(op='activate_connection',connection_id=cid,permitted_profiles=pids[:]))
@@ -42,6 +42,9 @@ def integrated_example():
     rival_action['geometry_certificate']['connection_ids']=[]
     for cid in ['RIVAL','USEFUL']:add_effect(rival_action,cid)
     a['actions'].append(rival_action)
+    # Remove the separate cheap lower-shaft competitor: otherwise it can combine
+    # with E while avoiding the paid spare, defeating this specific example.
+    a['actions']=[action for action in a['actions'] if action['action_id']!='A002']
     a['obligations'].append(dict(a['obligations'][0],obligation_id='O1',profile_id=pids[1]))
     a['building_id']='integrated-owned-interface-example'
     return a

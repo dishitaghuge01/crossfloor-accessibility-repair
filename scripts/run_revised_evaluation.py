@@ -19,7 +19,8 @@ def worker(source, method, target, budget):
     from cfar.actions import apply_actions
     from cfar.certificates import make_certificate, verify_certificate
     from cfar.cp_sat import solve_cp_sat
-    from ortools.sat.python import cp_model  # exclude optional solver imports from function timing
+    if method == 'cp-sat':
+        from ortools.sat.python import cp_model  # exclude optional solver imports from function timing
     from cfar.dp_owned_interface import solve_owned_interface
     from cfar.errors import ValidationError
     from cfar.greedy import solve_greedy
@@ -73,7 +74,7 @@ def worker(source, method, target, budget):
         import resource
         peak = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss * (1 if sys.platform == 'darwin' else 1024)
     write_json(target, dict(status=status, result=result, function_seconds=function_seconds,
-        independent_replay_seconds=replay_seconds, peak_memory_bytes=peak, replay=replay,
+        replay_seconds=replay_seconds, peak_memory_bytes=peak, replay=replay,
         certificate_path=certificate_path))
 
 
@@ -150,14 +151,17 @@ def run(output, instances=None, smoke=False, repetitions=5):
                 if cost is not None and bound is not None:
                     c,b=Fraction(str(cost)),Fraction(str(bound))
                     gap=float(max(Fraction(0),c-b)/abs(c)) if c else (0.0 if b==0 else None)
-                row=dict(experiment_id=output.name,instance_id=name,source_building_id=instance.get('source_building_id'),
+                source_id=name.split('-')[0] if family=='building-derived-controlled' else None
+                registry=json.loads((Path(__file__).resolve().parents[1]/'docs/public_ifc_sources.json').read_text())
+                source_hash=next((s['sha256'] for s in registry['sources'] if s['building']==source_id),None)
+                row=dict(experiment_id=output.name,instance_id=name,source_building_id=source_id,source_sha256=source_hash,
                     instance_sha256=fingerprint(instance),generator_family=family,seed=seed,solver=method,
                     solver_configuration=dict(timeout_seconds=60,internal_seconds=55,exchange_budget=100),
                     repeat_index=repeat,status=payload['status'],objective_cost=cost,
                     objective_action_count=len(selected) if selected is not None else None,selected_action_ids=selected,
                     best_bound=bound,relative_cost_gap=gap,end_to_end_seconds=wall,
                     function_seconds=payload.get('function_seconds'),recognition_seconds=phases.get('recognition'),
-                    optimization_seconds=phases.get('optimization'),replay_seconds=payload.get('independent_replay_seconds'),
+                    optimization_seconds=phases.get('optimization'),replay_seconds=payload.get('replay_seconds'),
                     peak_memory_bytes=payload.get('peak_memory_bytes'),peak_raw_states=stats.get('peak_raw_states'),
                     peak_retained_states=stats.get('peak_retained_states'),certificate_path=payload.get('certificate_path'),
                     parameters=result.get('parameters',measured_parameters),phase_seconds=result.get('phase_seconds'),statistics=stats,

@@ -120,7 +120,8 @@ def solve_cp_sat(instance, *, time_limit=60.0, seed=0):
             incumbent = sorted(aid for aid, var in x.items() if solver.value(var))
         if len(stages) == 1 and status in (cp_model.OPTIMAL, cp_model.FEASIBLE, cp_model.UNKNOWN):
             cost_lower_bound = (str(action_cost(instance, incumbent)) if status == cp_model.OPTIMAL
-                                else str(Fraction(floor(solver.best_objective_bound), scale)))
+                                else str(Fraction(floor(solver.best_objective_bound), scale))
+                                if sum(coefficients) <= 2**53 else None)
         if status != cp_model.OPTIMAL:
             failure_status = ("infeasible" if status == cp_model.INFEASIBLE else
                               "model_invalid" if status == cp_model.MODEL_INVALID else "limit_exceeded")

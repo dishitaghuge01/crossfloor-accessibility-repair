@@ -55,3 +55,8 @@ permissions produce paired inputs. Source screening/admission exclusions remain
 visible. These experiments test finite-model horizontal coupling, not actual
 building restoration. No price, permission, reservation or door is asserted as
 an IFC fact. Multi-room admission on three or more source storeys is not asserted.
+
+Pilot exclusion: the interrupted runs/revised-controlled run at e872cb6 is not final performance evidence. It was stopped before the integrated example after correcting that example's unused-footprint counterexample and the optional optimizer import boundary. No pilot observations are silently merged into final timing results. Fixed recipe sizes/seeds remain unchanged. The corrected example has four floors, two profiles and exact cost five; graph-only A000+E costs 4.5 and reaches both targets but collides solely through the paid spare/rival annex footprints.
+
+Consecutive third-storey extension: scripts/extend_multiroom_storeys.py attempts the immediate next original storey after each admitted two-floor input, retaining a deterministic maximal nonoverlapping eligible subset and conservative background. It selects the first clear fixed-grid candidate from an already required middle-floor target into a third-floor source room, avoiding existing candidate footprints; that action costs two and the third-floor room becomes required by both profiles. All added horizontal doors, reservations and permissions are hypothetical. Every failed recognition is retained. Clinic and Molio pilots admit this extension. Pinned evaluation, not this pilot, supplies final costs/statuses.
+

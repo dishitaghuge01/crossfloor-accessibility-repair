@@ -310,3 +310,6 @@ Revised evaluation implementation: added direct optional phase instrumentation, 
 
 Implementation checkpoint: full collected regression passed 691 tests in 63.01 seconds. An integrated-example test added after collection passed in the separate 13-test revised-evaluation run (2.87 seconds); do not report a 692-test full run. Source-screen pilot admits Clinic (248 retained rooms, adjacency 1/2) and Molio (29 rooms, adjacency 1/1), with hypothetical horizontal restriction changing exact cost 1 to 4. Expanded protocol is frozen before pinned performance collection; precise positive contribution/proof map is in docs/supported_contribution_boundary.md. G3 priority and three-storey building evidence remain unconfirmed.
 
+
+Corrected integrated counterexample before final timing: four-floor/two-profile instance has exact A000+A001 cost five, whereas graph-only A000+E costs 4.5 and satisfies reachability but collides on the paid unused annex footprint. Interrupted e872cb6 timing pilot is excluded explicitly. Added third-consecutive-storey adaptation (Clinic and Molio pilots admitted), independent box-cost/overlap evidence audit and vector figure generator. Separate corrected checks: 24 passed in 4.73 seconds. Final clean evaluation follows.
+

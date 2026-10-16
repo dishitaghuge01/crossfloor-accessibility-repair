@@ -73,7 +73,11 @@ def test_integrated_example_paid_unused_collision_and_owner_reuse():
     o=exact_oracle(a)
     assert (o['status'],o['cost'],o['selected'])==expected
     # Graph-cheap reuse competitor and paid-but-unused competitor both fail physically.
-    for selected in [['A002','A001'],['A000','E']]:
+    for selected in [['A000','E']]:
         with pytest.raises(ValueError,match='PORTAL_COLLISION'):apply_actions(a,selected)
+    from cfar.obligations import verify_obligations
+    active={e['connection_id']:e['permitted_profiles'] for action in a['actions']
+            if action['action_id'] in ['A000','E'] for e in action['effects']}
+    assert verify_obligations(a,active)['satisfied']
     repair=apply_actions(a,expected[2])
     assert 'SPARE' in repair['active']
