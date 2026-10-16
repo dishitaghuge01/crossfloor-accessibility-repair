@@ -324,3 +324,6 @@ Follow-up executable gates: implementing history/no-dominance, within-floor reve
 
 
 Follow-up executable gates completed: optional no-merging histories, complete-unit reverse ordering and STRtree portal/cell coverage filtering. Clean 77a3844 campaign: 180 observations, 177 optimal/three history caps; all 78 recognition comparisons agree. See docs/followup_results.md and paper/REPRODUCE_FOLLOWUP.md (repository-relative). G3 priority, independent human proof review and verified actual-building data remain OPEN. Historical pending notes above are superseded for these three executable items. No push/submission.
+
+
+Continued bounded priority assessment: inspected prior forbidden-pair structural tractability and layered-width sources; screened a September2026 colored-routing abstract; choice-network full proofs remain inaccessible. See docs/continued_priority_assessment.md. Generic framework overlap is explicitly credited; G3 priority remains OPEN, with no first-algorithm claim. Dataset formats/search guidance is in docs/building_evidence_search_guide.md. No solver/evaluation changes, no push/submission.

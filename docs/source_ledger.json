@@ -200,7 +200,13 @@
       "locators": "Definitions/background; Appendix 0.B; no full hardness-proof audit",
       "sha256": null,
       "retrieval": "Primary text/excerpts read through web index; no raw bytes retained",
-      "review_date_local": "2026-10-14"
+      "review_date_local": "2026-10-14",
+      "continuation_review": {
+        "date_local": "2026-10-16",
+        "locators": "Definitions, Theorem 3.1 and proof approach; Sections 1.1/1.2 and Appendix 0.B context; full hardness proofs not audited",
+        "status": "primary_scoped_parameter_and_encoding_rechecked",
+        "note": "See docs/continued_priority_assessment.md; priority remains unconfirmed."
+      }
     },
     {
       "id": "kernel_paths_2011v2",
@@ -211,7 +217,13 @@
       "locators": "Manuscript pp. 23-25; Proposition 6 and Theorem 10 proof",
       "sha256": null,
       "retrieval": "Primary text/excerpts read through web index; no raw bytes retained",
-      "review_date_local": "2026-10-14"
+      "review_date_local": "2026-10-14",
+      "continuation_review": {
+        "date_local": "2026-10-16",
+        "locators": "Proposition 6 and preceding structure encoding, printed p.24; Theorem 10 proof pp.24--25",
+        "status": "primary_relevant_statement_and_proof_rechecked",
+        "note": "See docs/continued_priority_assessment.md; priority remains unconfirmed."
+      }
     },
     {
       "id": "choice_networks_2023",
@@ -222,7 +234,13 @@
       "locators": "Definition/introduction/principal-results excerpts; full proofs not inspected",
       "sha256": null,
       "retrieval": "Primary text/excerpts read through web index; no raw bytes retained",
-      "review_date_local": "2026-10-14"
+      "review_date_local": "2026-10-14",
+      "continuation_review": {
+        "date_local": "2026-10-16",
+        "locators": "Publisher-indexed abstract, introduction, definition and principal-result snippets; direct full text HTTP403",
+        "status": "partial_primary_preview_full_proofs_unavailable",
+        "note": "See docs/continued_priority_assessment.md; priority remains unconfirmed."
+      }
     },
     {
       "id": "priority_cover_full_manuscript",
@@ -411,6 +429,22 @@
       "doi": "10.1137/1.9781611977554.ch125",
       "status": "final_SODA_2023_metadata_checked_v2_remains_proof_locator",
       "review_date_local": "2026-10-15"
+    },
+    {
+      "id": "colored_dag_routing_2026",
+      "title": "Routing Problems in Edge-Colored Directed Acyclic Graphs",
+      "authors": [
+        "A. Subramani",
+        "P. Wojciechowski",
+        "K. Subramani"
+      ],
+      "url": "https://onlinelibrary.wiley.com/doi/10.1002/net.70075",
+      "doi": "10.1002/net.70075",
+      "version": "Networks early view; first published27 September2026",
+      "status": "primary_abstract_and_references_screen_only",
+      "locators": "Publisher abstract and references21--22; no full-proof inspection",
+      "retrieval": "Primary publisher HTML through web tool; no raw bytes retained",
+      "review_date_local": "2026-10-16"
     }
   ]
 }
