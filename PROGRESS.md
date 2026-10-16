@@ -319,3 +319,5 @@ Revised authored study: 70 fixed recipes and 1918 observations at clean 25aa069.
 ## Final revised package checkpoint, 16 October 2026
 
 Pinned evaluation, independent audits, semantic controls, figures and seventeen-page manuscript are complete for advisor review. See docs/revised_checkpoint_results.md and docs/revised_delivery_report.md (paths relative to repository root). G4 now has executed multi-room, nontrivial adjacency and consecutive three-level controlled evidence from two sources, with hypothetical annotation and roof-level limits explicit. G3 literature priority and independent human proof review remain OPEN. No push/submission. All seventeen items have an explicit delivered/deferred boundary in docs/revised_master_disposition.md.
+
+Follow-up executable gates: implementing history/no-dominance, within-floor reverse events and optional spatial filtering. Protocol: docs/followup_protocol.md. Frozen evidence remains unchanged; new results pending.

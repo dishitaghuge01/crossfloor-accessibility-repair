@@ -1,0 +1,7 @@
+# Follow-up protocol: remaining executable review requests
+
+The original 2,094 observations stay frozen. New opt-in modes retain every history (with representative compression off), reverse events without splitting a complete owner unit, and apply STRtree envelope filtering to portal candidates and cell-owner coverage. The unchanged predicates decide feasibility. Indexing does not cover all room/obstacle geometry and baseline validation/replay remain unindexed. Cache settings must match. Defaults remain canonical, merged-state, unindexed.
+
+Twelve fixed existing inputs, three fresh processes per five modes: 180 planned observations. Common parent limit 30 seconds, raw row/history cap 100000, cut-column cap 65536. Repeat-major execution rotates method order; this remains descriptive workstation evidence. Compare histories with uncompressed to isolate state merging; compare reverse/indexed with compressed. Retain every timeout, cap and unsupported result. Every returned solution receives solver replay and independent paid-box/owner/cost checks. Completed exact labels must agree. Full regression and all-input indexed recognition equivalence are separate correctness checks.
+
+Source experiments remain hypothetical controlled inputs; no source fact is manufactured. A bounded recheck of existing closest works updates inspection evidence only; no exhaustive nonexistence or literature-priority certification is possible.

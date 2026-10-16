@@ -51,6 +51,9 @@ def main() -> None:
     owned.add_argument("--max-cut-columns", type=int, default=65536)
     owned.add_argument("--no-compression", action="store_true")
     owned.add_argument("--prune-irrelevant", action="store_true")
+    owned.add_argument("--no-dominance", action="store_true", help="retain histories; requires --no-compression")
+    owned.add_argument("--event-order", choices=["canonical", "reverse"], default="canonical")
+    owned.add_argument("--spatial-index", action="store_true")
     owned.add_argument("--output", required=True)
     cp = subparsers.add_parser("solve-cp-sat", help="flow baseline on the strict recognized model")
     cp.add_argument("instance")
@@ -94,7 +97,9 @@ def main() -> None:
             elif args.command == "solve-owned-interface":
                 result = solve_owned_interface(instance, compress=not args.no_compression,
                                                max_states=args.max_states, max_cut_columns=args.max_cut_columns,
-                                               prune_irrelevant=args.prune_irrelevant)
+                                               prune_irrelevant=args.prune_irrelevant, dominance=not args.no_dominance,
+                                event_order=args.event_order, spatial_index=args.spatial_index, dominance=not args.no_dominance,
+                                               event_order=args.event_order, spatial_index=args.spatial_index)
                 write_json(output/"result.json", result)
                 settings = dict(method=result["method"], variant="SCFAR", compression=not args.no_compression,
                                 max_states=args.max_states, max_cut_columns=args.max_cut_columns,

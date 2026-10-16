@@ -11,7 +11,7 @@ from .io import fingerprint
 from .validation import baseline_active, validate_instance
 
 
-def recognize_physical_interface(instance: dict, *, prune_irrelevant: bool = False, profile: bool = False) -> dict:
+def recognize_physical_interface(instance: dict, *, prune_irrelevant: bool = False, profile: bool = False, spatial_index: bool = False) -> dict:
     started = perf_counter()
     validate_instance(instance)
     validated = perf_counter()
@@ -38,7 +38,7 @@ def recognize_physical_interface(instance: dict, *, prune_irrelevant: bool = Fal
         sources = {o["source"] for o in instance["obligations"] if o["profile_id"] == pid}
         require(len(sources) == 1, "INTERFACE_ROOTED", f"one obligation source required for {pid}")
         anchors[pid] = next(iter(sources))
-    constraints = compile_activation_constraints(instance, max_actions=len(actions))
+    constraints = compile_activation_constraints(instance, max_actions=len(actions), spatial_index=spatial_index)
     compiled = perf_counter()
     available = [a for a in actions if a["action_id"] not in constraints["blocked"]]
     ownership, support, shapes = {}, {}, {f["floor_id"]: {} for f in floors}
@@ -64,11 +64,17 @@ def recognize_physical_interface(instance: dict, *, prune_irrelevant: bool = Fal
         local = shapes[fid]
         xs = sorted({x for s in local.values() for x in (s.bounds[0], s.bounds[2])})
         ys = sorted({y for s in local.values() for y in (s.bounds[1], s.bounds[3])})
+        local_owners = list(local)
+        if spatial_index:
+            from shapely.strtree import STRtree
+            owner_tree = STRtree([local[o] for o in local_owners])
         for x1, x2 in zip(xs, xs[1:]):
             for y1, y2 in zip(ys, ys[1:]):
                 cell = box(x1, y1, x2, y2)
-                cell_owner_tests += len(local)
-                owners = sorted(owner for owner, s in local.items() if s.covers(cell))
+                possible = ([local_owners[int(i)] for i in owner_tree.query(cell)]
+                            if spatial_index else local_owners)
+                cell_owner_tests += len(possible)
+                owners = sorted(owner for owner in possible if local[owner].covers(cell))
                 if not owners:
                     continue
                 require(cell.area > EPS, "INTERFACE_CELL_EPS", f"{fid}/{cell.bounds}")
@@ -172,7 +178,7 @@ def recognize_physical_interface(instance: dict, *, prune_irrelevant: bool = Fal
                 recognized=True, parameters=parameters, floor_order=[f["floor_id"] for f in floors],
                 anchors=anchors, components=components, cells=cells, units=units,
                 action_cells=action_cells, blocked=constraints["blocked"],
-                all_component_r=all_component_r, prune_irrelevant=prune_irrelevant,
+                all_component_r=all_component_r, prune_irrelevant=prune_irrelevant, spatial_index=spatial_index,
                 geometry_conflicts=constraints["geometry_conflicts"],
                 scope="M09 rectangular physical activations; " +
                       ("marked-component r" if prune_irrelevant else "conservative all-component r") + "; not M10 background",

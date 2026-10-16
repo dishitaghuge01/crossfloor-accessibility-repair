@@ -134,9 +134,22 @@ def connector_feasible(instance: Instance, connection: dict, profiles: list[str]
     return connection_feasible(instance, connection, profiles)
 
 
-def joint_geometry(instance: Instance, active: dict[str, list[str]]) -> dict[str, dict]:
+def joint_geometry(instance: Instance, active: dict[str, list[str]], *, spatial_index: bool = False) -> dict[str, dict]:
     catalog = {c["connection_id"]: c for c in instance["connections"]}
     checks = {cid: connection_feasible(instance, catalog[cid], ps) for cid, ps in sorted(active.items())}
+    candidates = None
+    if spatial_index:
+        from shapely.strtree import STRtree
+        entries = [(cid, i, record) for cid, check in checks.items()
+                   for i, record in enumerate(check["occupied"])]
+        shapes = [polygon(record["polygon"]) for _, _, record in entries]
+        tree = STRtree(shapes)
+        candidates = set()
+        for i, (cid, pos, record) in enumerate(entries):
+            for j in tree.query(shapes[i]):
+                other, opos, orecord = entries[int(j)]
+                if cid < other and record["floor_id"] == orecord["floor_id"]:
+                    candidates.add((cid, pos, other, opos))
     for (aid, a), (bid, b) in combinations(checks.items(), 2):
         ca, cb = catalog[aid], catalog[bid]
         if ca["kind"] == cb["kind"] == "door":
@@ -145,8 +158,10 @@ def joint_geometry(instance: Instance, active: dict[str, list[str]]) -> dict[str
             if fa == fb:
                 require(LineString(ca["geometry"]["opening"]).intersection(LineString(cb["geometry"]["opening"])).length <= EPS,
                         "DOOR_COLLISION", f"{aid}/{bid}")
-        for x in a["occupied"]:
-            for y in b["occupied"]:
+        for xi, x in enumerate(a["occupied"]):
+            for yi, y in enumerate(b["occupied"]):
+                if candidates is not None and (aid, xi, bid, yi) not in candidates:
+                    continue
                 if x["floor_id"] == y["floor_id"]:
                     same_asset = (catalog[aid]["kind"] == catalog[bid]["kind"]
                                   and catalog[aid]["geometry"].get("asset_id") == catalog[bid]["geometry"].get("asset_id")

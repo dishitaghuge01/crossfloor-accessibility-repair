@@ -13,7 +13,7 @@ from .io import fingerprint
 from .validation import baseline_active, validate_instance
 
 
-def compile_activation_constraints(instance: dict, max_actions: int = 100) -> dict:
+def compile_activation_constraints(instance: dict, max_actions: int = 100, *, spatial_index: bool = False) -> dict:
     validate_instance(instance)
     actions = sorted(instance["actions"], key=lambda a: a["action_id"])
     require(len(actions) <= max_actions, "CONFLICT_ACTION_LIMIT", f"{len(actions)} > {max_actions}")
@@ -37,7 +37,7 @@ def compile_activation_constraints(instance: dict, max_actions: int = 100) -> di
             return cache[signature]
         checks += 1
         try:
-            joint_geometry(instance, active)
+            joint_geometry(instance, active, spatial_index=spatial_index)
         except ValidationError as error:
             cache[signature] = {"code": error.code, "detail": str(error)}
         else:

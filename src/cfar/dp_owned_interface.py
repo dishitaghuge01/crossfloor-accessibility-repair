@@ -39,18 +39,23 @@ def _components(edges):
 def solve_owned_interface(instance: dict, *, compress: bool = True,
                           max_states: int = 100000, max_cut_columns: int = 65536,
                           prune_irrelevant: bool = False, profile: bool = False,
-                          recognized_cache: dict | None = None) -> dict:
+                          recognized_cache: dict | None = None,
+                          dominance: bool = True, event_order: str = "canonical",
+                          spatial_index: bool = False) -> dict:
+    require(event_order in {"canonical", "reverse"}, "INTERFACE_EVENT_ORDER", event_order)
+    require(dominance or not compress, "INTERFACE_ABLATION", "history mode requires compression off")
     started = perf_counter()
     require(type(max_states) is int and max_states > 0 and type(max_cut_columns) is int
             and max_cut_columns > 0, "INTERFACE_LIMIT", "positive integer limits required")
     if recognized_cache is not None:
         from .io import fingerprint
         require(recognized_cache["input_fingerprint"] == fingerprint(instance)
-                and recognized_cache["prune_irrelevant"] == prune_irrelevant,
+                and recognized_cache["prune_irrelevant"] == prune_irrelevant
+                and recognized_cache.get("spatial_index", False) == spatial_index,
                 "INTERFACE_CACHE", "cache must match input and pruning setting")
         recognized = recognized_cache
     else:
-        recognized = recognize_physical_interface(instance, prune_irrelevant=prune_irrelevant, profile=profile)
+        recognized = recognize_physical_interface(instance, prune_irrelevant=prune_irrelevant, profile=profile, spatial_index=spatial_index)
     recognition_done = perf_counter()
     pids = sorted(recognized["components"])
     floors = recognized["floor_order"]
@@ -89,6 +94,11 @@ def solve_owned_interface(instance: dict, *, compress: bool = True,
                     edges.append((node(pid,c["u"]), node(pid,c["v"])))
             layers.append(_components(edges))
         effect_components[aid] = layers
+    if event_order == "reverse":
+        for events in baseline_events.values():
+            events.reverse()
+        for local_units in units.values():
+            local_units.reverse()
     schedule_done = perf_counter()
     # Label order is exact cost, original count, then sorted original IDs.
     states = {((), tuple((("anchor",),) for _ in pids)): (Decimal(0),0,())}
@@ -96,8 +106,25 @@ def solve_owned_interface(instance: dict, *, compress: bool = True,
     if profile:
         stats.update(total_deduplicated_rows=0, representative_reduction_seconds=0.0)
 
+    class Histories:
+        def __init__(self, records): self.records = records
+        def items(self): return iter(self.records)
+        def values(self): return (label for _, label in self.records)
+        def __len__(self): return len(self.records)
+
     def retain(generated):
         nonlocal states
+        if not dominance:
+            records = []
+            for record in generated:
+                records.append(record)
+                require(len(records) <= max_states, "INTERFACE_STATE_LIMIT", str(max_states))
+            states = Histories(records)
+            stats["events"] += 1
+            stats["peak_raw_states"] = max(stats["peak_raw_states"], len(states))
+            stats["peak_retained_states"] = max(stats["peak_retained_states"], len(states))
+            if profile: stats["total_deduplicated_rows"] += len(states)
+            return
         deduplicated = {}
         for key, label in generated:
             if key not in deduplicated or label < deduplicated[key]:
@@ -163,7 +190,7 @@ def solve_owned_interface(instance: dict, *, compress: bool = True,
                     yield (occupancy,tuple(updated)), label
             retain(baseline_generated())
         for unit in units[f]:
-            for aid in unit["action_ids"]:
+            for aid in (list(reversed(unit["action_ids"])) if event_order == "reverse" else unit["action_ids"]):
                 action = actions[aid]
                 layer_choices = [[tuple(component for i,component in enumerate(layer) if mask & (1 << i))
                                   for mask in range(1 << len(layer))] for layer in effect_components[aid]]
@@ -219,7 +246,7 @@ def solve_owned_interface(instance: dict, *, compress: bool = True,
                   variant="SCFAR", cost=str(best[0]) if best else None,
                   selected=list(best[2]) if best else None, parameters=recognized["parameters"],
                   input_fingerprint=recognized["input_fingerprint"], statistics=stats,
-                  compression=compress,
+                  compression=compress, dominance=dominance, event_order=event_order, spatial_index=spatial_index,
                   optimality_evidence="complete scoped DP; independent oracle comparison required",
                   scope=recognized["scope"])
     reconstructed = perf_counter()
