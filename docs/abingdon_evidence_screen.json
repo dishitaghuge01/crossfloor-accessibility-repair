@@ -1,0 +1,26 @@
+{
+  "sha256": "bfdde5552884cc646a5f73ee0880de670e9dccea4d7c1295f2f0a00bd9299105",
+  "pages": 35,
+  "bytes": 18193488,
+  "source_url": "https://www.abingdon.gov.uk/wp-content/uploads/2023/11/Item-9i-Report-of-Museum-Manager-Appendix-1-5017274-RDG-XX-XX-DOC-A-0012-2.0-Abingdon-County-Hall-Museum-Lif.pdf",
+  "source_version": "Ridge and Partners LLP;Pre-Application Submission V02;30October2023",
+  "classification": "documentary_feasibility_screen_not_admitted_solver_input",
+  "inspection": {
+    "text_extracted_pages": 35,
+    "visually_checked_pdf_pages": [
+      18,
+      31,
+      32,
+      33,
+      34
+    ]
+  },
+  "findings": {
+    "option1": "replacement existing lift plus new first-floor link bridge and new opening; outside independent fixed-portal activation scope",
+    "option2": "internal platform lift retaining existing platform; possible 2D scope fit not established; no silently asserted floor-polygons/reservations",
+    "appendices_C_D_E": "visually verified heading-only sheets atPDF32-34; full audit/access-plan/heritage reports not contained on those pages",
+    "permission": "pre-application study not final approval",
+    "price": "no verified atomic installed price extracted"
+  },
+  "physical_instances_admitted": 0
+}
