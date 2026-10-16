@@ -21,3 +21,5 @@ The current supplied folder includes pre-documentary-master.tex (the prior19-pag
 For source-data regeneration, substitute --case runs/new-city-hall. The builder checks scalar-record roles, exact arithmetic, extraction hash, clean manifest and unadmitted status. New documents must receive new source-specific audits; do not remove the pinned hash guard to force admission.
 
 The extraction creates private-source-rows.json for local review. Do not include it, the PDF or source raster images in a review/publication package. Only the selected scalar outputs listed in package_documentary_release.py are delivered. Source recommendations, unit/reference entries and historical estimates are not an admitted action catalogue or evidence of completed renovations.
+
+The original extraction hash records Windows source bytes. The manuscript builder accepts only that exact source with equivalent LF or CRLF line endings, accommodating Git archive normalization; other source changes still fail the hash check.

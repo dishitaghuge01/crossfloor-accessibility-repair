@@ -12,7 +12,9 @@ def build(case,base,output):
     admission=json.loads((case/'admission.json').read_text());rows=json.loads((case/'scalar-records.json').read_text())
     assert not admission['manifest']['git_dirty']
     assert admission['source_sha256']=='31b125ed7371564f3c7e4254237464cac7bf9fc1ff68bb8c46dec556d9fcf3a1'
-    assert admission['extractor_sha256']==hashlib.sha256(Path('scripts/audit_city_hall_document.py').read_bytes()).hexdigest()
+    extractor=Path('scripts/audit_city_hall_document.py').read_bytes().replace(b'\r\n',b'\n')
+    # Git archive normalizes text; accept only equivalent LF/CRLF bytes.
+    assert admission['extractor_sha256'] in {hashlib.sha256(extractor).hexdigest(),hashlib.sha256(extractor.replace(b'\n',b'\r\n')).hexdigest()}
     assert len(rows)==admission['scalar_rows']==580
     assert all(r['independent_action_cost'] is None for r in rows)
     assert Counter(r['accounting_role'] for r in rows)=={'priced_observation_not_admitted_action':533,'reference_not_independent_action':47}
