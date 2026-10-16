@@ -1,0 +1,330 @@
+{
+  "review_date": "2026-10-16",
+  "classification": "documentary_evidence_screen_not_repair_validation",
+  "policy": "Original files and renders stay ignored; observations/recommendations/design standards/prices are distinct; no cross-building fact or price transfer",
+  "documents": [
+    {
+      "id": 1,
+      "name": "Introduction.pdf",
+      "sha256": "581fc91c1117c86a79ad23846233cfeab46e763dcd1430a0050f14ddc804f6b4",
+      "pages": 32,
+      "identity": "City of Santa Barbara ADA Transition Plan Update, Chapter1; content copyright2007",
+      "use": "lead_to_facility_specific_surveys",
+      "pages_reviewed": [
+        1,
+        5,
+        7,
+        15,
+        16,
+        22,
+        26,
+        29,
+        32
+      ],
+      "facts": [
+        {
+          "pdf_page": 16,
+          "kind": "cross_reference",
+          "value": "Detailed surveys TA-A.1 through TA-A.9 are separate; they contain plans and barrier locators"
+        }
+      ],
+      "limits": [
+        "Introduction is not the facility-specific survey",
+        "PDF metadata draft title is not the content date",
+        "All Rights Reserved notice; no open redistribution license established"
+      ],
+      "benchmark_admitted": false
+    },
+    {
+      "id": 2,
+      "name": "Retrofits-Adaptations-Improving-Mobility-in-the-Home.pdf",
+      "sha256": "6a4525738c2e94fefa9f92f24c810107911db958fcd836bf08b42b2177e2cf56",
+      "pages": 259,
+      "identity": "Home Innovation Research Labs for HUD, August2022 report; PDF metadata2024",
+      "use": "device_and_historical_cost_context",
+      "pages_reviewed": [
+        3,
+        6,
+        7,
+        8,
+        15,
+        16,
+        23,
+        37,
+        38,
+        39,
+        40,
+        76,
+        143,
+        144,
+        145,
+        146,
+        147,
+        148,
+        149,
+        150,
+        151,
+        152,
+        153,
+        154,
+        155
+      ],
+      "facts": [
+        {
+          "pdf_page": 15,
+          "printed_page": "5",
+          "kind": "illustrative_plan",
+          "value": "Exhibit5 contains residential floor-plan illustrations"
+        },
+        {
+          "pdf_page": 23,
+          "printed_page": "13",
+          "kind": "evaluation_context",
+          "value": "Devices evaluated on demonstration platform and doorway mock-up"
+        }
+      ],
+      "costs": [
+        {
+          "product": "StairSteady",
+          "pdf_page": 37,
+          "printed_page": "27",
+          "nominal_currency": "USD",
+          "reported_approx_product_price": 1150,
+          "reported_shipping_excluded": 500,
+          "installation_labor_excluded": true,
+          "price_status": "historical_report_value_not_current_quote"
+        },
+        {
+          "product": "AssiStep",
+          "pdf_page": 38,
+          "printed_page": "28",
+          "nominal_currency": "USD",
+          "reported_approx_product_price": 2060,
+          "reported_shipping_excluded": 680,
+          "installation_labor_excluded": true,
+          "price_status": "historical_report_value_not_current_quote"
+        },
+        {
+          "product": "FlexStep",
+          "pdf_page": 39,
+          "printed_page": "29",
+          "nominal_currency": "USD",
+          "reported_approx_product_price": 10400,
+          "reported_shipping_excluded": 640,
+          "installation_labor_excluded": true,
+          "price_status": "historical_report_value_not_current_quote"
+        },
+        {
+          "product": "All-Push Door",
+          "pdf_page": 40,
+          "printed_page": "30",
+          "nominal_currency": "USD",
+          "reported_approx_product_price": 1500,
+          "reported_shipping_excluded": 2265,
+          "installation_labor_excluded": true,
+          "price_status": "historical_report_value_not_current_quote"
+        }
+      ],
+      "limits": [
+        "Manufacturer/device prices are not installed project costs or willingness-to-pay values",
+        "FlexStep example is four steps/about3ft, not an arbitrary full-storey lift",
+        "Lab device validation is not validation of our building repair algorithm",
+        "No dimensioned source-building IFC or reserved intervention locations established",
+        "Not all259 pages manually reviewed; text extraction and targeted visual review only"
+      ],
+      "benchmark_admitted": false
+    },
+    {
+      "id": 3,
+      "name": "Access_Audit_CSPIT.pdf",
+      "sha256": "d3f6d9294411d4088042b8978fac1d4a73a9646ddd6dea198bed040b04888a48",
+      "pages": 15,
+      "identity": "CSPIT/Chandubhai S Patel college of Technology; audit25July2021",
+      "use": "reported_building_barriers_and_dimensions",
+      "pages_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "facts": [
+        {
+          "pdf_page": 8,
+          "printed_page": "7",
+          "kind": "reported_observation",
+          "value": "Lift clear opening79cm; cabin205x133cm; accessible approach markedNo"
+        },
+        {
+          "pdf_page": 3,
+          "printed_page": "2",
+          "kind": "recommendation",
+          "value": "Consider automatic entrance door and ramp/lift improvements"
+        }
+      ],
+      "limits": [
+        "No complete floor plans, metric room polygons or intervention footprints",
+        "No itemized prices or permission/engineering approval for new interventions",
+        "Metadata saysARIP and executive prose mentionsRPCP despite CSPIT cover; identity discrepancy retained",
+        "Historical source observations, not measurements independently made by us"
+      ],
+      "benchmark_admitted": false
+    },
+    {
+      "id": 4,
+      "name": "239b4d322d2250eb151cee3ca700d68d.pdf",
+      "sha256": "b80d1271b55c484a88ad65656a5d0019b930141b006098fea6ba43896e576dd6",
+      "pages": 15,
+      "identity": "Samarthyam, Indra Prastha Bhawan access audit,26April2010",
+      "use": "reported_multifloor_barriers_and_recommendations",
+      "pages_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "facts": [
+        {
+          "pdf_page": 2,
+          "kind": "reported_observation",
+          "value": "Only one lift described as accessible"
+        },
+        {
+          "pdf_page": 6,
+          "kind": "reported_observation",
+          "value": "Lift call buttons reported at1230-1240mm"
+        },
+        {
+          "pdf_page": 13,
+          "kind": "generic_diagram",
+          "value": "Accessible-toilet layouts in annexure are standards illustrations, not building floor plans"
+        }
+      ],
+      "limits": [
+        "No complete actual-building floor plans or room network",
+        "No itemized monetary costs or reserved installation footprints",
+        "Annexure dimensions are not all observed site dimensions",
+        "Historical guidance is not a current code/compliance determination"
+      ],
+      "benchmark_admitted": false
+    },
+    {
+      "id": 5,
+      "name": "Access Audit Report.pdf",
+      "sha256": "51745ea28630533f3e3231b37f638f6c14e9327e0a014fa6b67bd75058d184f9",
+      "pages": 10,
+      "identity": "Dolton Village Hall access audit, issueA December2004; audit19August2004",
+      "use": "historical_local_access_and_budget_context",
+      "pages_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "facts": [
+        {
+          "pdf_page": 6,
+          "kind": "scope",
+          "value": "Building described as single storey"
+        },
+        {
+          "pdf_page": 2,
+          "kind": "missing_material",
+          "value": "Contents references section5 from page11 and AppendixIII ground-floor plan, absent from supplied10-page file"
+        },
+        {
+          "pdf_page": 3,
+          "kind": "grouped_budget",
+          "currency": "GBP",
+          "priority_group_estimates": [
+            900,
+            8800,
+            8550,
+            500
+          ]
+        }
+      ],
+      "limits": [
+        "Single-storey hall is not a multi-floor repair benchmark",
+        "Item-level costs and cited plan appendices absent",
+        "Historical budget allowances exclude fees/VAT/contingencies and ancillary costs; not current quotations"
+      ],
+      "benchmark_admitted": false
+    },
+    {
+      "url": "https://santabarbaraca.gov/sites/default/files/documents/Government/Transition%20Plan%20Update%20Report/Technical%20Appendix%20A%20-%201%20City%20Hall%20and%20City%20Hall%20Annex.pdf",
+      "sha256": "31b125ed7371564f3c7e4254237464cac7bf9fc1ff68bb8c46dec556d9fcf3a1",
+      "bytes": 25460520,
+      "id": 6,
+      "name": "Technical Appendix A-1 City Hall and City Hall Annex.pdf",
+      "pages": 264,
+      "identity": "GPPA City Hall/Annex survey, copyright2007; item tables14April2008",
+      "use": "priority_candidate_for_further_admission_audit",
+      "benchmark_admitted": false,
+      "facts": [
+        {
+          "pdf_page": 44,
+          "kind": "reference_plan",
+          "value": "First floor"
+        },
+        {
+          "pdf_page": 119,
+          "kind": "reference_plan",
+          "value": "Second floor"
+        },
+        {
+          "pdf_page": 197,
+          "kind": "reference_plan",
+          "value": "Basement"
+        },
+        {
+          "pdf_page": 113,
+          "printed_page": "66 of177",
+          "item": "28",
+          "kind": "proposed_job_budget",
+          "currency": "USD",
+          "value": 900000,
+          "existing_service": [
+            "first",
+            "second"
+          ],
+          "proposed_addition": "basement_lobby_and_elevator_remodel"
+        }
+      ],
+      "limits": [
+        "Historical proposal, not as-built completion or current feasibility approval",
+        "Metric calibration, extraction and reuse rights not established",
+        "Adding lobby may violate frozen room geometry/topology",
+        "REF/$0 entries require grouping interpretation; not automatically free actions",
+        "First-floor aggregate differs between summary and item-table header; preserve discrepancy"
+      ]
+    }
+  ]
+}

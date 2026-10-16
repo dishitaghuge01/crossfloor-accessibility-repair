@@ -327,3 +327,6 @@ Follow-up executable gates completed: optional no-merging histories, complete-un
 
 
 Continued bounded priority assessment: inspected prior forbidden-pair structural tractability and layered-width sources; screened a September2026 colored-routing abstract; choice-network full proofs remain inaccessible. See docs/continued_priority_assessment.md. Generic framework overlap is explicitly credited; G3 priority remains OPEN, with no first-algorithm claim. Dataset formats/search guidance is in docs/building_evidence_search_guide.md. No solver/evaluation changes, no push/submission.
+
+
+Supplied PDF evidence screen: five uploaded reports inventoried and page-located. CSPIT/IP Bhawan support historical barriers; HUD supports device/cost context; Dolton is single-storey and incomplete. Santa Barbara introduction led to an official264-page City Hall/Annex companion with annotated floor plans and historical job costs. Candidate only: metric extraction, item alignment, rights and frozen-topology scope remain unresolved. See docs/supplied_document_evidence_review.md and docs/supplied_document_evidence.json. No new benchmark admission, manuscript result change, push or source-PDF commit.
