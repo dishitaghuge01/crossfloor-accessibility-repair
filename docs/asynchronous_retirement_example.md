@@ -6,7 +6,7 @@ owner O and collision cell c: a activates its connection for profile0, cost2;
 b activates the same connection for profile1, cost3. Physical capacity admits
 both profiles; these experimental action permissions differ. Purchasing both
 is compatible reuse, charged 5 in two purchases. Their action–owner unit is
-U={a,b}. A later unit V offers a competing owner Q at c; it is incompatible
+U={a,b}. A later unit V offers a competing owner Q at c; Q connects the root room to a different third-floor room, so it has no later incidence at x0 or x1; it is incompatible
 with either paid use of O. This is a semantic state trace, not a new timed
 building experiment or a claim of verified intervention permissions.
 
@@ -29,3 +29,5 @@ floor leaves the window retains an unnecessary partition coordinate; the trace
 shows this avoidable retention but does not claim an exponential improvement
 from this two-action example alone. Complete paid effects and IDs remain in the
 final replay after every projection.
+
+The common connector occupies an additional upper-floor cell d: it retains O through b and is erased at close U, since V does not touch d. Cell c is the root-floor overlap and remains through V. The competing connector's other cell stays empty in the accepting row. The figure isolates c, while all original footprints remain in the paid-action label and replay.

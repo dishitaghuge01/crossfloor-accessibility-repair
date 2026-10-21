@@ -407,3 +407,6 @@ Prepared five exact DP ablations, strengthened CP, cold improved greedy and repl
 
 ## Joint-tier design correction before final evidence
 Stopped and preserved the preliminary112-run launch after identifying nested profile demands that made some permissions redundant. Marked preliminary directory SUPERSEDED/excluded. Corrected full tier to complementary nonempty destination sets; generator test verifies no target nesting. Two generator/profile checks passed0.51s. New input directory and clean freeze required; no preliminary outcomes are final.
+
+## Completed joint campaign and release regression
+All112 ce71e6a observations validated, including clean manifests, stable kernel fingerprints, raw/aggregate identity and17 distinct full replays. Both-lifetime DP4/14 exact; original/cells/vertices0/14; rank0/14 cut caps; CP11/14 exact and14/14 verified feasible; cold greedy6/14; segment control14/14. Full785 tests passed107.82s. Next separate preflighted23-input parameter campaign has276 scheduled observations, counterbalanced and not pooled with building inputs.
