@@ -8,7 +8,7 @@ attribution/license/revision metadata remain attached to the derived inputs.
 Unzip `source-code.zip` to a source directory. Use Python3.12 and the repository's
 locked development requirements (README). The measurement commits are separately
 recorded in every campaign; `measured-joint-source.zip` is the exact primary Git
-snapshot. Timing will vary by machine; regenerate inputs/figures from saved data
+snapshot. measured-kernel-bytes.zip preserves exact measured module/spec bytes for fingerprint checks when Git line-ending normalization differs. Timing will vary by machine; regenerate inputs/figures from saved data
 to check artifact consistency without rerunning optimization.
 
 ## Inputs
