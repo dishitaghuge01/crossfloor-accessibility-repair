@@ -83,3 +83,8 @@ The [nested-profile boundary audit](docs/priority_profile_boundary.md) gives a t
 ## Research-paper reproduction
 
 See [paper/REPRODUCE.md](paper/REPRODUCE.md) for the frozen benchmark, licensed IFC adaptation and manifest-derived manuscript. Building-derived cases use documented hypothetical assumptions; literature priority remains unconfirmed.
+
+
+Current substantive revision (22 October 2026): [frontier/scaling results](docs/frontier_scaling_results.md),
+[transient theorem](docs/transient_frontier_theorem.md), and
+[controlled intervention benchmark](docs/INTERVENTION_BENCHMARK.md).

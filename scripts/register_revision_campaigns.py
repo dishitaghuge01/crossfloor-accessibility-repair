@@ -88,6 +88,26 @@ def main():
         instances.append(dict(campaign_id='joint-generated-inputs',instance_id=c['instance_id'],input_fingerprint=c['input_fingerprint'],
             observations=0,**{k:c[k] for k in ('source_building_id','geometry_subset_id','catalogue_layout_id','permission_pattern_id','conflict_pattern_id','price_seed')},
             solver_seed='not_run',repeat_index='not_applicable'))
+    cert_folder=ROOT/'runs/frontier-certificates-2026-10-22'
+    cert_meta=json.loads((cert_folder/'provenance.json').read_text())
+    certificates=json.loads((cert_folder/'index.json').read_text())
+    campaigns.append(dict(campaign_id='static-frontier-certificates',code_revision=cert_meta['code_revision'],observations=0,
+        record_path='evidence/frontier-certificates/index.json',record_sha256=digest(cert_folder/'index.json'),
+        role='untimed_static_certificates',unique_instance_ids=len(certificates),included_in_totals='no'))
+    reference_folder=ROOT/'runs/local-band-references-2026-10-22'
+    refs=sorted(reference_folder.glob('*.manifest.json'))
+    campaigns.append(dict(campaign_id='independent-local-band-reference',code_revision=json.loads(refs[0].read_text())['git_revision'],observations=0,
+        record_path='evidence/local-band-references/*.json',record_sha256=fingerprint({p.name:digest(p) for p in sorted(reference_folder.glob('*.json'))}),
+        role='untimed_independent_family_reference',unique_instance_ids=len(refs),included_in_totals='no'))
+    frontier_cases={c['instance_id']:c for name in ('local-band-final-inputs-2026-10-22','private-bay-final-inputs-2026-10-22')
+        for c in json.loads((ROOT/'runs'/name/'dataset.json').read_text())['cases']}
+    for cid,iids in [('static-frontier-certificates',certificates),('independent-local-band-reference',
+        [p.name.replace('.manifest.json','') for p in refs])]:
+        for iid in iids:
+            c=frontier_cases[iid]
+            instances.append(dict(campaign_id=cid,instance_id=iid,input_fingerprint=c['input_fingerprint'],observations=0,
+                **{k:c[k] for k in ('source_building_id','geometry_subset_id','catalogue_layout_id','permission_pattern_id','conflict_pattern_id','price_seed')},
+                solver_seed='not_applicable',repeat_index='not_applicable'))
     total=sum(int(c['observations']) for c in campaigns if c['included_in_totals']=='yes')
     assert total==2845
     for name,rows in [('campaign_registry.csv',campaigns),('instance_registry.csv',instances)]:

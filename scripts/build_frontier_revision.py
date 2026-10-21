@@ -10,6 +10,10 @@ def revise(a):
     local=json.loads((a.local_summary/'summary.json').read_text())
     for p in (a.scaling_summary/'figures').glob('*.pdf'):shutil.copy2(p,a.output/'figures'/p.name)
     p=a.output/'master.tex';body=p.read_text()
+    body=body.replace(r'\setcounter{dbltopnumber}{6}',r'\setcounter{dbltopnumber}{3}')
+    body=body.replace(r'\renewcommand{\dbltopfraction}{.95}',r'\renewcommand{\dbltopfraction}{.85}')
+    body=body.replace(r'\begin{document}',r'\begin{document}\raggedbottom')
+    body=body.replace(r'\usepackage{iftex}',r'\usepackage{iftex,placeins}')
     body=body.replace(r'\newtheorem{lemma}{Lemma}',r'\newtheorem{lemma}{Lemma}'+'\n'+r'\newtheorem{proposition}{Proposition}')
     body=body.replace('Exact Topology-Preserving Cross-Floor Accessibility Repair with Shared Physical Assets',
         'Certified Event Frontiers for Exact Cross-Floor Accessibility Repair with Shared Physical Assets')
@@ -102,6 +106,8 @@ permissions and prices are authored, not source-building facts.
 
 The unchanged DP/CP kernels run at revision \texttt{REV}, with90s external and85s
 internal CP budgets, the same100000-state/65536-cut caps, seed0 and no RAM cap.
+Measurements use an Intel Core i5-1235U host (10 cores/12 logical processors),
+sequential fresh workers and one CP-SAT search worker; no CPU affinity is imposed.
 Development probes guided this family and budget; this is no blind holdout.
 Static certificates give $b=8$, at most five live cells and $2^\rho=108$ for all
 nine price variants. The potential interface remains bounded while storeys and
@@ -150,6 +156,8 @@ check and a structural explanation, not a new general decomposition technique.
 \subsection{Certified Separating-Family Measurements}
 The private-bay study measures four three-floor catalogues with2,8,16,32 bays,
 three methods and two repetitions (24 observations), under the same90s protocol.
+Lifetime DP and CP-SAT each complete8/8 objectives; floor retirement completes2/8
+and exceeds the state cap in the other six runs.
 Its analytic full-objective optimum is the first cost-three bundle. Static
 certificates and returned peak states are compared in Fig.~\ref{fig:bay-frontier};
 capped floor rows have no invented internal peak. This mechanism witness
@@ -161,6 +169,24 @@ workers; missing profiles are not treated as zero.}\label{fig:bay-frontier}\end{
 \subsection{Earlier Building-Derived Interaction Study}
 '''
     body=body.replace(r'\section{Results and Ablations}',r'\section{Results and Ablations}'+'\n'+section)
+    # Preserve the complete earlier matrices in the artifact; keep the main
+    # research story focused on the new theorem/regime and the negative boundary.
+    secondary={'tab:joint-case','tab:cp-task-data','tab:paired','tab:quality','tab:event-width'}
+    def trim_table(match):
+        block=match.group(0)
+        return '' if any(r'\label{'+label+'}' in block for label in secondary) else block
+    body=re.sub(r'\\begin\{table\*\}\[t\].*?\\end\{table\*\}',trim_table,body,flags=re.S)
+    body=re.sub(r'Minimum-cost proof, count proof and full identifier completion are separate criteria in Table~\\ref\{tab:cp-task-data\}; the supplementary stage chart preserves their aggregate comparison\.',
+        'In the primary study CP proves minimum cost/count in12/14 runs and the full identifier objective in11/14; separate stage traces and cost-bound matrices are supplementary.',body)
+    body=re.sub(r'\\subsection\{Separate Structural Families\}.*?(?=The historical connectivity stress study)',
+        'The earlier276-run authored structural study and24-run event-order followup remain separately archived with their complete controls and matrices. They are not pooled with the new scaling study.\n\n',body,flags=re.S)
+    body=body.replace(r'\subsection{Observed Practical Region}',r'\subsection{Building-Derived Regime Boundary}')
+    body=body.replace('The measured alternative-to-CP region is consequently','Within the primary building-derived study, the measured alternative-to-CP region is')
+    body=body.replace(r'\section{Limitations and Conclusion}', '\n'+r'\FloatBarrier'+'\n'+r'\section{Limitations and Conclusion}')
+    # Full generic-logic transfer is retained as a supplementary source note;
+    # the main appendix keeps the physical construction correctness proof.
+    body=re.sub(r'\\section\{Generic Encoding and Exact[ -]Objective Transfer\}.*?(?=\\clearpage\s*\\IEEEtriggeratref)', '',body,flags=re.S)
+    body=body.replace(r'Appendix~\ref{app:generic}','the supplementary generic-encoding note')
     body=body.replace('Full event-width asymptotics and literature\npriority are not claimed.',
         'The transient theorem is a model-specific frontier guarantee; literature\npriority and superiority over general decomposition algorithms are not established.')
     # The earlier eight-panel structural plot remains in the supplementary data.
@@ -169,7 +195,7 @@ workers; missing profiles are not treated as zero.}\label{fig:bay-frontier}\end{
     body=body.replace('Fig.~\\ref{fig:parameters}','the supplementary structural figure')
     unused=a.output/'figures/parameter-families.pdf'
     if unused.exists():unused.unlink()
-    for old,new in [('with90s','with 90s'),('and85s','and 85s'),('same100000','same 100000'),('enumerates256','enumerates 256'),('with2,8,16,32','with 2,8,16,32'),('At48','At 48')]:body=body.replace(old,new)
+    for old,new in [('with90s','with 90s'),('and85s','and 85s'),('same100000','same 100000'),('enumerates256','enumerates 256'),('with2,8,16,32','with 2,8,16,32'),('At48','At 48'),('complete8/8','complete 8/8'),('completes2/8','completes 2/8'),('in12/14','in 12/14'),('in11/14','in 11/14'),('earlier276','earlier 276'),('and24-run','and 24-run')]:body=body.replace(old,new)
     p.write_text(body,encoding='utf-8')
 
 

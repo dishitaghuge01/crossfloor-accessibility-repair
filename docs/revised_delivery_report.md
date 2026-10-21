@@ -1,3 +1,11 @@
+# Current substantive result:22 October 2026
+
+See [frontier/scaling results](frontier_scaling_results.md). The current master
+contains15 pages, eight figures and nine tables, plus a reproducible benchmark.
+The report separates the demonstrated computational regime from unresolved
+generic-method novelty and actual-building validation. Earlier notes below are
+archived release chronology.
+
 # Current refinement:22 October 2026
 
 See [the six-point response](review_refinement_2026-10-22.md). The new permission-only

@@ -387,3 +387,19 @@ Development-guided families and excluded pilots are explicit. Outcomes pending;
 no computational superiority, novel generic algorithm or construction validation
 is asserted before results. See docs/frontier_scaling_protocol.md and
 docs/transient_frontier_theorem.md.
+
+
+## Substantive computational gate — 22 October 2026
+
+Frozen c6fb69a follow-up complete: local-band36 observations (DP18/18 exact,
+CP12/18; all six largest CP cost proofs unfinished), private-bay24 (DP/CP8/8,
+floor2/8). At24 bands paired full-pipeline CP/DP ratios7.36–18.09 across three
+price variants, each repeated twice. Static transient theorem and exponential
+key-space separation from the uncapped floor schedule documented; standard
+finite-domain/decomposition methods can match the recurrence, so exclusive
+novelty is still not established. Independent reference9/9 full labels,13 static
+certificates,16 unique full replays,13 targeted checks. Existing kernels unchanged.
+Controlled benchmark55 input files, not55 independent geometries. Current timed
+total2845 across separate campaigns. Application validation gate remains open:
+no verified construction reservations/permissions/interventions/costs supplied.
+See docs/frontier_scaling_results.md and docs/INTERVENTION_BENCHMARK.md.

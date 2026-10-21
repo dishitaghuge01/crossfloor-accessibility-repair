@@ -11,7 +11,7 @@ package. New results must receive new campaign identifiers.
 | C2 | Construction has established literature priority | needs_literature_comparison | `docs/novelty_claim_registry.md`; compare full formulations, not title similarity |
 | C3 | Last-incident vertex and complete-unit cell retirement preserve feasibility and cost/count/ID labels | supported | `docs/event_lifetime_correctness.md`, `tests/test_cell_lifetime.py`; explicit schedule exposition still required |
 | C4 | Last-use forgetting itself is new | remove | Standard sufficient-state forgetting; no priority evidence |
-| C5 | A tighter event-interface runtime and separating family are proved | remove | Investigation retains the existing floor theorem; potential/transient widths and eager targets prevent substituting observed row width. See event_schedule_specification.md |
+| C5 | Static transient-frontier bound and separating physical family | supported | docs/transient_frontier_theorem.md; b includes eager/transient potential, rho complete-unit domains; private bays separate our floor/lifetime schedules. Not a generic-algorithm novelty or lower bound on prior methods. |
 | C6 | Combined lifetime DP completes the 78-purchase seed-zero Clinic case in three trials within the 30-second deadline | supported | `evidence/building-network/records.json`, revision f1e5d18; median function 13.129 s, full exact objective |
 | C7 | CP-SAT fails to prove minimum cost on that case | remove | Clean strengthened diagnostic aad70e4 proves cost 267 in 3/3; full objective completes 1/3. Historical erased stages remain unknown. See cp_stage_diagnostic_results.md |
 | C8 | Lifetime DP is generally faster or stronger than CP-SAT | remove | Across 15 network price variants DP completes 6 and CP-SAT 8; old compressed DP slower on all 15 seeded connectivity inputs |
@@ -62,3 +62,15 @@ artifacts. No broad practical or priority claim is currently authorized by evide
 
 | N11 | Permission-only matched control: restricted DP2/2 versus shared0/2 caps; CP4/4, optimum93/50 | supported | Clean3576a9c,8 observations; matched summary full-replay audit; fixed catalogue/geometry/cost/conflicts/demands |
 | N12 | Primary completion region320/89856 raw states,34/22 selected live vertices,3/18 occupied cells, domain3 | supported | Unchanged ce71e6a combined-DP returned statistics and phase records; descriptive, not a threshold |
+
+## Substantive follow-up evidence
+
+| ID | Claim | Status | Evidence |
+|---|---|---|---|
+| T4 | Uncompressed both-projection time/memory is2^O(b log(b+2)+rho) poly(B), plus recognition time | supported | docs/transient_frontier_theorem.md and static certificate script; no-merging history/floor-only modes excluded |
+| T5 | Private bays have constant transient certificate but uncapped floor DP at least2^n keys | supported | Constructive paid-bundle/empty-witness prefixes; generator and full measured ablation, not a lower bound on generic methods |
+| N13 | Authored local-band DP18/18 vs CP12/18;24-band paired pipeline ratio CP/DP7.36–18.09;48-band CP0/6 cost proofs | supported | Clean c6fb69a,36 observations; local-band summary and frontier scaling summary; development-guided authored regime |
+| N14 | Private-bay DP/CP8/8, floor2/8 with six caps | supported | Clean c6fb69a,24 observations; private-bay summary; analytic minimum label |
+| N15 | Nine full-label independent reference matches and13 static certificates | supported | Clean33c3b05 reference manifests; d347da2 certificate provenance; untimed checks, not extra timed observations |
+| C19 | Follow-up establishes exclusive novelty over all applicable decomposition methods | remove | Generic finite-domain/frontier methods can match the stated recurrence when supplied its physical encoding/schedule |
+| C20 | Reusable controlled benchmark supplies actual-building intervention validation | remove | Hypothetical catalogue annotations and abstract costs; benchmark admission matrix keeps missing domain evidence explicit |

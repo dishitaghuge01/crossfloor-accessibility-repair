@@ -1,5 +1,5 @@
 {
-  "campaign_registry_sha256": "a3a22ec6658f985609435f8a627745d6cc98ae37d245eabf7779b1f136ba2484",
+  "campaign_registry_sha256": "03d1f474d897c2919a475c8b7c351b6edb740324cb57efae30cacebaf3b8c7cc",
   "excluded_campaigns": [
     {
       "campaign_id": "excluded-overlapping-cp",
@@ -33,13 +33,17 @@
     }
   ],
   "frozen_historical": 2362,
-  "included_timed_observations": 2785,
-  "instance_registry_sha256": "87e21752b45382ba512b3e556471366ffe79e5f7a57781ce17f7eb95a61ce269",
+  "included_timed_observations": 2845,
+  "instance_registry_sha256": "e3bfc0923a8dde7cf5687de72753f6c0de7569a9fa728d5074bf55a54b7a7b4c",
   "joint_primary": 112,
+  "local_band_scaling": 36,
   "matched_permissions": 8,
   "path_notation": "archive.zip!member is a member of an immutable nested archive",
   "posthoc_event_width": 24,
+  "private_bay_scaling": 24,
   "separate_cp_diagnostic": 3,
   "structural_parameters": 276,
-  "untimed_relevant_segment_controls": 7
+  "untimed_local_band_references": 9,
+  "untimed_relevant_segment_controls": 7,
+  "untimed_static_certificates": 13
 }

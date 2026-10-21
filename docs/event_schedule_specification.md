@@ -89,8 +89,11 @@ runtime statement must also bound pre-reduction generation and the actual cut
 row operations, not merely retained table size. No measured post-projection
 maximum is substituted into a theorem without that derivation.
 
-We retain the existing floor-interface theorem. No new event-width theorem or
-strict separating physical family is claimed in this revision. Eager target
+The preceding revision retained only the floor-interface theorem. This checkpoint
+is superseded by docs/transient_frontier_theorem.md: the new bound explicitly
+counts all eager/transient potential vertices and complete-unit cell domains, and
+the private-bay family separates the two implemented state schedules. It is not
+a priority claim over general decomposition algorithms. Eager target
 introduction and complete-unit cell retention in particular prevent assuming
 that short individual edge lifetimes always yield a smaller interface. This
 fulfils the conservative branch of the requested investigation; an empirical

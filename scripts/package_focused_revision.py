@@ -46,6 +46,10 @@ def package(root,paper,summary,campaign,parameters,parameter_campaign,output):
     with zipfile.ZipFile(benchmark,'w',zipfile.ZIP_DEFLATED) as z:
         z.write(staging/'source-code.zip','source-code.zip')
         z.write(root/'docs/INTERVENTION_BENCHMARK.md','README.md')
+        addtree(z,root/'runs/frontier-certificates-2026-10-22','validation/static-certificates')
+        addtree(z,root/'runs/local-band-references-2026-10-22','validation/local-band-references')
+        for name in ('transient_frontier_theorem.md','local_band_subclass.md','frontier_scaling_protocol.md','frontier_scaling_results.md'):
+            z.write(root/'docs'/name,'docs/'+name)
         for name,folder in input_sources:
             addtree(z,root/'runs'/folder,'inputs/'+name)
             for f in (root/'runs'/folder/'instances').glob('*.json'):
@@ -90,6 +94,7 @@ def package(root,paper,summary,campaign,parameters,parameter_campaign,output):
         addtree(z,root/'runs/local-band-final-inputs-2026-10-22','inputs/local-bands')
         addtree(z,root/'runs/private-bay-final-inputs-2026-10-22','inputs/private-bays')
         z.write(root/'runs/frontier-hardware-2026-10-22.json','evidence/frontier-hardware.json')
+        z.write(root/'runs/frontier-memory-2026-10-22.json','evidence/frontier-memory.json')
         for p in (root/'runs').glob('local-band*pilot*'):
             if p.is_dir():addtree(z,p,'excluded-development/frontier-pilots/'+p.name)
             elif p.is_file():z.write(p,'excluded-development/frontier-pilots/'+p.name)
@@ -110,7 +115,8 @@ def package(root,paper,summary,campaign,parameters,parameter_campaign,output):
             'event_schedule_specification.md','asynchronous_retirement_example.md','joint_network_protocol.md',
             'cp_stage_diagnostic_results.md','baseline_revision_notes.md','parameter_study_protocol.md',
             'revision_completion.md','review_refinement_2026-10-22.md','transient_frontier_theorem.md',
-            'local_band_subclass.md','frontier_scaling_protocol.md','frontier_scaling_results.md','INTERVENTION_BENCHMARK.md'):
+            'local_band_subclass.md','frontier_scaling_protocol.md','frontier_scaling_results.md','INTERVENTION_BENCHMARK.md',
+            'modern_connectivity_comparison.md','generic_state_comparison.md'):
             z.write(root/'docs'/name,'docs/'+name)
         z.write(root/'paper/REPRODUCE_FOCUSED_REVISION.md','REPRODUCE.md')
         z.write(root/'runs/artifact-reproduction-2026-10-21.json','artifact-reproduction.json')
