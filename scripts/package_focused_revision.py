@@ -132,14 +132,14 @@ def package(root,paper,summary,campaign,parameters,parameter_campaign,output):
         z.writestr('CONTENTS.sha256.json',json.dumps(contents,indent=2)+'\n')
         assert z.testzip() is None
         assert not any(n.lower().endswith(('.ifc','.dwg')) for n in z.namelist())
-    release=dict(reporting_revision=revision,joint_measured_revision=protocol['code_revision'],
+    release=dict(reporting_revision=revision,joint_measured_revision=protocol['code_revision'],frontier_measured_revision=frontier_protocol['code_revision'],
         historical_observations=2362,joint_primary_observations=len(json.loads((campaign/'records.json').read_text())),
         separate_cp_diagnostic_observations=3,parameter_observations=len(json.loads((parameter_campaign/'records.json').read_text())),
         event_width_followup_observations=24,matched_permission_observations=8,local_band_scaling_observations=36,
         private_bay_scaling_observations=24,included_timed_observations=2845,untimed_relevant_segment_controls=7,
         untimed_independent_local_band_checks=9,untimed_static_frontier_certificates=13,
         manuscript=json.loads((paper/'pdf-qa.json').read_text()),
-        scope='Building-derived controlled experiments, hypothetical interventions/permissions/abstract costs; actual-building intervention validation not established; priority unconfirmed',
+        scope='Authored and building-derived controlled experiments, hypothetical interventions/permissions/abstract costs; actual-building intervention validation not established; priority over applicable generic methods unconfirmed',
         artifacts={p.name:dict(sha256=sha(p),bytes=p.stat().st_size) for p in (
             output/'Crossfloor-Repair-Revised-Master.pdf',output/'Crossfloor-Repair-Revised-Paper-Source.zip',research,benchmark)})
     (output/'Crossfloor-Repair-Release.json').write_text(json.dumps(release,indent=2)+'\n')
