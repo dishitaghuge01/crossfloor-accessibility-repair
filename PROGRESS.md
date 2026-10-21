@@ -448,3 +448,18 @@ matched comparison adds8 observations (3576a9c), independently audited; primary1
 observations unchanged. Restricted DP2/2, shared DP0/2 by state cap; CP4/4. All
 solver kernel fingerprints match the primary study. Included timed total2785
 across separate campaigns. No broad speedup, priority or construction claim.
+
+
+## Substantive frontier/scaling investigation — 22 October 2026
+
+Opened the user-requested stronger result gate. Added a conservative static
+transient frontier certificate, an explicit uncompressed event-parameter bound
+and a three-floor separating family. Prior/generic decomposition capabilities
+remain attributed. Eight targeted checks passed, including small exhaustive
+complete-objective agreement. Frozen follow-up protocol: nine local-band price
+variants,36 observations; four private-bay inputs,24 observations;90s external,
+85s internal, counterbalanced fresh workers, identical existing solver kernels.
+Development-guided families and excluded pilots are explicit. Outcomes pending;
+no computational superiority, novel generic algorithm or construction validation
+is asserted before results. See docs/frontier_scaling_protocol.md and
+docs/transient_frontier_theorem.md.
