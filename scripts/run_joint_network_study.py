@@ -40,6 +40,18 @@ def worker(source,method,target,seconds):
                 result=solve_cp_sat(instance,time_limit=seconds-5,seed=0,progress=progress)
             elif method=='greedy-cold':
                 result=solve_greedy(instance,improve=True,exchange_budget=100,time_limit=seconds-5,progress=progress,profile=True)
+            elif method=='locality':
+                from local_band_reference import solve
+                from cfar.interface_recognition import recognize_physical_interface
+                phase=perf_counter()
+                recognize_physical_interface(instance)
+                recognition=perf_counter()-phase
+                phase=perf_counter();result=solve(instance);optimization=perf_counter()-phase
+                phase=perf_counter();repair=apply_actions(instance,result['selected'])
+                assert verify_obligations(repair['instance'],repair['active'])['satisfied']
+                assert all(r['delta']==0 for r in repair['adjacency'].values())
+                result['pipeline_phases']=dict(recognition_seconds=recognition,
+                    optimization_seconds=optimization,replay_seconds=perf_counter()-phase)
             else:
                 selected=sorted(a['action_id'] for a in instance['actions'] if a['action_id'].startswith('S'))
                 repair=apply_actions(instance,selected)

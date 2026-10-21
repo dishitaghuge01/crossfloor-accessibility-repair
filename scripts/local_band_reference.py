@@ -25,7 +25,7 @@ def solve(a):
         and p['max_slope']==.5 for p in a['profiles'])
     assert all(f['elevation_m']==3*i for i,f in enumerate(a['floors']))
     assert all(o['source']=='R0' for o in a['obligations'])
-    assert len(targets)==2 and set(targets.values())=={2*n,2*n-1}
+    assert len(targets)==2 and max(targets.values())==2*n and min(targets.values())>=1
     catalog={c['connection_id']:c for c in a['connections']};groups=defaultdict(list);owner_band={};owner_slot={}
     for x in a['actions']:
         assert not x['requires'] and not x['excludes'] and x['type']=='physical_intervention'
