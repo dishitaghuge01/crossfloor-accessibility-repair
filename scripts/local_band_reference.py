@@ -19,17 +19,25 @@ def solve(a):
     assert all(f['boundary']==f['rooms'][0]['polygon']==expected_room and not f['obstacles']
         and f['reserved_portal_zones']==[expected_room] and not f['adjacency_edges'] for f in a['floors'])
     targets={o['profile_id']:int(o['target'][1:]) for o in a['obligations']}
+    assert len(a['obligations'])==len(a['profiles'])==2
+    assert {p['profile_id'] for p in a['profiles']}==set(targets)
+    assert all(p['min_width_m']==p['clearance_m']==.4 and p['can_use_stairs'] is True
+        and p['max_slope']==.5 for p in a['profiles'])
+    assert all(f['elevation_m']==3*i for i,f in enumerate(a['floors']))
     assert all(o['source']=='R0' for o in a['obligations'])
     assert len(targets)==2 and set(targets.values())=={2*n,2*n-1}
     catalog={c['connection_id']:c for c in a['connections']};groups=defaultdict(list);owner_band={};owner_slot={}
     for x in a['actions']:
         assert not x['requires'] and not x['excludes'] and x['type']=='physical_intervention'
         assert Decimal(str(x['cost']))>=0
+        assert x['geometry_certificate']==dict(geometry_model='reserved_interfaces_2d_v1',
+            connection_ids=[e['connection_id'] for e in x['effects']],changed_floor_ids=[])
         j=int(x['action_id'][1:5]);groups[j].append(x)
         assert 0<=j<n
         for effect in x['effects']:
-            assert effect['op']=='activate_connection' and set(effect['permitted_profiles'])<=set(targets)
+            assert effect['op']=='activate_connection' and effect['permitted_profiles'] and set(effect['permitted_profiles'])<=set(targets)
             c=catalog[effect['connection_id']];u,v=int(c['u'][1:]),int(c['v'][1:])
+            assert c['kind']=='lift' and set(c['physical_profiles'])==set(targets)
             assert v==u+1 and u in (2*j,2*j+1) and not c['existing']
             g=c['geometry'];owner=g['asset_id'];owner_band.setdefault(owner,j);assert owner_band[owner]==j
             assert g['width_m']==1 and g['rise_m']==3 and g['run_m']==1
