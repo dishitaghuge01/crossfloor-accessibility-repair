@@ -1,29 +1,44 @@
 # Revised research package delivery
 
-The major implementation, controlled evaluation and manuscript refresh are complete for advisor review. See revised_checkpoint_results.md for measured counts and revised_master_disposition.md for all seventeen requested items, including deferred scope.
+Current release,21 October2026: a21-page IEEE-format master with18 vector
+figures, editable sources, pinned code and portable evidence. The package is
+ready for advisor review; it does not establish literature priority or
+construction validation. No push or submission was performed.
 
-Delivered: the owned-interface method and detailed proof/parameter map; four-floor integrated ownership counterexample; CP-SAT and improved whole-action greedy comparisons; seeded structural experiments and instrumented ablations; audited multi-room two/three-storey source experiments; semantic controls and independent evidence audits; regenerated tables and seventeen vector figures; a detailed twenty-page IEEE-format master, editable LaTeX, pinned source code and portable evidence.
+The original authored/building campaigns and follow-up ablations remain
+frozen at2274 observations. A separate permission-backed CAD pilot adds12
+observations:four catalogue variants of one dimension-checked room pair,
+each checked by compressed DP,uncompressed DP and exhaustive oracle. Delivered
+totals:2286 observations,1949 returned-selection checks and62 independently
+re-enumerated oracle certificates. Original scaling/timing claims are unchanged.
+See user_cad_results.md and the earlier checkpoint/follow-up reports for the
+separate campaigns, hashes, clean revisions and excluded development runs.
 
-The package includes frozen inputs, normalized and raw records, manifests, certificate replays, source inventories, license notices, source hashes, environment lock, regression log, figure provenance and content hashes. Raw IFCs are omitted; the pinned downloader and attribution identify their sources. No push or submission was performed.
+The CAD pilot uses a user-authorized drawing. Selected local dimensions agree
+with wall endpoints; room rings are explicitly manually reconstructed and
+registered. The original DWG, complete decoded JSON and private extracts are
+excluded. Authorized anonymized derived inputs and a clipped wall underlay
+support offline solver and manuscript reproduction. Full source-level
+reconstruction requires authorized access to the original drawing.
 
-All experimental permissions, reservations, profiles and action costs on building geometry are hypothetical; they are neither facts inferred from IFC nor construction prices. Roof - Main in Clinic is a source level, not an asserted occupied third floor. The two admitted rich sources are not broad building validation. Shared geometry/recognizer dependencies and timing drift are disclosed.
+All candidate reservations, profile permissions, floor rise and action costs
+in that CAD pilot remain experimental. The original IFC studies likewise use
+hypothetical annotations. These are building-derived controlled experiments,
+not validated actual-building repairs or construction prices. City Hall and
+Marble Hill remain documentary assessments,not additional physical experiments.
+The logarithmic owner-domain factor is not a separation from every generic
+resource-state method. Complete-construction priority and independent human
+proof review remain open.
 
-Open scientific gates: literature priority and independent human proof review. Previously deferred history/no-dominance, admissible reverse ordering and spatial filtering are now implemented and evaluated; see followup_results.md. Venue selection, authorship, anonymity and page-limit adaptation remain for submission preparation. These boundaries prevent an honest claim that every optional enhancement or external scientific gate has been completed; they do not block review of the delivered research package.
+The21-page PDF uses US-letter pages,37 embedded font objects and no Type3
+fonts, unresolved references or overfull diagnostics. The new source figure
+and affected pages were visually reviewed; unchanged pages retain the prior
+reviewed content. Tectonic0.17.0/XeTeX is the tested compiler. Three focused
+adapter tests passed in0.77s; no kernel change justified rerunning all frozen
+regressions or benchmarks.
 
-The tested PDF engine is Tectonic 0.17.0 (XeTeX); the Unicode fontspec master needs a XeTeX-capable compiler. All 20 pages are US letter (612 by 792 points). The exact Python environment is recorded in requirements-release.lock.txt.
-
-The additional campaign contains 180 observations (177 optimal, three explicit caps), bringing the supplied total to 2274 observations. All 78 indexed/unindexed recognizer comparisons agree. These measurements are kept separate from the original campaign.
-
-Final follow-up PDF QA: 19 pages, 16 figures, 35 embedded font objects, no Type 3 fonts, no unresolved references or overfull diagnostics. All rendered pages were visually reviewed.
-
-The current documentary extension is20 pages/17 figures/36 embedded font objects. AppendixF adds a historical City Hall admission study,580 scalar table entries and exact arithmetic checks on533 priced rows. It admits no additional physical instance. Historical documentary estimates are source values, separate from all hypothetical benchmark prices; timed observations remain2274. See city_hall_admission.md and REPRODUCE_DOCUMENTARY.md.
-
-
-Final assessment integration retains20 pages and17 figures. AppendixG and the
-main comparison now explicitly derive the generic finite-domain resource
-factor and screen owner-reported Marble Hill installation evidence. All20
-rendered pages reviewed;36 embedded font objects, no Type3/unresolved
-references/overfull diagnostics. See gap_assessment_completion.md and
-REPRODUCE_GAP_ASSESSMENT.md. Priority and actual-building validation remain
-open; the assessment is complete within accessible evidence, not a closure
-certificate. Timed observations remain2274; no new physical input admitted.
+Reproduction stages are in REPRODUCE_REVISED.md, REPRODUCE_FOLLOWUP.md,
+REPRODUCE_DOCUMENTARY.md, REPRODUCE_GAP_ASSESSMENT.md and REPRODUCE_USER_CAD.md.
+The package contains manifests, source/input/code hashes, environments,
+certificates, audits, figures and internal/outer content hashes. Raw IFCs,
+source PDFs/DWG, private source extracts and excluded pilots are omitted.

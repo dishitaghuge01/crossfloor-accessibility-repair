@@ -509,6 +509,16 @@
       "locators": "December2018 approval; February2022 installation entries",
       "review_date_local": "2026-10-16",
       "review": "docs/gap_assessment_completion.md"
+    },
+    {
+      "id": "user_supplied_cad_20261021",
+      "title": "User-supplied working drawing DWG;selected lower/upper-ground group",
+      "source_sha256": "0399309c5d19218bad44329471745354098b28431548ccf9a1bff5bd8a779acc",
+      "status": "user_permission_recorded;dimension_checked_manual_room_pair;controlled_experiment",
+      "rights": "User explicitly confirmed thesis use2026-10-21;raw source redistribution not inferred",
+      "locators": "working group x(-125,-86),y(47,165);label handles11250431/11249846;endpoint handles in source-audit.json",
+      "review": "docs/user_cad_results.md",
+      "review_date_local": "2026-10-21"
     }
   ]
 }

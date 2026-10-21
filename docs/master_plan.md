@@ -290,3 +290,8 @@ Completed the targeted finite-domain comparison and installed-intervention evide
 
 
 Additional direct verification: official Abingdon35-page pre-application study retrieved/fingerprinted; all text extracted, PDF18/31-34 visually inspected; C/D/E sheets are headings only. Newland exact document links returned unavailable/HTTP500 even in normal session. Author research/technical-report trail did not supply missing journal text. See docs/additional_direct_verification.md and docs/abingdon_evidence_screen.json. No admitted physical inputs; priority/actual-building gates unchanged and OPEN. Released510723d package unchanged; no push/contact.
+
+
+## Permission-backed CAD pilot completed,21 October2026
+
+User authorized thesis use and delegated source selection. Clean f6e1ea5 source adaptation/evaluation:one manually reconstructed5.7x4.8m room pair from separately drawn lower/upper-ground working plans,four catalogue variants,12 fresh-process observations. Nine optimal/three infeasible;all labels agree;9 paid-box/replay checks;4 independently re-enumerated oracle certificates. Original2274 observations frozen;delivered totals2286/1949 selection checks/62 certificates. See docs/user_cad_protocol.md and docs/user_cad_results.md. Three adapter tests passed0.77s;no kernel changes. AppendixH adds a cropped geometry/experimental-slot figure;21-page/18-figure master,37 embedded font objects,no Type3/unresolved/overfull diagnostics. Source DWG/decoded/private extracts excluded;derived inputs and clipped anonymous plot segments supplied. Literature priority/human proof review/actual-building intervention validation remain OPEN. No push/submission.
