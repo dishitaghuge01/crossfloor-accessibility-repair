@@ -12,6 +12,20 @@ from cfar.io import write_json
 def esc(value):return str(value).replace('_',r'\_').replace('%',r'\%').replace('&',r'\&')
 
 
+def completed_time_summary(rows, solver):
+    """Feasible heuristic returns count as completions, without optimality."""
+    subset=[r for r in rows if r['solver']==solver]
+    accepted={'optimal','infeasible','feasible'}
+    times=[r['function_seconds'] for r in subset if r['status'] in accepted
+           and r['function_seconds'] is not None]
+    if times:
+        return f'{median(times):.4f} [{min(times):.4f},{max(times):.4f}]'
+    failures=Counter(r['status'] for r in subset)
+    if failures:
+        return '; '.join(f'{count} {status.replace("_"," ")}' for status,count in sorted(failures.items()))
+    return 'not run'
+
+
 def table(caption,label,headers,rows,wide=False):
     env='table*' if wide else 'table'
     lines=[rf'\begin{{{env}}}[t]',rf'\caption{{{caption}}}\label{{{label}}}',r'\centering\footnotesize\setlength{\tabcolsep}{3pt}',r'\begin{tabular}{'+'l'+'r'*(len(headers)-1)+'}',r'\toprule',' & '.join(headers)+r' \\',r'\midrule']
@@ -73,11 +87,10 @@ def build(controlled,building,source_audit,three_audit,controls,geometry_profile
         interfaces.append([name]+[params[k] for k in ['p','r','z','L','g','h']])
         values=[]
         for method in ['compressed','uncompressed','cp-sat','greedy-improved']:
-            times=[r['function_seconds'] for r in subset if r['solver']==method and r['status'] in {'optimal','infeasible'}]
-            values.append(f'{median(times):.4f} [{min(times):.4f},{max(times):.4f}]' if times else 'no completed solve')
+            values.append(completed_time_summary(subset,method))
         timing.append([name]+values)
     result+=table('Measured Interfaces; Structural Factors May Covary','tab:measured',['Case','$p$','$r$','$z$','$L$','$g$','$h$'],interfaces)
-    result+=table('Function Seconds: Median [Minimum, Maximum]','tab:scaling',['Case','Compressed','Full','CP-SAT','Improved greedy'],timing,True)
+    result+=table('Function Seconds: Median [Minimum, Maximum]; Greedy Feasible Returns Count as Completed, Not Proven Optimal; Failed Runs Excluded from Time Summaries but Retained in Outcomes','tab:scaling',['Case','Compressed','Full','CP-SAT','Improved greedy'],timing,True)
     early=[r['function_seconds'] for r in rows if r['instance_id']=='dense-128' and r['solver']=='compressed' and r['function_seconds'] is not None]
     late=[r['function_seconds'] for r in rows if r['instance_id']=='catalogue-128-s0' and r['solver']=='compressed' and r['function_seconds'] is not None]
     result+=f"Recipe counts include {audits[0]['represented_model_classes']} distinct represented models after excluding only building-name/description metadata; deliberately duplicated controls and historical/structural overlap are not independent instances. The two physically identical 128-candidate recipes have compressed medians {median(early):.3f} and {median(late):.3f} seconds in different campaign positions. This observed between-batch variability is an explicit confound for cross-family or small timing claims; all repetitions and later timeouts remain included.\n\n"

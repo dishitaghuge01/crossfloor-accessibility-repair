@@ -37,3 +37,6 @@ gap_assessment_completion.md for exact source-access and evidence limits.
 
 
 21October2026:permission-backed CAD input pilot executed separately (12 observations,one room pair/four catalogue variants). This closes the new DWG input-workflow task,not the actual-building validation gate. Manual room reconstruction and experimental slots/profiles/rise/costs remain explicit. See user_cad_results.md.
+
+
+Research-first revision supersedes the combined21-page presentation. See review_response.md:reporting/chronology errors fixed,documentary/CAD evidence separated;practical advantage and difficult building evaluation remain substantive limitations. They are not closed by manuscript changes.
