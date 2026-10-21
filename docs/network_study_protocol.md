@@ -73,3 +73,15 @@ The incomplete 9038752 campaign is preserved as preliminary evidence,
 including its unfavorable outcomes. It was stopped before modifying the
 vertex rule from unit-level to action-level last use. All final recipes and
 methods are rerun from the subsequent clean revision; no timings are spliced.
+
+## Separate post-hoc larger-budget boundary check
+
+After completing the70-observation fixed campaign, both methods have failed
+the largest clinic seed0 case under30s. Run that SAME frozen input three times
+per primary method with90s parent time,75s CP-SAT internal time and500000 DP
+states. Alternate the two-method order by repetition. Keep these six runs
+separate from the original70; preserve all original failures. The extension
+is explicitly post-hoc and changes resource budgets, not the input/model.
+It does not establish representative performance or construction validation.
+The six-method rotation in the primary campaign does not reverse relative
+DP/CP-SAT order; that timing limitation is disclosed.

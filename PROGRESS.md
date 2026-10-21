@@ -368,3 +368,5 @@ User requested empirical practical advantage and difficult building-scale evalua
 Vertex-lifetime refinement: retire profile vertices after their final incident action rather than waiting for unit completion; preserve physical owner tokens for the entire unit. Incomplete clean9038752 measurements retained separately as preliminary, never spliced into final campaign.
 
 Final event-lifetime refinement full regression:765 tests passed72.93s. Final clean campaign restarts all15 recipes; earlier clean partial study retained as preliminary.
+
+Fixed f1e5d18 network campaign completed70 observations; all22 returned selections/paid-box costs and original room rings audited. Lifetime DP solves clinic30/78-action cases whose original DP caps;78-action seed0 DP3/3 optimal versusCP-SAT3/3 pipeline timeout at30s. CP-SAT wins Molio; no general advantage. Largest clinic190-action case reaches DP cap and CP deadline. A separately declared post-hoc90s/500000-state matched extension follows; old failures retained.
