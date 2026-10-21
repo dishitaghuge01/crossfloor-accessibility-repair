@@ -9,9 +9,12 @@ from cfar.io import fingerprint,write_json
 from cfar.objective import action_cost
 
 
-def summarize(source,output,audit=False):
+def summarize(source,output,audit=False,reuse_audit=None):
     protocol=json.loads((source/'protocol.json').read_text())
     rows=json.loads((source/'records.json').read_text())
+    cached=json.loads(reuse_audit.read_text()) if reuse_audit else None
+    if cached:
+        assert cached['record_sha256']==hashlib.sha256((source/'records.json').read_bytes()).hexdigest()
     assert len(rows)==len(protocol['schedule'])
     if len(protocol['cases'])==7:assert len(rows)==112
     assert not (source/'SUPERSEDED.json').exists() and not (source/'INVALIDATED.json').exists()
@@ -38,6 +41,9 @@ def summarize(source,output,audit=False):
             structures[iid]=dict(storeys=len(instance['floors']),rooms=sum(len(f['rooms']) for f in instance['floors']),
                 actions=len(instance['actions']),profiles=len(instance['profiles']),
                 demands_by_profile=dict(Counter(o['profile_id'] for o in instance['obligations'])))
+            from network_study_structure import structure
+            structures[iid].update(structure(instance))
+            if cached:structures[iid].update(cached['structures'][iid])
             if audit:
                 from cfar.interface_recognition import recognize_physical_interface
                 rec=recognize_physical_interface(instance)
@@ -88,6 +94,9 @@ def summarize(source,output,audit=False):
         evidence.append(dict(raw_record=row['raw_record'],sha256=hashlib.sha256(raw.read_bytes()).hexdigest(),
                              manifest_sha256=hashlib.sha256(raw.with_suffix('.manifest.json').read_bytes()).hexdigest()))
     assert all(len(v)<=1 for v in labels.values()),'Exact complete labels disagree'
+    if cached:
+        assert evidence==cached['raw_evidence']
+        audit_cache={fingerprint([a['input_fingerprint'],a['selected']]):a for a in cached['audit_unique_selections']}
     summaries=[]
     for (iid,method),rs in groups.items():
         completed=[r for r in rs if r['status'] in ('optimal','infeasible','feasible')]
@@ -115,11 +124,14 @@ def summarize(source,output,audit=False):
         exact_labels={k:[list(x) for x in v] for k,v in labels.items()},
         record_sha256=hashlib.sha256((source/'records.json').read_bytes()).hexdigest(),kernel_fingerprints=kernel_fingerprints,
         raw_evidence=evidence,audit_unique_selections=list(audit_cache.values()),
-        audit_scope='Full replay on each distinct returned selection plus exact cost; geometry engine shared with solvers')
+        audit_scope='Full replay on each distinct returned selection plus exact cost; geometry engine shared with solvers',
+        reused_audit_sha256=hashlib.sha256(reuse_audit.read_bytes()).hexdigest() if reuse_audit else None)
     write_json(output/'summary.json',data)
     parameter_study=all('family' in c for c in protocol['cases'])
     if parameter_study:plot_parameters(data,output/'figures')
-    else:plot(data,output/'figures')
+    else:
+        plot(data,output/'figures')
+        plot_selected_graph(source,data,output/'figures')
     denominator=2*len(protocol['cases'])
     description=('Authored parameter levels; separate families with declared coupled changes.' if parameter_study else
         'Seven layout/constraint combinations from five layouts and two buildings.')
@@ -213,7 +225,7 @@ def plot_parameters(data,folder):
     matplotlib.use('Agg')
     import matplotlib.pyplot as plt
     folder.mkdir(parents=True,exist_ok=True)
-    plt.rcParams.update({'font.size':8,'pdf.fonttype':42})
+    plt.rcParams.update({'font.size':10,'pdf.fonttype':42})
     families=list(dict.fromkeys(c['family'] for c in data['protocol']['cases']))
     fig,axes=plt.subplots(4,2,figsize=(7.1,9))
     index={(s['instance_id'],s['method']):s for s in data['summaries']}
@@ -225,13 +237,79 @@ def plot_parameters(data,folder):
         ax.set_title(family);ax.set_ylabel('Pipeline median (s)');ax.set_xlabel('Declared family level')
         ax.grid(alpha=.2)
     handles,labels=axes.flat[0].get_legend_handles_labels()
-    fig.legend(handles,labels,ncol=3,loc='lower center',fontsize=8)
+    fig.legend(handles,labels,ncol=3,loc='lower center',fontsize=9)
     fig.tight_layout(rect=(0,.06,1,1))
     fig.savefig(folder/'parameter-families.pdf',metadata={'CreationDate':None,'ModDate':None})
     fig.savefig(folder/'parameter-families.png',dpi=200);plt.close(fig)
 
 
+def plot_selected_graph(source,data,folder):
+    """Paid effects in each profile, not invented purchase-vertex paths."""
+    import matplotlib.pyplot as plt
+    from matplotlib.lines import Line2D
+    from cfar.validation import baseline_active
+    iid='clinic-network-48-s0-full'
+    a=json.loads((source/iid/'input.json').read_text())
+    selected=set(data['exact_labels'][iid][0][1])
+    rooms={r['room_id']:(i,r) for i,f in enumerate(a['floors']) for r in f['rooms']}
+    parent={rid:rid for rid in rooms}
+    def find(r):
+        while parent[r]!=r:parent[r]=parent[parent[r]];r=parent[r]
+        return r
+    catalog={c['connection_id']:c for c in a['connections']}
+    pids=[p['profile_id'] for p in a['profiles']]
+    for cid,permissions in baseline_active(a).items():
+        assert set(pids)<=set(permissions),'This shared layout assumes common baseline permissions'
+        c=catalog[cid];parent[find(c['u'])]=find(c['v'])
+    graph=defaultdict(set)
+    for c in a['connections']:
+        u,v=find(c['u']),find(c['v'])
+        if u!=v:graph[u].add(v);graph[v].add(u)
+    root=find(a['obligations'][0]['source']);component={root};stack=[root]
+    while stack:
+        u=stack.pop()
+        for v in graph[u]-component:component.add(v);stack.append(v)
+    potential={tuple(sorted((u,v))) for u in component for v in graph[u]}
+    members=defaultdict(list)
+    for rid,(floor,r) in rooms.items():
+        members[find(rid)].append((floor,sum(x for x,y in r['polygon'])/len(r['polygon'])))
+    xs=[x for node in component for floor,x in members[node]];low,high=min(xs),max(xs)
+    positions={node:((sum(x for f,x in members[node])/len(members[node])-low)/max(high-low,1),members[node][0][0]) for node in component}
+    # Small deterministic jitter separates component centroids with identical x.
+    for j,node in enumerate(sorted(component)):
+        x,y=positions[node];positions[node]=(x,y+.12*((j%5)-2))
+    fig,axes=plt.subplots(1,2,figsize=(7.1,3.8),sharex=True,sharey=True)
+    for q,(pid,ax) in enumerate(zip(pids,axes)):
+        for u,v in sorted(potential):
+            ax.plot([positions[u][0],positions[v][0]],[positions[u][1],positions[v][1]],color='#dddddd',lw=.6,zorder=0)
+        for action in a['actions']:
+            if action['action_id'] not in selected:continue
+            for e in action['effects']:
+                if pid not in e['permitted_profiles']:continue
+                c=catalog[e['connection_id']];u,v=find(c['u']),find(c['v'])
+                if u==v or u not in component:continue
+                ax.plot([positions[u][0],positions[v][0]],[positions[u][1],positions[v][1]],
+                        color='#d58520' if action['action_id'].startswith('Q') else '#278354',lw=1.1,zorder=1)
+        targets={find(o['target']) for o in a['obligations'] if o['profile_id']==pid}
+        for node in sorted(component):
+            x,y=positions[node]
+            ax.scatter(x,y,s=18 if node in targets else 9,c='#3478b7' if node in targets else 'white',edgecolors='#666666',linewidths=.4,zorder=2)
+        ax.scatter(*positions[root],s=100,marker='*',c='#b32929',zorder=3)
+        ax.set_title(f'Profile {q}: {len(targets)} required components',fontsize=9)
+        ax.set_yticks(range(len(a['floors'])),[f'Storey {i}' for i in range(len(a['floors']))])
+        ax.set_xticks([]);ax.set_ylim(-.4,len(a['floors'])-.6)
+        for spine in ax.spines.values():spine.set_visible(False)
+    legend=[Line2D([],[],color='#278354',label='Paid shared-permission effect'),Line2D([],[],color='#d58520',label='Paid profile-0 alternative'),
+            Line2D([],[],marker='*',color='none',markerfacecolor='#b32929',label='Root'),Line2D([],[],marker='o',color='none',markerfacecolor='#3478b7',label='Required component')]
+    fig.legend(handles=legend,ncol=2,loc='lower center',fontsize=7)
+    fig.suptitle(f"Clinic full interaction: CP-SAT optimum {data['exact_labels'][iid][0][0]}; {sum(x.startswith('Q') for x in selected)} selected restricted alternatives",fontsize=9)
+    fig.tight_layout(rect=(0,.15,1,.94))
+    fig.savefig(folder/'joint-selected-graph.pdf',metadata={'CreationDate':None,'ModDate':None})
+    fig.savefig(folder/'joint-selected-graph.png',dpi=200);plt.close(fig)
+
+
 if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('--campaign',type=Path,required=True)
     p.add_argument('--output',type=Path,required=True);p.add_argument('--audit',action='store_true')
-    a=p.parse_args();summarize(a.campaign,a.output,a.audit)
+    p.add_argument('--reuse-audit',type=Path)
+    a=p.parse_args();summarize(a.campaign,a.output,a.audit,a.reuse_audit)

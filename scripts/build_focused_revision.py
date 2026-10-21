@@ -16,16 +16,37 @@ def table(caption,label,headers,rows):
         '\n\\bottomrule\\end{tabular}\\end{table*}\n')
 
 
-def build(base,summary,output,async_figure):
+def build(base,summary,output,async_figure,parameter_summary=None,segment_controls=None):
     data=json.loads((summary/'summary.json').read_text())
     output.mkdir(parents=True,exist_ok=False)
     (output/'figures').mkdir()
     shutil.copy2(base/'IEEEtran.cls',output/'IEEEtran.cls')
     for p in (base/'figures').glob('*.pdf'):shutil.copy2(p,output/'figures'/p.name)
     for p in (summary/'figures').glob('*.pdf'):shutil.copy2(p,output/'figures'/p.name)
+    parameters=json.loads((parameter_summary/'summary.json').read_text()) if parameter_summary else None
+    controls={c['instance_id']:c for c in json.loads(segment_controls.read_text())['cases']} if segment_controls else {}
+    if parameters:
+        shutil.copy2(parameter_summary/'figures/parameter-families.pdf',output/'figures/parameter-families.pdf')
     shutil.copy2(async_figure,output/'figures/asynchronous-retirement.pdf')
     old=(base/'master.tex').read_text()
     preamble=old[:old.index(r'\begin{abstract}')]
+    preamble=preamble.replace('[BoldFont=','[NFSSFamily=ptm,BoldFont=')
+    preamble=preamble.replace(r'\begin{document}',r'''
+\setcounter{topnumber}{4}
+\setcounter{dbltopnumber}{6}
+\setcounter{totalnumber}{12}
+\renewcommand{\topfraction}{.95}
+\renewcommand{\dbltopfraction}{.95}
+\renewcommand{\textfraction}{.05}
+\makeatletter
+\setlength{\@fptop}{0pt}
+\setlength{\@fpsep}{12pt}
+\setlength{\@fpbot}{0pt plus 1fil}
+\setlength{\@dblfptop}{0pt}
+\setlength{\@dblfpsep}{12pt}
+\setlength{\@dblfpbot}{0pt plus 1fil}
+\makeatother
+\begin{document}''')
     totals=data['method_totals'];both=totals['both']['exact'];floor=totals['floor']['exact'];cp=totals['cp-sat']['exact']
     abstract=r'''\begin{abstract}
 We study exact cross-floor accessibility repair over frozen room geometry, profile-specific demands and a finite catalogue of physical interventions.
@@ -85,6 +106,8 @@ where the symbols are defined in Table~\ref{tab:parameters}. This is an upper
 bound for that encoding, not a lower bound for other generic constructions.
 '''
     core=old[old.index(r'\section{Strict Repair Model}'):old.index(r'\section{Experimental Design}')]
+    core=re.sub(r'\\begin\{table\*\}\[t\]\s*\\caption\{Operational Proof Map\}.*?\\end\{table\*\}', '',core,flags=re.S)
+    core=core.replace('These operational names map to the implemented steps, not additional unimplemented routines. ', '')
     core=core.replace('the unlimited-state algorithm returns the optimum strict original-action label. Its bit-complexity bound is',
         'the algorithm with representative reduction after every event and without operational caps returns the optimum strict original-action label. Its bit-complexity bound is')
     core=core.replace('This guarantee concerns the recognized finite model.',
@@ -108,8 +131,9 @@ which purchases or witness effects are selected. Nodes with no such event retain
 ordinary floor forgetting. Permanent virtual anchors never retire.
 
 Include unit-close operations among physical events and define
-\begin{equation}\lambda_C(c)=\max\{t:e_t\text{ closes a unit with an action occupying }c\}.
+\begin{equation}\lambda_C(c)=\max\{t:e_t\text{ closes a unit touching }c\}.
 \end{equation}
+Here a unit touches $c$ when an available action occupies it.
 This conservative physical lifetime includes every paid effect, even disconnected
 effects omitted from all route witnesses. A cell keeps current owner identity
 until its unit closes; later units see external occupancy. It can be erased only
@@ -234,9 +258,20 @@ differences solely to projection. Caps are distinct from timeouts and infeasibil
     for case in data['protocol']['cases']:
         s=data['structures'][case['instance_id']]
         stats_rows.append([case['instance_id'].replace('-network-','/').replace('-s0',''),s['storeys'],s['rooms'],s['actions'],
-            '/'.join(str(v) for k,v in sorted(s['demands_by_profile'].items())),s.get('conflict_pairs','--')])
-    results+=table('Compact Instance Statistics: Profile Target Counts Are Separate; Prices Are Fixed at Seed Zero','tab:joint-size',
-        ['Input','Storeys','Rooms','Actions','Targets p0/p1','Conflict pairs'],stats_rows)
+            '/'.join(str(v) for k,v in sorted(s['demands_by_profile'].items())),s.get('conflict_pairs','--'),
+            s['bundled_actions'],s['contracted_active_nodes'],s['active_cycle_rank']])
+    results+=table('Instance Statistics: Potential Simple Graph after Common Baseline-Door Contraction; Price Seed Zero','tab:joint-size',
+        ['Input','Storeys','Rooms','Actions','Targets p0/p1','Conflicts','Bundles','Nodes','Cycles'],stats_rows)
+    results+=r'''\begin{figure*}[t]\centering
+\includegraphics[width=.97\textwidth]{figures/joint-selected-graph.pdf}
+\caption{Paid profile-specific effects in the109-purchase Clinic instance, using
+the saved optimum. Schematic component positions follow storeys; blue nodes are
+required components, and the red star is the root. Gray edges are potential
+connections. Orange alternative-owner effects are permitted only in profile0.
+Ownership conflicts are checked separately through all paid footprints; a graph
+view alone does not certify physical compatibility.}
+\label{fig:selected-graph}\end{figure*}
+'''
     results+=r'''\begin{figure*}[t]\centering
 \includegraphics[width=.97\textwidth]{figures/joint-outcomes.pdf}
 \caption{All primary outcomes by input and method. Each cell reports two
@@ -255,11 +290,11 @@ completed exact pipelines. Failure details remain in the per-run artifacts.}
         result_rows.append([case['instance_id'].replace('-network-','/').replace('-s0','')]+cells)
     results+=table('Exact Completion and Completed Pipeline Median Seconds; No Time Is Imputed for Failed Runs','tab:joint-case',
                    ['Input','Floor','Cells','Vertices','Both','Both+rank','CP-SAT'],result_rows)
-    results+=r'''\begin{figure}[t]\centering
-\includegraphics[width=.98\columnwidth]{figures/joint-cp-tasks.pdf}
+    results+=r'''\begin{figure*}[t]\centering
+\includegraphics[width=.48\textwidth]{figures/joint-cp-tasks.pdf}
 \caption{Minimum-cost proof, count proof and full identifier objective are
 different completion criteria. Search traces preserve this distinction at limits.}
-\label{fig:cp-tasks}\end{figure}
+\label{fig:cp-tasks}\end{figure*}
 '''
     task_rows=[]
     for case in data['protocol']['cases']:
@@ -286,14 +321,18 @@ different completion criteria. Search traces preserve this distinction at limits
                 metric_rows.append([iid.replace('-network-','/').replace('-s0',''),
                     max(x['peak_raw_states'] for x in ss),max(x['peak_live_selected_vertices'] for x in ss),
                     max(x['peak_live_occupancy_cells'] for x in ss),max(x['peak_owner_domain_size'] for x in ss),
-                    f"{max(mem):.0f}" if mem else '--'])
+                    f"{max(mem):.0f}" if mem else '--',
+                    f"{statistics.median(x['state_generation_seconds'] for x in ss):.3f}",
+                    f"{statistics.median(x['state_merge_seconds'] for x in ss):.3f}",
+                    f"{statistics.median(x['objective_label_seconds'] for x in ss):.3f}"])
     if paired:
         results+=table('Paired Fully Completed Inputs Only: Pipeline Medians and Their Descriptive Ratio','tab:paired',
             ['Input','Both DP (s)','CP-SAT (s)','DP/CP'],paired)
+    phase_figure=''
     if metric_rows:
         results+=table('Returned Combined-DP Profiles; Caps/Killed Workers Do Not Supply These State Measurements','tab:profile',
-            ['Input','Peak raw','Selected vertices','Occupied cells','Owner domain','Peak MiB'],metric_rows)
-        results+=r'''\begin{figure*}[t]\centering
+            ['Input','Peak raw','Vertices','Cells','Domain','MiB','Gen. (s)','Merge (s)','Labels (s)'],metric_rows)
+        phase_figure=r'''\begin{figure*}[t]\centering
 \includegraphics[width=.97\textwidth]{figures/joint-phases.pdf}
 \caption{Combined-DP phase profiles on fully completed inputs only. Objective
 label handling is included in generation. Other optimization includes uninstrumented
@@ -307,9 +346,50 @@ work and profiling overhead; capped runs are not assigned invented phase times.}
             return '/'.join(str(c) if c is not None else '--' for c in lookup[method]['feasible_costs'])
         first=[t for t in lookup['greedy-cold']['first_verified_seconds'] if t is not None]
         quality.append([iid.replace('-network-','/').replace('-s0',''),costs('cp-sat'),costs('greedy-cold'),costs('segment-control'),
+                        controls[iid]['cost'] if iid in controls else '--',
                         f"{min(first):.2f}--{max(first):.2f}" if first else '--'])
     results+=table('Feasible Abstract Costs by Repetition; Greedy First Verified Time Uses Its Function Clock, Excluding Worker Startup','tab:quality',
-        ['Input','CP feasible','Greedy feasible','Segment control','Greedy first (s)'],quality)
+        ['Input','CP feasible','Greedy feasible','Timed all S','Relevant S','Greedy first (s)'],quality)
+    if controls:
+        results+=r'''Relevant-S controls omit original segments outside the union
+of demanded rooms and roots. These seven additionally replayed constructive
+controls are untimed and excluded from the112 primary observations; the timed
+all-S observations remain unchanged. Neither construction certifies optimality.
+'''
+    results+=r'''The profile table reports generation, merging and label costs
+separately; labels are included in generation, so the columns must not be summed.
+The supplementary phase plot retains recognition, reconstruction and replay as
+well. On capped runs these internal measurements are missing rather than
+reconstructed from the deadline; the state-cap error itself proves that the
+raw-state limit was exceeded. No unmeasured memory saving is claimed.
+'''
+    if parameters:
+        assert parameters['observations']==276
+        results+=r'''\subsection{Separate Structural Families}
+The authored structural study has23 inputs in eight families: active connectivity,
+action count, within-unit owner competition, bundle size, unit span, event ordering,
+profile heterogeneity and conflict density. Five DP variants and CP-SAT run twice
+in forward/reverse order, giving276 separate observations with a30s external
+deadline and25s internal CP budget. All methods agree on the complete original
+cost/count/ID objective for every input in both repetitions.
+
+Figure~\ref{fig:parameters} reports descriptive pipeline medians, including worker
+startup. These short runs are substantially affected by import/recognition overhead;
+their timing ratios are not evidence of broad optimization superiority. The artifact
+states fixed and varying quantities per family. Complete-graph growth couples width,
+actions and span; owner competition couples h,g and action count; unit sharing changes
+footprint locations and z; action-ID reordering can change identifier ties; footprint
+changes alter cell arrangements. No isolated causal effect is inferred from these
+coupled families. Bundle coverage and profile permissions vary on otherwise fixed
+catalogues; zero/nonzero conflict levels have fixed route graphs and costs.
+\begin{figure*}[p]\centering
+\includegraphics[width=.97\textwidth,height=.85\textheight,keepaspectratio]{figures/parameter-families.pdf}
+\caption{Eight separate structural families, two counterbalanced repetitions per
+input and method. Family levels are declared design changes, not independent
+building samples. Every run completes here; medians are descriptive pipeline times
+with startup included, and coupled changes prevent width-only causal attribution.}
+\label{fig:parameters}\end{figure*}
+'''
     results+=r'''
 The historical connectivity stress study remains unfavorable to rank compression:
 it was slower on all15 seeded inputs and CP-SAT completed four natural inputs
@@ -346,13 +426,17 @@ proof approval, conference acceptance, affiliation or funding is inferred.
 '''
     appendix=old[old.index(r'\appendices'):old.index(r'\section{Full Outcome Coverage and Reproducibility}')]
     # Keep only cited references; remove unrelated historical literature sections.
-    body=preamble+abstract+intro+contribution+before+event+after+protocol+results+limitations+appendix
-    used=set()
-    for keys in re.findall(r'\\cite\{([^}]+)\}',body):used.update(keys.split(','))
+    body=preamble+abstract+intro+contribution+before+event+after+protocol+results+'\n\\clearpage\n'+limitations+appendix
+    used=[]
+    for keys in re.findall(r'\\cite\{([^}]+)\}',body):
+        for key in keys.split(','):
+            if key not in used:used.append(key)
     bibliography=old[old.index(r'\begin{thebibliography}'):old.index(r'\end{thebibliography}')]
     entries=re.split(r'(?=\\bibitem\{)',bibliography)[1:]
-    selected=[entry for entry in entries if re.match(r'\\bibitem\{([^}]+)\}',entry).group(1) in used]
-    body+='\n\\clearpage\n\\begin{thebibliography}{99}\n'+''.join(selected)+'\\end{thebibliography}\n\\end{document}\n'
+    lookup={re.match(r'\\bibitem\{([^}]+)\}',entry).group(1):entry for entry in entries}
+    selected=[lookup[key] for key in used]
+    split=min(range(1,len(selected)),key=lambda i:abs(sum(map(len,selected[:i]))-sum(map(len,selected[i:]))))
+    body+='\n\\clearpage\n\\IEEEtriggeratref{'+str(split+1)+'}\n\\begin{thebibliography}{99}\n'+''.join(selected)+'\\end{thebibliography}\n\\end{document}\n'
     for before,after in {
         'of14':'of 14','all15':'all 15','retains253':'retains 253','and93':'and 93',
         'All112':'All 112','common60s':r'common 60\,s',',55s':r', 55\,s',
@@ -360,6 +444,7 @@ proof approval, conference acceptance, affiliation or funding is inferred.
         'cost2':'cost 2','cost3':'cost 3','cost5':'cost 5','cost470':'cost 470','bound335':'bound 335',
         'three-run78-action':'three-run 78-action','17.694 of19.519s':r'17.694 of 19.519\,s',
         'the112':'the 112','Historical default runs retain all components.':'Default recognition retains all components.'
+        ,'the109':'the 109','has23':'has 23','giving276':'giving 276','a30s':r'a 30\,s','and25s':r'and 25\,s'
     }.items():body=body.replace(before,after)
     (output/'master.tex').write_text(body,encoding='utf-8')
 
@@ -368,4 +453,6 @@ if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('--base',type=Path,required=True)
     p.add_argument('--summary',type=Path,required=True);p.add_argument('--output',type=Path,required=True)
     p.add_argument('--asynchronous-figure',type=Path,required=True)
-    a=p.parse_args();build(a.base,a.summary,a.output,a.asynchronous_figure)
+    p.add_argument('--parameter-summary',type=Path)
+    p.add_argument('--segment-controls',type=Path)
+    a=p.parse_args();build(a.base,a.summary,a.output,a.asynchronous_figure,a.parameter_summary,a.segment_controls)

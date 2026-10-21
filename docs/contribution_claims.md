@@ -16,7 +16,7 @@ package. New results must receive new campaign identifiers.
 | C7 | CP-SAT fails to prove minimum cost on that case | remove | Clean strengthened diagnostic aad70e4 proves cost 267 in 3/3; full objective completes 1/3. Historical erased stages remain unknown. See cp_stage_diagnostic_results.md |
 | C8 | Lifetime DP is generally faster or stronger than CP-SAT | remove | Across 15 network price variants DP completes 6 and CP-SAT 8; old compressed DP slower on all 15 seeded connectivity inputs |
 | C9 | Representative reduction improves practical runtime | remove | Existing measurements do not support this |
-| C10 | Joint building-derived inputs exercise owner conflicts and nonnested profile demands | supported | Clean ce71e6a primary campaign:112 runs, five layouts/two source buildings, full tier up to262 actions/103 destinations/168 conflict pairs. Controlled assumptions, not construction validation |
+| C10 | Joint building-derived inputs exercise owner conflicts and nonnested profile demands | supported | Clean ce71e6a primary campaign:112 runs, five layouts/two source buildings, Clinic full tier reaches262 actions/103 destinations/168 conflict pairs; Molio36 has226 conflict pairs. Controlled assumptions, not construction validation |
 | C11 | Network suite contains 15 independent building layouts | remove | Two source buildings, five catalogue layouts, three price seeds per layout |
 | C12 | All 15 network inputs have feasible repairs | supported | `scripts/check_network_witnesses.py`, frozen `feasible-witnesses.json`; constructive controls, not additional timed observations |
 | C13 | Larger Clinic case is solved optimally | remove | Separate six-run extension: CP-SAT feasible cost 470, bound 335; DP times out; no optimum proof |
@@ -45,4 +45,4 @@ artifacts. No broad practical or priority claim is currently authorized by evide
 | N2 | CP cost/count proved12/14; full objective11/14 | supported | Flushed stage traces, same summary cp_tasks; two Clinic96 cost-stage limits and one Molio36 identifier-stage deadline |
 | N3 | Large Clinic feasible385, lower bound258 in both repetitions; optimum unproved | supported | Primary Clinic96 traces plus post-deadline parent audit; recovered candidate is not a completed pipeline |
 | N4 | Final solver regression785 passed | supported | Full suite107.82s after asynchronous fixture/zero-cost tie and profiling checks; numerical test count is supporting QA, not a research contribution |
-| N5 | Structural eight-family campaign results | needs_new_experiment | Inputs/preflight complete;276-observation protocol frozen before measurement |
+| N5 | Structural eight-family campaign results | supported | Clean3011e30:23 inputs,276 observations; all six exact methods46/46 optimal, identical complete labels;23 distinct selections replayed |

@@ -32,12 +32,18 @@ def package(root,paper,summary,campaign,parameters,parameter_campaign,output):
         z.write(staging/'measured-joint-source.zip','measured-joint-source.zip')
         z.write(output/'Crossfloor-Repair-Revised-Paper-Source.zip','paper-source.zip')
         z.write(paper/'master.pdf','paper/master.pdf')
+        if (paper/'pdf-qa.json').exists():z.write(paper/'pdf-qa.json','paper/pdf-qa.json')
         addtree(z,campaign,'evidence/joint-primary')
         addtree(z,summary,'evidence/joint-summary')
         addtree(z,root/'runs/joint-network-complementary-dataset-2026-10-21','inputs/joint')
         addtree(z,parameters,'inputs/parameters')
         addtree(z,parameter_campaign,'evidence/parameters')
+        addtree(z,root/'runs/parameter-summary-2026-10-21','evidence/parameter-summary')
+        addtree(z,root/'runs/relevant-segment-controls-2026-10-21','evidence/relevant-segment-controls')
+        addtree(z,root/'runs/building-network-dataset','reproduction-base-network')
         addtree(z,root/'runs/cp-stage-diagnostic-clean-2026-10-21','evidence/cp-stage-diagnostic')
+        addtree(z,root/'runs/cp-stage-diagnostic-2026-10-21','excluded-development/overlapping-cp-diagnostic')
+        addtree(z,root/'runs/joint-network-final-2026-10-21','excluded-development/nested-demand-launch')
         # Preserve historical data as an immutable nested release. Never pool
         # its revisions with the current primary study in a single timing table.
         freeze=root/'runs/freeze-2026-10-21'
@@ -47,8 +53,11 @@ def package(root,paper,summary,campaign,parameters,parameter_campaign,output):
         addtree(z,root/'experiments','registries')
         for name in ('contribution_claims.md','closest_work_matrix.md','experiment_protocol.md','manuscript_change_log.md',
             'event_schedule_specification.md','asynchronous_retirement_example.md','joint_network_protocol.md',
-            'cp_stage_diagnostic_results.md','baseline_revision_notes.md'):
+            'cp_stage_diagnostic_results.md','baseline_revision_notes.md','parameter_study_protocol.md',
+            'revision_completion.md'):
             z.write(root/'docs'/name,'docs/'+name)
+        z.write(root/'paper/REPRODUCE_FOCUSED_REVISION.md','REPRODUCE.md')
+        z.write(root/'runs/revision-2026-10-21-figures/asynchronous-retirement.pdf','explanatory-figures/asynchronous-retirement.pdf')
         for p in ('master.tex','IEEEtran.cls'):
             z.write(root/'runs/network-paper-final'/p,'reproduction-base/'+p)
         for p in (root/'runs/network-paper-final/figures').glob('*.pdf'):

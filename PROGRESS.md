@@ -410,3 +410,6 @@ Stopped and preserved the preliminary112-run launch after identifying nested pro
 
 ## Completed joint campaign and release regression
 All112 ce71e6a observations validated, including clean manifests, stable kernel fingerprints, raw/aggregate identity and17 distinct full replays. Both-lifetime DP4/14 exact; original/cells/vertices0/14; rank0/14 cut caps; CP11/14 exact and14/14 verified feasible; cold greedy6/14; segment control14/14. Full785 tests passed107.82s. Next separate preflighted23-input parameter campaign has276 scheduled observations, counterbalanced and not pooled with building inputs.
+
+## Evaluation and focused manuscript milestone
+Completed276 counterbalanced structural observations at3011e30; all six exact methods46/46 optimal, complete labels agree,23 unique repairs audited. Focused manuscript rebuilt to14 pages with8 figures and10 tables; all evaluation figures precede limitations. Primary112 outcomes and separate276 study remain distinct. Added a checker for stronger relevant-segment controls so quality reporting need not rely only on unnecessarily broad all-S construction; these will be untimed, not extra benchmark observations.
