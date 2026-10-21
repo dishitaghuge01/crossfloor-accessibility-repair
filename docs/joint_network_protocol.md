@@ -5,15 +5,15 @@ source buildings, each under three constraint tiers. Price seed is fixed at zero
 these are not fifteen independent geometries. Tiers are connectivity, resource
 interaction (duplicate competing-owner footprints with cheaper alternative
 segment actions), and full interaction (these alternatives restricted to profile0,
-with profile0 demanding every second sorted target and profile1 every target).
+with profile0 demanding every second sorted target and profile1 the complementary targets).
 Original segment purchases keep both profiles' permissions and form an explicit
 feasible control. Compatible reuse and original bundles remain present.
 Reservations, permissions, alternative owners, catalogue design and prices are
 hypothetical experimental assumptions, not extracted construction facts.
 
-Development smoke on Clinic16: connectivity30 actions/no conflict pairs;
+Preliminary smoke on the first (nested-demand, subsequently superseded) design on Clinic16: connectivity30 actions/no conflict pairs;
 resource42 actions/28 conflict pairs; full42 actions/28 pairs. Recognition succeeds
-in all tiers. The cold greedy fails on the full tier in6.287s despite the known
+in all tiers. The preliminary cold greedy fails on the full tier in6.287s despite the known
 feasible original-segment control: this is a useful trap, not infeasibility.
 The separate segment worker replays that control successfully. Smoke observations
 are excluded from the main campaign.
@@ -52,3 +52,5 @@ Tier changes alter permissions, conflicts, action count and/or demands together;
 they do not isolate individual causal parameter effects. Separate eight-family
 parameter studies and a final focused manuscript are still required by the wider
 revision request. Existing historical parameter results cannot silently be pooled.
+
+The initial112-run launch was stopped during its first repetition after identifying nested demands. Its directory is marked SUPERSEDED and is excluded; completed records are preserved. The corrected full tier partitions destinations into nonempty complementary sets so neither profile dominates the other. This changes inputs and requires a new campaign freeze.

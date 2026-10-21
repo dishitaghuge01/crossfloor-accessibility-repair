@@ -46,9 +46,11 @@ def transform(base, tier, stride=2):
     if tier=='full':
         pid=instance['profiles'][0]['profile_id']
         targets=sorted({o['target'] for o in instance['obligations'] if o['profile_id']==pid})
+        if len(targets)<2:
+            raise ValueError('Complementary profile demands need at least two destinations')
         retained=set(targets[::2])
         instance['obligations']=[o for o in instance['obligations']
-            if o['profile_id']!=pid or o['target'] in retained]
+            if (o['target'] in retained)==(o['profile_id']==pid)]
     instance['building_id']+='-joint-'+tier
     instance['description']+=' Hypothetical overlapping alternative owners and experimental permissions; abstract costs.'
     return instance

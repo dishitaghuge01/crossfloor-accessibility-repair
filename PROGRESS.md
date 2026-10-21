@@ -404,3 +404,6 @@ CP-SAT aad70e4 clean reruns: cost/count proved3/3, full objective1/3, two identi
 
 ## Joint campaign freeze
 Prepared five exact DP ablations, strengthened CP, cold improved greedy and replayed all-segment control. Main schedule: seven constraint/layout combinations, two reverse-order repetitions,112 observations,60s external deadline, no RAM cap. Profiling fields and limitations documented in docs/joint_network_protocol.md. New candidate counters are not a new theorem.
+
+## Joint-tier design correction before final evidence
+Stopped and preserved the preliminary112-run launch after identifying nested profile demands that made some permissions redundant. Marked preliminary directory SUPERSEDED/excluded. Corrected full tier to complementary nonempty destination sets; generator test verifies no target nesting. Two generator/profile checks passed0.51s. New input directory and clean freeze required; no preliminary outcomes are final.

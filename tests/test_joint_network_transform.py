@@ -13,6 +13,8 @@ spec.loader.exec_module(module)
 
 def test_interaction_tiers_keep_original_geometry_and_feasible_segment_control():
     base=make_shaft_instance(2,[(0,0,2),(1,1,2)],[3,4],profiles=2,physical=True,asset_groups=[0,0])
+    for pid in ('profile0','profile1'):
+        base['obligations'].append(dict(obligation_id='extra-'+pid,profile_id=pid,source='R0',target='R1'))
     for i,a in enumerate(base['actions']):a['action_id']=f'S{i:03d}'
     for tier in ('connectivity','resource','full'):
         result=module.transform(base,tier,stride=1)
@@ -23,6 +25,8 @@ def test_interaction_tiers_keep_original_geometry_and_feasible_segment_control()
         recognized=recognize_physical_interface(result)
         assert bool(recognized['geometry_conflicts'])==(tier!='connectivity')
         if tier=='full':
+            demands=[{o['target'] for o in result['obligations'] if o['profile_id']==pid} for pid in ('profile0','profile1')]
+            assert all(demands) and not demands[0]&demands[1]
             assert all(len(a['effects'][0]['permitted_profiles'])==1 for a in result['actions'] if a['action_id'].startswith('Q'))
 
 
