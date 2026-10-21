@@ -26,3 +26,21 @@ The complete schedule is written before the first worker starts. Primary timing
 includes fresh worker startup, recognition/model construction and required replay.
 All profile instrumentation is the same as the building campaign; do not compare
 absolute times across these different input populations as a single experiment.
+
+## Separate posthoc event-width control
+
+The original complete-graph ordering pair has measured vertex width4 in both
+orders; it is a null schedule-sensitivity result, not evidence of varied width.
+A separate24-observation followup freezes two K(2,4) inputs before measurement.
+They have the same six-floor geometry, one complete owner unit/eight actions,
+edge costs and source/target. Paired edge events retire each intermediate vertex
+before introducing the next; batched events retain all four. A focused check
+measures pre-projection vertex maxima3 versus6 while occupied cells remain6.
+The same unique physical optimum has cost3 in both ID orderings.
+
+This followup uses the same six exact variants, two forward/reverse repetitions,
+30s external deadline,25s internal CP budget, state/cut caps and no RAM cap.
+It is posthoc and is not pooled with the original276 structural observations.
+It tests connectivity retention while ownership stays live; it is not a theorem
+that the complete event interface or asymptotic runtime separates from the floor
+bound. Original null-control inputs/observations remain preserved.

@@ -416,3 +416,6 @@ Completed276 counterbalanced structural observations at3011e30; all six exact me
 
 ## Release-source checkpoint
 Canonical ledger now separates2753 included timed observations, seven new untimed relevant-S controls and excluded development histories. The focused manuscript has14 pages,8 figures,10 tables;33 embedded font objects, no Type3/overfull boxes/unresolved references, ordered citations and visual review. Full source-archive reconstruction and final package hashes are the remaining release checks; no solver reruns are planned.
+
+## Event-width control correction
+The original complete-graph order pair keeps measured live width4 in both orders. Added a separate K(2,4) followup: same graph/geometry/edge costs/one owner unit, paired versus batched events. Focused generator check passes: widths3 versus6, occupied cells6 in both, same physical optimum cost3. Freeze24 posthoc observations separately; preserve original276 null-control observations.
