@@ -139,6 +139,8 @@ parameters,profile-heterogeneity-split,00d8475b7cd173c313e5eced7fb18826a5b723745
 parameters,unit-span-2,ce257eb84158afa9e4581c0bc7d59018c04beb3e96ca7c13a4ff36c3d8c28fbb,12,authored,authored-unit-span,unit-span-2,fixed-within-family,see-instance,0,0,see_per_run_record
 parameters,unit-span-3,3f75620cbc584cb48ec3fe637b3b6c6ff243cb1149a9501e213443f0fad64a4d,12,authored,authored-unit-span,unit-span-3,fixed-within-family,see-instance,0,0,see_per_run_record
 parameters,unit-span-5,05817684df5bfed593743859add99c5e38359ce850c041ebf2ff6689e3fee573,12,authored,authored-unit-span,unit-span-5,fixed-within-family,see-instance,0,0,see_per_run_record
+event-width-followup,event-width-batched,576271910449a0407f5fb00f339317dcf2108da52473666e1727d8715eb91f51,12,authored,fixed-K2-4,fixed-eight-edges,one-profile,one-compatible-owner,0,0,see_per_run_record
+event-width-followup,event-width-paired,582175055dd747c6c53b4e97969e9e2b88b1b1b12059352c14bd7578bc1e6a6e,12,authored,fixed-K2-4,fixed-eight-edges,one-profile,one-compatible-owner,0,0,see_per_run_record
 cp-stage-diagnostic,clinic-network-48-s0,4a08886f0926dfb76488adb988de08a59a268bef4d20b7edd41181357f2bb8dd,3,clinic,clinic-frozen-network-rooms,clinic-network-48,identical,disjoint,0,0,see_per_run_record
 relevant-segment-controls,clinic-network-16-s0-connectivity,2f09d177f8e818ab3e6410f8f9c7aab0f51f968d9c2cb82eca77e807131d3d98,0,clinic,clinic-frozen-network-rooms,clinic-network-16,identical,disjoint,0,not_applicable,not_applicable
 relevant-segment-controls,clinic-network-16-s0-resource,c705051e2225c4eb1151054ffee6aa0bb51972cf88112c54e8de755cbe8e7816,0,clinic,clinic-frozen-network-rooms,clinic-network-16,identical,overlap-every-second-column,0,not_applicable,not_applicable

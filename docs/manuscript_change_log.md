@@ -18,3 +18,6 @@ New posthoc three-run campaign aad70e4 proves cost 267 and minimum count in all 
 ## Research-first replacement
 
 The new detailed IEEE-class master replaces the23-page chronology with the problem, three supported contributions, recognized model, owned algorithm, asynchronous projection proof, conditional complexity/hardness, frozen protocols, primary112 and separate276 observations, then limitations and technical appendices. Eight referenced figures and compact statistics replace historical outcome ledgers in the main paper. The old master, documentary supplement, complete raw matrices and exclusions remain in the research package. Minimum-cost/full-ID distinctions and stronger relevant-S controls correct the baseline interpretation.
+
+## Posthoc width control
+Preserved the original null schedule pair and added a separate24-run control with actually varied frontier width. New main text/table labels this followup posthoc, reports fixed ownership/costs/graph and does not pool it with276 original structural observations. Source-defined original obligations and worker-only memory scope are explicit.

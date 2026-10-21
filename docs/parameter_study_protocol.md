@@ -44,3 +44,5 @@ It is posthoc and is not pooled with the original276 structural observations.
 It tests connectivity retention while ownership stays live; it is not a theorem
 that the complete event interface or asymptotic runtime separates from the floor
 bound. Original null-control inputs/observations remain preserved.
+
+Completed followup:24/24 optimal, exact labels agree for all six methods. Paired and batched combined DP have live vertices3/6, occupied cells6/6 and peak raw states100/191; floor controls481/481. Kernel fingerprints match the two earlier new campaigns. One added targeted generator test passes; the earlier full785-test regression remains the full-suite checkpoint.

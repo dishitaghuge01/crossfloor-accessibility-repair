@@ -1,5 +1,5 @@
 {
-  "campaign_registry_sha256": "3a9d7d50324d13ef6e98ffa3f3a916c4e3663f978ae5e25603c4ed2baa18ce2c",
+  "campaign_registry_sha256": "85bb7c904e1f4f0663f85cc0753cb23dc29037c75edcc2ec212dc415a44c20a6",
   "excluded_campaigns": [
     {
       "campaign_id": "excluded-overlapping-cp",
@@ -33,10 +33,11 @@
     }
   ],
   "frozen_historical": 2362,
-  "included_timed_observations": 2753,
-  "instance_registry_sha256": "dee1847c005bdcf595af6b36309dce5690d6db84b69155a88e7dedeb43e28333",
+  "included_timed_observations": 2777,
+  "instance_registry_sha256": "723ce8b9c47b2ee96deb215a314a8b72a9fd7ea0509f362fa69ca51629645aa6",
   "joint_primary": 112,
   "path_notation": "archive.zip!member is a member of an immutable nested archive",
+  "posthoc_event_width": 24,
   "separate_cp_diagnostic": 3,
   "structural_parameters": 276,
   "untimed_relevant_segment_controls": 7

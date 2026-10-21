@@ -22,6 +22,7 @@ def package(root,paper,summary,campaign,parameters,parameter_campaign,output):
     protocol=json.loads((campaign/'protocol.json').read_text())
     subprocess.run(['git','archive','--format=zip','--output='+str(staging/'measured-joint-source.zip'),protocol['code_revision']],cwd=root,check=True)
     kernel=json.loads((summary/'summary.json').read_text())['kernel_fingerprints']
+    assert kernel==json.loads((root/'runs/event-width-summary-2026-10-21/summary.json').read_text())['kernel_fingerprints']
     with zipfile.ZipFile(staging/'measured-kernel-bytes.zip','w',zipfile.ZIP_DEFLATED) as z:
         paths=list((root/'src/cfar').glob('*.py'))+[root/'spec/instance.schema.json',root/'spec/enums.json']
         assert {p.name for p in paths}==set(kernel)
@@ -48,6 +49,9 @@ def package(root,paper,summary,campaign,parameters,parameter_campaign,output):
         addtree(z,parameters,'inputs/parameters')
         addtree(z,parameter_campaign,'evidence/parameters')
         addtree(z,root/'runs/parameter-summary-2026-10-21','evidence/parameter-summary')
+        addtree(z,root/'runs/event-width-inputs-2026-10-21','inputs/event-width-followup')
+        addtree(z,root/'runs/event-width-final-2026-10-21','evidence/event-width-followup')
+        addtree(z,root/'runs/event-width-summary-2026-10-21','evidence/event-width-summary')
         addtree(z,root/'runs/relevant-segment-controls-2026-10-21','evidence/relevant-segment-controls')
         addtree(z,root/'runs/building-network-dataset','reproduction-base-network')
         addtree(z,root/'runs/cp-stage-diagnostic-clean-2026-10-21','evidence/cp-stage-diagnostic')
@@ -82,7 +86,7 @@ def package(root,paper,summary,campaign,parameters,parameter_campaign,output):
     release=dict(reporting_revision=revision,joint_measured_revision=protocol['code_revision'],
         historical_observations=2362,joint_primary_observations=len(json.loads((campaign/'records.json').read_text())),
         separate_cp_diagnostic_observations=3,parameter_observations=len(json.loads((parameter_campaign/'records.json').read_text())),
-        included_timed_observations=2753,untimed_relevant_segment_controls=7,
+        event_width_followup_observations=24,included_timed_observations=2777,untimed_relevant_segment_controls=7,
         manuscript=json.loads((paper/'pdf-qa.json').read_text()),
         scope='Building-derived controlled experiments, hypothetical interventions/permissions/abstract costs; actual-building intervention validation not established; priority unconfirmed',
         artifacts={p.name:dict(sha256=sha(p),bytes=p.stat().st_size) for p in (

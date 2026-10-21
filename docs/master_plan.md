@@ -343,3 +343,6 @@ Strengthened baseline diagnostic complete; cost proof separated from full IDs. F
 ## Final research package gate
 
 Implementation, primary112, structural276, separate diagnostic3,785-test regression, explicit event proof/specification, closest-work matrix, relevant-S controls and research-first manuscript are complete. Release stage is artifact reconstruction/hash/PDF visual verification. Priority and real-intervention validation remain unconfirmed scientific scope limits, not statuses silently changed to supported. No new event-width theorem or general CP superiority is asserted.
+
+## Event-width gate complete
+The original schedule pair was null (width4/4). A separate frozen24-run K(2,4) followup at5783365 now supplies genuine width variation3/6 with six occupied cells unchanged, same unique physical optimum3, combined raw states100/191 versus floor481. All six exact variants agree. No asymptotic full-interface separation claimed; coarser theorem retained. Included timed total2777; main/structural/posthoc populations remain distinct.

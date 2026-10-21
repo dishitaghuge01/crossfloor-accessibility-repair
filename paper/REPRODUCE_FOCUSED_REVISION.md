@@ -19,11 +19,12 @@ From the extracted source directory, substitute the research-package root for
 ```powershell
 python scripts/build_joint_network_study.py --source PACKAGE/reproduction-base-network --output NEW_JOINT_INPUTS
 python scripts/build_parameter_study.py --output NEW_PARAMETER_INPUTS
+python scripts/build_event_width_followup.py --output NEW_EVENT_WIDTH_INPUTS
 ```
 
 Joint inputs are fifteen tier variants from five catalogue layouts/two buildings,
 not fifteen independent layouts. The primary schedule measures seven combinations.
-The parameter dataset has23 authored levels/eight families. All intervention
+The parameter dataset has23 authored levels/eight families. A separate posthoc dataset has two event-width controls. All intervention
 reservations, profile permissions and costs are experimental assumptions.
 
 ## Saved-data figures and manuscript
@@ -31,8 +32,9 @@ reservations, profile permissions and costs are experimental assumptions.
 ```powershell
 python scripts/summarize_joint_network_study.py --campaign PACKAGE/evidence/joint-primary --output NEW_JOINT_SUMMARY --reuse-audit PACKAGE/evidence/joint-summary/summary.json
 python scripts/summarize_joint_network_study.py --campaign PACKAGE/evidence/parameters --output NEW_PARAMETER_SUMMARY --reuse-audit PACKAGE/evidence/parameter-summary/summary.json
+python scripts/summarize_joint_network_study.py --campaign PACKAGE/evidence/event-width-followup --output NEW_EVENT_WIDTH_SUMMARY --reuse-audit PACKAGE/evidence/event-width-summary/summary.json --no-plots
 python scripts/plot_asynchronous_retirement.py --output NEW_EXPLANATORY_FIGURE
-python scripts/build_focused_revision.py --base PACKAGE/reproduction-base --summary NEW_JOINT_SUMMARY --parameter-summary NEW_PARAMETER_SUMMARY --asynchronous-figure NEW_EXPLANATORY_FIGURE/asynchronous-retirement.pdf --segment-controls PACKAGE/evidence/relevant-segment-controls/controls.json --output NEW_PAPER
+python scripts/build_focused_revision.py --base PACKAGE/reproduction-base --summary NEW_JOINT_SUMMARY --parameter-summary NEW_PARAMETER_SUMMARY --asynchronous-figure NEW_EXPLANATORY_FIGURE/asynchronous-retirement.pdf --segment-controls PACKAGE/evidence/relevant-segment-controls/controls.json --event-width-summary NEW_EVENT_WIDTH_SUMMARY --output NEW_PAPER
 ```
 
 Compile `NEW_PAPER/master.tex` with Tectonic0.17 or an appropriate TeX distribution.
@@ -59,14 +61,15 @@ deadline and do not count as completed full-objective pipelines.
 ```powershell
 python scripts/run_joint_network_study.py --dataset NEW_JOINT_INPUTS --output NEW_PRIMARY --timeout 60 --cases clinic-network-16-s0-connectivity clinic-network-16-s0-resource clinic-network-16-s0-full clinic-network-48-s0-full clinic-network-96-s0-full molio-network-16-s0-full molio-network-36-s0-full
 python scripts/run_parameter_study.py --dataset NEW_PARAMETER_INPUTS --output NEW_STRUCTURAL
+python scripts/run_parameter_study.py --dataset NEW_EVENT_WIDTH_INPUTS --output NEW_EVENT_WIDTH
 ```
 
-These produce112 and276 observations respectively, each with two forward/reverse
+These produce112,276 and24 observations respectively, each with two forward/reverse
 repetitions and a frozen actual schedule. No RAM cap is imposed. Keep the separate
 three-run stage diagnostic, all historical observations and excluded development
 records out of these timing aggregates. `registries/campaign_registry.csv` marks
 inclusion explicitly; `archive.zip!member` locates a historical nested record.
-The included timed total2753 includes2362 historical observations and3 separate
+The included timed total2777 includes2362 historical,112 primary,276 structural,24 event-width observations and3 separate
 diagnostics; it is not one homogeneous experiment. Seven additional relevant-S
 controls are untimed and excluded from that denominator.
 

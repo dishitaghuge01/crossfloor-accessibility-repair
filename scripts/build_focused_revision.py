@@ -16,7 +16,7 @@ def table(caption,label,headers,rows):
         '\n\\bottomrule\\end{tabular}\\end{table*}\n')
 
 
-def build(base,summary,output,async_figure,parameter_summary=None,segment_controls=None):
+def build(base,summary,output,async_figure,parameter_summary=None,segment_controls=None,event_width_summary=None):
     data=json.loads((summary/'summary.json').read_text())
     output.mkdir(parents=True,exist_ok=False)
     (output/'figures').mkdir()
@@ -29,6 +29,7 @@ def build(base,summary,output,async_figure,parameter_summary=None,segment_contro
             shutil.copy2(p,output/'figures'/p.name)
     parameters=json.loads((parameter_summary/'summary.json').read_text()) if parameter_summary else None
     controls={c['instance_id']:c for c in json.loads(segment_controls.read_text())['cases']} if segment_controls else {}
+    width_data=json.loads((event_width_summary/'summary.json').read_text()) if event_width_summary else None
     if parameters:
         shutil.copy2(parameter_summary/'figures/parameter-families.pdf',output/'figures/parameter-families.pdf')
     shutil.copy2(async_figure,output/'figures/asynchronous-retirement.pdf')
@@ -205,6 +206,10 @@ original destination set into nonempty complementary profile demands, so neither
 profile's requirements subsume the other. Baseline access, reservations, connector
 design, permissions and abstract costs are declared experimental assumptions.
 They are not verified interventions or monetary construction estimates.
+The original destination set comprises every nonroot room in the largest potential
+connected network, rooted at a lowest-storey room. Other retained rooms stay in
+geometry checking but are excluded from obligations; full-tier demand unions keep
+the original destination set.
 
 Every input is run twice with eight methods: floor retirement; cells only;
 vertices only; both rules; both plus rank reduction; strengthened CP-SAT; cold
@@ -253,6 +258,8 @@ Live-vertex statistics describe observed state unions/selected rows; they do not
 instantiate an unproved event theorem. Missing data after hard termination remain
 missing. Instrumentation overhead prevents attributing cross-revision timing
 differences solely to projection. Caps are distinct from timeouts and infeasibility.
+Memory denotes the fresh worker's peak working set, including imports; parent-driver
+and whole-machine memory are not included.
 '''.replace('REVISION',data['protocol']['code_revision'][:7])
     results=r'\section{Results and Ablations}'+'\n'
     result_rows=[]
@@ -399,6 +406,30 @@ building samples. Every run completes here; medians are descriptive pipeline tim
 with startup included, and coupled changes prevent width-only causal attribution.}
 \label{fig:parameters}\end{figure*}
 '''
+    if width_data:
+        assert width_data['observations']==24 and all(t['exact']==4 for t in width_data['method_totals'].values())
+        width_rows=[]
+        for order in ('paired','batched'):
+            for method in ('floor','both'):
+                row=next(r for r in width_data['summaries'] if r['instance_id']=='event-width-'+order and r['method']==method)
+                stats=row['statistics']
+                width_rows.append([order,method,max(x['peak_live_vertex_union'] for x in stats),
+                    max(x['peak_live_occupancy_cells'] for x in stats),max(x['peak_raw_states'] for x in stats),'3'])
+        results+=r'''\subsection{Targeted Event-Frontier Followup}
+The original complete-graph schedule pair has measured width4 in both orders,
+so it does not demonstrate a width change. A separate posthoc control uses the
+same six-floor $K_{2,4}$ graph, eight purchases, one complete owner unit, edge
+costs and source/target. Paired events retire each intermediate vertex before
+introducing the next; batched events retain all four. All six methods agree in
+24 additional counterbalanced runs under the30s protocol. The unique physical
+optimum costs3 in both ID orderings. Connectivity width changes while six paid
+cells remain live; Table~\ref{tab:event-width} isolates the retention mechanism.
+This is a separate followup, not a replacement for the276-run null-control
+record or a proof of asymptotic full-interface separation. Worker startup
+dominates these small timings, so state counts provide the informative result.
+'''
+        results+=table('Posthoc Event-Frontier Control: Same Graph, Geometry, Prices and Ownership; Two Identical State Profiles per Row','tab:event-width',
+            ['Order','Variant','Live vertices','Occupied cells','Peak raw states','Optimum'],width_rows)
     results+=r'''
 The historical connectivity stress study remains unfavorable to rank compression:
 it was slower on all15 seeded inputs and CP-SAT completed four natural inputs
@@ -410,6 +441,9 @@ CP-SAT cost470 with bound335 and no proof; lifetime DP timed out.
 \begin{samepage}\noindent Incumbent costs and lower bounds are separate evidence;
 neither an incomplete objective nor a state cap certifies an optimum.\par\end{samepage}
 '''
+    parameter_plot=re.search(r'\\begin\{figure\*\}\[p\].*?\\label\{fig:parameters\}\\end\{figure\*\}',results,re.S)
+    if parameter_plot:
+        results=results.replace(parameter_plot.group(0),'')+'\n'+parameter_plot.group(0)+'\n'
     limitations=r'''
 \section{Limitations and Conclusion}
 The construction is exact within a recognized finite strict model. It does not
@@ -455,7 +489,8 @@ proof approval, conference acceptance, affiliation or funding is inferred.
         'cost2':'cost 2','cost3':'cost 3','cost5':'cost 5','cost470':'cost 470','bound335':'bound 335',
         'three-run78-action':'three-run 78-action','17.694 of19.519s':r'17.694 of 19.519\,s',
         'the112':'the 112','Historical default runs retain all components.':'Default recognition retains all components.'
-        ,'the109':'the 109','has23':'has 23','giving276':'giving 276','a30s':r'a 30\,s','and25s':r'and 25\,s'
+        ,'the109':'the 109','has23':'has 23','giving276':'giving 276','a30s':r'a 30\,s','and25s':r'and 25\,s',
+        'width4':'width 4','the30s':r'the 30\,s','costs3':'costs 3','the276':'the 276'
     }.items():body=body.replace(before,after)
     (output/'master.tex').write_text(body,encoding='utf-8')
 
@@ -466,4 +501,5 @@ if __name__=='__main__':
     p.add_argument('--asynchronous-figure',type=Path,required=True)
     p.add_argument('--parameter-summary',type=Path)
     p.add_argument('--segment-controls',type=Path)
-    a=p.parse_args();build(a.base,a.summary,a.output,a.asynchronous_figure,a.parameter_summary,a.segment_controls)
+    p.add_argument('--event-width-summary',type=Path)
+    a=p.parse_args();build(a.base,a.summary,a.output,a.asynchronous_figure,a.parameter_summary,a.segment_controls,a.event_width_summary)

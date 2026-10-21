@@ -2,10 +2,10 @@
 
 The current research-first master and all20 requested dispositions are documented
 in [revision_completion.md](revision_completion.md). The primary study is112 runs
-at ce71e6a; the separate structural study is276 runs at3011e30. Combined lifetime
+at ce71e6a; the separate structural study is276 runs at3011e30, plus24 separate posthoc event-width runs at5783365. Combined lifetime
 DP completes4/14 primary exact objectives; strengthened CP-SAT11/14. Real-building
 intervention validation and literature priority remain unconfirmed. The current
-release has a focused14-page master with8 figures; source/artifact reconstruction
+release has a focused research master with8 figures; source/artifact reconstruction
 and final hashes are recorded with the release.
 
 ## Archived previous release notes (4b88f7b; not the current manuscript)

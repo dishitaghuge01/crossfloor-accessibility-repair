@@ -50,4 +50,6 @@ times only where both methods complete the declared task.
 
 ## Completed revision campaigns
 
-The current registries additionally identify112 primary joint observations (ce71e6a),276 separate structural observations (3011e30), and3 posthoc CP stage diagnostics (aad70e4). The included timed total is2753 across distinct populations/revisions, not a pooled experiment. Inclusion flags separate excluded development campaigns. Seven new relevant-S controls and fifteen generated tier inputs have zero timed-observation contribution. Archive-member paths use archive.zip!member. Canonical regeneration uses scripts/register_revision_campaigns.py.
+The current registries additionally identify112 primary joint observations (ce71e6a),276 separate structural observations (3011e30), and3 posthoc CP stage diagnostics (aad70e4). The included timed total is2777 across distinct populations/revisions, not a pooled experiment. Inclusion flags separate excluded development campaigns. Seven new relevant-S controls and fifteen generated tier inputs have zero timed-observation contribution. Archive-member paths use archive.zip!member. Canonical regeneration uses scripts/register_revision_campaigns.py.
+
+A separate24-run posthoc event-frontier control (5783365) follows the original null ordering pair; it is not pooled with276 structural runs. It changes measured vertex width while holding graph/geometry/costs/ownership fixed. The included timed total2777 accounts for this followup separately.

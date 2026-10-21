@@ -419,3 +419,6 @@ Canonical ledger now separates2753 included timed observations, seven new untime
 
 ## Event-width control correction
 The original complete-graph order pair keeps measured live width4 in both orders. Added a separate K(2,4) followup: same graph/geometry/edge costs/one owner unit, paired versus batched events. Focused generator check passes: widths3 versus6, occupied cells6 in both, same physical optimum cost3. Freeze24 posthoc observations separately; preserve original276 null-control observations.
+
+## Completed event-frontier followup
+All24 observations at5783365 are optimal and full labels agree across all six methods. Paired/batched live vertices3/6, live cells6/6, combined peak states100/191; floor481/481. Same unique physical optimum3. Original276 null-control observations preserved. Canonical included total2777; source-archive reconstruction will be refreshed for the additional two inputs and updated paper; solver kernel unchanged.

@@ -9,7 +9,7 @@ from cfar.io import fingerprint,write_json
 from cfar.objective import action_cost
 
 
-def summarize(source,output,audit=False,reuse_audit=None):
+def summarize(source,output,audit=False,reuse_audit=None,no_plots=False):
     protocol=json.loads((source/'protocol.json').read_text())
     rows=json.loads((source/'records.json').read_text())
     cached=json.loads(reuse_audit.read_text()) if reuse_audit else None
@@ -129,7 +129,8 @@ def summarize(source,output,audit=False,reuse_audit=None):
         reused_audit_sha256=hashlib.sha256(reuse_audit.read_bytes()).hexdigest() if reuse_audit else None)
     write_json(output/'summary.json',data)
     parameter_study=all('family' in c for c in protocol['cases'])
-    if parameter_study:plot_parameters(data,output/'figures')
+    if no_plots:pass
+    elif parameter_study:plot_parameters(data,output/'figures')
     else:
         plot(data,output/'figures')
         plot_selected_graph(source,data,output/'figures')
@@ -313,4 +314,5 @@ if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('--campaign',type=Path,required=True)
     p.add_argument('--output',type=Path,required=True);p.add_argument('--audit',action='store_true')
     p.add_argument('--reuse-audit',type=Path)
-    a=p.parse_args();summarize(a.campaign,a.output,a.audit,a.reuse_audit)
+    p.add_argument('--no-plots',action='store_true')
+    a=p.parse_args();summarize(a.campaign,a.output,a.audit,a.reuse_audit,a.no_plots)
