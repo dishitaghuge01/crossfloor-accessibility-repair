@@ -311,3 +311,22 @@ Vertex-lifetime refinement: retire profile vertices after their final incident a
 Final event-lifetime refinement full regression:765 tests passed72.93s. Final clean campaign restarts all15 recipes; earlier clean partial study retained as preliminary.
 
 Fixed f1e5d18 network campaign completed70 observations; all22 returned selections/paid-box costs and original room rings audited. Lifetime DP solves clinic30/78-action cases whose original DP caps;78-action seed0 DP3/3 optimal versusCP-SAT3/3 pipeline timeout at30s. CP-SAT wins Molio; no general advantage. Largest clinic190-action case reaches DP cap and CP deadline. A separately declared post-hoc90s/500000-state matched extension follows; old failures retained.
+
+
+## Network/lifetime study delivered,21October2026
+
+Completed70 clean f1e5d18 observations plus6 separate clean7c2a3b2 post-hoc
+90s observations. On clinic78/seed0, lifetime DP3/3 optimal at13.129s median
+versus original DP cap and CP-SAT3/3 full-pipeline timeout at30s. CP-SAT wins
+Molio; no general superiority/compression speedup. Largest clinic190 purchases,
+103 destinations,22 cycles: DP times out at90s/500000 states; CP-SAT3 feasible
+470-cost incumbents, bound335,28.72% gap, median62.524s minimum-cost search.
+All25 returned repairs and15 explicit nonoptimal controls verified; frozen
+source rings retained. New total2362 observations/1974 returned-selection
+checks/62 oracle certificates, controls separate. Full core suite765 passed
+72.93s. Main23pages/20figures/40 embedded fonts; supplement4pages/2figures/12
+fonts; no Type3/unresolved/overfull diagnostics; visual review complete.
+See docs/network_study_results.md and paper/REPRODUCE_NETWORK_STUDY.md.
+Bounded practical advantage and substantially expanded feasible controlled
+networks now evidenced; actual-building intervention validation, general
+superiority and literature priority remain open. No push/submission.

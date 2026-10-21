@@ -1,3 +1,13 @@
+# Current checkpoint: network/lifetime revision,21October2026
+
+Current manuscript:23 pages/20 figures plus a separate4-page evidence report.
+See network_study_results.md and revised_delivery_report.md. The new76 timed
+observations establish a bounded deadline/completion advantage and expand the
+building-derived controlled networks; general superiority, literature priority
+and actual-building intervention validation remain unestablished.
+
+## Historical checkpoint records (superseded as current delivery descriptions)
+
 # Seventeen-item disposition for the revised master
 
 This is an implementation/evidence disposition, not a declaration that a venue

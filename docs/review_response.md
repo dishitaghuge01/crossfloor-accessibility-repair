@@ -1,74 +1,64 @@
-# Response to the five research/reporting concerns
+# Current disposition of the five research concerns
 
-## 1. Practical advantage: limitation accepted,not solved by editing
+This revision performs new solver/evaluation work. Read network_study_results.md
+for raw-outcome-linked conclusions; the earlier negative measurements remain.
 
-The saved campaign has15 seeded connectivity inputs. Compressed DP is slower
-than uncompressed DP on all15; median ratios range1.0210--2.2023. CP-SAT and
-uncompressed DP both complete all repetitions of four natural shaft cases
-where compressed mode reaches its cap. These findings are now stated in the
-abstract,introduction,discussion and conclusion. No new timing was run and
-no runtime advantage is claimed. Theoretical novelty must be judged on the
-complete physical construction; the generic owner-state factor does not
-supply a universal separation. Literature priority remains unconfirmed.
+## 1. Practical advantage: bounded result now demonstrated
 
-## 2. Building difficulty: limitation accepted,not solved by the CAD pilot
+Safe event-lifetime forgetting extends the existing owned-interface DP.
+At the 30s deadline, the 78-action clinic seed 0 case returns the exact optimum
+in all 3 lifetime-DP repetitions (13.129s median), while the original DP hits
+its100000-state cap and CP-SAT's full cost/count/ID pipeline times out3/3.
+The30-action clinic case also completes after the original DP caps.
 
-The eight IFC-derived catalogues contain only2--3actions,with marked effective
-component counts1--2. They check geometry adaptation,semantics and limited
-coupling,not difficult practical access-network optimization. The two-room
-CAD/four-variant pilot likewise checks input handling and semantic correctness.
-It is moved out of the main paper into the evidence supplement. No extra tiny
-cases or invented complexity were added to suggest a practical result.
+This is one workload-specific deadline advantage and a larger DP completion
+range, not general superiority over CP-SAT. CP-SAT wins on Molio; compressed
+lifetime runs still cap. The earlier15 compression ratios are unchanged.
+CP-SAT cost versus tie search is separated; no minimum-cost speedup is inferred
+from expensive identifier handling. The six-method rotation does not reverse
+the primary pair order, so small timing differences remain descriptive.
 
-A materially stronger practical claim still requires nontrivial,evidence-backed
-intervention choices and route constraints on building geometry. A stronger
-theoretical publication claim still requires a checked distinctness argument
-for the complete construction. Neither is produced by this reporting revision.
+## 2. Building difficulty: sparse-catalogue gap materially addressed
 
-## 3. TableVIII: corrected from normalized and raw records
+Five source-derived catalogue layouts/15 price variants retain253 clinic rooms
+on three original storeys and 93 Molio rooms on eight. The largest clinic model
+has 190 complete purchases,103 destinations,47 bundles and 22 independent cycles
+after baseline contraction. These are TWO buildings, not15 independent samples.
 
-Root cause: the authored timing-table generator accepted only optimal and
-infeasible statuses,omitting successful feasible heuristic returns. The
-building timing table already accepted feasible returns and is unchanged.
-The shared authored helper now counts feasible as a measured completion,
-without implying optimality,and identifies actual failure statuses.
+The larger90s check has 3 valid CP-SAT incumbents of cost470 against lower bound
+335 (28.72% gap); median cost-search time62.524s. Lifetime DP times out. This
+exposes unresolved cost optimization. Explicit feasible segment controls replay
+on all 15 inputs, ruling out unexplained feasibility as the cause of those
+optimization limits. The78-action clinic optimum267 improves on its342-cost
+nonoptimal control, in abstract units.
 
-| Case | Improved-greedy median seconds | Observed min--max | Statuses |
-| --- | --- | --- | --- |
-| catalogue-128-s0 | -- | -- | 3 timeouts |
-| ownership-8-s0 | 1.7319 | 1.7026--1.8784 | 5 feasible |
-| profiles-4-s0 | 0.0567 | 0.0532--0.0653 | 5 feasible |
-| connectivity-7-s0 | 6.7201 | 6.5887--6.7728 | 3 feasible |
-| support-8-s0 | 0.1316 | 0.1287--0.1362 | 5 feasible |
-| rooms-12-s0 | 0.4831 | 0.4777--0.4913 | 5 feasible |
+This is still controlled building-derived evaluation. Intervention reservations,
+profiles, permissions, doors/designs and prices are hypothetical. Real-building
+repair validation remains unestablished; identical route layers and disjoint
+column owners are disclosed rather than advertised as heterogeneous/conflicting.
+The two-room CAD pilot remains supplementary.
 
-The caption defines completion. Raw statuses/times were checked against every
-displayed row; the outcome matrices remain unchanged. Three targeted regression
-tests passed in0.10s. reporting-audit.json saves the statuses,cells,record
-fingerprints,all15ratios and source catalogue sizes.
+## 3. Reporting consistency: maintained
 
-## 4. Final-study chronology: reconciled
+Table VIII retains the corrected feasible-greedy completion rule and actual
+128-candidate timeouts. New tables retain all caps/timeouts. The larger-budget
+table reports elapsed time even for CP-SAT's feasible nonoptimal incumbent
+returns, explicitly separating them from exact full-objective completion.
+Old measurements are unchanged; new30s and 90s campaigns are never pooled.
 
-SectionVI and AppendixE consistently describe implemented history/no-merging,
-complete-unit reverse order and optional spatial indexing. History mode turns
-off both minimum-label merging and representative compression; it is not a
-one-factor dominance-only ablation. Reverse order preserves whole ownership
-units and the floor schedule; it does not establish arbitrary-order behavior.
-Separate pinned campaigns/budgets remain distinct experimental settings,not
-unimplemented development stages. The upstream evaluation-text source is fixed.
+## 4. Final implementation: consistent
 
-## 5. Documentary material: separated
+The earlier implemented history/reverse/index ablations remain accurately
+described. Appendix F documents the final optional cell/unit and vertex/action
+last-use transitions, shared compilation-local geometry memoization and 765-test
+regression result. It preserves complete paid actions and owner-unit lifetimes.
+Incomplete earlier clean measurements are retained as preliminary, not silently
+replaced or spliced into the final clean campaigns.
 
-The19-page main manuscript has16 research figures and retains the model,proof,
-optimizer comparisons,controlled results and final ablations. Historical price
-extraction,source-access/admission studies and the small CAD pilot are in a
-separate4-page evidence report with2figures and the review package's
-supplementary-evidence/ subtree. Versioned source records stay accessible from
-docs/supplementary_evidence/README.md. No new public repository or push was made.
+## 5. Research focus: preserved
 
-Both PDFs compile with embedded fonts,no Type3 fonts,undefined references or
-overfull diagnostics. All changed content was visually reviewed; the final
-main bibliography was repaired after removal of obsolete column breaking.
-The reproducibility package preserves every original measurement and moves
-supporting evidence rather than deleting unfavorable outcomes. The final
-source archive regenerates the corrected main/supplement from saved evidence.
+Historical prices, source-admission documents and the CAD pilot remain in the
+separate4-page evidence supplement. The23-page main adds four research figures
+for new source geometry, outcome/status comparisons, active network difficulty
+and unresolved cost bounds. All data/code/figures have an offline reproduction
+path. No claim of priority, construction approval or conference acceptance is made.
