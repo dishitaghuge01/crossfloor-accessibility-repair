@@ -333,3 +333,6 @@ superiority and literature priority remain open. No push/submission.
 
 ## 2026-10-21 revision gate
 Evidence freeze complete: experiments/freeze-2026-10-21.json. Canonical claims and campaign provenance registered. Remaining gates: explicit event schedule/theory, instrumented fair baselines, joint interaction inputs, one-revision five-way ablation, frozen final evaluation and focused manuscript rewrite. No new priority or broad performance claim established.
+
+## 2026-10-21 baseline and projection gates
+Strengthened baseline diagnostic complete; cost proof separated from full IDs. Full regression 773 passed172.56s; subsequent 10 targeted five-ablation/CP/oracle cases passed3.86s. Explicit schedule/projection and conservative event-width investigation documented. Closest-work matrix rechecked primary formulations, priority remains unconfirmed. Joint-tier inputs generated; smoke and final evaluation remain open.

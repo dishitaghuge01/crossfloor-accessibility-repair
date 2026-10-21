@@ -13,7 +13,7 @@ package. New results must receive new campaign identifiers.
 | C4 | Last-use forgetting itself is new | remove | Standard sufficient-state forgetting; no priority evidence |
 | C5 | A tighter event-interface runtime and separating family are proved | needs_new_experiment | Requires derivation from actual enumeration/reduction, and formal family; current floor bound remains authoritative |
 | C6 | Combined lifetime DP completes the 78-purchase seed-zero Clinic case in three trials within the 30-second deadline | supported | `evidence/building-network/records.json`, revision f1e5d18; median function 13.129 s, full exact objective |
-| C7 | CP-SAT fails to prove minimum cost on that case | needs_new_experiment | Historical parent timeout discards stage trace; cannot infer the failed stage |
+| C7 | CP-SAT fails to prove minimum cost on that case | remove | Clean strengthened diagnostic aad70e4 proves cost 267 in 3/3; full objective completes 1/3. Historical erased stages remain unknown. See cp_stage_diagnostic_results.md |
 | C8 | Lifetime DP is generally faster or stronger than CP-SAT | remove | Across 15 network price variants DP completes 6 and CP-SAT 8; old compressed DP slower on all 15 seeded connectivity inputs |
 | C9 | Representative reduction improves practical runtime | remove | Existing measurements do not support this |
 | C10 | Network suite validates simultaneous owner competition and profile heterogeneity at building scale | needs_new_experiment | Current layouts use disjoint owner patches and identical route permissions/demands |

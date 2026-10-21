@@ -12,6 +12,7 @@ from cfar.io import manifest,write_json,fingerprint
 
 CONFIG={'compressed':dict(compress=True),'uncompressed':dict(compress=False),
         'cells-uncompressed':dict(compress=False,release_dead_cells=True),
+        'vertices-uncompressed':dict(compress=False,release_dead_vertices=True),
         'lifetime-compressed':dict(compress=True,release_dead_cells=True,release_dead_vertices=True),
         'lifetime-uncompressed':dict(compress=False,release_dead_cells=True,release_dead_vertices=True)}
 

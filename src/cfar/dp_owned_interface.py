@@ -131,7 +131,18 @@ def solve_owned_interface(instance: dict, *, compress: bool = True,
     stats = dict(events=0, peak_raw_states=1, peak_retained_states=1, representative_rows_removed=0)
     stats.update(released_cells=0, released_vertices=0, peak_live_occupancy_cells=0)
     if profile:
-        stats.update(total_deduplicated_rows=0, representative_reduction_seconds=0.0)
+        stats.update(total_deduplicated_rows=0, representative_reduction_seconds=0.0,
+                     state_generation_seconds=0.0, state_merge_seconds=0.0,
+                     objective_label_seconds=0.0, peak_live_selected_vertices=0,
+                     peak_live_vertex_union=0, peak_owner_domain_size=2)
+        for local_units in units.values():
+            for unit in local_units:
+                domains = defaultdict(set)
+                for aid in unit['action_ids']:
+                    for cell, owner in recognized['action_cells'][aid].items():
+                        domains[cell].add(owner)
+                stats['peak_owner_domain_size'] = max(stats['peak_owner_domain_size'],
+                    max((len(owners)+2 for owners in domains.values()),default=2))
 
     class Histories:
         def __init__(self, records): self.records = records
@@ -141,6 +152,19 @@ def solve_owned_interface(instance: dict, *, compress: bool = True,
 
     def retain(generated):
         nonlocal states
+        if profile:
+            source = iter(generated)
+            def timed_generated():
+                while True:
+                    generation_started = perf_counter()
+                    try:
+                        row = next(source)
+                    except StopIteration:
+                        stats['state_generation_seconds'] += perf_counter()-generation_started
+                        return
+                    stats['state_generation_seconds'] += perf_counter()-generation_started
+                    yield row
+            generated = timed_generated()
         if not dominance:
             records = []
             for record in generated:
@@ -154,9 +178,12 @@ def solve_owned_interface(instance: dict, *, compress: bool = True,
             return
         deduplicated = {}
         for key, label in generated:
+            merge_started = perf_counter() if profile else None
             if key not in deduplicated or label < deduplicated[key]:
                 deduplicated[key] = label
             require(len(deduplicated) <= max_states, "INTERFACE_STATE_LIMIT", str(max_states))
+            if profile:
+                stats['state_merge_seconds'] += perf_counter()-merge_started
         stats["events"] += 1
         reduction_started = perf_counter()
         if profile:
@@ -164,6 +191,13 @@ def solve_owned_interface(instance: dict, *, compress: bool = True,
         stats["peak_raw_states"] = max(stats["peak_raw_states"], len(deduplicated))
         stats["peak_live_occupancy_cells"] = max(stats["peak_live_occupancy_cells"],
             max((len(key[0]) for key in deduplicated), default=0))
+        if profile:
+            vertices = set()
+            for _, partitions in deduplicated:
+                selected = {(q,v) for q,pi in enumerate(partitions) for block in pi for v in block if v!='anchor'}
+                vertices.update(selected)
+                stats['peak_live_selected_vertices'] = max(stats['peak_live_selected_vertices'],len(selected))
+            stats['peak_live_vertex_union'] = max(stats['peak_live_vertex_union'],len(vertices))
         if not compress:
             states = deduplicated
         else:
@@ -267,8 +301,11 @@ def solve_owned_interface(instance: dict, *, compress: bool = True,
                             occupied[cid] = token
                         if not valid:
                             continue
+                        label_started = perf_counter() if profile else None
                         new_label = (exact_sum([label[0],Decimal(str(action["cost"]))]), label[1]+1,
                                      tuple(sorted(label[2]+(aid,))))
+                        if profile:
+                            stats['objective_label_seconds'] += perf_counter()-label_started
                         for witness in product(*layer_choices):
                             updated = list(partitions)
                             for q, selected in enumerate(witness):

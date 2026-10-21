@@ -1,0 +1,10 @@
+{
+  "campaign": "cp-stage-diagnostic-clean-2026-10-21",
+  "revision": "aad70e4",
+  "role": "posthoc_diagnostic",
+  "repetitions": 3,
+  "observations_sha256": "84f330152b8256b50d373f15c2839aede35da2210cbfb0839063190971bfa42d",
+  "full_objective_optimal": 1,
+  "cost_proved": 3,
+  "interpretation": "Cost 267 proved in all three reruns. One full objective completed; two reached identifier-stage limit. Parent candidate replay outside deadline is not completion evidence."
+}

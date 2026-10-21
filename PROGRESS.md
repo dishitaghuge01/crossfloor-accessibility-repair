@@ -398,3 +398,9 @@ Added opt-in flushed stage/incumbent trace and explicit Task A/B fields. Candida
 
 ## Baseline strengthening milestone
 Measured repeated replay as 90.65% of a bounded heuristic development probe. Replaced candidate replay with exact recognized occupancy/reachability predicates, retained full returned-repair replay, added optional initial repair/deadline/verified checkpoint. CP-SAT now hints each stage from its prior optimum and skips blocked ID variables. 49 focused + 6 exhaustive proposal tests passed. Initial overlapping diagnostic excluded explicitly; clean rerun required.
+
+## Clean diagnostic and correctness checkpoint
+CP-SAT aad70e4 clean reruns: cost/count proved3/3, full objective1/3, two identifier-stage deadlines. Separate posthoc record hash pinned. Regression773 passed172.56s; later10 targeted lifetime cross-solver tests passed3.86s. Added explicit event specification and asynchronous profile/owner example. Generated15 joint-tier inputs across5 layouts/2 buildings, not yet final evaluation.
+
+## Joint campaign freeze
+Prepared five exact DP ablations, strengthened CP, cold improved greedy and replayed all-segment control. Main schedule: seven constraint/layout combinations, two reverse-order repetitions,112 observations,60s external deadline, no RAM cap. Profiling fields and limitations documented in docs/joint_network_protocol.md. New candidate counters are not a new theorem.
