@@ -346,3 +346,18 @@ Implementation, primary112, structural276, separate diagnostic3,785-test regress
 
 ## Event-width gate complete
 The original schedule pair was null (width4/4). A separate frozen24-run K(2,4) followup at5783365 now supplies genuine width variation3/6 with six occupied cells unchanged, same unique physical optimum3, combined raw states100/191 versus floor481. All six exact variants agree. No asymptotic full-interface separation claimed; coarser theorem retained. Included timed total2777; main/structural/posthoc populations remain distinct.
+
+
+## Publication package gate — 22 October 2026
+
+Completed the requested revision with a 14-page IEEE-class master, seven figures
+and eleven tables. PDF checks pass (embedded fonts, no Type3, no unresolved
+references or overflow); all14 rendered pages were visually inspected. Final
+clean-archive reconstruction checked52 artifacts, including byte-identical
+manuscript source and all seven referenced figures;40 input instances retain the
+previous archived-generator checks. The release includes2777 timed observations
+across explicitly separate campaigns and seven untimed relevant-S controls.
+Regression evidence remains785 full-suite passes plus the added targeted
+ event-width test. No further solver changes followed measurement. Human review,
+venue-specific adaptation, literature priority and actual construction validation
+remain explicitly outside the established evidence. No push was performed.

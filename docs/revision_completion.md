@@ -37,3 +37,18 @@ their commits differ because reporting/generation/test artifacts were added.
 Different populations and budgets are still never pooled into a timing comparison.
 The regression checkpoint is785 passed in107.82s. Repeated artifact reconstruction
 does not rerun or replace the measured optimization observations.
+
+
+## Publication package gate — 22 October 2026
+
+Completed the requested revision with a 14-page IEEE-class master, seven figures
+and eleven tables. PDF checks pass (embedded fonts, no Type3, no unresolved
+references or overflow); all14 rendered pages were visually inspected. Final
+clean-archive reconstruction checked52 artifacts, including byte-identical
+manuscript source and all seven referenced figures;40 input instances retain the
+previous archived-generator checks. The release includes2777 timed observations
+across explicitly separate campaigns and seven untimed relevant-S controls.
+Regression evidence remains785 full-suite passes plus the added targeted
+ event-width test. No further solver changes followed measurement. Human review,
+venue-specific adaptation, literature priority and actual construction validation
+remain explicitly outside the established evidence. No push was performed.
