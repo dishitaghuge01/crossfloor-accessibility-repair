@@ -109,3 +109,24 @@ on that generic method follows. The executed CP-SAT model is a practical baselin
 not an algorithm whose theoretical capability is ruled out by this parameter.
 Consequently the present work strengthens a model-specific guarantee and tests
 a computational regime; **exclusive literature novelty remains unestablished**.
+## Exponential retained-state separation from floor retirement
+
+In the private-bay family, immediately after the n complete units at floor0
+have closed but before floor0 exits, the uncapped floor-only merged DP has
+at least2^n distinct resource/partition keys. For every subset X of bays, take
+exactly its two-edge bundles and choose the empty thin witness for every purchase.
+All these prefixes have the same permanent-root and eagerly introduced target
+partition; no optional middle vertex is selected. Their full paid occupancy differs
+on the private cells of precisely X. Distinct occupancy keys are never merged or
+removed by representative selection across resource groups. The required target's
+unrooted block has not vanished and no floor has exited, so these prefixes have
+not been rejected. Thus the keys are all present. Positive costs do not remove
+them because minimum-label dominance is only at equal state key.
+
+With both projections, b=4 and product domain<=27, so the event theorem gives
+constant tables and polynomial total work (plus recognition/input factors).
+This proves an exponential key-space separation for the specified implemented
+floor vs lifetime schedules on one identical recognized physical family. It is
+not a lower bound on all ways to optimize that family. A standard small-width
+decomposition also solves K(2,n); no generic prior algorithm is separated by this
+argument. The family is a mechanism witness, not application validation.
