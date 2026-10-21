@@ -27,13 +27,19 @@ def integer_costs(actions):
     return coefficients, scale
 
 
-def solve_cp_sat(instance, *, time_limit=60.0, seed=0):
+def solve_cp_sat(instance, *, time_limit=60.0, seed=0, progress=None):
     from ortools.sat.python import cp_model
     import ortools
 
     require(isfinite(time_limit) and time_limit > 0, "CP_SAT_LIMIT", "positive finite seconds required")
     started = perf_counter()
+    def emit(event, **fields):
+        if progress is not None:
+            progress(dict(event=event, elapsed_seconds=perf_counter()-started, **fields))
+
+    emit("recognition_started")
     recognized = recognize_physical_interface(instance)
+    emit("recognition_finished")
     model = cp_model.CpModel()
     actions = sorted(instance["actions"], key=lambda a: a["action_id"])
     x = {a["action_id"]: model.new_bool_var("action:" + a["action_id"]) for a in actions}
@@ -99,9 +105,27 @@ def solve_cp_sat(instance, *, time_limit=60.0, seed=0):
     incumbent = None
     failure_status = None
     cost_lower_bound = None
+    first_feasible_seconds = None
+    best_cost_seconds = None
+    best_observed_cost = None
+    cost_proof_seconds = None
+
+    class IncumbentTrace(cp_model.CpSolverSolutionCallback):
+        def on_solution_callback(self):
+            nonlocal first_feasible_seconds, best_cost_seconds, best_observed_cost
+            selected = sorted(aid for aid, var in x.items() if self.value(var))
+            exact = action_cost(instance, selected)
+            now = perf_counter()-started
+            if first_feasible_seconds is None:
+                first_feasible_seconds = now
+            if best_observed_cost is None or exact < best_observed_cost:
+                best_observed_cost, best_cost_seconds = exact, now
+            emit("incumbent", stage="cost" if not stages else "count" if len(stages)==1 else "identifier",
+                 selected=selected, cost=str(exact), replay_verified=False,
+                 stage_bound=self.best_objective_bound)
 
     def optimize(expression, maximize=False):
-        nonlocal incumbent, failure_status, cost_lower_bound
+        nonlocal incumbent, failure_status, cost_lower_bound, cost_proof_seconds
         remaining = time_limit - (perf_counter() - started)
         if remaining <= 0:
             failure_status = "limit_exceeded"
@@ -111,14 +135,19 @@ def solve_cp_sat(instance, *, time_limit=60.0, seed=0):
             model.maximize(expression)
         else:
             model.minimize(expression)
-        status = solver.solve(model)
+        stage = "cost" if not stages else "count" if len(stages)==1 else "identifier"
+        emit("stage_started", stage=stage, stage_index=len(stages), remaining_seconds=remaining)
+        status = solver.solve(model, IncumbentTrace())
         stages.append(dict(status=solver.status_name(status), wall_seconds=solver.wall_time,
                            branches=solver.num_branches, conflicts=solver.num_conflicts,
                            objective_stage="cost" if not stages else "count" if len(stages)==1 else "identifier",
                            best_bound=solver.best_objective_bound))
+        emit("stage_finished", stage_index=len(stages)-1, **stages[-1])
         if status in (cp_model.OPTIMAL, cp_model.FEASIBLE):
             incumbent = sorted(aid for aid, var in x.items() if solver.value(var))
         if len(stages) == 1 and status in (cp_model.OPTIMAL, cp_model.FEASIBLE, cp_model.UNKNOWN):
+            if status == cp_model.OPTIMAL:
+                cost_proof_seconds = perf_counter()-started
             cost_lower_bound = (str(action_cost(instance, incumbent)) if status == cp_model.OPTIMAL
                                 else str(Fraction(floor(solver.best_objective_bound), scale))
                                 if sum(coefficients) <= 2**53 else None)
@@ -147,11 +176,32 @@ def solve_cp_sat(instance, *, time_limit=60.0, seed=0):
                   scope=recognized["scope"],
                   optimality_evidence="CP-SAT OPTIMAL at every lexicographic stage; shared geometry recognizer")
     result["best_cost_bound"] = cost_lower_bound
+    cost_stage = stages[0] if stages else None
+    count_stage = stages[1] if len(stages)>1 else None
+    id_stages = stages[2:]
+    result["task_status"] = dict(
+        cost_stage_status=cost_stage["status"] if cost_stage else "NOT_STARTED",
+        cost_incumbent=str(action_cost(instance, incumbent)) if incumbent is not None else None,
+        cost_lower_bound=cost_lower_bound,
+        cost_stage_seconds=cost_stage["wall_seconds"] if cost_stage else 0,
+        count_stage_status=count_stage["status"] if count_stage else "NOT_STARTED",
+        count_stage_seconds=count_stage["wall_seconds"] if count_stage else 0,
+        id_stage_status=("OPTIMAL" if done else
+                         (id_stages[-1]["status"] if id_stages[-1]["status"] != "OPTIMAL" else "INCOMPLETE")
+                         if id_stages else "NOT_STARTED"),
+        id_stage_seconds=sum(s["wall_seconds"] for s in id_stages),
+        full_objective_status=result["status"],
+        first_feasible_seconds=first_feasible_seconds,
+        best_cost_seconds=best_cost_seconds,
+        cost_proof_seconds=cost_proof_seconds)
     if incumbent is not None and result["status"] != "infeasible":
+        emit("replay_started", selected=incumbent)
         repair = apply_actions(instance, incumbent)
         verification = verify_obligations(repair["instance"], repair["active"])
         require(verification["satisfied"], "CP_SAT_INTERNAL_REPLAY", "flow selection failed materialization")
         result.update(reachability=verification, geometry=repair["geometry"], adjacency=repair["adjacency"])
         if not done:
             result["incumbent"] = dict(selected=incumbent, cost=str(action_cost(instance, incumbent)))
+        emit("replay_finished", selected=incumbent, cost=str(action_cost(instance, incumbent)), replay_verified=True)
+    emit("finished", status=result["status"], task_status=result["task_status"])
     return result

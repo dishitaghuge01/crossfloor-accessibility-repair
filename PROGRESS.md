@@ -392,3 +392,6 @@ superiority and literature priority remain open. No push/submission.
 
 ## 2026-10-21 authoritative evidence freeze
 Preserved the current manuscript, release archives, source and 2362 observations by SHA-256 before new modifications. Added six-campaign/110 campaign-instance registries and canonical claim statuses. New interaction evaluation and instrumented baseline gates remain open; historical timeout stages are unknown. See docs/experiment_protocol.md and docs/manuscript_change_log.md.
+
+## CP-SAT trace milestone
+Added opt-in flushed stage/incumbent trace and explicit Task A/B fields. Candidate callbacks are explicitly unverified until replay. Added a separate posthoc diagnostic runner; historical records unchanged. Focused CP-SAT tests: 38 passed in 7.92s. Final strengthened baseline and final campaign remain pending.
