@@ -359,3 +359,8 @@ User authorized thesis use and delegated source selection. Clean f6e1ea5 source 
 ## Research-first reporting revision,21October2026
 
 Five-point critique disposition is in docs/review_response.md. Practical advantage and difficult building optimization remain NOT ESTABLISHED; all15 connectivity ratios are unfavorable and source catalogues have2--3actions. Corrected TableVIII's optimal/infeasible-only filter to include feasible greedy returns;five rows repaired,128-candidate timeouts retained. Three targeted reporting tests passed0.10s. Final implemented history/no-merging,reverse schedule and index modes are reconciled across SectionVI/AppendixE. Documentary/CAD material moved to a separate4-page evidence report/subtree;main manuscript19pages/16figures. Main/supplement PDFs pass embedded-font,letter,reference/overfull checks;visual review complete. All measurements preserved;no solver changes or new benchmark. Priority/human proof/actual-building gates remain OPEN;no push/submission.
+
+
+## New network/lifetime campaign,21October2026
+
+User requested empirical practical advantage and difficult building-scale evaluation. Implemented optional last-use cell/vertex forgetting and compilation-local geometry memoization, alongside larger original-storey clinic/Molio catalogue generation. See docs/network_study_protocol.md. Development probes excluded; practical advantage remains pending clean measurements. Existing results/claims remain unchanged. No push.

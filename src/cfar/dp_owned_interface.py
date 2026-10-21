@@ -41,7 +41,9 @@ def solve_owned_interface(instance: dict, *, compress: bool = True,
                           prune_irrelevant: bool = False, profile: bool = False,
                           recognized_cache: dict | None = None,
                           dominance: bool = True, event_order: str = "canonical",
-                          spatial_index: bool = False) -> dict:
+                          spatial_index: bool = False,
+                          release_dead_cells: bool = False,
+                          release_dead_vertices: bool = False) -> dict:
     require(event_order in {"canonical", "reverse"}, "INTERFACE_EVENT_ORDER", event_order)
     require(dominance or not compress, "INTERFACE_ABLATION", "history mode requires compression off")
     started = perf_counter()
@@ -99,10 +101,35 @@ def solve_owned_interface(instance: dict, *, compress: bool = True,
             events.reverse()
         for local_units in units.values():
             local_units.reverse()
+    # A collision cell is needed only until the last complete available unit
+    # that can occupy it. This is a static catalogue fact, independent of the
+    # chosen witness/selection. Never release part-way through an owner unit.
+    remaining_cell_units = defaultdict(int)
+    unit_cells = {}
+    unit_vertices = {}
+    remaining_vertex_events = defaultdict(int)
+    for local_units in units.values():
+        for unit in local_units:
+            touched = set().union(*(recognized["action_cells"][aid].keys()
+                                    for aid in unit["action_ids"]))
+            unit_cells[id(unit)] = touched
+            for cid in touched:
+                remaining_cell_units[cid] += 1
+            vertices = {(q, v) for aid in unit["action_ids"]
+                        for q, layer in enumerate(effect_components[aid])
+                        for component in layer for v in component}
+            unit_vertices[id(unit)] = vertices
+            for vertex in vertices:
+                remaining_vertex_events[vertex] += 1
+    for events in baseline_events.values():
+        for q, u, v in events:
+            for vertex in {(q,u), (q,v)}:
+                remaining_vertex_events[vertex] += 1
     schedule_done = perf_counter()
     # Label order is exact cost, original count, then sorted original IDs.
     states = {((), tuple((("anchor",),) for _ in pids)): (Decimal(0),0,())}
     stats = dict(events=0, peak_raw_states=1, peak_retained_states=1, representative_rows_removed=0)
+    stats.update(released_cells=0, released_vertices=0, peak_live_occupancy_cells=0)
     if profile:
         stats.update(total_deduplicated_rows=0, representative_reduction_seconds=0.0)
 
@@ -135,6 +162,8 @@ def solve_owned_interface(instance: dict, *, compress: bool = True,
         if profile:
             stats["total_deduplicated_rows"] += len(deduplicated)
         stats["peak_raw_states"] = max(stats["peak_raw_states"], len(deduplicated))
+        stats["peak_live_occupancy_cells"] = max(stats["peak_live_occupancy_cells"],
+            max((len(key[0]) for key in deduplicated), default=0))
         if not compress:
             states = deduplicated
         else:
@@ -177,6 +206,35 @@ def solve_owned_interface(instance: dict, *, compress: bool = True,
                 yield (occupancy,tuple(updated)), label
         retain(generated())
 
+    def retire_vertices(touched):
+        if not release_dead_vertices:
+            return
+        dead = set()
+        for vertex in touched:
+            remaining_vertex_events[vertex] -= 1
+            if remaining_vertex_events[vertex] == 0:
+                dead.add(vertex)
+        if not dead:
+            return
+        stats["released_vertices"] += len(dead)
+        def generated():
+            for (occupancy, partitions), label in states.items():
+                updated = []
+                for q, pi in enumerate(partitions):
+                    layer = []
+                    for block in pi:
+                        live = tuple(v for v in block if (q,v) not in dead)
+                        if not live:
+                            break
+                        layer.append(live)
+                    else:
+                        updated.append(tuple(sorted(layer)))
+                        continue
+                    break
+                else:
+                    yield (occupancy,tuple(updated)), label
+        retain(generated())
+
     L = recognized["parameters"]["L"]
     for fid in floors[:L]:
         introduce(fid)
@@ -189,6 +247,7 @@ def solve_owned_interface(instance: dict, *, compress: bool = True,
                     updated[q] = _glue(updated[q], (u,v))
                     yield (occupancy,tuple(updated)), label
             retain(baseline_generated())
+            retire_vertices({(q,u), (q,v)})
         for unit in units[f]:
             for aid in (list(reversed(unit["action_ids"])) if event_order == "reverse" else unit["action_ids"]):
                 action = actions[aid]
@@ -217,8 +276,16 @@ def solve_owned_interface(instance: dict, *, compress: bool = True,
                                     updated[q] = _glue(updated[q], component)
                             yield (tuple(sorted(occupied.items())),tuple(updated)), new_label
                 retain(action_generated())
-            retain((((tuple((cid,"external") for cid,_owner in occupancy), partitions),label)
+            dead = set()
+            if release_dead_cells:
+                for cid in unit_cells[id(unit)]:
+                    remaining_cell_units[cid] -= 1
+                    if remaining_cell_units[cid] == 0:
+                        dead.add(cid)
+                stats["released_cells"] += len(dead)
+            retain((((tuple((cid,"external") for cid,_owner in occupancy if cid not in dead), partitions),label)
                     for (occupancy,partitions),label in states.items()))
+            retire_vertices(unit_vertices[id(unit)])
         def forget_generated():
             for (occupancy, partitions), label in states.items():
                 updated = []
@@ -247,6 +314,8 @@ def solve_owned_interface(instance: dict, *, compress: bool = True,
                   selected=list(best[2]) if best else None, parameters=recognized["parameters"],
                   input_fingerprint=recognized["input_fingerprint"], statistics=stats,
                   compression=compress, dominance=dominance, event_order=event_order, spatial_index=spatial_index,
+                  release_dead_cells=release_dead_cells,
+                  release_dead_vertices=release_dead_vertices,
                   optimality_evidence="complete scoped DP; independent oracle comparison required",
                   scope=recognized["scope"])
     reconstructed = perf_counter()

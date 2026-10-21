@@ -54,6 +54,8 @@ def main() -> None:
     owned.add_argument("--no-dominance", action="store_true", help="retain histories; requires --no-compression")
     owned.add_argument("--event-order", choices=["canonical", "reverse"], default="canonical")
     owned.add_argument("--spatial-index", action="store_true")
+    owned.add_argument("--release-dead-cells", action="store_true")
+    owned.add_argument("--release-dead-vertices", action="store_true")
     owned.add_argument("--output", required=True)
     cp = subparsers.add_parser("solve-cp-sat", help="flow baseline on the strict recognized model")
     cp.add_argument("instance")
@@ -98,12 +100,16 @@ def main() -> None:
                 result = solve_owned_interface(instance, compress=not args.no_compression,
                                                max_states=args.max_states, max_cut_columns=args.max_cut_columns,
                                                prune_irrelevant=args.prune_irrelevant, dominance=not args.no_dominance,
-                                               event_order=args.event_order, spatial_index=args.spatial_index)
+                                               event_order=args.event_order, spatial_index=args.spatial_index,
+                                               release_dead_cells=args.release_dead_cells,
+                                               release_dead_vertices=args.release_dead_vertices)
                 write_json(output/"result.json", result)
                 settings = dict(method=result["method"], variant="SCFAR", compression=not args.no_compression,
                                 max_states=args.max_states, max_cut_columns=args.max_cut_columns,
                                 prune_irrelevant=args.prune_irrelevant, dominance=not args.no_dominance,
                                 event_order=args.event_order, spatial_index=args.spatial_index,
+                                release_dead_cells=args.release_dead_cells,
+                                release_dead_vertices=args.release_dead_vertices,
                                 timeout=None, elapsed_seconds=time.perf_counter()-started)
                 write_json(output/"manifest.json", manifest(instance,settings,result["status"]))
                 print(json.dumps({"status":result["status"], "cost":result["cost"],

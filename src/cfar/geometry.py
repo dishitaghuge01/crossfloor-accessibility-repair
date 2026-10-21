@@ -134,9 +134,23 @@ def connector_feasible(instance: Instance, connection: dict, profiles: list[str]
     return connection_feasible(instance, connection, profiles)
 
 
-def joint_geometry(instance: Instance, active: dict[str, list[str]], *, spatial_index: bool = False) -> dict[str, dict]:
+def joint_geometry(instance: Instance, active: dict[str, list[str]], *, spatial_index: bool = False,
+                   _fixed_cache: dict | None = None) -> dict[str, dict]:
+    # Private compilation-scoped memoization. The compiler owns this cache for
+    # ONE fixed immutable instance; never persist it or reuse after an edit.
+    cache = {} if _fixed_cache is None else _fixed_cache
+    unary_cache = cache.setdefault('connections', {})
+    pair_cache = cache.setdefault('pairs', set())
+    free_cache = cache.setdefault('free', {})
+    obstacle_cache = cache.setdefault('obstacles', {})
+    landing_cache = cache.setdefault('landings', set())
     catalog = {c["connection_id"]: c for c in instance["connections"]}
-    checks = {cid: connection_feasible(instance, catalog[cid], ps) for cid, ps in sorted(active.items())}
+    checks = {}
+    for cid, ps in sorted(active.items()):
+        key = (cid, tuple(sorted(ps)))
+        if key not in unary_cache:
+            unary_cache[key] = connection_feasible(instance, catalog[cid], ps)
+        checks[cid] = unary_cache[key]
     candidates = None
     if spatial_index:
         from shapely.strtree import STRtree
@@ -151,6 +165,8 @@ def joint_geometry(instance: Instance, active: dict[str, list[str]], *, spatial_
                 if cid < other and record["floor_id"] == orecord["floor_id"]:
                     candidates.add((cid, pos, other, opos))
     for (aid, a), (bid, b) in combinations(checks.items(), 2):
+        if (aid,bid) in pair_cache:
+            continue
         ca, cb = catalog[aid], catalog[bid]
         if ca["kind"] == cb["kind"] == "door":
             fa = room_index(instance)[ca["u"]][0]["floor_id"]
@@ -170,6 +186,7 @@ def joint_geometry(instance: Instance, active: dict[str, list[str]], *, spatial_
                         continue
                     require(polygon(x["polygon"]).intersection(polygon(y["polygon"])).area <= EPS,
                             "PORTAL_COLLISION", f"{aid}/{bid}")
+        pair_cache.add((aid,bid))
     # Room nodes abstract continuous motion only when the required profile's free centre-space is connected.
     rooms = room_index(instance)
     specifications = {p["profile_id"]: p for p in instance["profiles"]}
@@ -185,18 +202,27 @@ def joint_geometry(instance: Instance, active: dict[str, list[str]], *, spatial_
         floor, room = rooms[rid]
         for pid in sorted(ps):
             radius = specifications[pid]["min_width_m"]/2
-            interior = polygon(room["polygon"]).buffer(-radius,join_style=2)
-            blocked = unary_union([polygon(o).buffer(radius,join_style=2) for o in floor["obstacles"]])
-            free = interior.difference(blocked)
-            require(free.geom_type == "Polygon" and free.area > EPS,
-                    "ROOM_PROFILE_CONNECTIVITY", f"{rid}/{pid}")
+            if (rid,pid) not in free_cache:
+                interior = polygon(room["polygon"]).buffer(-radius,join_style=2)
+                floor_profile = (floor["floor_id"],pid)
+                if floor_profile not in obstacle_cache:
+                    obstacle_cache[floor_profile] = unary_union([polygon(o).buffer(radius,join_style=2) for o in floor["obstacles"]])
+                blocked = obstacle_cache[floor_profile]
+                free = interior.difference(blocked)
+                require(free.geom_type == "Polygon" and free.area > EPS,
+                        "ROOM_PROFILE_CONNECTIVITY", f"{rid}/{pid}")
+                free_cache[rid,pid] = free
+            free = free_cache[rid,pid]
             for cid, permitted in active.items():
                 if pid not in permitted:
+                    continue
+                if (cid,rid,pid) in landing_cache:
                     continue
                 for landing in catalog[cid]["geometry"]["landings"]:
                     if landing["room_id"] == rid:
                         centre = polygon(landing["polygon"]).centroid
                         require(free.buffer(EPS).covers(centre), "ROOM_LANDING_ACCESS", f"{cid}/{rid}/{pid}")
+                landing_cache.add((cid,rid,pid))
             room_checks[f"{rid}/{pid}"] = {"connected":True,"centre_space_area_m2":free.area,
                                             "body_model":"axis_aligned_square","width_m":2*radius}
     return {"connections": checks,"room_accessibility":room_checks,

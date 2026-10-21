@@ -23,6 +23,7 @@ def compile_activation_constraints(instance: dict, max_actions: int = 100, *, sp
     checks = 0
     requests = 0
     cache = {}
+    fixed_geometry_cache = {}
 
     def test(selected):
         nonlocal checks, requests
@@ -37,7 +38,7 @@ def compile_activation_constraints(instance: dict, max_actions: int = 100, *, sp
             return cache[signature]
         checks += 1
         try:
-            joint_geometry(instance, active, spatial_index=spatial_index)
+            joint_geometry(instance, active, spatial_index=spatial_index, _fixed_cache=fixed_geometry_cache)
         except ValidationError as error:
             cache[signature] = {"code": error.code, "detail": str(error)}
         else:
