@@ -15,9 +15,10 @@ relative to the represented intervention catalogue and checked2D geometry model.
 | Original event-order followup |2| Same authored graph and geometry, renamed action event order. |
 | Permission-only matched pair |2| One identical Clinic catalogue; only alternative-purchase permissions differ. Restricted input duplicates an existing joint-tier input. |
 | Local bands |9| Three authored sizes, three price seeds each. Adjacent-band physical conflicts, bundles and profile-specific routes. |
+| Structural local bands |8| Two authored sizes, four fixed-price structural variants each; slot conflicts and a coupled permission/demand control. Chain structure retained. |
 | Private bays |4| Four authored sizes; a tractability/state-space separating witness, not a difficult application validation. |
 
-These are55 instance files, not55 independent geometries or buildings. A content
+These are63 instance files, not63 independent geometries or buildings. A content
 manifest gives canonical instance fingerprints and duplicate counts.
 
 ## Reproduce
@@ -78,3 +79,17 @@ not filled with generated assumptions and relabelled as facts.
 Source license/attribution notices remain in dataset metadata and source docs.
 This artifact does not grant additional rights to third-party drawings or adopt
 a new project license on the authors' behalf.
+
+
+The structural extension adds48 timed observations under a45s external/40s CP
+budget, including an elementary locality solver charged for physical recognition
+and full replay. DP/locality each16/16 exact; CP12/16. It supplies eight additional
+static certificates (21 including the original13), kept under structural validation.
+See docs/structural_band_protocol.md and docs/structural_band_results.md.
+
+```powershell
+python scripts/build_structural_band_study.py --output NEW_STRUCTURAL_BANDS
+python scripts/run_structural_band_study.py --dataset NEW_STRUCTURAL_BANDS --output NEW_STRUCTURAL_RUNS
+python scripts/summarize_joint_network_study.py --campaign NEW_STRUCTURAL_RUNS --output NEW_STRUCTURAL_AUDIT --audit --no-plots
+python scripts/summarize_structural_bands.py --source NEW_STRUCTURAL_AUDIT --output NEW_STRUCTURAL_SUMMARY
+```

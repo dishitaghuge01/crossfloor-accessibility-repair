@@ -48,6 +48,7 @@ def main():
     add('matched-permissions',ROOT/'runs/matched-permissions-final-2026-10-22','evidence/matched-permissions','posthoc_permission_only')
     add('local-band-scaling',ROOT/'runs/local-band-final-2026-10-22','evidence/local-band-scaling','authored_bounded_band_scaling')
     add('private-bay-scaling',ROOT/'runs/private-bay-final-2026-10-22','evidence/private-bay-scaling','authored_separating_family')
+    add('structural-band-locality',ROOT/'runs/structural-band-final-2026-10-22','evidence/structural-band-locality','authored_fixed_price_structural_extension')
     diagnostic=ROOT/'runs/cp-stage-diagnostic-clean-2026-10-21'
     iid='clinic-network-48-s0'
     meta={iid:dict(source_building_id='clinic',geometry_subset_id='clinic-frozen-network-rooms',
@@ -109,13 +110,13 @@ def main():
                 **{k:c[k] for k in ('source_building_id','geometry_subset_id','catalogue_layout_id','permission_pattern_id','conflict_pattern_id','price_seed')},
                 solver_seed='not_applicable',repeat_index='not_applicable'))
     total=sum(int(c['observations']) for c in campaigns if c['included_in_totals']=='yes')
-    assert total==2845
+    assert total==2893
     for name,rows in [('campaign_registry.csv',campaigns),('instance_registry.csv',instances)]:
         with (ROOT/'experiments'/name).open('w',newline='',encoding='utf-8') as f:
             w=csv.DictWriter(f,fieldnames=list(rows[0]));w.writeheader();w.writerows(rows)
     write_json(ROOT/'experiments/revision-campaign-manifest.json',dict(included_timed_observations=total,
         frozen_historical=2362,joint_primary=112,structural_parameters=276,posthoc_event_width=24,separate_cp_diagnostic=3,matched_permissions=8,
-        local_band_scaling=36,private_bay_scaling=24,untimed_static_certificates=13,untimed_local_band_references=9,
+        local_band_scaling=36,private_bay_scaling=24,structural_band_locality=48,untimed_static_certificates=13,untimed_local_band_references=9,
         untimed_relevant_segment_controls=7,excluded_campaigns=[c for c in campaigns if c['role']=='excluded_development'],
         path_notation='archive.zip!member is a member of an immutable nested archive',
         campaign_registry_sha256=digest(ROOT/'experiments/campaign_registry.csv'),

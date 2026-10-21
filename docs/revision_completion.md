@@ -79,3 +79,13 @@ Controlled benchmark55 input files, not55 independent geometries. Current timed
 total2845 across separate campaigns. Application validation gate remains open:
 no verified construction reservations/permissions/interventions/costs supplied.
 See docs/frontier_scaling_results.md and docs/INTERVENTION_BENCHMARK.md.
+
+
+## Structural/locality refinement - 22 October 2026
+
+Current master rebuilt by build_structural_revision.py:15 pages,9 figures,10
+tables. Main narrative: transient theorem, floor-schedule key separation, bounded
+regime. Frozen48-run structural extension with locality baseline, complete
+audits and8 new certificates. DP/locality16/16, CP12/16. Locality faster on every
+input median; no exclusive performance claim. See structural_band_results.md.
+Earlier release counts below are historical. No push performed.

@@ -403,3 +403,16 @@ Controlled benchmark55 input files, not55 independent geometries. Current timed
 total2845 across separate campaigns. Application validation gate remains open:
 no verified construction reservations/permissions/interventions/costs supplied.
 See docs/frontier_scaling_results.md and docs/INTERVENTION_BENCHMARK.md.
+
+
+## Structural robustness and locality gate - 22 October 2026
+
+Frozen8429e8e:8 authored structural inputs,48 observations at45/40 seconds.
+Fixed prices; slot-conflict permutations and a coupled policy/demand control.
+DP/locality16/16 exact, CP12/16 exact and16/16 feasible. Locality faster on all
+eight input medians. Nine unique replay audits; static b8/domain108 retained.
+Ten targeted tests passed. Total2893 timed observations across separate studies;
+benchmark63 input files, not independent buildings. Main narrative prioritizes
+the transient theorem, schedule separation and bounded regime. Generic-method
+novelty and verified building interventions remain unsupported; see
+docs/structural_band_results.md. No push performed.

@@ -40,8 +40,10 @@ python scripts/summarize_joint_network_study.py --campaign PACKAGE/evidence/matc
 python scripts/summarize_joint_network_study.py --campaign PACKAGE/evidence/local-band-scaling --output NEW_LOCAL_SUMMARY --reuse-audit PACKAGE/evidence/local-band-summary/summary.json --no-plots
 python scripts/summarize_joint_network_study.py --campaign PACKAGE/evidence/private-bay-scaling --output NEW_BAY_SUMMARY --reuse-audit PACKAGE/evidence/private-bay-summary/summary.json --no-plots
 python scripts/summarize_frontier_scaling.py --local NEW_LOCAL_SUMMARY --bays NEW_BAY_SUMMARY --certificates PACKAGE/evidence/frontier-certificates --output NEW_SCALING_SUMMARY
+python scripts/summarize_joint_network_study.py --campaign PACKAGE/evidence/structural-band-locality --output NEW_STRUCTURAL_AUDIT --reuse-audit PACKAGE/evidence/structural-band-audit/summary.json --no-plots
+python scripts/summarize_structural_bands.py --source NEW_STRUCTURAL_AUDIT --campaign PACKAGE/evidence/structural-band-locality --output NEW_STRUCTURAL_SUMMARY
 python scripts/plot_asynchronous_retirement.py --output NEW_EXPLANATORY_FIGURE
-python scripts/build_frontier_revision.py --base PACKAGE/reproduction-base --summary NEW_JOINT_SUMMARY --parameter-summary NEW_PARAMETER_SUMMARY --asynchronous-figure NEW_EXPLANATORY_FIGURE/asynchronous-retirement.pdf --segment-controls PACKAGE/evidence/relevant-segment-controls/controls.json --event-width-summary NEW_EVENT_WIDTH_SUMMARY --matched-summary NEW_MATCHED_SUMMARY --scaling-summary NEW_SCALING_SUMMARY --local-summary NEW_LOCAL_SUMMARY --output NEW_PAPER
+python scripts/build_structural_revision.py --base PACKAGE/reproduction-base --summary NEW_JOINT_SUMMARY --parameter-summary NEW_PARAMETER_SUMMARY --asynchronous-figure NEW_EXPLANATORY_FIGURE/asynchronous-retirement.pdf --segment-controls PACKAGE/evidence/relevant-segment-controls/controls.json --event-width-summary NEW_EVENT_WIDTH_SUMMARY --matched-summary NEW_MATCHED_SUMMARY --scaling-summary NEW_SCALING_SUMMARY --local-summary NEW_LOCAL_SUMMARY --structural-summary NEW_STRUCTURAL_SUMMARY --output NEW_PAPER
 ```
 
 Compile `NEW_PAPER/master.tex` with Tectonic0.17 or an appropriate TeX distribution.
@@ -80,8 +82,8 @@ observations with two methods and two conditions. No RAM cap is imposed. Keep th
 three-run stage diagnostic, all historical observations and excluded development
 records out of these timing aggregates. `registries/campaign_registry.csv` marks
 inclusion explicitly; `archive.zip!member` locates a historical nested record.
-The included timed total2845 includes2362 historical,112 primary,276 structural,24 event-width observations and3 separate
-diagnostics,8 permission-only matched observations,36 local-band and24 private-bay observations; it is not one homogeneous experiment. Seven additional relevant-S
+The included timed total2893 includes2362 historical,112 primary,276 structural,24 event-width observations and3 separate
+diagnostics,8 permission-only matched observations,36 local-band and24 private-bay observations plus48 separate structural/locality observations; it is not one homogeneous experiment. Seven additional relevant-S
 controls are untimed and excluded from that denominator.
 
 Neither human proof review, literature priority nor actual construction validation
@@ -109,5 +111,19 @@ fixed local-band rectangles and chain. Its ledgers and clean manifests are at
 rebuildable through `build_focused_revision.py`; the current master promotes the
 new result with `build_frontier_revision.py`. The detailed generic-logic transfer
 is `source-code.zip!docs/modern_connectivity_comparison.md`, with comparison notes
-in the research package. `intervention-benchmark.zip` separately supplies55 input
+in the research package. `intervention-benchmark.zip` separately supplies63 input
 files and a canonical fingerprint manifest; duplicates are explicit.
+
+
+## Current structural/locality master
+
+Use `build_structural_revision.py` with the same arguments as the frontier builder
+above and additionally `--structural-summary NEW_STRUCTURAL_SUMMARY`. It promotes
+the transient theorem, schedule separation and locality-tested bounded regime;
+older floor counting is supplementary. See structural_band_protocol.md for the
+frozen45/40-second campaign and structural_band_results.md for all outcomes.
+The generator/evaluation list is fixed in build_structural_band_study.py. Use the
+four structural generation/run/audit/summary commands in INTERVENTION_BENCHMARK.md.
+The elementary baseline is timed with recognition and replay, not a bare kernel.
+`structural-artifact-reproduction.json` records the new clean-archive reconstruction;
+the earlier80-artifact reconstruction remains explicitly historical evidence.

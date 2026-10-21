@@ -1,5 +1,5 @@
 {
-  "campaign_registry_sha256": "03d1f474d897c2919a475c8b7c351b6edb740324cb57efae30cacebaf3b8c7cc",
+  "campaign_registry_sha256": "902c538e0d42be5057eb382fb6df4531ce71d7f6805c9780a81f274d60b46be0",
   "excluded_campaigns": [
     {
       "campaign_id": "excluded-overlapping-cp",
@@ -33,8 +33,8 @@
     }
   ],
   "frozen_historical": 2362,
-  "included_timed_observations": 2845,
-  "instance_registry_sha256": "e3bfc0923a8dde7cf5687de72753f6c0de7569a9fa728d5074bf55a54b7a7b4c",
+  "included_timed_observations": 2893,
+  "instance_registry_sha256": "dcbbe5179663511993b8c2c4c14011e9776bdf73c31309ee94d7cbf0a6a80c6b",
   "joint_primary": 112,
   "local_band_scaling": 36,
   "matched_permissions": 8,
@@ -42,6 +42,7 @@
   "posthoc_event_width": 24,
   "private_bay_scaling": 24,
   "separate_cp_diagnostic": 3,
+  "structural_band_locality": 48,
   "structural_parameters": 276,
   "untimed_local_band_references": 9,
   "untimed_relevant_segment_controls": 7,

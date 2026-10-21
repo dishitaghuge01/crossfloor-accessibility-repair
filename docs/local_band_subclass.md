@@ -49,3 +49,11 @@ the general owned-interface DP on multiple seeds; malformed rectangles are rejec
 Larger input matches are untimed independent checks and excluded from measured
 observation totals. No construction suitability or general spatial-kernel correctness
 follows from this restricted reference.
+
+
+The structural follow-up also times this elementary method as `locality`, with
+recognition/admission/full replay charged. Its admission now accepts arbitrary
+common-root prefix targets (at least one at the final room), and per-band slot
+permutations/permission patterns; eight actions, three slots and owner locality
+remain required. The original nine reference checks remain untimed historical
+controls. See structural_band_results.md for the48 new timed observations.

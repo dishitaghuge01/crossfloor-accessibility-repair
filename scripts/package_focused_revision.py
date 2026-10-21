@@ -23,6 +23,8 @@ def package(root,paper,summary,campaign,parameters,parameter_campaign,output):
     subprocess.run(['git','archive','--format=zip','--output='+str(staging/'measured-joint-source.zip'),protocol['code_revision']],cwd=root,check=True)
     frontier_protocol=json.loads((root/'runs/local-band-final-2026-10-22/protocol.json').read_text())
     subprocess.run(['git','archive','--format=zip','--output='+str(staging/'measured-frontier-source.zip'),frontier_protocol['code_revision']],cwd=root,check=True)
+    structural_protocol=json.loads((root/'runs/structural-band-final-2026-10-22/protocol.json').read_text())
+    subprocess.run(['git','archive','--format=zip','--output='+str(staging/'measured-structural-source.zip'),structural_protocol['code_revision']],cwd=root,check=True)
     kernel=json.loads((summary/'summary.json').read_text())['kernel_fingerprints']
     assert kernel==json.loads((root/'runs/event-width-summary-2026-10-21/summary.json').read_text())['kernel_fingerprints']
     with zipfile.ZipFile(staging/'measured-kernel-bytes.zip','w',zipfile.ZIP_DEFLATED) as z:
@@ -41,21 +43,23 @@ def package(root,paper,summary,campaign,parameters,parameter_campaign,output):
     input_sources=[('joint','joint-network-complementary-dataset-2026-10-21'),
         ('parameters','parameter-dataset-2026-10-21'),('event-width','event-width-inputs-2026-10-21'),
         ('matched','matched-permissions-inputs-2026-10-22'),('local-bands','local-band-final-inputs-2026-10-22'),
-        ('private-bays','private-bay-final-inputs-2026-10-22')]
+        ('private-bays','private-bay-final-inputs-2026-10-22'),('structural-bands','structural-band-inputs-2026-10-22')]
     inputs={}
     with zipfile.ZipFile(benchmark,'w',zipfile.ZIP_DEFLATED) as z:
         z.write(staging/'source-code.zip','source-code.zip')
         z.write(root/'docs/INTERVENTION_BENCHMARK.md','README.md')
         addtree(z,root/'runs/frontier-certificates-2026-10-22','validation/static-certificates')
         addtree(z,root/'runs/local-band-references-2026-10-22','validation/local-band-references')
-        for name in ('transient_frontier_theorem.md','local_band_subclass.md','frontier_scaling_protocol.md','frontier_scaling_results.md'):
+        for name in ('transient_frontier_theorem.md','local_band_subclass.md','frontier_scaling_protocol.md','frontier_scaling_results.md','structural_band_protocol.md','structural_band_results.md'):
             z.write(root/'docs'/name,'docs/'+name)
+        addtree(z,root/'runs/structural-band-summary-2026-10-22','validation/structural-band-summary')
+        addtree(z,root/'runs/structural-band-audit-2026-10-22','validation/structural-band-audit')
         for name,folder in input_sources:
             addtree(z,root/'runs'/folder,'inputs/'+name)
             for f in (root/'runs'/folder/'instances').glob('*.json'):
                 from cfar.io import fingerprint
                 inputs['inputs/'+name+'/instances/'+f.name]=fingerprint(json.loads(f.read_text()))
-        assert len(inputs)==55
+        assert len(inputs)==63
         z.writestr('INPUT_MANIFEST.json',json.dumps(dict(instance_files=len(inputs),
             distinct_canonical_fingerprints=len(set(inputs.values())),instances=inputs,
             scope='Controlled authored/building-derived annotations; no verified construction catalogue or prices'),indent=2)+'\n')
@@ -69,7 +73,14 @@ def package(root,paper,summary,campaign,parameters,parameter_campaign,output):
         z.write(staging/'source-code.zip','source-code.zip')
         z.write(staging/'measured-joint-source.zip','measured-joint-source.zip')
         z.write(staging/'measured-frontier-source.zip','measured-frontier-source.zip')
+        z.write(staging/'measured-structural-source.zip','measured-structural-source.zip')
         z.write(benchmark,'intervention-benchmark.zip')
+        addtree(z,root/'runs/structural-band-inputs-2026-10-22','inputs/structural-bands')
+        addtree(z,root/'runs/structural-band-final-2026-10-22','evidence/structural-band-locality')
+        addtree(z,root/'runs/structural-band-audit-2026-10-22','evidence/structural-band-audit')
+        addtree(z,root/'runs/structural-band-summary-2026-10-22','evidence/structural-band-summary')
+        z.write(root/'runs/structural-artifact-reproduction-2026-10-22.json','structural-artifact-reproduction.json')
+        z.write(root/'runs/structural-reporting-source-2026-10-22.zip','verified-structural-reporting-source.zip')
         z.write(staging/'measured-kernel-bytes.zip','measured-kernel-bytes.zip')
         z.write(output/'Crossfloor-Repair-Revised-Paper-Source.zip','paper-source.zip')
         z.write(paper/'master.pdf','paper/master.pdf')
@@ -118,7 +129,7 @@ def package(root,paper,summary,campaign,parameters,parameter_campaign,output):
             'cp_stage_diagnostic_results.md','baseline_revision_notes.md','parameter_study_protocol.md',
             'revision_completion.md','review_refinement_2026-10-22.md','transient_frontier_theorem.md',
             'local_band_subclass.md','frontier_scaling_protocol.md','frontier_scaling_results.md','INTERVENTION_BENCHMARK.md',
-            'modern_connectivity_comparison.md','generic_state_comparison.md'):
+            'modern_connectivity_comparison.md','generic_state_comparison.md','structural_band_protocol.md','structural_band_results.md'):
             z.write(root/'docs'/name,'docs/'+name)
         z.write(root/'paper/REPRODUCE_FOCUSED_REVISION.md','REPRODUCE.md')
         z.write(root/'runs/artifact-reproduction-2026-10-21.json','artifact-reproduction.json')
@@ -135,11 +146,11 @@ def package(root,paper,summary,campaign,parameters,parameter_campaign,output):
         assert z.testzip() is None
         assert not any(n.lower().endswith(('.ifc','.dwg')) for n in z.namelist())
     release=dict(reporting_revision=revision,joint_measured_revision=protocol['code_revision'],frontier_measured_revision=frontier_protocol['code_revision'],
-        historical_observations=2362,joint_primary_observations=len(json.loads((campaign/'records.json').read_text())),
+        structural_measured_revision=structural_protocol['code_revision'],historical_observations=2362,joint_primary_observations=len(json.loads((campaign/'records.json').read_text())),
         separate_cp_diagnostic_observations=3,parameter_observations=len(json.loads((parameter_campaign/'records.json').read_text())),
         event_width_followup_observations=24,matched_permission_observations=8,local_band_scaling_observations=36,
-        private_bay_scaling_observations=24,included_timed_observations=2845,untimed_relevant_segment_controls=7,
-        untimed_independent_local_band_checks=9,untimed_static_frontier_certificates=13,
+        private_bay_scaling_observations=24,structural_band_locality_observations=48,included_timed_observations=2893,untimed_relevant_segment_controls=7,
+        untimed_independent_local_band_checks=9,untimed_static_frontier_certificates=13,untimed_structural_frontier_certificates=8,
         manuscript=json.loads((paper/'pdf-qa.json').read_text()),
         scope='Authored and building-derived controlled experiments, hypothetical interventions/permissions/abstract costs; actual-building intervention validation not established; priority over applicable generic methods unconfirmed',
         artifacts={p.name:dict(sha256=sha(p),bytes=p.stat().st_size) for p in (

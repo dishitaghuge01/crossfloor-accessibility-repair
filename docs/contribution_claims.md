@@ -74,3 +74,8 @@ artifacts. No broad practical or priority claim is currently authorized by evide
 | N15 | Nine full-label independent reference matches and13 static certificates | supported | Clean33c3b05 reference manifests; d347da2 certificate provenance; untimed checks, not extra timed observations |
 | C19 | Follow-up establishes exclusive novelty over all applicable decomposition methods | remove | Generic finite-domain/frontier methods can match the stated recurrence when supplied its physical encoding/schedule |
 | C20 | Reusable controlled benchmark supplies actual-building intervention validation | remove | Hypothetical catalogue annotations and abstract costs; benchmark admission matrix keeps missing domain evidence explicit |
+
+
+| N16 | Fixed-price structural extension: DP/locality16/16, CP12/16; locality faster on all8 input medians | supported | Frozen8429e8e,48 observations,9 distinct full replays; structural-band audit/summary,45/40-second budget |
+| N17 | Structural variants retain b8/domain108 while changing recognized conflict incidence | supported | Eight fresh per-input static certificates; fixed price seed0, structural seed713 |
+| C21 | Chain speed benefit is exclusive to owned-interface DP | remove | Elementary locality baseline completes all runs faster on each input median |
