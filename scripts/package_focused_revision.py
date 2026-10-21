@@ -59,6 +59,8 @@ def package(root,paper,summary,campaign,parameters,parameter_campaign,output):
         z.writestr('INPUT_MANIFEST.json',json.dumps(dict(instance_files=len(inputs),
             distinct_canonical_fingerprints=len(set(inputs.values())),instances=inputs,
             scope='Controlled authored/building-derived annotations; no verified construction catalogue or prices'),indent=2)+'\n')
+    # Reopen the finalized directory before reading Windows-written members.
+    with zipfile.ZipFile(benchmark,'a',zipfile.ZIP_DEFLATED) as z:
         hashes={n:hashlib.sha256(z.read(n)).hexdigest() for n in z.namelist()}
         z.writestr('CONTENTS.sha256.json',json.dumps(hashes,indent=2)+'\n')
         assert z.testzip() is None
