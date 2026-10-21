@@ -106,7 +106,7 @@ def solve_owned_interface(instance: dict, *, compress: bool = True,
     # chosen witness/selection. Never release part-way through an owner unit.
     remaining_cell_units = defaultdict(int)
     unit_cells = {}
-    unit_vertices = {}
+    action_vertices = {}
     remaining_vertex_events = defaultdict(int)
     for local_units in units.values():
         for unit in local_units:
@@ -115,12 +115,12 @@ def solve_owned_interface(instance: dict, *, compress: bool = True,
             unit_cells[id(unit)] = touched
             for cid in touched:
                 remaining_cell_units[cid] += 1
-            vertices = {(q, v) for aid in unit["action_ids"]
-                        for q, layer in enumerate(effect_components[aid])
-                        for component in layer for v in component}
-            unit_vertices[id(unit)] = vertices
-            for vertex in vertices:
-                remaining_vertex_events[vertex] += 1
+            for aid in unit["action_ids"]:
+                vertices = {(q, v) for q, layer in enumerate(effect_components[aid])
+                            for component in layer for v in component}
+                action_vertices[aid] = vertices
+                for vertex in vertices:
+                    remaining_vertex_events[vertex] += 1
     for events in baseline_events.values():
         for q, u, v in events:
             for vertex in {(q,u), (q,v)}:
@@ -276,6 +276,9 @@ def solve_owned_interface(instance: dict, *, compress: bool = True,
                                     updated[q] = _glue(updated[q], component)
                             yield (tuple(sorted(occupied.items())),tuple(updated)), new_label
                 retain(action_generated())
+                # Connectivity may forget at action granularity, even while
+                # physical owner identities must remain until unit completion.
+                retire_vertices(action_vertices[aid])
             dead = set()
             if release_dead_cells:
                 for cid in unit_cells[id(unit)]:
@@ -285,7 +288,6 @@ def solve_owned_interface(instance: dict, *, compress: bool = True,
                 stats["released_cells"] += len(dead)
             retain((((tuple((cid,"external") for cid,_owner in occupancy if cid not in dead), partitions),label)
                     for (occupancy,partitions),label in states.items()))
-            retire_vertices(unit_vertices[id(unit)])
         def forget_generated():
             for (occupancy, partitions), label in states.items():
                 updated = []

@@ -28,7 +28,7 @@ This is a source-derived controlled network, not real intervention validation.
 Optional last-use cell deletion occurs only after a COMPLETE ownership unit
 and only when no future available unit can occupy the cell. Original purchase
 labels and full replay are retained. Optional last-use vertex deletion occurs
-after its last baseline event/whole-unit event. Reject a partition block that
+after its last baseline edge or individual action event. Reject a partition block that
 vanishes, exactly as in floor forgetting; the anchor is never deleted. These
 are earlier safe forgetting transitions inside the same floor-interface DP.
 They do not improve the published worst-case upper bound or establish priority.
@@ -68,3 +68,8 @@ from the new data, never assumed. Report active components, unique contracted
 network edges/cycle rank, obligations and genuine purchase interactions in
 addition to room/action counts. An expanded but structurally simple catalogue
 is not relabeled a difficult optimization success.
+
+The incomplete 9038752 campaign is preserved as preliminary evidence,
+including its unfavorable outcomes. It was stopped before modifying the
+vertex rule from unit-level to action-level last use. All final recipes and
+methods are rerun from the subsequent clean revision; no timings are spliced.

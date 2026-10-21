@@ -305,3 +305,7 @@ Five-point critique disposition is in docs/review_response.md. Practical advanta
 ## New network/lifetime campaign,21October2026
 
 User requested empirical practical advantage and difficult building-scale evaluation. Implemented optional last-use cell/vertex forgetting and compilation-local geometry memoization, alongside larger original-storey clinic/Molio catalogue generation. See docs/network_study_protocol.md. Development probes excluded; practical advantage remains pending clean measurements. Existing results/claims remain unchanged. No push.
+
+Vertex-lifetime refinement: retire profile vertices after their final incident action rather than waiting for unit completion; preserve physical owner tokens for the entire unit. Incomplete clean9038752 measurements retained separately as preliminary, never spliced into final campaign.
+
+Final event-lifetime refinement full regression:765 tests passed72.93s. Final clean campaign restarts all15 recipes; earlier clean partial study retained as preliminary.

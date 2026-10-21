@@ -15,15 +15,17 @@ units. In particular, never release a cell merely because the selected thin
 witness omits an effect or because the current action is its last purchase.
 
 For each profile/component vertex, similarly count remaining baseline edge
-events and complete units with any available permitted effect incident to
-that vertex. After an event/unit, when its count becomes zero, delete that
+events and individual available actions with a permitted effect incident to
+that vertex. After an event/action, when its count becomes zero, delete that
 vertex from each witness partition. Reject a state if a non-anchor block
 vanishes. The permanent anchor is never deleted. Every permitted continuation
 can touch only other vertices, so a disappearing unanchored component could
 never be connected to the root. For surviving blocks deletion preserves all
 relations among vertices that a continuation can touch. This is the same
 sufficient-state argument as ordinary floor forgetting, applied earlier.
-Required targets are still introduced before all incident events because
+Connectivity retirement can occur inside a complete unit; physical ownership
+tokens are retained until unit completion. Required targets are still
+introduced before all incident events because
 complete-unit/baseline support defines L; no vertex can be reintroduced after
 its last incident event. Vertices with no events retain ordinary floor
 forgetting, so unreachable required targets still reject the state.
@@ -51,3 +53,5 @@ modes and canonical/reverse schedules against exhaustive outcomes on authored
 physical edge cases;30 seeded owner/profile/cost catalogues compare exact
 status,cost and original IDs. Cache tests compare uncached predicate results
 and error codes across selections of authored physical cases.
+
+Final action-granularity refinement: full suite765 passed in72.93s.
