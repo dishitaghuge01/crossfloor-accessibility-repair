@@ -395,3 +395,6 @@ Preserved the current manuscript, release archives, source and 2362 observations
 
 ## CP-SAT trace milestone
 Added opt-in flushed stage/incumbent trace and explicit Task A/B fields. Candidate callbacks are explicitly unverified until replay. Added a separate posthoc diagnostic runner; historical records unchanged. Focused CP-SAT tests: 38 passed in 7.92s. Final strengthened baseline and final campaign remain pending.
+
+## Baseline strengthening milestone
+Measured repeated replay as 90.65% of a bounded heuristic development probe. Replaced candidate replay with exact recognized occupancy/reachability predicates, retained full returned-repair replay, added optional initial repair/deadline/verified checkpoint. CP-SAT now hints each stage from its prior optimum and skips blocked ID variables. 49 focused + 6 exhaustive proposal tests passed. Initial overlapping diagnostic excluded explicitly; clean rerun required.

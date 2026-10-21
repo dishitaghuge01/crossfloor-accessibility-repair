@@ -38,9 +38,15 @@ def run(source, output, timeout, repeats):
         solver_seed=0, enforced_ram_cap=None,
         timing='External deadline includes worker imports, recognition, model, all stages and solver replay; parent audit outside deadline',
         input_fingerprint=fingerprint(instance))
+    revision = subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip()
+    protocol['code_revision'] = revision
     write_json(output/'protocol.json', protocol)
     rows = []
     for repeat in range(repeats):
+        if (subprocess.check_output(['git','status','--porcelain'],text=True).strip() or
+            subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()!=revision):
+            write_json(output/'INVALIDATED.json', dict(reason='Code changed during campaign'))
+            raise RuntimeError('Code changed during campaign')
         target = output/f'cp-sat-{repeat}.json'
         started = perf_counter()
         try:
@@ -51,6 +57,10 @@ def run(source, output, timeout, repeats):
         except subprocess.TimeoutExpired:
             result = dict(status='timeout')
         elapsed = perf_counter()-started
+        if (subprocess.check_output(['git','status','--porcelain'],text=True).strip() or
+            subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()!=revision):
+            write_json(output/'INVALIDATED.json', dict(reason='Code changed during campaign'))
+            raise RuntimeError('Code changed during campaign')
         trace_path = target.with_suffix('.events.jsonl')
         trace = [json.loads(line) for line in trace_path.read_text().splitlines()] if trace_path.exists() else []
         last_stage = next((e for e in reversed(trace) if e['event']=='stage_started'), None)

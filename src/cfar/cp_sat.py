@@ -156,6 +156,11 @@ def solve_cp_sat(instance, *, time_limit=60.0, seed=0, progress=None):
                               "model_invalid" if status == cp_model.MODEL_INVALID else "limit_exceeded")
             return False
         model.add(expression == solver.value(expression))
+        # Each stage solves a new model. Explicitly retain the known feasible
+        # purchase assignment; CpSolver does not implicitly warm-start solve().
+        model.clear_hints()
+        for aid, variable in x.items():
+            model.add_hint(variable, int(aid in incumbent))
         return True
 
     # Exact cost, cardinality, then lexicographically smallest sorted ID tuple.
@@ -163,6 +168,8 @@ def solve_cp_sat(instance, *, time_limit=60.0, seed=0, progress=None):
     done = optimize(cost) and optimize(count)
     if done:
         for aid in sorted(x):
+            if aid in recognized["blocked"]:
+                continue  # Already fixed to zero, so no identifier decision.
             if not optimize(x[aid], maximize=True):
                 done = False
                 break
@@ -172,6 +179,7 @@ def solve_cp_sat(instance, *, time_limit=60.0, seed=0, progress=None):
                   input_fingerprint=recognized["input_fingerprint"], parameters=recognized["parameters"],
                   statistics=dict(stages=stages, flow_variables=flow_variables, cost_scale=scale,
                                   solver_version=ortools.__version__, workers=1,
+                                  stage_hints="previous optimum purchase assignment; no external warm start",
                                   elapsed_seconds=perf_counter()-started),
                   scope=recognized["scope"],
                   optimality_evidence="CP-SAT OPTIMAL at every lexicographic stage; shared geometry recognizer")
