@@ -1,0 +1,36 @@
+{
+  "freeze_id": "research-freeze-2026-10-21",
+  "code_revision": "4b88f7bc110728ce21878ebde9f87dd56ce44d9b",
+  "artifact_directory": "C:\\Users\\HP\\Documents\\Codex\\crossfloor-accessibility-repair\\runs\\freeze-2026-10-21",
+  "artifacts": {
+    "Crossfloor-Repair-Revised-Master.pdf": {
+      "sha256": "9a96d93373b938c59f57e192be7cccb7b39ab4d0c1dcc2ece3ff85d383932fe9",
+      "bytes": 779680
+    },
+    "Crossfloor-Repair-Supplementary-Evidence.pdf": {
+      "sha256": "718b27cd23bbf9004f447ebc94b1e99b406b9eeda03bec9a17ed6fec96f91333",
+      "bytes": 75592
+    },
+    "Crossfloor-Repair-Revised-Paper-Source.zip": {
+      "sha256": "28899ca7aa6f157d2543698a31a8faeee6792a3abbff8ea96083e55897527e38",
+      "bytes": 4444697
+    },
+    "Crossfloor-Repair-Revised-Research-Package.zip": {
+      "sha256": "6e37b9700e7c15de9ee31df19fab811fd5d86db4989e80073b6fb60051422b26",
+      "bytes": 23068212
+    },
+    "Crossfloor-Repair-Release.json": {
+      "sha256": "b6ddafeef129b3af90465f7fd033e9d9a1a2fb3d8acbff69ff2ca866f8b410bf",
+      "bytes": 10767
+    },
+    "Crossfloor-Repair-SHA256.json": {
+      "sha256": "286ec11ea662e2e1c901bbe6c10a3c64bfef3dd9c165151c65aaac61139c7491",
+      "bytes": 975
+    },
+    "source-code.zip": {
+      "sha256": "17f434b65f14bd5148bbefff3e27bedf4748c9c6e7d71f1a6bc6374147ae0df1",
+      "bytes": 650910
+    }
+  },
+  "policy": "Frozen observations remain historical evidence. New campaigns must have distinct IDs; no retrospective replacement. Raw building sources excluded from Git."
+}

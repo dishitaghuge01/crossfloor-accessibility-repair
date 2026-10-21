@@ -330,3 +330,6 @@ See docs/network_study_results.md and paper/REPRODUCE_NETWORK_STUDY.md.
 Bounded practical advantage and substantially expanded feasible controlled
 networks now evidenced; actual-building intervention validation, general
 superiority and literature priority remain open. No push/submission.
+
+## 2026-10-21 revision gate
+Evidence freeze complete: experiments/freeze-2026-10-21.json. Canonical claims and campaign provenance registered. Remaining gates: explicit event schedule/theory, instrumented fair baselines, joint interaction inputs, one-revision five-way ablation, frozen final evaluation and focused manuscript rewrite. No new priority or broad performance claim established.

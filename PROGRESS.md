@@ -389,3 +389,6 @@ See docs/network_study_results.md and paper/REPRODUCE_NETWORK_STUDY.md.
 Bounded practical advantage and substantially expanded feasible controlled
 networks now evidenced; actual-building intervention validation, general
 superiority and literature priority remain open. No push/submission.
+
+## 2026-10-21 authoritative evidence freeze
+Preserved the current manuscript, release archives, source and 2362 observations by SHA-256 before new modifications. Added six-campaign/110 campaign-instance registries and canonical claim statuses. New interaction evaluation and instrumented baseline gates remain open; historical timeout stages are unknown. See docs/experiment_protocol.md and docs/manuscript_change_log.md.
