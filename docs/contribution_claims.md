@@ -59,3 +59,6 @@ artifacts. No broad practical or priority claim is currently authorized by evide
 | N8 | Current medium Clinic optimum209 selects13 restricted alternatives | supported | ce71e6a primary CP result; plotted directly from complete selected IDs by summarize_joint_network_study.py |
 | N9 | Seven relevant-S feasibility controls | supported | runs/relevant-segment-controls-2026-10-21/controls.json and clean be2446a manifests; untimed, not optima or construction validation |
 | N10 | Posthoc K(2,4) event control: paired/batched live vertices3/6, occupied cells6, combined raw states100/191 versus floor481, optimum3 | supported | Clean5783365,24 observations, all six exact methods agree; separate event-width-summary and targeted generator test; original width4/4 null observations retained |
+
+| N11 | Permission-only matched control: restricted DP2/2 versus shared0/2 caps; CP4/4, optimum93/50 | supported | Clean3576a9c,8 observations; matched summary full-replay audit; fixed catalogue/geometry/cost/conflicts/demands |
+| N12 | Primary completion region320/89856 raw states,34/22 selected live vertices,3/18 occupied cells, domain3 | supported | Unchanged ce71e6a combined-DP returned statistics and phase records; descriptive, not a threshold |

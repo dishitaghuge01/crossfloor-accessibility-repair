@@ -1,3 +1,8 @@
+# Current refinement:22 October 2026
+
+See [the six-point response](review_refinement_2026-10-22.md). The new permission-only
+matched experiment and refined paper supersede the release summary below.
+
 # Current revision:22 October 2026
 
 The current research-first master and all20 requested dispositions are documented

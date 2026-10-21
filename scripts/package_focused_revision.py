@@ -16,7 +16,7 @@ def package(root,paper,summary,campaign,parameters,parameter_campaign,output):
     output.mkdir(parents=True,exist_ok=True)
     revision=subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip()
     assert not subprocess.check_output(['git','status','--porcelain'],cwd=root,text=True).strip()
-    staging=root/'runs/focused-revision-package-staging'
+    staging=root/('runs/focused-revision-package-'+revision[:10])
     staging.mkdir(parents=True,exist_ok=False)
     subprocess.run(['git','archive','--format=zip','--output='+str(staging/'source-code.zip'),revision],cwd=root,check=True)
     protocol=json.loads((campaign/'protocol.json').read_text())
@@ -52,6 +52,9 @@ def package(root,paper,summary,campaign,parameters,parameter_campaign,output):
         addtree(z,root/'runs/event-width-inputs-2026-10-21','inputs/event-width-followup')
         addtree(z,root/'runs/event-width-final-2026-10-21','evidence/event-width-followup')
         addtree(z,root/'runs/event-width-summary-2026-10-21','evidence/event-width-summary')
+        addtree(z,root/'runs/matched-permissions-inputs-2026-10-22','inputs/matched-permissions')
+        addtree(z,root/'runs/matched-permissions-final-2026-10-22','evidence/matched-permissions')
+        addtree(z,root/'runs/matched-permissions-summary-2026-10-22','evidence/matched-permissions-summary')
         addtree(z,root/'runs/relevant-segment-controls-2026-10-21','evidence/relevant-segment-controls')
         addtree(z,root/'runs/building-network-dataset','reproduction-base-network')
         addtree(z,root/'runs/cp-stage-diagnostic-clean-2026-10-21','evidence/cp-stage-diagnostic')
@@ -68,7 +71,7 @@ def package(root,paper,summary,campaign,parameters,parameter_campaign,output):
         for name in ('contribution_claims.md','closest_work_matrix.md','experiment_protocol.md','manuscript_change_log.md',
             'event_schedule_specification.md','asynchronous_retirement_example.md','joint_network_protocol.md',
             'cp_stage_diagnostic_results.md','baseline_revision_notes.md','parameter_study_protocol.md',
-            'revision_completion.md'):
+            'revision_completion.md','review_refinement_2026-10-22.md'):
             z.write(root/'docs'/name,'docs/'+name)
         z.write(root/'paper/REPRODUCE_FOCUSED_REVISION.md','REPRODUCE.md')
         z.write(root/'runs/artifact-reproduction-2026-10-21.json','artifact-reproduction.json')
@@ -87,7 +90,7 @@ def package(root,paper,summary,campaign,parameters,parameter_campaign,output):
     release=dict(reporting_revision=revision,joint_measured_revision=protocol['code_revision'],
         historical_observations=2362,joint_primary_observations=len(json.loads((campaign/'records.json').read_text())),
         separate_cp_diagnostic_observations=3,parameter_observations=len(json.loads((parameter_campaign/'records.json').read_text())),
-        event_width_followup_observations=24,included_timed_observations=2777,untimed_relevant_segment_controls=7,
+        event_width_followup_observations=24,matched_permission_observations=8,included_timed_observations=2785,untimed_relevant_segment_controls=7,
         manuscript=json.loads((paper/'pdf-qa.json').read_text()),
         scope='Building-derived controlled experiments, hypothetical interventions/permissions/abstract costs; actual-building intervention validation not established; priority unconfirmed',
         artifacts={p.name:dict(sha256=sha(p),bytes=p.stat().st_size) for p in (

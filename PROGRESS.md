@@ -437,3 +437,14 @@ Regression evidence remains785 full-suite passes plus the added targeted
  event-width test. No further solver changes followed measurement. Human review,
 venue-specific adaptation, literature priority and actual construction validation
 remain explicitly outside the established evidence. No push was performed.
+
+
+## Six-point review refinement — 22 October 2026
+
+See docs/review_refinement_2026-10-22.md: explicit construction paragraph and
+event-lifetime pseudocode, measured practical region and phase table, restored
+architectural positioning and concise qualifications. A frozen permission-only
+matched comparison adds8 observations (3576a9c), independently audited; primary112
+observations unchanged. Restricted DP2/2, shared DP0/2 by state cap; CP4/4. All
+solver kernel fingerprints match the primary study. Included timed total2785
+across separate campaigns. No broad speedup, priority or construction claim.

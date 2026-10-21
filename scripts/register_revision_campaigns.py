@@ -45,6 +45,7 @@ def main():
     add('joint-primary',primary,'evidence/joint-primary','frozen_primary')
     add('parameters',parameters,'evidence/parameters','separate_structural')
     add('event-width-followup',ROOT/'runs/event-width-final-2026-10-21','evidence/event-width-followup','posthoc_event_width')
+    add('matched-permissions',ROOT/'runs/matched-permissions-final-2026-10-22','evidence/matched-permissions','posthoc_permission_only')
     diagnostic=ROOT/'runs/cp-stage-diagnostic-clean-2026-10-21'
     iid='clinic-network-48-s0'
     meta={iid:dict(source_building_id='clinic',geometry_subset_id='clinic-frozen-network-rooms',
@@ -86,12 +87,12 @@ def main():
             observations=0,**{k:c[k] for k in ('source_building_id','geometry_subset_id','catalogue_layout_id','permission_pattern_id','conflict_pattern_id','price_seed')},
             solver_seed='not_run',repeat_index='not_applicable'))
     total=sum(int(c['observations']) for c in campaigns if c['included_in_totals']=='yes')
-    assert total==2777
+    assert total==2785
     for name,rows in [('campaign_registry.csv',campaigns),('instance_registry.csv',instances)]:
         with (ROOT/'experiments'/name).open('w',newline='',encoding='utf-8') as f:
             w=csv.DictWriter(f,fieldnames=list(rows[0]));w.writeheader();w.writerows(rows)
     write_json(ROOT/'experiments/revision-campaign-manifest.json',dict(included_timed_observations=total,
-        frozen_historical=2362,joint_primary=112,structural_parameters=276,posthoc_event_width=24,separate_cp_diagnostic=3,
+        frozen_historical=2362,joint_primary=112,structural_parameters=276,posthoc_event_width=24,separate_cp_diagnostic=3,matched_permissions=8,
         untimed_relevant_segment_controls=7,excluded_campaigns=[c for c in campaigns if c['role']=='excluded_development'],
         path_notation='archive.zip!member is a member of an immutable nested archive',
         campaign_registry_sha256=digest(ROOT/'experiments/campaign_registry.csv'),

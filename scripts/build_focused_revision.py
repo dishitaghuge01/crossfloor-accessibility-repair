@@ -16,7 +16,7 @@ def table(caption,label,headers,rows):
         '\n\\bottomrule\\end{tabular}\\end{table*}\n')
 
 
-def build(base,summary,output,async_figure,parameter_summary=None,segment_controls=None,event_width_summary=None):
+def build(base,summary,output,async_figure,parameter_summary=None,segment_controls=None,event_width_summary=None,matched_summary=None):
     data=json.loads((summary/'summary.json').read_text())
     output.mkdir(parents=True,exist_ok=False)
     (output/'figures').mkdir()
@@ -30,6 +30,7 @@ def build(base,summary,output,async_figure,parameter_summary=None,segment_contro
     parameters=json.loads((parameter_summary/'summary.json').read_text()) if parameter_summary else None
     controls={c['instance_id']:c for c in json.loads(segment_controls.read_text())['cases']} if segment_controls else {}
     width_data=json.loads((event_width_summary/'summary.json').read_text()) if event_width_summary else None
+    matched=json.loads((matched_summary/'summary.json').read_text()) if matched_summary else None
     if parameters:
         shutil.copy2(parameter_summary/'figures/parameter-families.pdf',output/'figures/parameter-families.pdf')
     shutil.copy2(async_figure,output/'figures/asynchronous-retirement.pdf')
@@ -58,12 +59,12 @@ We study exact cross-floor accessibility repair over frozen room geometry, profi
 Bundled purchases may share one owner or conflict through an effect unused by every access route, so graph connectivity alone cannot determine feasibility.
 We construct an owned-interface dynamic program that retains complete paid occupancy while compressing separate profile route witnesses using established representative-partition machinery.
 We establish safe event-lifetime projection: connectivity vertices retire after their final incident event, while physical owner information survives complete action--owner units, preserving the cost/count/identifier objective.
-In a frozen, counterbalanced building-derived interaction study, combined projection completes BOTH of14 exact runs compared with FLOOR for floor retirement, while the strengthened CP-SAT baseline completes CP.
-Neither a practical speedup from representative reduction nor general superiority over CP-SAT is supported, and explicit segment controls distinguish heuristic failure from infeasibility.
+In a frozen, counterbalanced building-derived interaction study, combined projection completes two of seven input combinations, each repeated twice (BOTH of14 runs), compared with FLOOR runs for floor retirement and CP for strengthened CP-SAT.
+Completed interfaces reveal a narrow state-space regime; a separate permission-only matched control isolates branching growth, while explicit segment controls distinguish heuristic failure from infeasibility.
 The results concern hypothetical intervention catalogues and abstract costs on source-derived geometry, rather than validated construction repairs.
 \end{abstract}
 \begin{IEEEkeywords}accessibility repair, ownership constraints, bundled network design, exact optimization, event lifetimes\end{IEEEkeywords}
-'''.replace('BOTH',str(both)).replace('FLOOR',str(floor)).replace('CP.',str(cp)+'.')
+'''.replace('BOTH',str(both)).replace('FLOOR',str(floor)).replace('CP for strengthened',str(cp)+' of14 for strengthened')
     intro=old[old.index(r'\section{Introduction}'):old.index(r'\subsection{Research Question and Contributions}')]
     contribution=r'''
 We ask whether complete physical purchases can be preserved while retaining only
@@ -78,10 +79,33 @@ partition techniques are attributed to prior work.
 identical interacting inputs, including strengthened exact and heuristic baselines,
 stage traces, feasibility controls and preserved failures.
 \end{enumerate}
-These claims concern the stated construction and evidence. Priority of the complete
-construction remains unconfirmed; no exclusive expressive power or generic-method
-lower bound is asserted.
+The nontrivial construction is a coupled state representation in which an
+indivisible purchase pays for and occupies every supplied effect, while each
+profile's route witness uses only selected connected effect components. A purchase
+hub would falsely connect disconnected effects; retaining only route-used effects
+would instead admit physically conflicting purchases. Neither ordinary boundary
+partitions nor shared-link payment alone resolves both errors. Complete
+action--owner incidence units make reusable identity local, and the projection
+proof shows that route vertices may expire inside a unit while owner tokens and
+unused paid footprints remain available for later compatibility tests. This
+establishes the semantic transfer from this physical action catalogue to an exact
+decomposed optimizer, including the full cost/count/identifier objective. It matters
+because a graph-feasible shortcut can otherwise be a physically invalid repair.
+The claim is this construction and its proof obligations, rather than a new
+partition technique or exclusive expressive power.
 \section{Closest Formulations and Distinction}
+Architectural graph repair addresses a related but different intervention contract.
+Al-Harasis and Jabi~\cite{graphrepair} align attributed spatial graphs to benchmark
+requirements through evaluation-only adjacency/area adjustments and synthetic
+programme completion, preserving the source IFC (Secs.~3.5--3.6).
+MANSION~\cite{mansion} generates vertically coordinated multi-floor environments
+for navigation tasks. Here rooms and their adjacency remain frozen;
+optimization selects complete physical purchases from a finite catalogue, with
+profile-specific access and owner-dependent collision admissibility. Thus graph
+conformity repair, multi-floor generation and strict physical retrofit selection
+have different feasible sets and objectives; the comparison does not imply that
+their broader architectural tasks are solved by our optimizer.
+
 Condition Steiner networks already buy infrastructure once for condition-specific
 demands~\cite{condition}; simultaneous restricted-link design makes overlapping
 permissions explicit~\cite{simultaneous}. Labelled connectivity supplies shared
@@ -113,6 +137,25 @@ bound for that encoding, not a lower bound for other generic constructions.
     core=old[old.index(r'\section{Strict Repair Model}'):old.index(r'\section{Experimental Design}')]
     core=re.sub(r'\\begin\{table\*\}\[t\]\s*\\caption\{Operational Proof Map\}.*?\\end\{table\*\}', '',core,flags=re.S)
     core=core.replace('These operational names map to the implemented steps, not additional unimplemented routines. ', '')
+    core=core.replace(' No universal separation or priority certificate follows.', '')
+    core=core.replace('After all unit actions, erase owners to bits. After incident unit/baseline events, forget the floor.',
+        'After each edge/action event, apply enabled vertex projection; after a complete unit, erase owners to occupied bits and apply enabled cell projection. At floor exit, apply ordinary floor forgetting.')
+    algorithm=r'''\begin{table}[t]
+\caption{Event-Lifetime Owned-Interface DP (Pseudocode)}\label{tab:algorithm}
+\centering\footnotesize\begin{tabular}{p{.93\columnwidth}}\toprule
+1. Recognize cells, complete action--owner units and profile effect components; choose floor/cells/vertices/both mode and optional rank reduction.\\
+2. Build ordered floor introductions, baseline-edge events, individual action events, complete-unit closures and floor exits.\\
+3. Scan all available incident edges/actions to compute $\lambda_V$; scan complete units touching each paid cell to compute $\lambda_C$. These are catalogue lifetimes, independent of selections.\\
+4. Initialize empty occupancy, permanent anchors and zero label; introduce roots/required targets with each look-ahead floor.\\
+5. At a baseline event, branch on witness inclusion. At an action event, branch skip/take; taking pays the complete action and occupies every effect cell, rejecting external/different-owner overlap.\\
+6. For each taken action, branch on subsets of complete supplied components separately per profile; glue only chosen witness components.\\
+7. After each edge/action event, if vertex projection is enabled, remove vertices whose last incident event has passed; keep permanent anchors. Reject any state with a vanished selected nonanchor block.\\
+8. Preserve current owner tokens throughout all actions of the unit, even when route vertices retire. At closure, convert surviving owner tokens to occupied bits; if cell projection is enabled erase cells at their last touching-unit closure.\\
+9. After each transition/projection, merge equal occupancy/partition keys, retaining the minimum cost/count/sorted-ID label; optionally reduce weighted cut rows within equal resource/selected-set groups.\\
+10. At floor exits apply ordinary floor forgetting and the same vanished-block rejection and merging. Never reintroduce expired vertices.\\
+11. Accept rooted target witnesses; reconstruct the minimum label and replay all original effects, geometry and obligations before returning.\\
+\bottomrule\end{tabular}\end{table}'''
+    core=re.sub(r'\\begin\{table\}\[t\]\s*\\caption\{Floor/Unit Dynamic Program \(Pseudocode\)\}.*?\\end\{table\}',lambda _:algorithm,core,flags=re.S)
     core=core.replace('the unlimited-state algorithm returns the optimum strict original-action label. Its bit-complexity bound is',
         'the algorithm with representative reduction after every event and without operational caps returns the optimum strict original-action label. Its bit-complexity bound is')
     core=core.replace('This guarantee concerns the recognized finite model.',
@@ -293,7 +336,7 @@ repetitions. Feasible controls and recovered candidates are distinguished from
 completed exact pipelines. Failure details remain in the per-run artifacts.}
 \label{fig:joint}\end{figure*}
 '''
-    results+='The floor variant completes '+str(floor)+' of14 exact runs; both rules complete '+str(both)+', and CP-SAT completes '+str(cp)+'. These are counts of repeated runs across the declared seven input combinations, not independent building samples. Table~\\ref{tab:joint-total} and Fig.~\\ref{fig:joint} retain failure causes and feasible controls. No average treats a timeout as a completed solve.\n'
+    results+='Combined projection completes two of seven input combinations, each repeated twice ('+str(both)+'/14 runs); floor retirement completes '+str(floor)+'/14 and CP-SAT completes '+str(cp)+'/14. These are repeated runs across the declared seven input combinations, not independent building samples. Table~\\ref{tab:joint-total} and Fig.~\\ref{fig:joint} retain failure causes and feasible controls. No average treats a timeout as a completed solve.\n'
     result_rows=[]
     for case in data['protocol']['cases']:
         matches=[s for s in data['summaries'] if s['instance_id']==case['instance_id']]
@@ -331,16 +374,16 @@ completed exact pipelines. Failure details remain in the per-run artifacts.}
                     max(x['peak_raw_states'] for x in ss),max(x['peak_live_selected_vertices'] for x in ss),
                     max(x['peak_live_occupancy_cells'] for x in ss),max(x['peak_owner_domain_size'] for x in ss),
                     f"{max(mem):.0f}" if mem else '--',
-                    f"{statistics.median(x['state_generation_seconds'] for x in ss):.3f}",
-                    f"{statistics.median(x['state_merge_seconds'] for x in ss):.3f}",
-                    f"{statistics.median(x['objective_label_seconds'] for x in ss):.3f}"])
+                    f"{statistics.median(x['recognition'] for x in s['phase_seconds']):.2f}",
+                    f"{statistics.median(x['optimization'] for x in s['phase_seconds']):.3f}",
+                    f"{statistics.median(x['materialization_replay'] for x in s['phase_seconds']):.2f}"])
     if paired:
         results+=table('Paired Fully Completed Inputs Only: Pipeline Medians and Their Descriptive Ratio','tab:paired',
             ['Input','Both DP (s)','CP-SAT (s)','DP/CP'],paired)
     phase_figure=''
     if metric_rows:
         results+=table('Returned Combined-DP Profiles; Caps/Killed Workers Do Not Supply These State Measurements','tab:profile',
-            ['Input','Peak raw','Vertices','Cells','Domain','MiB','Gen. (s)','Merge (s)','Labels (s)'],metric_rows)
+            ['Input','Peak raw','Vertices','Cells','Domain','MiB','Rec. (s)','Opt. (s)','Replay (s)'],metric_rows)
         phase_figure=r'''\begin{figure*}[t]\centering
 \includegraphics[width=.97\textwidth]{figures/joint-phases.pdf}
 \caption{Combined-DP phase profiles on fully completed inputs only. Objective
@@ -366,13 +409,63 @@ controls are untimed and excluded from the112 primary observations; the timed
 all-S observations remain unchanged. Neither construction certifies optimality.
 Each retained S is a whole original action; no bundle is shortened.
 '''
-    results+=r'''The profile table reports generation, merging and label costs
-separately; labels are included in generation, so the columns must not be summed.
-The supplementary phase plot retains recognition, reconstruction and replay as
-well. On capped runs these internal measurements are missing rather than
-reconstructed from the deadline; the state-cap error itself proves that the
-raw-state limit was exceeded. No unmeasured memory saving is claimed.
+    results+=r'''\subsection{Observed Practical Region}
+Combined DP completes two of seven primary input combinations, each repeated
+twice (4/14 runs). Its connectivity completion peaks at320 raw states,34 selected
+live profile vertices and three occupied cells; its full-interaction completion
+peaks at89856 states,22 vertices and18 cells. Both have maximum owner-domain
+size3 (empty, external, one reusable owner). Fewer live route vertices therefore
+do not imply easier optimization when paid-resource combinations grow. Domain
+size is a static maximum over unit cells, not a simultaneous product or a
+universal predictor. Selected live vertices are measured after projection, not
+the potential width used in a complexity theorem.
+
+Table~\ref{tab:profile} separates recognition, optimization and required replay.
+Connectivity optimization takes a median0.045s, while recognition takes2.12s
+and replay4.91s; the parent pipeline's remaining time includes startup/imports.
+On the completed full tier those phases are13.06s,2.00s and5.05s. Thus the
+7.62s versus10.79s connectivity pipeline comparison is largely overhead-sensitive;
+the full-tier comparison20.60s versus11.62s favors CP-SAT. Generation, merging
+and nested label-handling measurements remain in the supplementary summary.
+
+The measured alternative-to-CP region is consequently a small reachable
+resource/partition state space under the stated100000-state cap, including these
+two input combinations; practical competitiveness is observed only
+in the overhead-dominated connectivity case. The other five combinations exceed
+the cap. Their internal peak widths/phase totals are unavailable, so these data
+cannot establish a cutoff on live vertices, cells or domains, nor a prospective
+solver-selection rule. The separate structural controls probe retention mechanisms
+within small state spaces rather than extending this primary success region.
 '''
+    if matched:
+        assert matched['observations']==8
+        matched_rows=[]
+        for mode in ('restricted','shared'):
+            iid='clinic16-permissions-'+mode
+            lookup={s['method']:s for s in matched['summaries'] if s['instance_id']==iid}
+            dp,cp_row=lookup['both'],lookup['cp-sat']
+            raw=max((x['peak_raw_states'] for x in dp['statistics'] if x),default=None)
+            matched_rows.append([mode,str(dp['exact'])+'/2',raw if raw else '>100000',
+                f"{dp['pipeline_median']:.2f}" if dp['pipeline_median'] else '--',
+                str(cp_row['exact'])+'/2',f"{cp_row['pipeline_median']:.2f}",cp_row['feasible_costs'][0]])
+        results+=r'''\subsection{Matched Permission-Only Control}
+A separate posthoc comparison freezes the Clinic16 full-tier geometry, all42
+actions, prices, owners,28 conflict pairs, baseline and complementary9/9 demands.
+Only the twelve alternative Q purchases change from profile0-only to both
+profiles. The two conditions are rerun with combined DP and CP-SAT in forward/
+reverse order (eight observations), using the same60s/55s deadlines, seed0,
+state/cut caps and replay requirement; source revision is
+\texttt{MATCHEDREV}. All returned distinct selections are replay-audited.
+Loosening permissions preserves physical admissibility but expands profile-witness
+branching: restricted DP finishes twice at89856 states, whereas shared-permission
+DP exceeds100000 states twice. CP-SAT completes all four objectives. This
+isolates a permission effect on this algorithm and input; it neither estimates
+a conflict-only effect nor establishes typical behavior across buildings.
+These new timings are compared only within this frozen rerun, not against
+historical primary wall times.
+'''.replace('MATCHEDREV',matched['protocol']['code_revision'][:7])
+        results+=table('Matched Permissions: Fixed Catalogue, Geometry, Costs, Conflicts and Demands; Two Runs per Method and Condition','tab:matched',
+            ['Q permissions','DP exact','DP raw','DP median (s)','CP exact','CP median (s)','Optimum'],matched_rows)
     if parameters:
         assert parameters['observations']==276
         assert all(t['exact']==46 for t in parameters['method_totals'].values())
@@ -447,8 +540,9 @@ operational lift capacity or statutory accessibility. Source-derived geometry
 does not authenticate our hypothetical reservations, permissions and abstract
 costs. The two buildings and five layouts are a limited evaluation population;
 two repetitions do not support general runtime superiority. The tier changes
-couple action count, conflicts, permissions and demands, so they do not isolate
-individual causal parameter effects. Full event-width asymptotics and literature
+couple action count, conflicts, permissions and demands; the separate matched
+control isolates only alternative permissions on one fixed catalogue.
+Full event-width asymptotics and literature
 priority are not claimed. Generic finite-domain methods can use the same resource
 domains when supplied an equivalent schedule and compression.
 
@@ -458,11 +552,12 @@ where an exact ablation isolates information retention; every unresolved hard
 case and stronger baseline result remains part of that evidence. Future actual
 building validation requires verified intervention data, beyond these controlled
 catalogues.
+\begin{samepage}
 \section*{Acknowledgment and AI Disclosure}
 OpenAI Codex assisted in code, automated checks, analysis, figures and manuscript
 drafting. Figures are saved-data visualizations or labelled schematics. Responsible
-human authors must verify the argument, sources and code. No independent human
-proof approval, conference acceptance, affiliation or funding is inferred.
+human authors must verify the argument, sources and code.
+\par\end{samepage}
 '''
     appendix=old[old.index(r'\appendices'):old.index(r'\section{Full Outcome Coverage and Reproducibility}')]
     # Keep only cited references; remove unrelated historical literature sections.
@@ -486,6 +581,14 @@ proof approval, conference acceptance, affiliation or funding is inferred.
         'the112':'the 112','Historical default runs retain all components.':'Default recognition retains all components.'
         ,'the109':'the 109','has23':'has 23','giving276':'giving 276','a30s':r'a 30\,s','and25s':r'and 25\,s',
         'width4':'width 4','the30s':r'the 30\,s','costs3':'costs 3','the276':'the 276'
+        ,'at320':'at 320',',34':', 34','at89856':'at 89,856',',22':', 22','and18':'and 18',
+        'size3':'size 3','median0.045s':r'median 0.045\,s','takes2.12s':r'takes 2.12\,s',
+        'replay4.91s':r'replay 4.91\,s','are13.06s,2.00s and5.05s':r'are 13.06\,s, 2.00\,s and 5.05\,s',
+        'the\n7.62s versus10.79s':r'the'+ '\n'+r'7.62\,s versus 10.79\,s',
+        'comparison20.60s versus11.62s':r'comparison 20.60\,s versus 11.62\,s',
+        'stated100000-state':'stated 100,000-state','all42':'all 42',',28 conflict':', 28 conflict',
+        'complementary9/9':'complementary 9/9','same60s/55s':r'same 60\,s/55\,s',
+        'profile0':'profile 0','exceeds100000':'exceeds 100,000'
     }.items():body=body.replace(before,after)
     (output/'master.tex').write_text(body,encoding='utf-8')
 
@@ -497,4 +600,5 @@ if __name__=='__main__':
     p.add_argument('--parameter-summary',type=Path)
     p.add_argument('--segment-controls',type=Path)
     p.add_argument('--event-width-summary',type=Path)
-    a=p.parse_args();build(a.base,a.summary,a.output,a.asynchronous_figure,a.parameter_summary,a.segment_controls,a.event_width_summary)
+    p.add_argument('--matched-summary',type=Path)
+    a=p.parse_args();build(a.base,a.summary,a.output,a.asynchronous_figure,a.parameter_summary,a.segment_controls,a.event_width_summary,a.matched_summary)
