@@ -38,7 +38,7 @@ python scripts/build_focused_revision.py --base PACKAGE/reproduction-base --summ
 ```
 
 Compile `NEW_PAPER/master.tex` with Tectonic0.17 or an appropriate TeX distribution.
-The archived reproduction-base supplies preserved theory and schematics; it is not the current manuscript. The source ZIP includes IEEEtran.cls and the eight referenced PDF figures.
+The archived reproduction-base supplies preserved theory and schematics; it is not the current manuscript. The source ZIP includes IEEEtran.cls and the seven referenced PDF figures.
 The supplied compile used TeX Gyre Termes/embedded fonts; `pdf-qa.json` records
 structural checks. `audit_research_pdf.py` additionally requires pypdf and checks
 letter size, embedded fonts, no Type3, overflow, reference order and unresolved

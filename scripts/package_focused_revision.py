@@ -72,7 +72,8 @@ def package(root,paper,summary,campaign,parameters,parameter_campaign,output):
             z.write(root/'docs'/name,'docs/'+name)
         z.write(root/'paper/REPRODUCE_FOCUSED_REVISION.md','REPRODUCE.md')
         z.write(root/'runs/artifact-reproduction-2026-10-21.json','artifact-reproduction.json')
-        z.write(root/'runs/revision-reproduction-source.zip','verified-reporting-source.zip')
+        reproduction=json.loads((root/'runs/artifact-reproduction-2026-10-21.json').read_text())
+        z.write(root/'runs'/reproduction['source_archive'],'verified-reporting-source.zip')
         z.write(root/'runs/revision-2026-10-21-figures/asynchronous-retirement.pdf','explanatory-figures/asynchronous-retirement.pdf')
         for p in ('master.tex','IEEEtran.cls'):
             z.write(root/'runs/network-paper-final'/p,'reproduction-base/'+p)

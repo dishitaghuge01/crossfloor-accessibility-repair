@@ -25,7 +25,7 @@ def build(base,summary,output,async_figure,parameter_summary=None,segment_contro
         if p.name in ('integrated_example.pdf','unit_witness.pdf','pipeline.pdf'):
             shutil.copy2(p,output/'figures'/p.name)
     for p in (summary/'figures').glob('*.pdf'):
-        if p.name in ('joint-outcomes.pdf','joint-cp-tasks.pdf','joint-selected-graph.pdf'):
+        if p.name in ('joint-outcomes.pdf','joint-selected-graph.pdf'):
             shutil.copy2(p,output/'figures'/p.name)
     parameters=json.loads((parameter_summary/'summary.json').read_text()) if parameter_summary else None
     controls={c['instance_id']:c for c in json.loads(segment_controls.read_text())['cases']} if segment_controls else {}
@@ -304,12 +304,7 @@ completed exact pipelines. Failure details remain in the per-run artifacts.}
         result_rows.append([case['instance_id'].replace('-network-','/').replace('-s0','')]+cells)
     results+=table('Exact Completion and Completed Pipeline Median Seconds; No Time Is Imputed for Failed Runs','tab:joint-case',
                    ['Input','Floor','Cells','Vertices','Both','Both+rank','CP-SAT'],result_rows)
-    results+=r'''\begin{figure*}[t]\centering
-\includegraphics[width=.48\textwidth]{figures/joint-cp-tasks.pdf}
-\caption{Minimum-cost proof, count proof and full identifier objective are
-different completion criteria. Search traces preserve this distinction at limits.}
-\label{fig:cp-tasks}\end{figure*}
-'''
+    results+='Minimum-cost proof, count proof and full identifier completion are separate criteria in Table~\\ref{tab:cp-task-data}; the supplementary stage chart preserves their aggregate comparison.\n'
     task_rows=[]
     for case in data['protocol']['cases']:
         tasks=[t for t in data['cp_tasks'] if t['instance_id']==case['instance_id']]
@@ -471,7 +466,7 @@ proof approval, conference acceptance, affiliation or funding is inferred.
 '''
     appendix=old[old.index(r'\appendices'):old.index(r'\section{Full Outcome Coverage and Reproducibility}')]
     # Keep only cited references; remove unrelated historical literature sections.
-    body=preamble+abstract+intro+contribution+before+event+after+protocol+results+'\n\\clearpage\n'+limitations+appendix
+    body=preamble+abstract+intro+contribution+before+event+after+protocol+results+limitations+appendix
     used=[]
     for keys in re.findall(r'\\cite\{([^}]+)\}',body):
         for key in keys.split(','):
