@@ -1,0 +1,43 @@
+{
+  "campaign_registry_sha256": "3a9d7d50324d13ef6e98ffa3f3a916c4e3663f978ae5e25603c4ed2baa18ce2c",
+  "excluded_campaigns": [
+    {
+      "campaign_id": "excluded-overlapping-cp",
+      "code_revision": "not_reliably_recorded",
+      "included_in_totals": "no",
+      "observations": 3,
+      "record_path": "excluded-development/overlapping-cp-diagnostic/records.json",
+      "record_sha256": "57577c122c1471255b8ad33959445874db2fe2175fb87594062fa08c8cbdd91c",
+      "role": "excluded_development",
+      "unique_instance_ids": 1
+    },
+    {
+      "campaign_id": "excluded-nested-demand",
+      "code_revision": "5db83f1bd3b495f083b4c793d71b795f67bb76c1",
+      "included_in_totals": "no",
+      "observations": 13,
+      "record_path": "excluded-development/nested-demand-launch/records.json",
+      "record_sha256": "20c5240ac2e17391baca4655b468448239e254f0ee78ed9a3f2f21491376e404",
+      "role": "excluded_development",
+      "unique_instance_ids": 2
+    },
+    {
+      "campaign_id": "excluded-unit-granularity-network",
+      "code_revision": "9038752900afb039af08ee280cf5ecbb1cc320cb",
+      "included_in_totals": "no",
+      "observations": 14,
+      "record_path": "historical/frozen-research-package.zip!evidence/building-network-preliminary/records.json",
+      "record_sha256": "9a2924d470998a86b5e37e915776ce2833205178d2110cc10208f0479d23097c",
+      "role": "excluded_development",
+      "unique_instance_ids": 4
+    }
+  ],
+  "frozen_historical": 2362,
+  "included_timed_observations": 2753,
+  "instance_registry_sha256": "dee1847c005bdcf595af6b36309dce5690d6db84b69155a88e7dedeb43e28333",
+  "joint_primary": 112,
+  "path_notation": "archive.zip!member is a member of an immutable nested archive",
+  "separate_cp_diagnostic": 3,
+  "structural_parameters": 276,
+  "untimed_relevant_segment_controls": 7
+}

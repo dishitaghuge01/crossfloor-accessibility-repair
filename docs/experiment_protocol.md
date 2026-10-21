@@ -9,8 +9,8 @@ the manifest records the earlier code revision which produced the release.
 The archives remain in the ignored local freeze directory. Raw source buildings
 and private documents are excluded. Do not overwrite these archives.
 
-`experiments/campaign_registry.csv` gives six campaigns and their measured
-revisions and record hashes. `experiments/instance_registry.csv` indexes 110
+The historical rows of `experiments/campaign_registry.csv` give six campaigns and their measured
+revisions and record hashes. The frozen historical rows of `experiments/instance_registry.csv` index110
 campaign-instance pairs, not 110 independent geometries. `not_recorded` means
 the historical record did not separately identify that experimental dimension;
 it must not be silently inferred. Per-run repetitions and solver seeds remain
@@ -47,3 +47,7 @@ sizes and memory; explicitly state any unmeasured field. Return verified heurist
 incumbents at deadline. Do not average timeout durations as completed runtimes.
 Report exact completion, feasible completion, failures by cause, gaps and paired
 times only where both methods complete the declared task.
+
+## Completed revision campaigns
+
+The current registries additionally identify112 primary joint observations (ce71e6a),276 separate structural observations (3011e30), and3 posthoc CP stage diagnostics (aad70e4). The included timed total is2753 across distinct populations/revisions, not a pooled experiment. Inclusion flags separate excluded development campaigns. Seven new relevant-S controls and fifteen generated tier inputs have zero timed-observation contribution. Archive-member paths use archive.zip!member. Canonical regeneration uses scripts/register_revision_campaigns.py.

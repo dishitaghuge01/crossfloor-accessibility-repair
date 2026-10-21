@@ -49,6 +49,7 @@ def summarize(source,output,audit=False,reuse_audit=None):
                 rec=recognize_physical_interface(instance)
                 structures[iid].update(parameters=rec['parameters'],conflict_pairs=len(rec['geometry_conflicts']))
         if row['method']=='cp-sat':
+            assert all(Decimal(str(a['cost']))==Decimal(str(a['cost'])).to_integral_value() for a in instance['actions']), 'These study bounds use integer cost scale one'
             trace_path=raw.with_suffix('.events.jsonl')
             trace=[json.loads(line) for line in trace_path.read_text().splitlines()] if trace_path.exists() else []
             finished=[e for e in trace if e['event']=='stage_finished']

@@ -1,6 +1,10 @@
 # Cross-Floor Accessibility Repair
 
-## Manuscript review revision
+## Current research revision (21 October 2026)
+
+The research-first master,112 joint-interaction observations,276 separate structural observations and frozen historical evidence are indexed by [the completion record](docs/revision_completion.md), [canonical claims](docs/contribution_claims.md) and [reproduction guide](paper/REPRODUCE_FOCUSED_REVISION.md). Literature priority and actual intervention validation remain unconfirmed; no general superiority over CP-SAT is claimed. Campaign registries distinguish included, untimed and excluded records.
+
+## Earlier manuscript review revision
 
 Independent same-model CP-SAT and whole-action greedy baselines, optional safe
 component pruning, a physical two-floor hardness witness, and pinned public IFC

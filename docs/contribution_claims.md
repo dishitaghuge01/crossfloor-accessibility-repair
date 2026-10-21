@@ -46,3 +46,15 @@ artifacts. No broad practical or priority claim is currently authorized by evide
 | N3 | Large Clinic feasible385, lower bound258 in both repetitions; optimum unproved | supported | Primary Clinic96 traces plus post-deadline parent audit; recovered candidate is not a completed pipeline |
 | N4 | Final solver regression785 passed | supported | Full suite107.82s after asynchronous fixture/zero-cost tie and profiling checks; numerical test count is supporting QA, not a research contribution |
 | N5 | Structural eight-family campaign results | supported | Clean3011e30:23 inputs,276 observations; all six exact methods46/46 optimal, identical complete labels;23 distinct selections replayed |
+
+## Theorem and historical numerical trace
+
+| ID | Manuscript statement | Status | Supporting artifact |
+|---|---|---|---|
+| T1 | Exact recognized construction and floor-interface bit bound | supported | Main conditional theorem and Appendix A; representative reduction is required for the single-exponential connectivity bound; uncompressed exactness does not inherit that time bound |
+| T2 | Safe marked-component preprocessing, including eleven-to-one probe | supported | authoritative implementation/test: src/cfar/interface_recognition.py and tests/test_interface_pruning.py |
+| T3 | Two-floor bundle hardness boundary | supported | Main reduction proof, src/cfar/physical_set_cover.py and tests/test_physical_set_cover.py; inherited classical hardness, not a new reduction technique |
+| N6 | Historical15 seeded inputs favor uncompressed over compressed; CP completes4 natural compressed-cap inputs | supported | Frozen controlled campaign25aa069c, evidence/controlled/records.json and archived paper/scripts; not pooled with current campaign |
+| N7 | Historical larger-budget CP incumbent470/bound335, no proof | supported | Frozen six-run network extension7c2a3b2, evidence/building-network-budget-extension/records.json |
+| N8 | Current medium Clinic optimum209 selects13 restricted alternatives | supported | ce71e6a primary CP result; plotted directly from complete selected IDs by summarize_joint_network_study.py |
+| N9 | Seven relevant-S feasibility controls | supported | runs/relevant-segment-controls-2026-10-21/controls.json and clean be2446a manifests; untimed, not optima or construction validation |

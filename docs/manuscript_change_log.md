@@ -14,3 +14,7 @@ work items rather than completed results.
 
 ## Clean strengthened-baseline diagnostic
 New posthoc three-run campaign aad70e4 proves cost 267 and minimum count in all trials; full IDs finish once, time out twice. The old minimum-cost-superiority interpretation is removed in the canonical claims. Historical observations remain intact. The released master is still the frozen pre-revision manuscript and must be refreshed after final evaluation; it is not a current submission candidate.
+
+## Research-first replacement
+
+The new detailed IEEE-class master replaces the23-page chronology with the problem, three supported contributions, recognized model, owned algorithm, asynchronous projection proof, conditional complexity/hardness, frozen protocols, primary112 and separate276 observations, then limitations and technical appendices. Eight referenced figures and compact statistics replace historical outcome ledgers in the main paper. The old master, documentary supplement, complete raw matrices and exclusions remain in the research package. Minimum-cost/full-ID distinctions and stronger relevant-S controls correct the baseline interpretation.

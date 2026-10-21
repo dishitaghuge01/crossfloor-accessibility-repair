@@ -21,8 +21,12 @@ def build(base,summary,output,async_figure,parameter_summary=None,segment_contro
     output.mkdir(parents=True,exist_ok=False)
     (output/'figures').mkdir()
     shutil.copy2(base/'IEEEtran.cls',output/'IEEEtran.cls')
-    for p in (base/'figures').glob('*.pdf'):shutil.copy2(p,output/'figures'/p.name)
-    for p in (summary/'figures').glob('*.pdf'):shutil.copy2(p,output/'figures'/p.name)
+    for p in (base/'figures').glob('*.pdf'):
+        if p.name in ('integrated_example.pdf','unit_witness.pdf','pipeline.pdf'):
+            shutil.copy2(p,output/'figures'/p.name)
+    for p in (summary/'figures').glob('*.pdf'):
+        if p.name in ('joint-outcomes.pdf','joint-cp-tasks.pdf','joint-selected-graph.pdf'):
+            shutil.copy2(p,output/'figures'/p.name)
     parameters=json.loads((parameter_summary/'summary.json').read_text()) if parameter_summary else None
     controls={c['instance_id']:c for c in json.loads(segment_controls.read_text())['cases']} if segment_controls else {}
     if parameters:
@@ -54,7 +58,7 @@ Bundled purchases may share one owner or conflict through an effect unused by ev
 We construct an owned-interface dynamic program that retains complete paid occupancy while compressing separate profile route witnesses using established representative-partition machinery.
 We establish safe event-lifetime projection: connectivity vertices retire after their final incident event, while physical owner information survives complete action--owner units, preserving the cost/count/identifier objective.
 In a frozen, counterbalanced building-derived interaction study, combined projection completes BOTH of14 exact runs compared with FLOOR for floor retirement, while the strengthened CP-SAT baseline completes CP.
-Neither representative reduction nor a general advantage over CP-SAT is supported, and explicit segment controls distinguish heuristic failure from infeasibility.
+Neither a practical speedup from representative reduction nor general superiority over CP-SAT is supported, and explicit segment controls distinguish heuristic failure from infeasibility.
 The results concern hypothetical intervention catalogues and abstract costs on source-derived geometry, rather than validated construction repairs.
 \end{abstract}
 \begin{IEEEkeywords}accessibility repair, ownership constraints, bundled network design, exact optimization, event lifetimes\end{IEEEkeywords}
@@ -160,8 +164,10 @@ Figure~\ref{fig:async} illustrates two purchases using the same connector owner:
 $a$ activates profile0 for cost2 and $b$ profile1 for cost3. After $a$, profile0's
 target vertex can retire, but the owner must remain to admit compatible $b$.
 Converting it to external occupancy too early rejects the cost5 repair. Erasing
-the cell instead would allow a later competing owner $Q$. At unit closure owner
-identity becomes an occupied bit; only after $Q$'s unit may that bit disappear.
+the cell instead would allow a later competing owner $Q$.
+Here $Q$ shares the root-floor cell but connects to a different third-floor room,
+so it has no later incidence at either expiring target.
+At unit closure owner identity becomes an occupied bit; only after $Q$'s unit may that bit disappear.
 Skipping $a$ leaves its required vertex in a disappearing unrooted block and
 rejects that row. The artifact supplies the event-by-event state/label trace and
 exhaustive cross-solver checks. This example demonstrates unnecessary retention,
@@ -233,8 +239,8 @@ observations are not pooled with the112 primary observations or used to reconstr
 lost historical stages.
 
 \subsection{Heuristic, Controls and Profiling}
-A bounded development probe attributed17.694 of19.519s to five repeated proposal
-materializations. The revised greedy tests complete paid-cell compatibility and
+Development profiling identified repeated proposal materialization as the dominant
+heuristic overhead. The revised greedy tests complete paid-cell compatibility and
 reachability through the immutable recognized model, with full replay of returned
 repairs. It preserves a verified incumbent before local improvement and can stop
 at an internal deadline. The transparent original-segment control establishes
@@ -250,7 +256,8 @@ differences solely to projection. Caps are distinct from timeouts and infeasibil
 '''.replace('REVISION',data['protocol']['code_revision'][:7])
     results=r'\section{Results and Ablations}'+'\n'
     result_rows=[]
-    for m,t in totals.items():
+    for m in data['protocol']['methods']:
+        t=totals[m]
         failures=', '.join(f'{k}:{v}' for k,v in t['failures'].items()) or 'none'
         result_rows.append([m,f"{t['exact']}/14",f"{t['verified_feasible']}/14",failures])
     results+=table('Primary Joint Study: Completed Exact Objectives and Verified Feasibility; Recovered Candidates Are Not Completed Pipelines','tab:joint-total',['Method','Exact','Verified feasible','Failures'],result_rows)
@@ -355,6 +362,7 @@ work and profiling overhead; capped runs are not assigned invented phase times.}
 of demanded rooms and roots. These seven additionally replayed constructive
 controls are untimed and excluded from the112 primary observations; the timed
 all-S observations remain unchanged. Neither construction certifies optimality.
+Each retained S is a whole original action; no bundle is shortened.
 '''
     results+=r'''The profile table reports generation, merging and label costs
 separately; labels are included in generation, so the columns must not be summed.
@@ -365,6 +373,7 @@ raw-state limit was exceeded. No unmeasured memory saving is claimed.
 '''
     if parameters:
         assert parameters['observations']==276
+        assert all(t['exact']==46 for t in parameters['method_totals'].values())
         results+=r'''\subsection{Separate Structural Families}
 The authored structural study has23 inputs in eight families: active connectivity,
 action count, within-unit owner competition, bundle size, unit span, event ordering,
@@ -396,8 +405,10 @@ it was slower on all15 seeded inputs and CP-SAT completed four natural inputs
 that exceeded compressed caps. That campaign used an earlier revision and is
 reported separately in the supplementary evidence. It is not pooled with the
 new ablation. The separate larger-budget historical Clinic boundary returned
-CP-SAT cost470 with bound335 and no proof; lifetime DP timed out. Such incumbent
-and bound evidence must not be presented as an exact repair optimum.
+CP-SAT cost470 with bound335 and no proof; lifetime DP timed out.
+
+\begin{samepage}\noindent Incumbent costs and lower bounds are separate evidence;
+neither an incomplete objective nor a state cap certifies an optimum.\par\end{samepage}
 '''
     limitations=r'''
 \section{Limitations and Conclusion}

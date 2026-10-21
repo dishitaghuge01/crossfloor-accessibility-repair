@@ -339,3 +339,7 @@ Strengthened baseline diagnostic complete; cost proof separated from full IDs. F
 
 ## Joint interaction gate complete
 112 same-revision observations and all five ablations audited. Supported bounded retention benefit; CP remains stronger on the larger cases. No broad DP practical superiority or actual-building repair validation claimed. Eight-family controlled campaign and focused manuscript/package remain in progress.
+
+## Final research package gate
+
+Implementation, primary112, structural276, separate diagnostic3,785-test regression, explicit event proof/specification, closest-work matrix, relevant-S controls and research-first manuscript are complete. Release stage is artifact reconstruction/hash/PDF visual verification. Priority and real-intervention validation remain unconfirmed scientific scope limits, not statuses silently changed to supported. No new event-width theorem or general CP superiority is asserted.

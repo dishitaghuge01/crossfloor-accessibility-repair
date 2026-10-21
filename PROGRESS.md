@@ -413,3 +413,6 @@ All112 ce71e6a observations validated, including clean manifests, stable kernel 
 
 ## Evaluation and focused manuscript milestone
 Completed276 counterbalanced structural observations at3011e30; all six exact methods46/46 optimal, complete labels agree,23 unique repairs audited. Focused manuscript rebuilt to14 pages with8 figures and10 tables; all evaluation figures precede limitations. Primary112 outcomes and separate276 study remain distinct. Added a checker for stronger relevant-segment controls so quality reporting need not rely only on unnecessarily broad all-S construction; these will be untimed, not extra benchmark observations.
+
+## Release-source checkpoint
+Canonical ledger now separates2753 included timed observations, seven new untimed relevant-S controls and excluded development histories. The focused manuscript has14 pages,8 figures,10 tables;33 embedded font objects, no Type3/overfull boxes/unresolved references, ordered citations and visual review. Full source-archive reconstruction and final package hashes are the remaining release checks; no solver reruns are planned.

@@ -44,6 +44,7 @@ def package(root,paper,summary,campaign,parameters,parameter_campaign,output):
         addtree(z,root/'runs/cp-stage-diagnostic-clean-2026-10-21','evidence/cp-stage-diagnostic')
         addtree(z,root/'runs/cp-stage-diagnostic-2026-10-21','excluded-development/overlapping-cp-diagnostic')
         addtree(z,root/'runs/joint-network-final-2026-10-21','excluded-development/nested-demand-launch')
+        z.write(root/'runs/greedy-profile-2026-10-21.json','excluded-development/greedy-replay-profile.json')
         # Preserve historical data as an immutable nested release. Never pool
         # its revisions with the current primary study in a single timing table.
         freeze=root/'runs/freeze-2026-10-21'
